@@ -3,362 +3,431 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FanpageKit — Launch a fan page your community actually uses</title>
-  <meta name="description" content="FanpageKit gives creators a hosted fan page with memberships, posts, drops and a mailing list in one place. Set up in minutes, no code.">
+  <title>FanpageKit — Organic views that turn into streams</title>
+  <meta name="description" content="30 finished, silent, colour-graded vertical videos for independent artists. Attach your own track, post daily, never show your face. $37, instant download.">
+  <meta name="theme-color" content="#000000">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <div class="container nav-row">
-      <a class="brand" href="#top" aria-label="FanpageKit home">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span class="brand-name">FanpageKit</span>
-      </a>
+<!-- ======================= LANDING ======================= -->
+<div id="view-landing">
 
-      <nav class="site-nav" id="site-nav" aria-label="Primary">
-        <a href="#features">Features</a>
-        <a href="#how-it-works">How it works</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
-      </nav>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="logo" aria-label="FanpageKit home">
+      <span class="logo-mark" aria-hidden="true"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></span>
+      <span>FanpageKit</span>
+    </a>
+    <div class="nav-links">
+      <a href="#how">How it works</a><a href="#inside">What's inside</a><a href="#packs">Packs</a><a href="#faq">FAQ</a>
+    </div>
+    <a href="#packs" class="btn btn-sm">Get the pack — $37</a>
+  </div>
+</nav>
 
-      <div class="nav-actions">
-        <a class="btn btn-ghost" href="#login">Log in</a>
-        <a class="btn btn-primary" href="#signup">Start free</a>
-        <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle menu">
-          <span></span><span></span><span></span>
-        </button>
+<!-- HERO -->
+<section id="top" class="hero">
+  <div class="hero-top">
+    <span class="hero-pill">For independent artists stuck under 100k monthly listeners</span>
+  </div>
+  <div class="hero-reels">
+    <div class="marquee-track hero-track" id="hero-track"></div>
+    <div class="hero-shade"></div>
+    <div class="hero-title-wrap">
+      <h1 class="hero-title">Organic views that turn into streams. Ready in minutes.</h1>
+    </div>
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-sub">30 finished videos, colour graded and silent by design. Drop them into Instagram or TikTok, attach your own track from the audio library, and post. Every view is a view of your song. You never appear in one of them.</p>
+    <div class="hero-cta">
+      <a href="#packs" class="btn btn-lg">Get the pack — $37</a>
+      <span class="cta-note">Instant download · Commercial licence · 30-day money back</span>
+    </div>
+  </div>
+</section>
+
+<!-- REVEAL -->
+<section class="reveal">
+  <div class="reveal-head">
+    <h2 class="h2">You've seen this format a thousand times. You just didn't know it was a strategy.</h2>
+    <p>The pages pushing today's biggest songs aren't run by the artists. They're small accounts posting the same short, faceless, music-first format on repeat. Same structure, different track. That's the entire machine.</p>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track accounts-track" id="accounts-track"></div>
+  </div>
+  <div class="cta-row">
+    <a href="#packs" class="btn">Run the same format — $37</a>
+    <span class="cta-note">Instant download · No face required</span>
+  </div>
+</section>
+
+<!-- BRIDGE -->
+<section class="section">
+  <div class="bridge-head">
+    <div class="bridge-quote">
+      <h2 class="h2">"That works because it's a famous artist."</h2>
+      <p>No. It works because the format is built for how short-form video is distributed.</p>
+    </div>
+    <div class="reasons">
+      <div class="reason"><span class="n">01</span><span class="pretty">The platform doesn't check who you are. It checks whether people watch to the end, replay, and tap the audio.</span></div>
+      <div class="reason"><span class="n">02</span><span class="pretty">A tight 8-second loop with a hook does that — at zero followers or a million.</span></div>
+      <div class="reason"><span class="n">03</span><span class="pretty">The thing being consumed <span class="em">is the song</span>. Nobody enjoys the video and forgets what they were listening to.</span></div>
+      <div class="reason"><span class="n">04</span><span class="pretty">The tap goes from the audio page straight to your catalogue.</span></div>
+    </div>
+  </div>
+
+  <!-- anatomy of a reel -->
+  <div class="panel anatomy">
+    <div class="panel-head">
+      <h3 class="h3">Anatomy of one reel</h3>
+      <span class="sub">Three parts. Each one does a job.</span>
+    </div>
+    <div class="anatomy-clip">
+      <div class="anatomy-grid" id="anatomy">
+        <svg class="anatomy-svg" id="anatomy-svg" fill="none" aria-hidden="true">
+          <path id="ln1" d=""></path><circle id="ln1c" cx="-10" cy="-10" r="3.5"></circle>
+          <path id="ln2" d=""></path><circle id="ln2c" cx="-10" cy="-10" r="3.5"></circle>
+          <path id="ln3" class="audio" d=""></path><circle id="ln3c" class="audio" cx="-10" cy="-10" r="3.5"></circle>
+        </svg>
+        <div class="callouts-left">
+          <div class="callout" id="c1">
+            <span class="k">Footage</span>
+            <span class="t">Cinematic edits that carry emotion</span>
+            <span class="b">Graded, paced and cut to hold attention in the first second — and to feel like the song.</span>
+          </div>
+          <div class="callout" id="c3">
+            <span class="k audio">Audio</span>
+            <span class="t">Your track, one tap from Spotify</span>
+            <span class="b">Attached from the platform’s library, so every view is credited to your release.</span>
+          </div>
+        </div>
+        <div class="reel-hero" id="reel">
+          <video id="anatomy-video" src="uploads/lyric-video-5b73646c.mp4" muted loop playsinline preload="metadata" data-lazy-video="1"></video>
+          <button class="mute-btn" id="mute-btn" type="button" aria-label="Toggle sound" aria-pressed="false">
+            <svg id="ico-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"></path><path d="m23 9-6 6"></path><path d="m17 9 6 6"></path></svg>
+            <svg id="ico-sound" hidden width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M19 5a9 9 0 0 1 0 14"></path></svg>
+          </button>
+          <div class="lyric-anchor" id="lyric"></div>
+          <div class="reel-chrome">
+            <span class="handle">@heartisthekey</span>
+            <div class="audio-pill" id="pill">
+              <span class="dot"></span>
+              <span class="name">Heart Is The Key · Original audio</span>
+              <span class="arrow">→</span>
+            </div>
+          </div>
+        </div>
+        <div class="callouts-right">
+          <div class="callout" id="c2">
+            <span class="k">Overlay</span>
+            <span class="t">Text that points at the music</span>
+            <span class="b">A lyric or a line about the song — so the viewer listens instead of just watching.</span>
+          </div>
+        </div>
       </div>
     </div>
-  </header>
+  </div>
 
-  <main id="main">
-    <!-- Hero -->
-    <section class="hero" id="top">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">For creators, bands, streamers and small studios</p>
-          <h1>A fan page your community actually comes back to.</h1>
-          <p class="lede">
-            FanpageKit gives you a hosted page with memberships, posts, drops and a mailing list in one place.
-            Set up in minutes. No code, no plugins, no platform tax.
-          </p>
-          <form class="hero-form" action="#signup" method="get" novalidate>
-            <label class="sr-only" for="hero-handle">Choose your handle</label>
-            <div class="handle-input">
-              <span class="handle-prefix">fanpagekit.com/</span>
-              <input id="hero-handle" name="handle" type="text" placeholder="yourname" autocomplete="off" spellcheck="false">
-            </div>
-            <button class="btn btn-primary btn-lg" type="submit">Claim your page</button>
-          </form>
-          <p class="fineprint">Free forever for up to 100 members. No card required.</p>
-        </div>
-
-        <div class="hero-visual" aria-hidden="true">
-          <div class="phone">
-            <div class="phone-header">
-              <div class="avatar"></div>
-              <div>
-                <div class="ph-name">Nova Ridge</div>
-                <div class="ph-sub">2,418 members · Tour 2026</div>
-              </div>
-            </div>
-            <div class="ph-tabs"><span class="active">Posts</span><span>Drops</span><span>Members</span></div>
-            <div class="ph-card">
-              <div class="ph-line w70"></div>
-              <div class="ph-line w90"></div>
-              <div class="ph-line w50"></div>
-            </div>
-            <div class="ph-card ph-card-accent">
-              <div class="ph-badge">Members only</div>
-              <div class="ph-line w80"></div>
-              <div class="ph-line w60"></div>
-            </div>
-            <div class="ph-card">
-              <div class="ph-line w60"></div>
-              <div class="ph-line w90"></div>
-            </div>
-          </div>
-          <div class="float-card float-a">
-            <strong>+312</strong>
-            <span>new members this week</span>
-          </div>
-          <div class="float-card float-b">
-            <strong>€1,940</strong>
-            <span>drop revenue</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Social proof -->
-    <section class="logos" aria-label="Used by">
-      <div class="container">
-        <p class="logos-label">Trusted by 4,000+ creators and communities</p>
-        <ul class="logo-row">
-          <li>Nova Ridge</li>
-          <li>Studio Kilo</li>
-          <li>Pixel &amp; Paper</li>
-          <li>The Late Shift</li>
-          <li>Orbit FC</li>
-          <li>Kasia Draws</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Features -->
-    <section class="section" id="features">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">Everything in one page</p>
-          <h2>Stop stitching five tools together.</h2>
-          <p class="section-lede">Your fans shouldn’t need a map. FanpageKit puts posts, memberships, merch drops and email under one link you own.</p>
-        </div>
-
-        <div class="feature-grid">
-          <article class="feature">
-            <div class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/></svg>
-            </div>
-            <h3>Posts &amp; updates</h3>
-            <p>Text, images, audio and video. Schedule ahead, pin the important ones, and gate anything to members.</p>
-          </article>
-          <article class="feature">
-            <div class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
-            </div>
-            <h3>Memberships</h3>
-            <p>Free and paid tiers with monthly or yearly billing. Payouts land in your account, not a platform wallet.</p>
-          </article>
-          <article class="feature">
-            <div class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg>
-            </div>
-            <h3>Drops</h3>
-            <p>Limited merch, tickets, downloads. Set a quantity, a window and a member-first early access.</p>
-          </article>
-          <article class="feature">
-            <div class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-            </div>
-            <h3>Mailing list</h3>
-            <p>Every member is a subscriber. Send a post as an email with one toggle and export your list any time.</p>
-          </article>
-          <article class="feature">
-            <div class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16M6 15V9M12 15V5M18 15v-4"/></svg>
-            </div>
-            <h3>Analytics that matter</h3>
-            <p>Members, churn, revenue and top posts. No vanity graphs, no data sold to anyone.</p>
-          </article>
-          <article class="feature">
-            <div class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5-4.9-2.6L7.1 18.2l.9-5.5-4-3.9L9.5 8z"/></svg>
-            </div>
-            <h3>Your brand, your domain</h3>
-            <p>Custom colours, fonts and layout. Point your own domain at it in two clicks. No FanpageKit badge unless you want one.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- How it works -->
-    <section class="section section-alt" id="how-it-works">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">How it works</p>
-          <h2>Live before your coffee goes cold.</h2>
-        </div>
-        <ol class="steps">
-          <li class="step">
-            <span class="step-num">1</span>
-            <h3>Claim a handle</h3>
-            <p>Pick your name, upload a photo, write one line about what you do.</p>
-          </li>
-          <li class="step">
-            <span class="step-num">2</span>
-            <h3>Set your tiers</h3>
-            <p>Free, paid, or both. Decide what each tier unlocks. Change it whenever.</p>
-          </li>
-          <li class="step">
-            <span class="step-num">3</span>
-            <h3>Share the link</h3>
-            <p>Put it in your bio, on your posters, in your credits. Members sign up in one tap.</p>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- Pricing -->
-    <section class="section" id="pricing">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">Pricing</p>
-          <h2>Simple, and cheaper than the platform cut you pay today.</h2>
-          <p class="section-lede">Switch between monthly and yearly. Yearly gets two months free.</p>
-          <div class="billing-toggle" role="group" aria-label="Billing period">
-            <button type="button" class="active" data-period="monthly">Monthly</button>
-            <button type="button" data-period="yearly">Yearly <span class="save">−17%</span></button>
-          </div>
-        </div>
-
-        <div class="pricing-grid">
-          <article class="plan">
-            <h3>Starter</h3>
-            <p class="plan-desc">For a first page and a growing list.</p>
-            <p class="price"><span class="amount" data-monthly="0" data-yearly="0">€0</span><span class="period">/month</span></p>
-            <ul class="plan-features">
-              <li>Up to 100 members</li>
-              <li>Unlimited posts</li>
-              <li>Free tier only</li>
-              <li>fanpagekit.com/yourname</li>
-              <li>Email broadcasts</li>
-            </ul>
-            <a class="btn btn-outline btn-block" href="#signup">Start free</a>
-          </article>
-
-          <article class="plan plan-featured">
-            <p class="plan-badge">Most popular</p>
-            <h3>Creator</h3>
-            <p class="plan-desc">For paid memberships and drops.</p>
-            <p class="price"><span class="amount" data-monthly="12" data-yearly="10">€12</span><span class="period">/month</span></p>
-            <ul class="plan-features">
-              <li>Unlimited members</li>
-              <li>Paid tiers, 0% platform fee</li>
-              <li>Drops with member early access</li>
-              <li>Custom domain</li>
-              <li>Analytics &amp; CSV export</li>
-            </ul>
-            <a class="btn btn-primary btn-block" href="#signup">Start 14‑day trial</a>
-          </article>
-
-          <article class="plan">
-            <h3>Studio</h3>
-            <p class="plan-desc">For labels, teams and multi‑artist rosters.</p>
-            <p class="price"><span class="amount" data-monthly="39" data-yearly="32">€39</span><span class="period">/month</span></p>
-            <ul class="plan-features">
-              <li>Everything in Creator</li>
-              <li>Up to 10 pages, 1 login</li>
-              <li>Team roles &amp; approvals</li>
-              <li>Priority support</li>
-              <li>API access</li>
-            </ul>
-            <a class="btn btn-outline btn-block" href="#contact">Talk to us</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="section section-alt" id="stories">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">From the people using it</p>
-          <h2>Less admin. More of the thing you actually do.</h2>
-        </div>
-        <div class="quote-grid">
-          <figure class="quote">
-            <blockquote>We moved 1,800 people off a patchwork of three tools in a weekend. Nobody noticed except our accountant, who was pleased.</blockquote>
-            <figcaption><strong>Mara Kowalczyk</strong><span>Nova Ridge, band</span></figcaption>
-          </figure>
-          <figure class="quote">
-            <blockquote>Drops are the killer feature. A 200‑print run sold out to members before the public link was even live.</blockquote>
-            <figcaption><strong>Tomasz Nguyen</strong><span>Pixel &amp; Paper, illustration studio</span></figcaption>
-          </figure>
-          <figure class="quote">
-            <blockquote>I own the list. That was the whole reason. Everything else is a bonus.</blockquote>
-            <figcaption><strong>Kasia Bielik</strong><span>Kasia Draws, comics</span></figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section" id="faq">
-      <div class="container container-narrow">
-        <div class="section-head">
-          <p class="eyebrow">FAQ</p>
-          <h2>Questions people ask before they switch.</h2>
-        </div>
-        <div class="faq-list">
-          <details class="faq-item">
-            <summary>Do you take a cut of membership revenue?</summary>
-            <p>No. On Creator and Studio the platform fee is 0%. You pay the flat plan price and standard card processing fees, which go to the payment processor, not to us.</p>
-          </details>
-          <details class="faq-item">
-            <summary>Can I import members from another platform?</summary>
-            <p>Yes. Upload a CSV of emails and we send a one‑tap invitation. Paid members re‑enter card details once because processors don’t transfer stored cards between merchants.</p>
-          </details>
-          <details class="faq-item">
-            <summary>What happens if I cancel?</summary>
-            <p>Your page stays live on the Starter plan with your existing free members. Paid tiers pause. You can export everything, members included, at any time.</p>
-          </details>
-          <details class="faq-item">
-            <summary>Do I need to know how to code?</summary>
-            <p>No. Everything is configured from the dashboard. If you do want to build on top of it, Studio includes API access.</p>
-          </details>
-          <details class="faq-item">
-            <summary>Where is my data hosted?</summary>
-            <p>In the EU. We don’t sell, share or train on member data. Full details are in the privacy policy linked below.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- Final CTA -->
-    <section class="cta" id="signup">
-      <div class="container cta-inner">
-        <h2>Claim your handle before someone else does.</h2>
-        <p>Free for your first 100 members. Upgrade when the numbers tell you to.</p>
-        <form class="hero-form" action="#signup" method="get" novalidate>
-          <label class="sr-only" for="cta-handle">Choose your handle</label>
-          <div class="handle-input">
-            <span class="handle-prefix">fanpagekit.com/</span>
-            <input id="cta-handle" name="handle" type="text" placeholder="yourname" autocomplete="off" spellcheck="false">
-          </div>
-          <button class="btn btn-primary btn-lg" type="submit">Claim your page</button>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer" id="contact">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <a class="brand" href="#top" aria-label="FanpageKit home">
-          <span class="brand-mark" aria-hidden="true"></span>
-          <span class="brand-name">FanpageKit</span>
-        </a>
-        <p>One page for your fans. Made in Europe.</p>
-      </div>
-      <nav aria-label="Product">
-        <h4>Product</h4>
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#how-it-works">How it works</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-      <nav aria-label="Company">
-        <h4>Company</h4>
-        <a href="#about">About</a>
-        <a href="#blog">Blog</a>
-        <a href="mailto:hello@fanpagekit.com">Contact</a>
-      </nav>
-      <nav aria-label="Legal">
-        <h4>Legal</h4>
-        <a href="#privacy">Privacy</a>
-        <a href="#terms">Terms</a>
-        <a href="#imprint">Imprint</a>
-      </nav>
+  <!-- spikes vs curve -->
+  <div class="panel compare">
+    <div class="panel-head">
+      <h3 class="h3">Spikes you rent, or a curve you own</h3>
+      <span class="sub">Drag the divider · illustrative, not one artist's data</span>
     </div>
-    <div class="container footer-bottom">
-      <p>© <span id="year"></span> FanpageKit. All rights reserved.</p>
+    <div class="compare-copy">
+      <p><span class="lead">Before — the usual methods.</span> Every push buys a spike. The spike decays in ten days and you're back where you started, minus the budget.</p>
+      <p><span class="lead">After — daily faceless posting.</span> No spike to point at. Every clip keeps surfacing, the audio page keeps collecting taps, and the floor moves up.</p>
     </div>
-  </footer>
+    <div class="compare-box" id="compare">
+      <div class="compare-layer">
+        <div class="compare-label right"><span class="small">Listeners · Last 6 months</span><span class="big">Daily faceless posting</span></div>
+        <div class="chart-panel" id="chart-r"></div>
+      </div>
+      <div class="compare-layer" id="compare-left" style="clip-path:inset(0 50% 0 0)">
+        <div class="compare-label"><span class="big">The usual methods</span><span class="small">Listeners · Last 6 months</span></div>
+        <div class="chart-panel" id="chart-l"></div>
+      </div>
+      <div class="compare-handle" id="compare-handle" style="left:50%" role="slider" aria-label="Compare before and after" aria-valuemin="18" aria-valuemax="82" aria-valuenow="50" tabindex="0">
+        <span class="bar"></span>
+        <span class="knob"><span>‹</span><span>›</span></span>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <script src="assets/support.js"></script>
+<!-- HOW IT WORKS -->
+<section id="how" class="section">
+  <div class="how-grid">
+    <div class="how-copy">
+      <div class="intro">
+        <h2 class="h2">Three steps. On average 4 minutes of editing vs 47 minutes of doing it manually.</h2>
+        <p>Nothing to film. Nothing to appear in. No ad spend.</p>
+      </div>
+      <div class="steps" id="steps"></div>
+    </div>
+    <div class="time-card" id="time-card">
+      <div class="bars">
+        <div class="bar-col">
+          <div class="bar-grey" id="bar-grey"></div>
+          <div class="bar-grey-fade"></div>
+          <div class="bar-grey-label">
+            <span class="bar-val">23.5 <small>hours</small></span>
+            <div class="bar-cap">Without FanpageKit <span class="arr">↓</span></div>
+          </div>
+        </div>
+        <div class="bar-col green">
+          <span class="bar-val green">2 <small>hours</small></span>
+          <div class="bar-cap strong">With FanpageKit <span class="arr green">↓</span></div>
+          <div class="bar-green" id="bar-green"></div>
+        </div>
+      </div>
+      <div class="bars-foot"><span>47 min a day</span><span>4 min a day</span></div>
+      <div class="bars-sum"><span class="dim">Editing time per month</span><span class="save">Save 22.7 hours</span></div>
+    </div>
+  </div>
+  <div class="cta-row">
+    <a href="#packs" class="btn">Get the pack — $37</a>
+    <span class="cta-note">30 clips · 4 minutes a day</span>
+  </div>
+</section>
+
+<!-- WHAT'S INSIDE -->
+<section id="inside" class="section">
+  <div class="inside">
+    <div class="inside-head">
+      <h2 class="h2">What you actually download.</h2>
+    </div>
+    <div class="inside-grid">
+      <div class="inside-card">
+        <div class="top"><span class="icon-box"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#F5F5F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="20" height="16" rx="3"/><path d="M4 11h20M4 17h20M9 6v16M19 6v16"/></svg></span><span class="fmt">30 × MP4</span></div>
+        <span class="t">30 finished videos</span>
+        <p>Vertical, colour graded, ready to post as-is. Silent, so your track becomes the audio.</p>
+      </div>
+      <div class="inside-card">
+        <div class="top"><span class="icon-box"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#F5F5F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="14" height="14" rx="2"/><rect x="8" y="5" width="14" height="14" rx="2" fill="#111113"/><path d="M13 11.5v6l5-3z" fill="#F5F5F7" stroke="none"/></svg></span><span class="fmt">112 clips</span></div>
+        <span class="t">Every raw clip</span>
+        <p>All the source footage behind the 30 edits. Recut it, re-time it, build your own versions. You are not locked to our edit.</p>
+      </div>
+      <div class="inside-card">
+        <div class="top"><span class="icon-box"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#F5F5F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5h11l5 5v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="M16 5v5h5"/><path d="M8 14h10M8 18h7"/></svg></span><span class="fmt">8 guides</span></div>
+        <span class="t">The editing guides</span>
+        <p>Step-by-step walkthroughs for lyric overlays, cover-art overlays, text timing, transitions — written separately for each editor, not one generic tutorial.</p>
+      </div>
+      <div class="inside-card">
+        <div class="top"><span class="icon-box"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#F5F5F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12a2 2 0 0 1 2 2v18l-4-3-4 3-4-3-4 3V6a2 2 0 0 1 2-2z"/><path d="M9 10h8M9 14h5"/></svg></span><span class="fmt">24 pages</span></div>
+        <span class="t">The posting playbook</span>
+        <p>How to run the 30 days: what to post when, how to write the hook line, how to attach audio so it credits your release, what to do when a clip performs.</p>
+      </div>
+    </div>
+    <div class="tools">
+      <span class="note">Works with — a separate guide for each. Free tools are enough; CapCut and Canva cover everything.</span>
+      <div class="marquee">
+        <div class="marquee-track tools-track reverse" id="tools-track" style="--dur:40s"></div>
+      </div>
+    </div>
+  </div>
+  <div class="cta-row">
+    <a href="#packs" class="btn">See the four packs</a>
+    <span class="cta-note">Or the bundle at $97</span>
+  </div>
+</section>
+
+<!-- PACKS -->
+<section id="packs" class="section">
+  <div class="packs">
+    <div class="packs-head">
+      <h2 class="h2">Pick the pack that matches your sound.</h2>
+      <p><span class="lead">Every pack is capped and retired.</span> Once its run sells out, it comes off the site permanently. Your footage doesn't end up on a thousand identical accounts, and the platforms don't start treating it as recycled.</p>
+    </div>
+    <div class="packs-grid" id="packs-grid"></div>
+    <p class="licence"><span class="k">Licence:</span> you own everything you make with it — commercial use, unlimited posts, no royalties, no credit, no expiry. The only thing you can't do is resell the pack itself.</p>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section id="guarantee" class="section">
+  <div class="guarantee">
+    <span class="shield"><svg width="48" height="48" viewBox="0 0 28 28" fill="none" stroke="#F5F5F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3l9 3.5v7c0 5.5-3.8 9.6-9 11.5-5.2-1.9-9-6-9-11.5v-7L14 3z"/><path d="M9.5 14l3 3 6-6"/></svg></span>
+    <div class="copy">
+      <h2 class="h2">30-day money back guarantee</h2>
+      <p class="lead">Post 20 of the 30 clips within 30 days. If none of them passes 1,000 views, send us a link to your account and we refund the $37 — and you keep the pack.</p>
+      <p class="fine">We're not guaranteeing streams or followers; nobody honestly can. We're guaranteeing the content performs when it's actually posted.</p>
+    </div>
+  </div>
+  <div class="cta-row">
+    <a href="#packs" class="btn">Get the pack — $37</a>
+    <span class="cta-note">Covered by the 30-day guarantee</span>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section">
+  <div class="faq">
+    <h2 class="h2">Questions people ask before buying.</h2>
+    <div class="faq-list" id="faq-list"></div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="section final">
+  <div class="final-inner">
+    <h2 class="h2">Your next release deserves more than one post and a story.</h2>
+    <p>30 videos, ready tonight. You still never have to show your face.</p>
+    <a href="#packs" class="btn btn-lg">Get the pack — $37</a>
+    <span class="cta-note">Instant download · 30-day money back · Commercial licence</span>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© 2026 FanpageKit. For musicians who would rather be in the studio.</span>
+    <div class="footer-links"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Returns</a><a href="mailto:hello@fanpagekit.com">hello@fanpagekit.com</a></div>
+  </div>
+</footer>
+
+</div><!-- /view-landing -->
+
+<!-- ======================= CHECKOUT ======================= -->
+<section id="view-checkout" class="page" hidden>
+  <div class="page-bar">
+    <button class="logo" type="button" data-go="landing">
+      <span class="logo-mark" aria-hidden="true"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></span>
+      <span>FanpageKit</span>
+    </button>
+    <span class="status"><span class="gdot"></span>Secure checkout</span>
+  </div>
+  <div class="co-grid">
+    <div class="co-left">
+      <div class="card order">
+        <div class="order-top"><span class="k">Your order</span><button class="link-btn" type="button" data-go="landing">Change pack</button></div>
+        <div class="order-fans"><div class="row" id="order-fans"></div></div>
+        <div class="order-name"><span id="order-name"></span><span id="order-price"></span></div>
+        <div class="order-items" id="order-items"></div>
+      </div>
+
+      <button class="bundle-up" id="bundle-up" type="button" aria-pressed="false">
+        <div class="flames" id="flames" hidden>
+          <span style="left:6%;width:10px;height:10px;background:#FF6A00;animation-duration:1.4s"></span>
+          <span style="left:18%;width:7px;height:7px;background:#FFB000;animation-duration:1.1s;animation-delay:.2s"></span>
+          <span style="left:31%;width:12px;height:12px;background:#FF3D00;animation-duration:1.6s;animation-delay:.5s"></span>
+          <span style="left:44%;width:8px;height:8px;background:#FFC933;animation-duration:1.2s;animation-delay:.35s"></span>
+          <span style="left:57%;width:11px;height:11px;background:#FF6A00;animation-duration:1.5s;animation-delay:.1s"></span>
+          <span style="left:70%;width:7px;height:7px;background:#FFB000;animation-duration:1.05s;animation-delay:.6s"></span>
+          <span style="left:83%;width:10px;height:10px;background:#FF3D00;animation-duration:1.35s;animation-delay:.25s"></span>
+          <span style="left:93%;width:8px;height:8px;background:#FFC933;animation-duration:1.25s;animation-delay:.45s"></span>
+          <div class="glow"></div>
+        </div>
+        <span class="copy">
+          <span class="kicker">Upgrade</span>
+          <span class="t">4× your content, 4× your reach</span>
+          <span class="b">Posting 4× a day brings more than 4× the impact. Get all four packs of this month — 120 videos instead of 30.</span>
+          <span class="p"><b>+$60</b> · $97 total <s>$148</s></span>
+        </span>
+        <span class="check" id="bundle-check"></span>
+      </button>
+
+      <div class="card sub-card">
+        <span class="k">Keep the month going — subscribers save $<span id="sub-save"></span></span>
+        <div class="sub-opts" id="sub-opts"></div>
+      </div>
+    </div>
+
+    <form class="pay" id="pay-form" novalidate>
+      <span class="k">Payment</span>
+      <label class="field">Email<input type="email" name="email" placeholder="you@label.com" autocomplete="email"></label>
+      <label class="field">Card number<input type="text" name="card" placeholder="1234 1234 1234 1234" inputmode="numeric" autocomplete="cc-number"></label>
+      <div class="field-row">
+        <label class="field">Expiry<input type="text" name="exp" placeholder="MM / YY" inputmode="numeric" autocomplete="cc-exp"></label>
+        <label class="field">CVC<input type="text" name="cvc" placeholder="123" inputmode="numeric" autocomplete="cc-csc"></label>
+      </div>
+      <div class="totals">
+        <div class="row"><span id="tot-name"></span><span id="tot-price"></span></div>
+        <div class="row" id="tot-addon" hidden><span id="addon-label"></span><span id="addon-price"></span></div>
+        <div class="row due"><span>Due today</span><span id="tot-due"></span></div>
+      </div>
+      <button class="btn btn-lg btn-dark btn-block" type="submit" id="pay-btn">Pay</button>
+      <p class="fine"><span id="renew-note"></span> 30-day money back guarantee. Instant access after payment.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ======================= ACCESS ======================= -->
+<section id="view-access" class="page" hidden>
+  <div class="page-bar">
+    <button class="logo" type="button" data-go="landing">
+      <span class="logo-mark" aria-hidden="true"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></span>
+      <span>FanpageKit</span>
+    </button>
+    <span class="status"><span id="access-order"></span> · paid</span>
+  </div>
+  <div class="access">
+    <div class="access-head">
+      <span class="ok"><span class="gdot"></span>Payment confirmed</span>
+      <h1>Your pack is ready. Four steps to set up.</h1>
+      <p>About ten minutes, then you post your first clip tonight.</p>
+    </div>
+
+    <div class="astep" data-step="1">
+      <div class="astep-head">
+        <span class="astep-num">1</span>
+        <span class="astep-text"><span class="astep-title">Watch the video</span><span class="astep-sub">Seven minutes on how the 30 days work.</span></span>
+        <span class="astep-count">Step 1 of 4</span>
+      </div>
+      <div class="astep-body">
+        <div class="vsl"><span class="play"><i></i></span><span class="cap">drop VSL · welcome.mp4</span></div>
+        <button class="btn" type="button" data-next="2" style="align-self:flex-start">I've watched it — continue</button>
+      </div>
+    </div>
+
+    <div class="astep" data-step="2">
+      <div class="astep-head">
+        <span class="astep-num">2</span>
+        <span class="astep-text"><span class="astep-title">Book your onboarding</span><span class="astep-sub">The method has a basic form, but every musician spins it their own way to hit the best numbers. 20 minutes with us gets you there faster.</span></span>
+        <span class="astep-count">Step 2 of 4</span>
+      </div>
+      <div class="astep-body">
+        <div class="cal" id="cal">
+          <div class="empty">Calendly widget embeds here<br>set <code>calendlyUrl</code> in assets/support.js</div>
+        </div>
+        <div class="btn-row">
+          <button class="btn" type="button" data-next="3">Booked — continue</button>
+          <button class="btn btn-ghost" type="button" data-next="3">Skip onboarding for now</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="astep" data-step="3">
+      <div class="astep-head">
+        <span class="astep-num">3</span>
+        <span class="astep-text"><span class="astep-title">Join the community</span><span class="astep-sub">Where people share how they grow fan pages organically — from single-page musicians to operators running 20 pages at scale.</span></span>
+        <span class="astep-count">Step 3 of 4</span>
+      </div>
+      <div class="astep-body">
+        <div class="btn-row">
+          <a class="btn" id="discord-link" href="#" target="_blank" rel="noopener">Join Discord</a>
+          <button class="btn btn-ghost" type="button" data-next="4">Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="astep" data-step="4">
+      <div class="astep-head">
+        <span class="astep-num">4</span>
+        <span class="astep-text"><span class="astep-title">Access everything</span><span class="astep-sub"><span id="access-order-2"></span> — finished videos, raw clips, guides and the playbook, in one Drive folder.</span></span>
+        <span class="astep-count">Step 4 of 4</span>
+      </div>
+      <div class="astep-body">
+        <a class="btn" id="drive-link" href="#" target="_blank" rel="noopener" style="align-self:flex-start"><span>Open in Google Drive</span><span>→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="assets/support.js"></script>
 </body>
 </html>
