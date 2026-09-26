@@ -11,8 +11,12 @@ export const config = {
   accent: ACCENTS[(process.env.NEXT_PUBLIC_ACCENT as keyof typeof ACCENTS) ?? 'white'] ?? ACCENTS.white,
   heroSeconds: seconds(process.env.NEXT_PUBLIC_HERO_SECONDS, 60),
   marqueeSeconds: seconds(process.env.NEXT_PUBLIC_MARQUEE_SECONDS, 50),
-  discordUrl: process.env.NEXT_PUBLIC_DISCORD_URL || '#',
-  driveUrl: process.env.NEXT_PUBLIC_DRIVE_URL || '#',
   calendlyUrl: process.env.NEXT_PUBLIC_CALENDLY_URL || '',
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
 };
+
+/** Paid-only links. Server-side so they never ship in the public JS bundle. */
+export const privateLinks = () => ({
+  discordUrl: process.env.DISCORD_URL || '#',
+  driveUrl: process.env.DRIVE_URL || '#',
+});

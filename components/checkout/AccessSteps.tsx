@@ -5,7 +5,7 @@ import { config } from '@/lib/config';
 
 type Step = { title: string; sub: React.ReactNode; body: (next: () => void) => React.ReactNode };
 
-export function AccessSteps({ orderName }: { orderName: string }) {
+export function AccessSteps({ orderName, discordUrl, driveUrl }: { orderName: string; discordUrl: string; driveUrl: string }) {
   const [current, setCurrent] = useState(1);
 
   const steps: Step[] = [
@@ -43,7 +43,7 @@ export function AccessSteps({ orderName }: { orderName: string }) {
       sub: 'Where people share how they grow fan pages organically — from single-page musicians to operators running 20 pages at scale.',
       body: (next) => (
         <div className="btn-row">
-          <a className="btn" href={config.discordUrl} target="_blank" rel="noopener noreferrer">Join Discord</a>
+          <a className="btn" href={discordUrl} target="_blank" rel="noopener noreferrer">Join Discord</a>
           <button className="btn btn-ghost" type="button" onClick={next}>Continue</button>
         </div>
       ),
@@ -52,7 +52,7 @@ export function AccessSteps({ orderName }: { orderName: string }) {
       title: 'Access everything',
       sub: <>{orderName} — finished videos, raw clips, guides and the playbook, in one Drive folder.</>,
       body: () => (
-        <a className="btn" href={config.driveUrl} target="_blank" rel="noopener noreferrer" style={{ alignSelf: 'flex-start' }}>
+        <a className="btn" href={driveUrl} target="_blank" rel="noopener noreferrer" style={{ alignSelf: 'flex-start' }}>
           <span>Open in Google Drive</span><span>→</span>
         </a>
       ),

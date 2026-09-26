@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { checkoutModel, type Order, type Upsell } from '@/lib/checkout';
 import { BundleFans, Fan } from '../Fan';
+import { PayCard } from './PayCard';
 
 const FLAMES = [
   { left: '6%', size: 10, bg: '#FF6A00', dur: '1.4s', delay: '0s' },
@@ -18,19 +18,16 @@ const FLAMES = [
 ];
 
 export function CheckoutView({ initial }: { initial: Order }) {
-  const router = useRouter();
   const [bundleUp, setBundleUp] = useState(initial.bundleUp);
-  const [upsell, setUpsell] = useState<Upsell>(initial.upsell);
+  const [upsell, setUpsellState] = useState<Upsell>(initial.upsell);
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
   const order: Order = { pack: initial.pack, bundleUp, upsell };
   const m = checkoutModel(order);
   const packIndex = ['golden-hour', 'midnight-city', 'coastal-drive', 'forest-trail'].indexOf(m.sel.slug);
 
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Payment is still a front-end mock; Stripe replaces this in the next iteration.
-    const q = new URLSearchParams({ pack: order.pack, bundle: m.bundleUp ? '1' : '0', upsell });
-    router.push(`/access?${q}`);
-  };
+  // Any change to the order invalidates an open Checkout Session.
+  const toggleBundle = () => { setBundleUp(!bundleUp); setClientSecret(null); };
+  const setUpsell = (u: Upsell) => { setUpsellState(u); setClientSecret(null); };
 
   return (
     <div className="co-grid">
@@ -55,7 +52,7 @@ export function CheckoutView({ initial }: { initial: Order }) {
         </div>
 
         {!m.sel.bundle && (
-          <button className={m.bundleUp ? 'bundle-up on' : 'bundle-up'} type="button" aria-pressed={m.bundleUp} onClick={() => setBundleUp(!bundleUp)}>
+          <button className={m.bundleUp ? 'bundle-up on' : 'bundle-up'} type="button" aria-pressed={m.bundleUp} onClick={toggleBundle}>
             {m.bundleUp && (
               <div className="flames">
                 {FLAMES.map((f, i) => (
@@ -91,22 +88,7 @@ export function CheckoutView({ initial }: { initial: Order }) {
         </div>
       </div>
 
-      <form className="pay" noValidate onSubmit={onSubmit}>
-        <span className="k">Payment</span>
-        <label className="field">Email<input type="email" name="email" placeholder="you@label.com" autoComplete="email" /></label>
-        <label className="field">Card number<input type="text" name="card" placeholder="1234 1234 1234 1234" inputMode="numeric" autoComplete="cc-number" /></label>
-        <div className="field-row">
-          <label className="field">Expiry<input type="text" name="exp" placeholder="MM / YY" inputMode="numeric" autoComplete="cc-exp" /></label>
-          <label className="field">CVC<input type="text" name="cvc" placeholder="123" inputMode="numeric" autoComplete="cc-csc" /></label>
-        </div>
-        <div className="totals">
-          <div className="row"><span>{m.orderName}</span><span>{m.orderPrice}</span></div>
-          {m.hasAddon && <div className="row"><span>{m.addonLabel}</span><span>{m.addonPrice}</span></div>}
-          <div className="row due"><span>Due today</span><span>{m.total}</span></div>
-        </div>
-        <button className="btn btn-lg btn-dark btn-block" type="submit">Pay {m.total}</button>
-        <p className="fine">{m.renewNote} 30-day money back guarantee. Instant access after payment.</p>
-      </form>
+      <PayCard order={order} m={m} clientSecret={clientSecret} onSession={setClientSecret} />
     </div>
   );
 }

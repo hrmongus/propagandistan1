@@ -22,7 +22,8 @@ npm run dev
 
 - `/` — the landing page
 - `/checkout?pack=<slug>` — order summary, bundle upgrade, monthly option and payment (`golden-hour`, `midnight-city`, `coastal-drive`, `forest-trail`, `bundle`)
-- `/access` — the four-step setup shown after payment
+- `/access?session_id=…` — the four-step setup; only reachable with a paid Stripe Checkout Session
+- `POST /api/stripe/webhook` — Stripe webhook (fulfillment hook in `lib/fulfillment.ts`)
 
 ## Layout
 
@@ -41,4 +42,28 @@ npm run dev
 - "Anatomy of one reel" draws connector lines from the callouts to the reel, with a scroll parallax, and scales down under 780px.
 - "Spikes you rent, or a curve you own" is a draggable (and keyboard-operable) before/after comparison over two seeded listener series.
 - Steps and FAQ are accordions; the time-saved bars carry a scroll-driven sheen.
-- The payment form is still a front-end mock and does not charge anything.
+
+## Payments (Stripe Embedded Checkout)
+
+1. Put your keys in `.env.local`: `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, and set `DRIVE_URL` / `DISCORD_URL`.
+2. Forward webhooks locally and copy the printed `whsec_…` into `STRIPE_WEBHOOK_SECRET`:
+   ```bash
+   stripe listen --forward-to localhost:3000/api/stripe/webhook
+   ```
+3. Test with card `4242 4242 4242 4242`, any future expiry and any CVC.
+
+How it works:
+
+- The buyer configures the order on `/checkout` (pack, bundle upgrade, monthly option). "Continue to payment" calls a
+  server action that creates a Checkout Session from the **server-side** price model in `lib/checkout.ts`; changing the
+  order afterwards discards the session.
+- One-off orders use `mode: payment` (customer + invoice created). The monthly option uses `mode: subscription`: the
+  pack is charged today as a one-time line item and the plan ($29, or $97 for all four) starts on the 1st of next month
+  with no proration.
+- Stripe returns to `/access?session_id=…`, which verifies the session is paid before showing the Drive and Discord links
+  (these are server-only env vars). Subscribers get a "Manage or cancel" link to the Stripe customer portal — enable the
+  portal in the Stripe dashboard (Settings → Billing → Customer portal).
+- In production, add a webhook endpoint at `https://<your-domain>/api/stripe/webhook` for
+  `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`,
+  `invoice.payment_failed` and `customer.subscription.deleted`.
+- Pack stock counts ("41 of 200 left") are still static copy in `lib/data.ts`.
