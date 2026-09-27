@@ -54,7 +54,7 @@ npm run dev
 
 How it works:
 
-- The buyer configures the order on `/checkout` (pack, bundle upgrade, monthly option). the embedded payment form loads immediately from a
+- The buyer configures the order on `/checkout` (pack, bundle upgrade, monthly option). The embedded payment form loads immediately from a
   server action that creates a Checkout Session from the **server-side** price model in `lib/checkout.ts`; changing the
   order opens a fresh session.
 - One-off orders use `mode: payment` (customer + invoice created). The monthly option uses `mode: subscription`: the
