@@ -19,15 +19,10 @@ const FLAMES = [
 
 export function CheckoutView({ initial }: { initial: Order }) {
   const [bundleUp, setBundleUp] = useState(initial.bundleUp);
-  const [upsell, setUpsellState] = useState<Upsell>(initial.upsell);
-  const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [upsell, setUpsell] = useState<Upsell>(initial.upsell);
   const order: Order = { pack: initial.pack, bundleUp, upsell };
   const m = checkoutModel(order);
   const packIndex = ['golden-hour', 'midnight-city', 'coastal-drive', 'forest-trail'].indexOf(m.sel.slug);
-
-  // Any change to the order invalidates an open Checkout Session.
-  const toggleBundle = () => { setBundleUp(!bundleUp); setClientSecret(null); };
-  const setUpsell = (u: Upsell) => { setUpsellState(u); setClientSecret(null); };
 
   return (
     <div className="co-grid">
@@ -52,7 +47,7 @@ export function CheckoutView({ initial }: { initial: Order }) {
         </div>
 
         {!m.sel.bundle && (
-          <button className={m.bundleUp ? 'bundle-up on' : 'bundle-up'} type="button" aria-pressed={m.bundleUp} onClick={toggleBundle}>
+          <button className={m.bundleUp ? 'bundle-up on' : 'bundle-up'} type="button" aria-pressed={m.bundleUp} onClick={() => setBundleUp(!bundleUp)}>
             {m.bundleUp && (
               <div className="flames">
                 {FLAMES.map((f, i) => (
@@ -88,7 +83,7 @@ export function CheckoutView({ initial }: { initial: Order }) {
         </div>
       </div>
 
-      <PayCard order={order} m={m} clientSecret={clientSecret} onSession={setClientSecret} />
+      <PayCard order={order} m={m} />
     </div>
   );
 }

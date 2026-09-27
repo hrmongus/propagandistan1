@@ -412,12 +412,9 @@ img[data-broken] { visibility: hidden; }
 }
 
 /* ---------- stripe ---------- */
-.pay-top { display: flex; justify-content: space-between; align-items: baseline; }
-.link-btn.dark { color: #3A3A3C; }
-.link-btn.dark:hover { color: #000; }
-.pay .btn:disabled { opacity: .6; cursor: progress; }
 .pay-error { font-size: 13px; color: #C4271B; text-align: center; }
 .stripe-embed { margin: 0 -20px; min-height: 420px; }
+.stripe-loading { height: 420px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--dim); }
 .co-grid .pay { position: sticky; top: 24px; }
 .manage { font-size: 13px; color: var(--dim); text-align: center; }
 .manage button { all: unset; cursor: pointer; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }

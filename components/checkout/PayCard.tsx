@@ -2,62 +2,54 @@
 
 import { EmbeddedCheckout, EmbeddedCheckoutProvider } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { useState, useTransition } from 'react';
+import { useEffect, useState } from 'react';
 import { createCheckoutSession } from '@/app/checkout/actions';
 import type { CheckoutModel, Order } from '@/lib/checkout';
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
 
-type Props = {
-  order: Order;
-  m: CheckoutModel;
-  /** Client secret of the open Checkout Session; cleared by the parent whenever the order changes. */
-  clientSecret: string | null;
-  onSession: (secret: string | null) => void;
-};
+type Session = { key: string; clientSecret?: string; error?: string };
 
-export function PayCard({ order, m, clientSecret, onSession }: Props) {
-  const [error, setError] = useState('');
-  const [pending, startTransition] = useTransition();
+export function PayCard({ order, m }: { order: Order; m: CheckoutModel }) {
+  // One Checkout Session per order configuration; changing the order opens a fresh one.
+  const key = `${order.pack}|${m.bundleUp ? 1 : 0}|${order.upsell}`;
+  const [session, setSession] = useState<Session | null>(null);
 
-  const start = () => {
-    setError('');
-    if (!stripePromise) {
-      setError('Payments are not configured yet.');
-      return;
-    }
-    startTransition(async () => {
-      const res = await createCheckoutSession(order);
-      if ('error' in res) setError(res.error);
-      else onSession(res.clientSecret);
-    });
-  };
+  useEffect(() => {
+    if (!stripePromise) return;
+    let stale = false;
+    createCheckoutSession(order).then(
+      (res) => { if (!stale) setSession({ key, ...res }); },
+      () => { if (!stale) setSession({ key, error: 'Could not start checkout. Please refresh and try again.' }); },
+    );
+    return () => { stale = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- `key` captures everything in `order`
+  }, [key]);
+
+  const current = session?.key === key ? session : null;
+  const error = !stripePromise ? 'Payments are not configured yet.' : current?.error;
 
   return (
     <div className="pay">
-      <div className="pay-top">
-        <span className="k">Payment</span>
-        {clientSecret && <button className="link-btn dark" type="button" onClick={() => onSession(null)}>Edit order</button>}
-      </div>
+      <span className="k">Payment</span>
       <div className="totals">
         <div className="row"><span>{m.orderName}</span><span>{m.orderPrice}</span></div>
         {m.hasAddon && <div className="row"><span>{m.addonLabel}</span><span>{m.addonPrice}</span></div>}
         <div className="row due"><span>Due today</span><span>{m.total}</span></div>
       </div>
-      {clientSecret && stripePromise ? (
-        <div className="stripe-embed">
-          <EmbeddedCheckoutProvider key={clientSecret} stripe={stripePromise} options={{ clientSecret }}>
-            <EmbeddedCheckout />
-          </EmbeddedCheckoutProvider>
-        </div>
+      {error ? (
+        <p className="pay-error" role="alert">{error}</p>
       ) : (
-        <>
-          <button className="btn btn-lg btn-dark btn-block" type="button" onClick={start} disabled={pending} aria-busy={pending}>
-            {pending ? 'Opening secure checkout…' : `Continue to payment — ${m.total}`}
-          </button>
-          {error && <p className="pay-error" role="alert">{error}</p>}
-        </>
+        <div className="stripe-embed" aria-busy={!current?.clientSecret}>
+          {current?.clientSecret && stripePromise ? (
+            <EmbeddedCheckoutProvider key={current.clientSecret} stripe={stripePromise} options={{ clientSecret: current.clientSecret }}>
+              <EmbeddedCheckout />
+            </EmbeddedCheckoutProvider>
+          ) : (
+            <div className="stripe-loading">Loading secure checkout…</div>
+          )}
+        </div>
       )}
       <p className="fine">{m.renewNote} 30-day money back guarantee. Instant access after payment. Payments by Stripe.</p>
     </div>

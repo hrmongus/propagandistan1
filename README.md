@@ -54,9 +54,9 @@ npm run dev
 
 How it works:
 
-- The buyer configures the order on `/checkout` (pack, bundle upgrade, monthly option). "Continue to payment" calls a
+- The buyer configures the order on `/checkout` (pack, bundle upgrade, monthly option). the embedded payment form loads immediately from a
   server action that creates a Checkout Session from the **server-side** price model in `lib/checkout.ts`; changing the
-  order afterwards discards the session.
+  order opens a fresh session.
 - One-off orders use `mode: payment` (customer + invoice created). The monthly option uses `mode: subscription`: the
   pack is charged today as a one-time line item and the plan ($29, or $97 for all four) starts on the 1st of next month
   with no proration.
