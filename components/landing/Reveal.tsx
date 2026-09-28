@@ -19,7 +19,7 @@ export function Reveal() {
           {items.map((a, i) => (
             <div className="acc" key={i} aria-hidden={i >= ACCOUNTS.length || undefined}>
               <div className="acc-head">
-                <div className="acc-avatar"><img src={`/uploads/thumbs/${a.avatar}.png`} alt="" /></div>
+                <div className="acc-avatar"><img src={`/uploads/thumbs/${a.avatar}.webp`} alt="" /></div>
                 <div className="acc-id">
                   <div className="acc-handle">{a.handle}</div>
                   <div className="acc-platform">{a.platform}</div>
@@ -32,7 +32,7 @@ export function Reveal() {
               </div>
               <div className="acc-grid">
                 {a.t.map((t, k) => (
-                  <div className="acc-tile" key={k}><img src={`/uploads/thumbs/${t}.png`} alt="" loading="lazy" /></div>
+                  <div className="acc-tile" key={k}><img src={`/uploads/thumbs/${t}.webp`} alt="" loading="lazy" /></div>
                 ))}
               </div>
               <div className="acc-note">{a.note}</div>

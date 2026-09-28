@@ -1,4 +1,5 @@
 import { GRADS, PACK_SLUGS } from '@/lib/data';
+import { LazyVideo } from './LazyVideo';
 
 /** Fan of five 9:16 tiles, offset diagonally. Mirrors mkFan(gi, big, tiny) in the design. */
 export function Fan({ gi, size }: { gi: number; size: 'big' | 'mid' | 'tiny' }) {
@@ -12,9 +13,9 @@ export function Fan({ gi, size }: { gi: number; size: 'big' | 'mid' | 'tiny' }) 
         <div key={k} className="tile" style={{ left: k * dx, top: k * dy, width: tw, background: bg }}>
           {k < 4 ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={`/uploads/packs/${slug}-${k + 1}.png`} alt="" loading="lazy" />
+            <img src={`/uploads/packs/${slug}-${k + 1}.webp`} alt="" loading="lazy" />
           ) : (
-            <video src={`/uploads/packs/${slug}.mp4`} autoPlay muted loop playsInline preload="auto" />
+            <LazyVideo src={`/uploads/packs/${slug}.mp4`} />
           )}
         </div>
       ))}

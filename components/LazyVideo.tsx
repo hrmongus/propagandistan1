@@ -12,6 +12,8 @@ export const LazyVideo = forwardRef<HTMLVideoElement, Props>(function LazyVideo(
   useEffect(() => {
     const v = el.current;
     if (!v || !('IntersectionObserver' in window)) return;
+    // React doesn't render the `muted` attribute on the server, and browsers only autoplay muted video.
+    v.muted = true;
     const io = new IntersectionObserver(
       ([en]) => {
         if (en.isIntersecting) v.play().catch(() => {});
