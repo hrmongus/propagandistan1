@@ -4,7 +4,7 @@ The site serves media from `public/uploads/` at `/uploads/...`. Drop the files i
 
 - `hero-1.mp4` … `hero-7.mp4` — hero carousel reels (9:16, silent).
 - `lyric-video-5b73646c.mp4` — the "Anatomy of one reel" video (keeps its audio for the sound toggle).
-- `thumbs/n00.webp` … `thumbs/n37.webp`, `thumbs/t00.webp` … `thumbs/t46.webp` — account-card avatars and post tiles (9:16).
+- `pages/page1_s1.webp` … `pages/page12_s6.webp` — reel screenshots for the 12 fan-page account cards (page N = card N, six tiles each; `s1` is also the avatar).
 - `logos/capcut.png`, `logos/davinci-resolve.png`, `logos/final-cut-pro.png`, `logos/premiere-pro.png`, `logos/canva.png`, `logos/imovie.png`, `logos/clips.png`, `logos/instagram.png`, `logos/tiktok.png` — 32×32 tool logos.
 - `packs/<slug>-1.webp` … `packs/<slug>-4.webp` and `packs/<slug>.mp4` for each of `golden-hour`, `midnight-city`, `coastal-drive`, `forest-trail` — pack fan tiles (9:16).
 
@@ -14,7 +14,7 @@ Files here are web-optimised copies of the Claude Design originals (not committe
 
 - Reels: H.264, 720×1280, CRF 26, `+faststart`, audio removed except on the anatomy reel.
 - Pack loops: H.264, 360 px wide, 30 fps, no audio.
-- Pack art: WebP, 270 px wide. Thumbnails: WebP at original 180×320.
+- Pack art: WebP, 270 px wide. Account screenshots: WebP, 240 px wide.
 
 ```bash
 ffmpeg -i in.mp4 -vf scale=720:-2 -c:v libx264 -preset slow -crf 26 -pix_fmt yuv420p -an -movflags +faststart out.mp4

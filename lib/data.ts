@@ -33,22 +33,23 @@ export const HERO_VIDEOS: HeroVideo[] = (() => {
 export type Account = {
   handle: string; platform: string;
   s1: string; l1: string; s2: string; l2: string; s3: string; l3: string;
-  note: string; avatar: string; t: string[];
+  /** Screenshots live at /uploads/pages/page{page}_s1…s6.webp; s1 doubles as the avatar. */
+  note: string; page: number;
 };
 
 export const ACCOUNTS: Account[] = [
-  { handle: '@sombr.archive', platform: 'Instagram', s1: '214', l1: 'posts', s2: '412K', l2: 'followers', s3: '3', l3: 'following', note: 'Fan-run. Started nine months before the first viral week.', avatar: 'n15', t: ['n15', 't00', 'n11', 'n13', 't02', 'n12'] },
-  { handle: '@gigi.perez.files', platform: 'TikTok', s1: '9', l1: 'following', s2: '683K', l2: 'followers', s3: '8.4M', l3: 'likes', note: 'Same 8-second hook, posted daily. No face.', avatar: 'n04', t: ['n04', 'n03', 'n07', 'n06', 'n05', 'n09'] },
-  { handle: '@alexwarren.moments', platform: 'Instagram', s1: '168', l1: 'posts', s2: '297K', l2: 'followers', s3: '6', l3: 'following', note: 'Cinematic B-roll under the chorus. Nothing else.', avatar: 'n27', t: ['n27', 't12', 'n19', 't14', 'n17', 't16'] },
-  { handle: '@royel.otis.daily', platform: 'TikTok', s1: '4', l1: 'following', s2: '521K', l2: 'followers', s3: '6.1M', l3: 'likes', note: 'Runs on found footage and one lyric line at a time.', avatar: 'n33', t: ['n33', 'n34', 'n31', 'n16', 'n36', 'n35'] },
-  { handle: '@lola.young.hq', platform: 'Instagram', s1: '93', l1: 'posts', s2: '188K', l2: 'followers', s3: '2', l3: 'following', note: 'Ninety-three cuts of the same song.', avatar: 'n00', t: ['n00', 'n01', 'n02', 'n37', 't26', 't28'] },
-  { handle: '@bennysings.clips', platform: 'TikTok', s1: '11', l1: 'following', s2: '246K', l2: 'followers', s3: '3.9M', l3: 'likes', note: 'Built the whole audience before the album dropped.', avatar: 'n28', t: ['n28', 't30', 'n29', 't32', 'n30', 't34'] },
-  { handle: '@wave2earth.reels', platform: 'Instagram', s1: '141', l1: 'posts', s2: '329K', l2: 'followers', s3: '5', l3: 'following', note: 'Zero budget. Zero appearances. All fan-page.', avatar: 'n20', t: ['n20', 'n23', 'n24', 'n22', 'n21', 'n25'] },
-  { handle: '@chaotic.good.roster', platform: 'TikTok', s1: '7', l1: 'following', s2: '858K', l2: 'followers', s3: '12.7M', l3: 'likes', note: 'Chaotic Good runs this format for every artist they sign.', avatar: 'n18', t: ['n18', 'n08', 'n10', 'n14', 'n32', 'n11'] },
-  { handle: '@djo.tapes', platform: 'Instagram', s1: '122', l1: 'posts', s2: '264K', l2: 'followers', s3: '4', l3: 'following', note: 'Lo-fi film scans. One song, one mood.', avatar: 't06', t: ['t06', 't08', 'n06', 't10', 'n05', 't11'] },
-  { handle: '@dominic.fike.cuts', platform: 'TikTok', s1: '6', l1: 'following', s2: '437K', l2: 'followers', s3: '5.2M', l3: 'likes', note: 'Skate footage, VHS grain, chorus only.', avatar: 't18', t: ['t18', 't20', 'n13', 't22', 'n12', 't19'] },
-  { handle: '@holly.humberstone.diary', platform: 'Instagram', s1: '87', l1: 'posts', s2: '153K', l2: 'followers', s3: '3', l3: 'following', note: 'Night drives and one lyric a day.', avatar: 'n29', t: ['n29', 't36', 'n37', 't38', 'n02', 't40'] },
-  { handle: '@thexx.archive', platform: 'TikTok', s1: '5', l1: 'following', s2: '392K', l2: 'followers', s3: '4.8M', l3: 'likes', note: 'Same edit language across every release.', avatar: 'n09', t: ['n09', 't42', 'n07', 't44', 'n35', 't46'] },
+  { handle: '@sombr.archive', platform: 'Instagram', s1: '214', l1: 'posts', s2: '412K', l2: 'followers', s3: '3', l3: 'following', note: 'Fan-run. Started nine months before the first viral week.', page: 1 },
+  { handle: '@gigi.perez.files', platform: 'TikTok', s1: '9', l1: 'following', s2: '683K', l2: 'followers', s3: '8.4M', l3: 'likes', note: 'Same 8-second hook, posted daily. No face.', page: 2 },
+  { handle: '@alexwarren.moments', platform: 'Instagram', s1: '168', l1: 'posts', s2: '297K', l2: 'followers', s3: '6', l3: 'following', note: 'Cinematic B-roll under the chorus. Nothing else.', page: 3 },
+  { handle: '@royel.otis.daily', platform: 'TikTok', s1: '4', l1: 'following', s2: '521K', l2: 'followers', s3: '6.1M', l3: 'likes', note: 'Runs on found footage and one lyric line at a time.', page: 4 },
+  { handle: '@lola.young.hq', platform: 'Instagram', s1: '93', l1: 'posts', s2: '188K', l2: 'followers', s3: '2', l3: 'following', note: 'Ninety-three cuts of the same song.', page: 5 },
+  { handle: '@bennysings.clips', platform: 'TikTok', s1: '11', l1: 'following', s2: '246K', l2: 'followers', s3: '3.9M', l3: 'likes', note: 'Built the whole audience before the album dropped.', page: 6 },
+  { handle: '@wave2earth.reels', platform: 'Instagram', s1: '141', l1: 'posts', s2: '329K', l2: 'followers', s3: '5', l3: 'following', note: 'Zero budget. Zero appearances. All fan-page.', page: 7 },
+  { handle: '@chaotic.good.roster', platform: 'TikTok', s1: '7', l1: 'following', s2: '858K', l2: 'followers', s3: '12.7M', l3: 'likes', note: 'Chaotic Good runs this format for every artist they sign.', page: 8 },
+  { handle: '@djo.tapes', platform: 'Instagram', s1: '122', l1: 'posts', s2: '264K', l2: 'followers', s3: '4', l3: 'following', note: 'Lo-fi film scans. One song, one mood.', page: 9 },
+  { handle: '@dominic.fike.cuts', platform: 'TikTok', s1: '6', l1: 'following', s2: '437K', l2: 'followers', s3: '5.2M', l3: 'likes', note: 'Skate footage, VHS grain, chorus only.', page: 10 },
+  { handle: '@holly.humberstone.diary', platform: 'Instagram', s1: '87', l1: 'posts', s2: '153K', l2: 'followers', s3: '3', l3: 'following', note: 'Night drives and one lyric a day.', page: 11 },
+  { handle: '@thexx.archive', platform: 'TikTok', s1: '5', l1: 'following', s2: '392K', l2: 'followers', s3: '4.8M', l3: 'likes', note: 'Same edit language across every release.', page: 12 },
 ];
 
 /* ---------- how it works ---------- */
