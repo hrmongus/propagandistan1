@@ -2,7 +2,8 @@
 
 The site serves media from `public/uploads/` at `/uploads/...`. Drop the files in and they load; until then every slot falls back to the gradient placeholder the design uses.
 
-- `lyric-video-5b73646c.mp4`, `lyric-video-43f38f2b.mp4`, `lyric-video-c1a7aa57-d7666788.mp4`, `lyric-video-134d9c47.mp4`, `lyric-video-f8d946db-1174ec51.mp4`, `lyric-video-ede04a67.mp4` — hero reels (9:16, silent). The first one is also the "Anatomy of one reel" video.
+- `hero-1.mp4` … `hero-7.mp4` — hero carousel reels (9:16, silent).
+- `lyric-video-5b73646c.mp4` — the "Anatomy of one reel" video (keeps its audio for the sound toggle).
 - `thumbs/n00.webp` … `thumbs/n37.webp`, `thumbs/t00.webp` … `thumbs/t46.webp` — account-card avatars and post tiles (9:16).
 - `logos/capcut.png`, `logos/davinci-resolve.png`, `logos/final-cut-pro.png`, `logos/premiere-pro.png`, `logos/canva.png`, `logos/imovie.png`, `logos/clips.png`, `logos/instagram.png`, `logos/tiktok.png` — 32×32 tool logos.
 - `packs/<slug>-1.webp` … `packs/<slug>-4.webp` and `packs/<slug>.mp4` for each of `golden-hour`, `midnight-city`, `coastal-drive`, `forest-trail` — pack fan tiles (9:16).
@@ -11,7 +12,7 @@ The site serves media from `public/uploads/` at `/uploads/...`. Drop the files i
 
 Files here are web-optimised copies of the Claude Design originals (not committed):
 
-- Reels: H.264, 720×1280, CRF 26, `+faststart`, audio removed except `lyric-video-5b73646c.mp4` (the anatomy reel has a sound toggle).
+- Reels: H.264, 720×1280, CRF 26, `+faststart`, audio removed except on the anatomy reel.
 - Pack loops: H.264, 360 px wide, 30 fps, no audio.
 - Pack art: WebP, 270 px wide. Thumbnails: WebP at original 180×320.
 

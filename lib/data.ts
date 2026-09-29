@@ -14,16 +14,9 @@ export function fmtK(n: number) {
 }
 
 /* ---------- hero reels ---------- */
-const HERO_SRCS = [
-  '/uploads/lyric-video-5b73646c.mp4',
-  '/uploads/lyric-video-43f38f2b.mp4',
-  '/uploads/lyric-video-c1a7aa57-d7666788.mp4',
-  '/uploads/lyric-video-134d9c47.mp4',
-  '/uploads/lyric-video-f8d946db-1174ec51.mp4',
-  '/uploads/lyric-video-ede04a67.mp4',
-];
+const HERO_SRCS = [1, 2, 3, 4, 5, 6, 7].map((n) => `/uploads/hero-${n}.mp4`);
 
-export const ANATOMY_VIDEO = HERO_SRCS[0];
+export const ANATOMY_VIDEO = '/uploads/lyric-video-5b73646c.mp4';
 
 export type HeroVideo = { src: string; views: string; streams: string; conv: string };
 
