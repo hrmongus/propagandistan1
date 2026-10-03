@@ -1,26 +1,30 @@
+import Link from 'next/link';
 import { CtaRow } from './Nav';
+
+const PROMISES = ['Full refund. No forms, no back-and-forth.', 'Keep the videos and the guides either way.', 'One email is all it takes.'];
+
+const Check = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+);
 
 export function Guarantee() {
   return (
     <section id="guarantee" className="section">
       <div className="guarantee">
-        <span className="shield">
-          <svg width="48" height="48" viewBox="0 0 28 28" fill="none" stroke="#F5F5F7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M14 3l9 3.5v7c0 5.5-3.8 9.6-9 11.5-5.2-1.9-9-6-9-11.5v-7L14 3z" />
-            <path d="M9.5 14l3 3 6-6" />
-          </svg>
-        </span>
         <div className="copy">
-          <h2 className="h2">30-day money back guarantee</h2>
+          <span className="kicker">30-day money back</span>
+          <h2 className="h2">Post for 30 days. If nothing moves, you get every cent back.</h2>
           <p className="lead">
-            Post 20 of the 30 clips within 30 days. If none of them passes 1,000 views, send us a link to your account and
-            we refund the $37 — and you keep the pack.
+            Post 20 of the 30 videos on TikTok within 30 days. If none of them reaches 1,000 views, email us and we&apos;ll
+            refund you in full — and you keep the pack. The risk is ours, not yours.
           </p>
-          <p className="fine">
-            We&apos;re not guaranteeing streams or followers; nobody honestly can. We&apos;re guaranteeing the content
-            performs when it&apos;s actually posted.
-          </p>
+          <Link className="rules-link" href="/guarantee">See the guarantee rules <span aria-hidden="true">→</span></Link>
         </div>
+        <ul className="promises">
+          {PROMISES.map((p) => (
+            <li key={p}><span className="tick"><Check /></span>{p}</li>
+          ))}
+        </ul>
       </div>
       <CtaRow label="Get the pack — $37" note="Covered by the 30-day guarantee" />
     </section>
@@ -46,9 +50,9 @@ export function Footer() {
       <div className="footer-inner">
         <span>© {new Date().getFullYear()} FanpageKit. For musicians who would rather be in the studio.</span>
         <div className="footer-links">
-          <a href="#">Terms</a>
-          <a href="#">Privacy</a>
-          <a href="#">Returns</a>
+          <Link href="/terms">Terms</Link>
+          <Link href="/privacy">Privacy</Link>
+          <Link href="/refund-policy">Refunds</Link>
           <a href="mailto:hello@fanpagekit.com">hello@fanpagekit.com</a>
         </div>
       </div>

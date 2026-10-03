@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { STEPS } from '@/lib/data';
+import { Collapse, PlusMinus } from '../Collapse';
 import { CtaRow } from './Nav';
 
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
@@ -14,12 +15,12 @@ function Steps() {
         const isOpen = open === i;
         return (
           <div className={isOpen ? 'step open' : 'step'} key={s.n}>
-            <button className="step-btn" type="button" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? -1 : i)}>
+            <button className="step-btn" type="button" aria-expanded={isOpen} aria-controls={`step-${i}`} onClick={() => setOpen(isOpen ? -1 : i)}>
               <span className="step-num">{s.n}</span>
               <span className="step-text"><span className="step-title">{s.title}</span><span className="step-short">{s.short}</span></span>
-              <span className="step-sym">{isOpen ? '−' : '+'}</span>
+              <PlusMinus />
             </button>
-            {isOpen && <p className="step-body">{s.body}</p>}
+            <Collapse open={isOpen} id={`step-${i}`}><p className="step-body">{s.body}</p></Collapse>
           </div>
         );
       })}

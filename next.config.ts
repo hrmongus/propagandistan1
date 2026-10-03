@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/uploads/:path*',
-        headers: [{ key: 'Cache-Control', value: 'public, max-age=86400, stale-while-revalidate=604800' }],
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=31536000' }],
       },
     ];
   },

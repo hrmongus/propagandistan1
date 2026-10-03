@@ -1,66 +1,73 @@
 import { lcg } from './data';
 
-/* Seeded listener series for the "Spikes you rent, or a curve you own" charts (Spotify-for-Artists style). */
+/*
+ * Seeded daily-listener series for the "Own the growth" chart (Spotify-for-Artists style).
+ * One continuous year: the first half is paid promotion (a playlist spike, then a Meta ads plateau, each
+ * decaying back to the floor), the second half is daily faceless posting (compounding growth).
+ */
 
-export type Series = {
-  line: string; fill: string; lx: string; ly: string; lxf: string; lyf: string; lv: number;
-  at: (i: number) => { xf: string; yf: string };
-};
+export const DAYS = 364;
+export const SPLIT = DAYS / 2;
+export const MAX = 30000;
+const END = Date.UTC(2026, 8, 24);
 
-function buildSeries() {
-  const rnd = lcg(7);
-  const N = 182, W = 400, X0 = 18, X1 = 392, Y0 = 20, Y1 = 190, MAX = 30000;
-  const toXY = (i: number, v: number) => [X0 + (i / (N - 1)) * (X1 - X0), Y1 - (Math.min(v, MAX) / MAX) * (Y1 - Y0)];
-  const build = (vals: number[]): Series => {
-    const pts = vals.map((v, i) => toXY(i, v));
-    const line = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('');
-    const fill = line + 'L' + X1 + ' ' + Y1 + 'L' + X0 + ' ' + Y1 + 'Z';
-    const last = pts[pts.length - 1];
-    const at = (i: number) => {
-      const xy = toXY(i, vals[i]);
-      return { xf: (xy[0] / W).toFixed(4), yf: (xy[1] / 210).toFixed(4) };
-    };
-    return { line, fill, lx: last[0].toFixed(1), ly: last[1].toFixed(1), lxf: (last[0] / W).toFixed(4), lyf: (last[1] / 210).toFixed(4), lv: Math.round(vals[vals.length - 1]), at };
+function build() {
+  const rnd = lcg(11);
+  const noise = (amp: number) => 1 + (rnd() - 0.5) * 2 * amp;
+  const week = (i: number) => 1 + 0.07 * Math.sin((i / 7) * Math.PI * 2 + 1.2);
+  const vals: number[] = [];
+
+  // paid promotion
+  const PLAYLIST = 44, META = 104, META_DAYS = 34;
+  for (let i = 0; i < SPLIT; i++) {
+    let v = 760 * week(i) * noise(0.18);
+    if (rnd() < 0.035) v *= 1.4 + rnd() * 0.5; // the odd stray post
+    // playlist add: overnight spike, gone within a month
+    if (i >= PLAYLIST) v += 9400 * Math.exp(-(i - PLAYLIST) / 5.5) * noise(0.14) + (i - PLAYLIST < 30 ? 260 * noise(0.5) : 0);
+    // meta ads: ramp to a noisy plateau while the budget runs, collapse when it stops
+    if (i >= META) {
+      const on = i - META;
+      const level = on < 4 ? (on + 1) / 4 : on < META_DAYS ? 1 - on * 0.004 : Math.exp(-(on - META_DAYS) / 6);
+      v += 5600 * level * week(i) * noise(0.1);
+    }
+    vals.push(v);
+  }
+
+  // daily faceless posting: the floor moves up every week, with clips that pop and settle
+  const start = vals[SPLIT - 1], target = 22800;
+  const pops: [number, number][] = [];
+  let wob = 0;
+  for (let i = SPLIT; i < DAYS; i++) {
+    const t = (i - SPLIT) / (DAYS - SPLIT - 1);
+    wob = wob * 0.9 + (rnd() - 0.5) * 0.05;
+    if (rnd() < 0.06 && i < DAYS - 12) pops.push([i, 0.12 + rnd() * 0.22]);
+    let r = (start + (target - start) * Math.pow(t, 1.35)) * (1 + wob) * week(i) * noise(0.07);
+    for (const [d, b] of pops) if (i >= d && i < d + 8) r *= 1 + b * Math.exp(-(i - d) / 2.5);
+    vals.push(r);
+  }
+  const peak = (from: number, to: number) => {
+    let best = from;
+    for (let i = from; i < to; i++) if (vals[i] > vals[best]) best = i;
+    return best;
   };
-
-  const L: number[] = [], R: number[] = [];
-  let wl = 0, wr = 0;
-  const walk = (w: number, amp: number) => w * 0.82 + (rnd() - 0.5) * amp;
-  const week = (i: number) => 1 + 0.06 * Math.sin((i / 7) * Math.PI * 2 + 1.2);
-
-  // left: paid pushes — sharp spike, 2–4 week plateau, slow decay to a slightly higher floor
-  const pushes = [[34, 3200, 17], [92, 4800, 26], [148, 3600, 15]];
-  let floorL = 380;
-  for (let i = 0; i < N; i++) {
-    wl = walk(wl, 0.12);
-    let v = floorL * (1 + wl) * week(i) * (0.94 + rnd() * 0.12);
-    for (const [d, h, pl] of pushes) {
-      const ramp = 3, decay = 24;
-      if (i >= d && i < d + ramp) v = floorL + (h - floorL) * ((i - d + 1) / ramp) * (0.9 + rnd() * 0.15);
-      else if (i >= d + ramp && i < d + ramp + pl) v = h * (0.86 + rnd() * 0.16) * week(i);
-      else if (i >= d + ramp + pl && i < d + ramp + pl + decay) {
-        const t = (i - d - ramp - pl) / decay, target = floorL + 120;
-        v = target + (h * 0.9 - target) * Math.pow(1 - t, 2.2) * (0.94 + rnd() * 0.12);
-        if (i === d + ramp + pl + decay - 1) floorL = target;
-      }
-    }
-    L.push(v);
-  }
-
-  // right: daily posting — noisy floor, then compounding growth with weekly rhythm and two small viral bumps
-  let g = 520;
-  const bumps = [[88, 0.35], [141, 0.5]];
-  for (let i = 0; i < N; i++) {
-    wr = walk(wr, 0.1);
-    if (i > 38) {
-      const t = (i - 38) / (N - 38);
-      g += (30 + 420 * Math.pow(t, 1.6)) * (0.7 + rnd() * 0.6) - (rnd() < 0.18 ? g * 0.02 : 0);
-    }
-    let r = g * (1 + wr) * week(i) * (0.93 + rnd() * 0.14);
-    for (const [d, b] of bumps) if (i >= d && i < d + 9) r *= 1 + b * Math.exp(-(i - d) / 3);
-    R.push(r);
-  }
-  return { L: build(L), R: build(R) };
+  return {
+    vals,
+    events: [
+      { label: 'Playlist pitching', i: peak(PLAYLIST, PLAYLIST + 3) },
+      { label: 'Meta ads', i: peak(META, META + 8) },
+      { label: 'FanpageKit', i: SPLIT + 92 },
+    ],
+  };
 }
 
-export const SERIES = buildSeries();
+export const SERIES = build();
+
+/** `9/24/26` for day i. */
+export const shortDate = (i: number) => {
+  const d = new Date(END - (DAYS - 1 - i) * 864e5);
+  return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${String(d.getUTCFullYear()).slice(2)}`;
+};
+
+/** `Sep 2025` for day i. */
+export const monthLabel = (i: number) =>
+  new Date(END - (DAYS - 1 - i) * 864e5).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });

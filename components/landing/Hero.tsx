@@ -1,5 +1,7 @@
+import { preload } from 'react-dom';
 import { HERO_VIDEOS } from '@/lib/data';
 import { config } from '@/lib/config';
+import { posterFor } from '@/lib/media';
 import { LazyVideo } from '../LazyVideo';
 
 const SpotifyIcon = () => (
@@ -13,6 +15,8 @@ const SpotifyIcon = () => (
 export function Hero() {
   // doubled so the -50% marquee loops seamlessly
   const items = [...HERO_VIDEOS, ...HERO_VIDEOS];
+  // Posters are tiny and paint the reels before any video byte arrives; fetch them with the HTML.
+  HERO_VIDEOS.forEach((v) => preload(posterFor(v.src), { as: 'image', fetchPriority: 'high' }));
   return (
     <section id="top" className="hero">
       <div className="hero-top">
@@ -23,7 +27,7 @@ export function Hero() {
           {items.map((v, i) => (
             <div className="reel-card" key={i} aria-hidden={i >= HERO_VIDEOS.length || undefined}>
               <div className="reel-frame">
-                <LazyVideo src={v.src} />
+                <LazyVideo src={v.src} priority={i < HERO_VIDEOS.length} />
                 <div className="reel-views">
                   <span className="play-tri" />
                   {v.views} <span className="lbl">views</span>

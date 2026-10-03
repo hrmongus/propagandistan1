@@ -16,7 +16,7 @@ export function fmtK(n: number) {
 /* ---------- hero reels ---------- */
 const HERO_SRCS = [1, 2, 3, 4, 5, 6, 7].map((n) => `/uploads/hero-${n}.mp4`);
 
-export const ANATOMY_VIDEO = '/uploads/lyric-video-5b73646c.mp4';
+export const ANATOMY_VIDEO = '/uploads/hero-4.mp4';
 
 export type HeroVideo = { src: string; views: string; streams: string; conv: string };
 
@@ -59,7 +59,7 @@ export const STEPS = [
   { n: '3', title: 'Post daily for a month', short: 'One clip a day. The playbook tells you when.', body: 'One clip a day for 30 days. The included playbook covers hooks, captions, posting times and what to do when one takes off.' },
 ];
 
-export const TOOLS = ['CapCut', 'DaVinci Resolve', 'Final Cut Pro', 'Premiere Pro', 'Canva', 'iMovie', 'Clips', 'Instagram', 'TikTok'].map((name) => ({
+export const TOOLS = ['CapCut', 'DaVinci Resolve', 'Final Cut Pro', 'Premiere Pro', 'Canva', 'iMovie', 'Edits', 'Instagram', 'TikTok'].map((name) => ({
   name,
   logo: '/uploads/logos/' + name.toLowerCase().replace(/[^a-z]+/g, '-') + '.png',
 }));
