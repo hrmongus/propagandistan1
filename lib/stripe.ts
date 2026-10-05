@@ -1,7 +1,10 @@
 import Stripe from 'stripe';
 import { checkoutModel, parseOrder, type Order } from './checkout';
 
-/* Server-only Stripe helpers. Never import this from a client component. */
+/*
+ * Server-only Stripe helpers shared by one-time payments (lib/payment.ts) and subscriptions
+ * (lib/subscription.ts). Never import these from a client component.
+ */
 
 let client: Stripe | null = null;
 
@@ -16,85 +19,39 @@ export function stripe() {
   return client;
 }
 
-/** Midnight UTC on the 1st of next month — when monthly packs renew. */
-function firstOfNextMonth(now = new Date()) {
-  return Math.floor(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1) / 1000);
+export const cents = (dollars: number) => dollars * 100;
+
+export const idOf = (v: string | { id: string } | null | undefined) => (typeof v === 'string' ? v : v?.id ?? null);
+
+export const customerOf = (session: Stripe.Checkout.Session) => idOf(session.customer);
+
+/** The order as stored on Checkout Sessions, PaymentIntents and Subscriptions. */
+export function orderMetadata(order: Order) {
+  const m = checkoutModel(order);
+  return { pack: m.sel.slug, bundle: m.bundleUp ? '1' : '0', plan: order.plan };
 }
 
-const cents = (dollars: number) => dollars * 100;
+export function orderFromMetadata(metadata: Stripe.Metadata | null | undefined) {
+  return parseOrder({ pack: metadata?.pack, bundle: metadata?.bundle, plan: metadata?.plan });
+}
 
-/**
- * Builds the Checkout Session parameters for an order. Prices come from the server-side order model only,
- * never from the browser.
- */
-export function sessionParams(order: Order, siteUrl: string): Stripe.Checkout.SessionCreateParams {
-  const m = checkoutModel(order);
-  const metadata = { pack: m.sel.slug, bundle: m.isBundleOrder && !m.sel.bundle ? '1' : '0', upsell: order.upsell };
-
-  const oneTime: Stripe.Checkout.SessionCreateParams.LineItem = {
-    quantity: 1,
-    price_data: {
-      currency: 'usd',
-      unit_amount: cents(m.dueToday),
-      product_data: {
-        name: m.isBundleOrder ? 'FanpageKit — All four packs' : `FanpageKit — ${m.sel.name}`,
-        description: m.isBundleOrder
-          ? '120 finished videos, 448 raw clips, editing guides and the posting playbook.'
-          : '30 finished videos, 112 raw clips, editing guides and the posting playbook.',
-      },
-    },
-  };
-
-  const base = {
+/** What every order's Checkout Session shares, whichever plan it is. */
+export function checkoutBase(order: Order, siteUrl: string) {
+  return {
     ui_mode: 'embedded_page',
-    return_url: `${siteUrl}/access?session_id={CHECKOUT_SESSION_ID}`,
-    metadata,
+    // Paid → the one-click upsell, which forwards to /access.
+    return_url: `${siteUrl}/upsell?session_id={CHECKOUT_SESSION_ID}`,
+    metadata: orderMetadata(order),
     allow_promotion_codes: true,
   } satisfies Partial<Stripe.Checkout.SessionCreateParams>;
-
-  if (!m.monthly) {
-    return {
-      ...base,
-      mode: 'payment',
-      line_items: [oneTime],
-      customer_creation: 'always',
-      invoice_creation: { enabled: true, invoice_data: { metadata } },
-      payment_intent_data: { metadata },
-    };
-  }
-
-  // Pay for this order today; the monthly plan starts on the 1st with no proration for the partial month.
-  return {
-    ...base,
-    mode: 'subscription',
-    line_items: [
-      oneTime,
-      {
-        quantity: 1,
-        price_data: {
-          currency: 'usd',
-          unit_amount: cents(m.monthlyPrice),
-          recurring: { interval: 'month' },
-          product_data: {
-            name: m.isBundleOrder ? 'FanpageKit — All four packs, every month' : 'FanpageKit — A new pack every month',
-          },
-        },
-      },
-    ],
-    subscription_data: {
-      billing_cycle_anchor: firstOfNextMonth(),
-      proration_behavior: 'none',
-      metadata,
-    },
-  };
 }
 
 /** Reads a completed Checkout Session back into the order it paid for, or null if it isn't paid. */
 export async function paidOrder(sessionId: string) {
   const session = await stripe().checkout.sessions.retrieve(sessionId);
-  if (session.status !== 'complete' || session.payment_status === 'unpaid') return { session, order: null };
-  return {
-    session,
-    order: parseOrder({ pack: session.metadata?.pack, bundle: session.metadata?.bundle, upsell: session.metadata?.upsell }),
-  };
+  // Upsell sessions are add-ons, never an order on their own.
+  if (session.status !== 'complete' || session.payment_status === 'unpaid' || session.metadata?.kind === 'upsell') {
+    return { session, order: null };
+  }
+  return { session, order: orderFromMetadata(session.metadata) };
 }

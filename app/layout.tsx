@@ -22,7 +22,7 @@ export const viewport: Viewport = { themeColor: '#000000' };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={geist.variable} style={{ '--accent': config.accent } as React.CSSProperties}>
+    <html lang="en" className={geist.variable}>
       <body>
         {children}
         <MediaFallback />

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { checkoutModel, type Order, type Upsell } from '@/lib/checkout';
+import { checkoutModel, type Order, type Plan } from '@/lib/checkout';
 import { BundleFans, Fan } from '../Fan';
 import { PayCard } from './PayCard';
 
@@ -19,8 +19,8 @@ const FLAMES = [
 
 export function CheckoutView({ initial }: { initial: Order }) {
   const [bundleUp, setBundleUp] = useState(initial.bundleUp);
-  const [upsell, setUpsell] = useState<Upsell>(initial.upsell);
-  const order: Order = { pack: initial.pack, bundleUp, upsell };
+  const [plan, setPlan] = useState<Plan>(initial.plan);
+  const order: Order = { pack: initial.pack, bundleUp, plan };
   const m = checkoutModel(order);
   const packIndex = ['golden-hour', 'midnight-city', 'coastal-drive', 'forest-trail'].indexOf(m.sel.slug);
 
@@ -47,7 +47,7 @@ export function CheckoutView({ initial }: { initial: Order }) {
         </div>
 
         {!m.sel.bundle && (
-          <button className={m.bundleUp ? 'bundle-up on' : 'bundle-up'} type="button" aria-pressed={m.bundleUp} onClick={() => setBundleUp(!bundleUp)}>
+          <button className={m.bundleUp ? 'bundle-up on' : 'bundle-up'} type="button" aria-pressed={m.bundleUp} onClick={() => { setBundleUp(!m.bundleUp); if (!m.bundleUp) setPlan('once'); }}>
             {m.bundleUp && (
               <div className="flames">
                 {FLAMES.map((f, i) => (
@@ -57,22 +57,23 @@ export function CheckoutView({ initial }: { initial: Order }) {
               </div>
             )}
             <span className="copy">
-              <span className="kicker">Upgrade</span>
+              <span className="kicker">{m.monthly ? 'Upgrade · pay once' : 'Upgrade'}</span>
               <span className="t">4× your content, 4× your reach</span>
               <span className="b">Posting 4× a day brings more than 4× the impact. Get all four packs of this month — 120 videos instead of 30.</span>
-              <span className="p"><b>+$60</b> · $97 total <s>$148</s></span>
+              <span className="p"><b>{m.upgrade.add}</b> · {m.upgrade.total} <s>$148</s></span>
             </span>
             <span className="check">{m.bundleUp ? '✓' : ''}</span>
           </button>
         )}
 
-        <div className="card sub-card">
-          <span className="k">Keep the month going — subscribers save ${m.subSave}</span>
+        {!m.sel.bundle && <div className="card sub-card">
+          <span className="k">Pay once, or subscribe and save ${m.subSave} a month</span>
           <div className="sub-opts" role="radiogroup">
-            {m.upsells.map((u) => {
-              const on = upsell === u.id;
+            {m.plans.map((u) => {
+              const on = (m.monthly ? 'monthly' : 'once') === u.id;
+              const pick = () => { setPlan(u.id); if (u.id === 'monthly') setBundleUp(false); };
               return (
-                <button key={u.id} className={on ? 'sub-opt on' : 'sub-opt'} type="button" role="radio" aria-checked={on} onClick={() => setUpsell(u.id)}>
+                <button key={u.id} className={on ? 'sub-opt on' : 'sub-opt'} type="button" role="radio" aria-checked={on} onClick={pick}>
                   <span className="ring"><i /></span>
                   <span className="txt"><span className="t">{u.title}</span><span className="b">{u.body}</span></span>
                   <span className="pr"><span className="now">{u.price}</span>{u.was && <span className="was">{u.was}</span>}</span>
@@ -80,7 +81,7 @@ export function CheckoutView({ initial }: { initial: Order }) {
               );
             })}
           </div>
-        </div>
+        </div>}
       </div>
 
       <PayCard order={order} m={m} />

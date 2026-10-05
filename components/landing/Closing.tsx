@@ -36,7 +36,7 @@ export function Final() {
     <section className="section final">
       <div className="final-inner">
         <h2 className="h2">Your next release deserves more than one post and a story.</h2>
-        <p>30 videos, ready tonight. You still never have to show your face.</p>
+        <p>30 colour graded videos, in your hands tonight. You still never have to show your face.</p>
         <a href="#packs" className="btn btn-lg">Get the pack — $37</a>
         <span className="cta-note">Instant download · 30-day money back · Commercial licence</span>
       </div>

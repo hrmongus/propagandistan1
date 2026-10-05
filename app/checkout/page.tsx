@@ -10,7 +10,7 @@ const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
 
 export default async function CheckoutPage({ searchParams }: { searchParams: SearchParams }) {
   const sp = await searchParams;
-  const order = parseOrder({ pack: one(sp.pack), bundle: one(sp.bundle), upsell: one(sp.upsell) });
+  const order = parseOrder({ pack: one(sp.pack), bundle: one(sp.bundle), plan: one(sp.plan) });
   return (
     <main className="page">
       <PageBar><span className="gdot" />Secure checkout</PageBar>

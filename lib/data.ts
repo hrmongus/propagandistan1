@@ -54,7 +54,7 @@ export const ACCOUNTS: Account[] = [
 
 /* ---------- how it works ---------- */
 export const STEPS = [
-  { n: '1', title: 'Download the pack', short: 'One download, 30 finished MP4s + raw clips.', body: '30 finished MP4s, vertical, colour graded, no audio. Plus every raw clip used to build them.' },
+  { n: '1', title: 'Download the pack', short: 'One download, 30 finished MP4s + raw clips.', body: '30 vertical MP4s, hand-picked, colour graded and stitched, no audio. Plus every raw clip used to build them.' },
   { n: '2', title: 'Make it yours', short: 'Lyric overlay, cover art, your track — two minutes.', body: "Drop in a lyric overlay, your cover art, your release date — two minutes in CapCut, guide included. Upload, pick your song from the audio library, post. The video is silent on purpose: the platform's audio is what links the view to your release page." },
   { n: '3', title: 'Post daily for a month', short: 'One clip a day. The playbook tells you when.', body: 'One clip a day for 30 days. The included playbook covers hooks, captions, posting times and what to do when one takes off.' },
 ];
@@ -92,8 +92,8 @@ export const FAQS: [string, string][] = [
   ['Do I have to be on camera?', "No. Not once. There's no face, no voice and no filming anywhere in this."],
   ['How does my song get into the video?', "The videos ship silent. You upload one, pick your track from Instagram or TikTok's audio library, and post. Doing it that way is what links every view back to your release page — and it's why this converts to streams instead of just collecting views."],
   ["What if my song isn't on the platforms yet?", 'Distribute it first — DistroKid, TuneCore, whoever you use. Your track needs to exist in the audio library for the mechanic to work.'],
-  ['Do I need editing skills?', 'No. The 30 videos are finished and ready to post. The raw clips and guides are there for when you want to add lyrics, cover art, or build your own on top.'],
-  ['How much time per day?', "Posting as-is: under five minutes. Adding your own overlays: 15–20 once you've read the guide for your editor."],
+  ['Do I need editing skills?', 'No. The 30 videos are hand-picked, colour graded and stitched for you, and there’s a step-by-step guide for each of eight editing tools, from CapCut to Premiere Pro.'],
+  ['How much time per day?', "15–20 minutes, once you've read the guide for your editor."],
   ['Will other artists have the same videos?', 'Each pack is capped at 200 copies and then retired. And because the audio, lyric overlays and artwork are yours, the same base footage reads as a format rather than a duplicate — the way a trend does.'],
   ['Is this an ad product? Do I need a budget?', 'No. This is organic posting. Zero ad spend.'],
   ['What happens after the 30 days?', 'Buy the next pack, or take the monthly option at checkout and a new one arrives automatically.'],

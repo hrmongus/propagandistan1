@@ -5,7 +5,9 @@ import { config } from '@/lib/config';
 
 type Step = { title: string; sub: React.ReactNode; body: (next: () => void) => React.ReactNode };
 
-export function AccessSteps({ orderName, discordUrl, driveUrl }: { orderName: string; discordUrl: string; driveUrl: string }) {
+type Drive = { name: string; url: string };
+
+export function AccessSteps({ discordUrl, drives, emailedNote }: { discordUrl: string; drives: Drive[]; emailedNote?: string }) {
   const [current, setCurrent] = useState(1);
 
   const steps: Step[] = [
@@ -50,11 +52,22 @@ export function AccessSteps({ orderName, discordUrl, driveUrl }: { orderName: st
     },
     {
       title: 'Access everything',
-      sub: <>{orderName} — finished videos, raw clips, guides and the playbook, in one Drive folder.</>,
+      sub: <>Finished videos, raw clips, guides and the playbook — one Google Drive folder per pack.</>,
       body: () => (
-        <a className="btn" href={driveUrl} target="_blank" rel="noopener noreferrer" style={{ alignSelf: 'flex-start' }}>
-          <span>Open in Google Drive</span><span>→</span>
-        </a>
+        <>
+          <div className="drives">
+            {drives.map((d) =>
+              d.url ? (
+                <a key={d.name} className="drive" href={d.url} target="_blank" rel="noopener noreferrer">
+                  <span className="t">{d.name}</span><span className="go">Open in Google Drive →</span>
+                </a>
+              ) : (
+                <div key={d.name} className="drive off"><span className="t">{d.name}</span><span className="go">Link on its way by email</span></div>
+              ),
+            )}
+          </div>
+          {emailedNote && <p className="drives-note">{emailedNote}</p>}
+        </>
       ),
     },
   ];

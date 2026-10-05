@@ -1,16 +1,6 @@
-/* The design's "Tweaks", now set through environment variables (see .env.example). */
-
-const ACCENTS = { white: '#F5F5F7', blue: '#2997FF', green: '#30D158' } as const;
-
-function seconds(v: string | undefined, fallback: number) {
-  const n = Number(v);
-  return Number.isFinite(n) && n > 0 ? n : fallback;
-}
+/* Site settings read from environment variables (see .env.example). */
 
 export const config = {
-  accent: ACCENTS[(process.env.NEXT_PUBLIC_ACCENT as keyof typeof ACCENTS) ?? 'white'] ?? ACCENTS.white,
-  heroSeconds: seconds(process.env.NEXT_PUBLIC_HERO_SECONDS, 60),
-  marqueeSeconds: seconds(process.env.NEXT_PUBLIC_MARQUEE_SECONDS, 50),
   calendlyUrl: process.env.NEXT_PUBLIC_CALENDLY_URL || '',
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
 };
@@ -18,5 +8,12 @@ export const config = {
 /** Paid-only links. Server-side so they never ship in the public JS bundle. */
 export const privateLinks = () => ({
   discordUrl: process.env.DISCORD_URL || '#',
-  driveUrl: process.env.DRIVE_URL || '#',
 });
+
+/**
+ * Google Drive folder for a pack slug ('bundle' is the four-pack folder), from DRIVE_URL_<SLUG>
+ * (e.g. DRIVE_URL_GOLDEN_HOUR). Server-only: read it only after the order is verified as paid.
+ */
+export function driveLink(slug: string) {
+  return process.env[`DRIVE_URL_${slug.toUpperCase().replace(/-/g, '_')}`] || '';
+}

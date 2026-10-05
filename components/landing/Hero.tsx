@@ -1,6 +1,5 @@
 import { preload } from 'react-dom';
 import { HERO_VIDEOS } from '@/lib/data';
-import { config } from '@/lib/config';
 import { posterFor } from '@/lib/media';
 import { LazyVideo } from '../LazyVideo';
 
@@ -23,7 +22,7 @@ export function Hero() {
         <span className="hero-pill">For independent artists stuck under 100k monthly listeners</span>
       </div>
       <div className="hero-reels">
-        <div className="marquee-track hero-track" style={{ '--dur': `${config.heroSeconds}s` } as React.CSSProperties}>
+        <div className="marquee-track hero-track" style={{ '--dur': '60s' } as React.CSSProperties}>
           {items.map((v, i) => (
             <div className="reel-card" key={i} aria-hidden={i >= HERO_VIDEOS.length || undefined}>
               <div className="reel-frame">
@@ -50,8 +49,8 @@ export function Hero() {
       </div>
       <div className="hero-bottom">
         <p className="hero-sub">
-          30 finished videos, colour graded and silent by design. Drop them into Instagram or TikTok, attach your own track
-          from the audio library, and post. Every view is a view of your song. You never appear in one of them.
+          30 videos, hand-picked, colour graded and stitched, silent by design. Your own track from the Instagram or TikTok
+          audio library becomes the sound, so every view is a view of your song. You never appear in one of them.
         </p>
         <div className="hero-cta">
           <a href="#packs" className="btn btn-lg">Get the pack — $37</a>

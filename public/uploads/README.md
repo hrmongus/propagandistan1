@@ -3,10 +3,9 @@
 The site serves media from `public/uploads/` at `/uploads/...`. Drop the files in and they load; until then every slot falls back to the gradient placeholder the design uses.
 
 - `hero-1.mp4` … `hero-7.mp4` — hero carousel reels (9:16, silent). `hero-4.mp4` (baby doll) also plays in the "Anatomy of one reel" phone.
-- `inside-4.webp`, `inside-2.webp`, `inside-6.webp` — mid-reel frames (4 s in, 300 px wide) of those hero reels for the "What you actually download" card.
 - `pages/page1_s1.webp` … `pages/page12_s6.webp` — reel screenshots for the 12 fan-page account cards (page N = card N, six tiles each; `s1` is also the avatar).
 - `logos/capcut.png`, `logos/davinci-resolve.png`, `logos/final-cut-pro.png`, `logos/premiere-pro.png`, `logos/canva.png`, `logos/imovie.png`, `logos/edits.png`, `logos/instagram.png`, `logos/tiktok.png` — 32×32 tool logos.
-- `packs/<slug>-1.webp` … `packs/<slug>-4.webp` and `packs/<slug>.mp4` for each of `golden-hour`, `midnight-city`, `coastal-drive`, `forest-trail` — pack fan tiles (9:16).
+- `packs/<slug>-1.webp` … `packs/<slug>-4.webp` and `packs/<slug>.mp4` for each of `golden-hour`, `midnight-city`, `coastal-drive`, `forest-trail` — pack fan tiles (9:16); `midnight-city-2`, `golden-hour-3` and `coastal-drive-2` also preview the "What you actually download" card.
 
 ## Encoding
 

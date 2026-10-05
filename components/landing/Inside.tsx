@@ -2,8 +2,8 @@
 import { TOOLS } from '@/lib/data';
 import { CtaRow } from './Nav';
 
-// mid-reel frames, brighter than the videos' first-frame posters
-const REELS = [4, 2, 6].map((n) => `/uploads/inside-${n}.webp`);
+// clean frames from the packs themselves: graded footage, no lyrics or overlays
+const REELS = ['midnight-city-2', 'golden-hour-3', 'coastal-drive-2'].map((n) => `/uploads/packs/${n}.webp`);
 
 /** "What you actually download": a bento of the four things in the pack. */
 export function Inside() {
@@ -19,7 +19,7 @@ export function Inside() {
             <div className="copy">
               <span className="stat">30<small>× MP4</small></span>
               <span className="t">Finished videos</span>
-              <p>Vertical, colour graded, ready to post as-is. Silent, so your track becomes the audio.</p>
+              <p>Hand-picked clips, colour graded and stitched into vertical edits. Silent, so your track becomes the audio.</p>
             </div>
             <div className="reels" aria-hidden="true">
               {REELS.map((src) => <img key={src} src={src} alt="" loading="lazy" decoding="async" />)}

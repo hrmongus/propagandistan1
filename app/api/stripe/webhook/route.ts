@@ -1,5 +1,5 @@
 import type Stripe from 'stripe';
-import { fulfillOrder } from '@/lib/fulfillment';
+import { fulfillOrder, fulfillRenewal, fulfillUpsell } from '@/lib/fulfillment';
 import { stripe } from '@/lib/stripe';
 
 export async function POST(req: Request) {
@@ -19,9 +19,15 @@ export async function POST(req: Request) {
     case 'checkout.session.completed':
     case 'checkout.session.async_payment_succeeded': {
       const session = event.data.object;
-      if (session.payment_status !== 'unpaid') await fulfillOrder(session);
+      if (session.payment_status === 'unpaid') break;
+      if (session.metadata?.kind === 'upsell') await fulfillUpsell(session.metadata.upsell_for ?? '', session.id);
+      else await fulfillOrder(session);
       break;
     }
+    case 'invoice.paid':
+      // The first month is fulfilled from checkout.session.completed; this covers every renewal after it.
+      if (event.data.object.billing_reason === 'subscription_cycle') await fulfillRenewal(event.data.object);
+      break;
     case 'checkout.session.async_payment_failed':
     case 'invoice.payment_failed':
     case 'customer.subscription.deleted':

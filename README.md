@@ -21,8 +21,9 @@ npm run dev
 ## Routes
 
 - `/` — the landing page
-- `/checkout?pack=<slug>` — order summary, bundle upgrade, monthly option and payment (`golden-hour`, `midnight-city`, `coastal-drive`, `forest-trail`, `bundle`)
-- `/access?session_id=…` — the four-step setup; only reachable with a paid Stripe Checkout Session
+- `/checkout?pack=<slug>[&plan=monthly]` — order summary, bundle upgrade, pay-once or monthly plan, and payment (`golden-hour`, `midnight-city`, `coastal-drive`, `forest-trail`, `bundle`)
+- `/upsell?session_id=…` — one-click post-purchase offer: the packs the buyer doesn't own, $27 for all three (skipped for all-four orders)
+- `/access?session_id=…` — the four-step setup and Drive links; only reachable with a paid Stripe Checkout Session
 - `POST /api/stripe/webhook` — Stripe webhook (fulfillment hook in `lib/fulfillment.ts`)
 
 ## Layout
@@ -33,7 +34,7 @@ npm run dev
 - `lib/data.ts` — page content (reels, accounts, packs, FAQ)
 - `lib/checkout.ts` — order model and pricing, shared by checkout and access
 - `lib/series.ts` — seeded chart series for the compare slider
-- `lib/config.ts` — design tweaks read from `NEXT_PUBLIC_*` env vars (see `.env.example`)
+- `lib/config.ts` — site URL, Calendly and the paid-only links, read from env vars (see `.env.example`)
 - `public/uploads/` — videos, thumbnails, logos and pack art (see `public/uploads/README.md`); missing files fall back to the design's placeholders
 
 ## Behaviour
@@ -45,7 +46,9 @@ npm run dev
 
 ## Payments (Stripe Embedded Checkout)
 
-1. Put your keys in `.env.local`: `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, and set `DRIVE_URL` / `DISCORD_URL`.
+1. Put your keys in `.env.local`: `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, the monthly price ID
+   (`STRIPE_PRICE_MONTHLY_PACK`, $29/mo), `DISCORD_URL`, the five
+   `DRIVE_URL_*` folders and, for subscriber emails, `RESEND_API_KEY` / `EMAIL_FROM`.
 2. Forward webhooks locally and copy the printed `whsec_…` into `STRIPE_WEBHOOK_SECRET`:
    ```bash
    stripe listen --forward-to localhost:3000/api/stripe/webhook
@@ -54,16 +57,24 @@ npm run dev
 
 How it works:
 
-- The buyer configures the order on `/checkout` (pack, bundle upgrade, monthly option). The embedded payment form loads immediately from a
-  server action that creates a Checkout Session from the **server-side** price model in `lib/checkout.ts`; changing the
-  order opens a fresh session.
-- One-off orders use `mode: payment` (customer + invoice created). The monthly option uses `mode: subscription`: the
-  pack is charged today as a one-time line item and the plan ($29, or $97 for all four) starts on the 1st of next month
-  with no proration.
-- Stripe returns to `/access?session_id=…`, which verifies the session is paid before showing the Drive and Discord links
-  (these are server-only env vars). Subscribers get a "Manage or cancel" link to the Stripe customer portal — enable the
+- The buyer configures the order on `/checkout`: pack, bundle upgrade, and plan. The embedded payment form loads
+  immediately from a server action that creates a Checkout Session from the **server-side** price model in
+  `lib/checkout.ts`; changing the order opens a fresh session. The two plans are built separately:
+  - **Pay once** (`lib/payment.ts`) — `mode: payment`, $37 a pack or $97 for all four. Nothing renews.
+  - **Monthly** (`lib/subscription.ts`) — single packs only: `mode: subscription` with one recurring Price, $29/mo.
+    Taking the four-pack upgrade switches the order to pay once. The first month is charged at checkout, then it renews on the same day every month until cancelled.
+    Renewals arrive as `invoice.paid` (`billing_reason: subscription_cycle`) and run `fulfillRenewal`.
+- Stripe returns to `/upsell?session_id=…`. One-off payments save the card (`setup_future_usage: off_session`) and
+  subscriptions keep it as their default, so "Yes" charges $27 for the remaining packs in one click (PaymentIntent with
+  `metadata.upsell_for = <checkout session id>`, idempotent per order). If the bank needs 3-D Secure or there is no saved
+  card, an embedded Checkout for the same $27 opens instead. "No thanks" goes straight to `/access`.
+- `/access` verifies the session is paid (and looks up a paid upsell on the customer) before reading any link. Drive
+  links are server-only env vars, one per pack plus one for the bundle:
+  - one-off single pack → that pack's folder; bundle, bundle upgrade or single + upsell → the bundle folder;
+  - subscribers → only the pack they picked; packs added with the upsell are emailed from `lib/fulfillment.ts`
+    right after the charge. Subscribers get a "Manage or cancel" link to the Stripe customer portal — enable the
   portal in the Stripe dashboard (Settings → Billing → Customer portal).
 - In production, add a webhook endpoint at `https://<your-domain>/api/stripe/webhook` for
-  `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`,
+  `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `invoice.paid`,
   `invoice.payment_failed` and `customer.subscription.deleted`.
 - Pack stock counts ("41 of 200 left") are still static copy in `lib/data.ts`.

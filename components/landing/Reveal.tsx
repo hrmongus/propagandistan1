@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { ACCOUNTS } from '@/lib/data';
-import { config } from '@/lib/config';
 import { CtaRow } from './Nav';
 
 export function Reveal() {
@@ -15,7 +14,7 @@ export function Reveal() {
         </p>
       </div>
       <div className="marquee">
-        <div className="marquee-track accounts-track" style={{ '--dur': `${config.marqueeSeconds}s` } as React.CSSProperties}>
+        <div className="marquee-track accounts-track" style={{ '--dur': '50s' } as React.CSSProperties}>
           {items.map((a, i) => (
             <div className="acc" key={i} aria-hidden={i >= ACCOUNTS.length || undefined}>
               <div className="acc-head">

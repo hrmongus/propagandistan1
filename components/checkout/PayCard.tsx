@@ -13,7 +13,7 @@ type Session = { key: string; clientSecret?: string; error?: string };
 
 export function PayCard({ order, m }: { order: Order; m: CheckoutModel }) {
   // One Checkout Session per order configuration; changing the order opens a fresh one.
-  const key = `${order.pack}|${m.bundleUp ? 1 : 0}|${order.upsell}`;
+  const key = `${order.pack}|${m.bundleUp ? 1 : 0}|${m.monthly ? 'monthly' : 'once'}`;
   const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
@@ -34,8 +34,9 @@ export function PayCard({ order, m }: { order: Order; m: CheckoutModel }) {
     <div className="pay">
       <span className="k">Payment</span>
       <div className="totals">
-        <div className="row"><span>{m.orderName}</span><span>{m.orderPrice}</span></div>
-        {m.hasAddon && <div className="row"><span>{m.addonLabel}</span><span>{m.addonPrice}</span></div>}
+        {m.lines.map(([label, price]) => (
+          <div className="row" key={label}><span>{label}</span><span>{price}</span></div>
+        ))}
         <div className="row due"><span>Due today</span><span>{m.total}</span></div>
       </div>
       {error ? (
