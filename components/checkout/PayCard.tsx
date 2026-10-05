@@ -32,7 +32,6 @@ export function PayCard({ order, m }: { order: Order; m: CheckoutModel }) {
 
   return (
     <div className="pay">
-      <span className="k">Payment</span>
       <div className="totals">
         {m.lines.map(([label, price]) => (
           <div className="row" key={label}><span>{label}</span><span>{price}</span></div>

@@ -513,16 +513,18 @@ img[data-broken] { visibility: hidden; }
 .sub-opt .pr .now { font-size: 15px; font-weight: 600; }
 .sub-opt .pr .was { font-size: 12px; color: var(--dim); text-decoration: line-through; }
 
-.pay { background: var(--fg); color: #000; border-radius: 28px; padding: 36px; display: flex; flex-direction: column; gap: 18px; }
-.pay .k { font-size: 13px; color: var(--dim); }
+/* white to match Stripe's embed; the embed runs edge to edge and brings its own padding, so only our rows are inset */
+.pay { --pay-x: 16px; background: #fff; color: #000; border-radius: 28px; padding: 32px 0 28px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
 .field { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #3A3A3C; }
 .field input { all: unset; box-sizing: border-box; background: #fff; border: 1px solid #D2D2D7; border-radius: 12px; padding: 12px 14px; font-size: 15px; color: #000; width: 100%; font-family: inherit; }
 .field input::placeholder { color: #8E8E93; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.totals { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #D2D2D7; padding-top: 16px; font-size: 14px; color: #3A3A3C; }
+/* Stripe centres its form in a 380px column with at least 16px either side; our rows use the same rule so the edges line up */
+.totals, .pay .fine { box-sizing: border-box; width: 100%; max-width: calc(380px + 2 * var(--pay-x)); margin-inline: auto; }
+.totals { display: flex; flex-direction: column; gap: 8px; padding: 0 var(--pay-x); font-size: 14px; color: #3A3A3C; }
 .totals .row { display: flex; justify-content: space-between; }
 .totals .due { font-size: 18px; font-weight: 600; color: #000; padding-top: 6px; }
-.pay .fine { font-size: 12px; color: var(--dim); text-align: center; text-wrap: pretty; }
+.pay .fine { font-size: 12px; color: var(--dim); text-align: center; text-wrap: pretty; padding: 0 var(--pay-x); }
 
 /* access */
 .access { max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
@@ -586,7 +588,7 @@ img[data-broken] { visibility: hidden; }
   .promises li { padding: 14px 16px; font-size: 14px; }
   .footer { padding: 28px 16px 36px; }
   .order, .sub-card, .bundle-up { padding: 20px; }
-  .pay { padding: 24px 20px; }
+  .pay { padding: 24px 0 20px; }
   .astep-head { padding: 18px 16px; gap: 12px; }
 }
 @media (max-width: 720px) {
@@ -601,8 +603,8 @@ img[data-broken] { visibility: hidden; }
 }
 
 /* ---------- stripe ---------- */
-.pay-error { font-size: 13px; color: #C4271B; text-align: center; }
-.stripe-embed { margin: 0 -20px; min-height: 420px; }
+.pay-error { font-size: 13px; color: #C4271B; text-align: center; padding: 16px var(--pay-x, 0); }
+.stripe-embed { min-height: 420px; }
 .stripe-loading { height: 420px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--dim); }
 .co-grid .pay { position: sticky; top: 24px; }
 .manage { font-size: 13px; color: var(--dim); text-align: center; }
@@ -717,7 +719,8 @@ img[data-broken] { visibility: hidden; }
 .up-price .tag { align-self: center; font-size: 13px; font-weight: 600; color: #000; background: var(--green); border-radius: 999px; padding: 4px 10px; }
 .up-offer .btn[disabled] { opacity: .7; cursor: progress; }
 .up-offer .fine { font-size: 13px; color: var(--dim); text-align: center; text-wrap: pretty; }
-.up-card { display: flex; flex-direction: column; gap: 12px; background: var(--fg); border-radius: 20px; padding: 20px; }
+.up-card { display: flex; flex-direction: column; gap: 12px; background: #fff; border-radius: 20px; padding: 20px 0 0; overflow: hidden; }
+.up-card .fine { padding: 0 20px; }
 .up-card .stripe-embed { margin: 0; }
 .up-skip { align-self: center; font-size: 14px; color: var(--dim); text-decoration: underline; text-underline-offset: 3px; }
 .up-skip:hover { color: var(--muted); }
