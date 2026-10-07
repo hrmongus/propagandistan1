@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { trackClick } from '@/lib/analytics/events';
 import { PACKS } from '@/lib/data';
 import { BundleFans, Fan } from '../Fan';
 
@@ -30,7 +31,7 @@ export function Packs() {
                 <span className="pack-genres">{p.genres}</span>
                 <p className="pack-desc">{p.desc}</p>
                 <div className="pack-price"><span className="now">${p.priceN}</span></div>
-                <Link className="btn btn-outline" href={`/checkout?pack=${p.slug}`}>{p.cta}</Link>
+                <Link className="btn btn-outline" href={`/checkout?pack=${p.slug}`} {...trackClick('pack_selected', { pack: p.slug, price: p.priceN, bundle: false })}>{p.cta}</Link>
               </div>
             </div>
           ))}
@@ -49,7 +50,7 @@ export function Packs() {
                 <span className="was">{bundle.was}</span>
                 <span className="save">{bundle.stock}</span>
               </div>
-              <Link className="btn btn-green" href={`/checkout?pack=${bundle.slug}`}>{bundle.cta}</Link>
+              <Link className="btn btn-green" href={`/checkout?pack=${bundle.slug}`} {...trackClick('pack_selected', { pack: bundle.slug, price: bundle.priceN, bundle: true })}>{bundle.cta}</Link>
             </div>
           </div>
         </div>

@@ -2,9 +2,12 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { track } from '@/lib/analytics/client';
+import { trackClick } from '@/lib/analytics/events';
 import { checkoutModel, type Order, type Plan } from '@/lib/checkout';
 import { PACKS } from '@/lib/data';
 import { Fan } from '../Fan';
+import { TrackView } from '../TrackView';
 import { PayCard } from './PayCard';
 
 const FLAMES = [
@@ -27,11 +30,12 @@ export function CheckoutView({ initial }: { initial: Order }) {
 
   return (
     <div className="co-grid">
+      <TrackView event="checkout_viewed" props={{ pack: initial.pack, plan: initial.plan, bundle_up: initial.bundleUp }} />
       <div className="co-left">
         <div className="card order">
           <div className="order-top">
             <span className="k">Your order</span>
-            <Link className="link-btn" href="/#packs">Change pack</Link>
+            <Link className="link-btn" href="/#packs" {...trackClick('checkout_change_pack_clicked', { pack: initial.pack })}>Change pack</Link>
           </div>
           <div className="order-fans">
             {m.isBundleOrder ? (
@@ -60,7 +64,7 @@ export function CheckoutView({ initial }: { initial: Order }) {
         </div>
 
         {!m.sel.bundle && (
-          <button className={m.bundleUp ? 'bundle-up on' : 'bundle-up'} type="button" aria-pressed={m.bundleUp} onClick={() => { setBundleUp(!m.bundleUp); if (!m.bundleUp) setPlan('once'); }}>
+          <button className={m.bundleUp ? 'bundle-up on' : 'bundle-up'} type="button" aria-pressed={m.bundleUp} onClick={() => { setBundleUp(!m.bundleUp); if (!m.bundleUp) setPlan('once'); track('checkout_bundle_toggled', { pack: initial.pack, enabled: !m.bundleUp }); }}>
             {m.bundleUp && (
               <div className="flames">
                 {FLAMES.map((f, i) => (
@@ -84,7 +88,11 @@ export function CheckoutView({ initial }: { initial: Order }) {
           <div className="sub-opts" role="radiogroup">
             {m.plans.map((u) => {
               const on = (m.monthly ? 'monthly' : 'once') === u.id;
-              const pick = () => { setPlan(u.id); if (u.id === 'monthly') setBundleUp(false); };
+              const pick = () => {
+                setPlan(u.id);
+                if (u.id === 'monthly') setBundleUp(false);
+                if (!on) track('checkout_plan_selected', { pack: initial.pack, plan: u.id });
+              };
               return (
                 <button key={u.id} className={on ? 'sub-opt on' : 'sub-opt'} type="button" role="radio" aria-checked={on} onClick={pick}>
                   <span className="ring"><i /></span>

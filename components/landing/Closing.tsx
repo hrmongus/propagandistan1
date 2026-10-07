@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { trackClick } from '@/lib/analytics/events';
 import { CtaRow } from './Nav';
 
 const PROMISES = ['Full refund. No forms, no back-and-forth.', 'Keep the videos and the guides either way.', 'One email is all it takes.'];
@@ -26,7 +27,7 @@ export function Guarantee() {
           ))}
         </ul>
       </div>
-      <CtaRow label="Get the pack — $37" note="Covered by the 30-day guarantee" />
+      <CtaRow location="guarantee" label="Get the pack — $37" note="Covered by the 30-day guarantee" />
     </section>
   );
 }
@@ -37,7 +38,7 @@ export function Final() {
       <div className="final-inner">
         <h2 className="h2">Your next release deserves more than one post and a story.</h2>
         <p>30 colour graded videos, in your hands tonight. You still never have to show your face.</p>
-        <a href="#packs" className="btn btn-lg">Get the pack — $37</a>
+        <a href="#packs" className="btn btn-lg" {...trackClick('cta_clicked', { location: 'final', label: 'Get the pack — $37' })}>Get the pack — $37</a>
         <span className="cta-note">Instant download · 30-day money back · Commercial licence</span>
       </div>
     </section>

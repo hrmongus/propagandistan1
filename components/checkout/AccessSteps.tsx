@@ -1,9 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { track } from '@/lib/analytics/client';
+import { trackClick } from '@/lib/analytics/events';
 import { config } from '@/lib/config';
 
-type Step = { title: string; sub: React.ReactNode; body: (next: () => void) => React.ReactNode };
+type Step = { title: string; sub: React.ReactNode; body: (next: () => void, skip: () => void) => React.ReactNode };
 
 type Drive = { name: string; url: string };
 
@@ -24,7 +26,7 @@ export function AccessSteps({ discordUrl, drives, emailedNote }: { discordUrl: s
     {
       title: 'Book your onboarding',
       sub: 'The method has a basic form, but every musician spins it their own way to hit the best numbers. 20 minutes with us gets you there faster.',
-      body: (next) => (
+      body: (next, skip) => (
         <>
           <div className="cal">
             {config.calendlyUrl ? (
@@ -35,7 +37,7 @@ export function AccessSteps({ discordUrl, drives, emailedNote }: { discordUrl: s
           </div>
           <div className="btn-row">
             <button className="btn" type="button" onClick={next}>Booked — continue</button>
-            <button className="btn btn-ghost" type="button" onClick={next}>Skip onboarding for now</button>
+            <button className="btn btn-ghost" type="button" onClick={skip}>Skip onboarding for now</button>
           </div>
         </>
       ),
@@ -43,10 +45,10 @@ export function AccessSteps({ discordUrl, drives, emailedNote }: { discordUrl: s
     {
       title: 'Join the community',
       sub: 'Where people share how they grow fan pages organically — from single-page musicians to operators running 20 pages at scale.',
-      body: (next) => (
+      body: (next, skip) => (
         <div className="btn-row">
-          <a className="btn" href={discordUrl} target="_blank" rel="noopener noreferrer">Join Discord</a>
-          <button className="btn btn-ghost" type="button" onClick={next}>Continue</button>
+          <a className="btn" href={discordUrl} target="_blank" rel="noopener noreferrer" {...trackClick('discord_join_clicked', {})}>Join Discord</a>
+          <button className="btn btn-ghost" type="button" onClick={skip}>Continue</button>
         </div>
       ),
     },
@@ -58,7 +60,7 @@ export function AccessSteps({ discordUrl, drives, emailedNote }: { discordUrl: s
           <div className="drives">
             {drives.map((d) =>
               d.url ? (
-                <a key={d.name} className="drive" href={d.url} target="_blank" rel="noopener noreferrer">
+                <a key={d.name} className="drive" href={d.url} target="_blank" rel="noopener noreferrer" {...trackClick('drive_opened', { name: d.name })}>
                   <span className="t">{d.name}</span><span className="go">Open in Google Drive →</span>
                 </a>
               ) : (
@@ -72,6 +74,11 @@ export function AccessSteps({ discordUrl, drives, emailedNote }: { discordUrl: s
     },
   ];
 
+  const advance = (step: number, stepName: string, action: 'continue' | 'skip') => {
+    track('access_step_completed', { step, step_name: stepName, action });
+    setCurrent(step + 1);
+  };
+
   return (
     <>
       {steps.map((s, i) => {
@@ -84,7 +91,7 @@ export function AccessSteps({ discordUrl, drives, emailedNote }: { discordUrl: s
               <span className="astep-text"><span className="astep-title">{s.title}</span><span className="astep-sub">{s.sub}</span></span>
               <span className="astep-count">Step {n} of 4</span>
             </div>
-            {open && <div className="astep-body">{s.body(() => setCurrent(n + 1))}</div>}
+            {open && <div className="astep-body">{s.body(() => advance(n, s.title, 'continue'), () => advance(n, s.title, 'skip'))}</div>}
           </div>
         );
       })}

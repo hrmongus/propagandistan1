@@ -1,4 +1,5 @@
 import { preload } from 'react-dom';
+import { trackClick } from '@/lib/analytics/events';
 import { HERO_VIDEOS } from '@/lib/data';
 import { posterFor } from '@/lib/media';
 import { LazyVideo } from '../LazyVideo';
@@ -53,7 +54,7 @@ export function Hero() {
           audio library becomes the sound, so every view is a view of your song. You never appear in one of them.
         </p>
         <div className="hero-cta">
-          <a href="#packs" className="btn btn-lg">Get the pack — $37</a>
+          <a href="#packs" className="btn btn-lg" {...trackClick('cta_clicked', { location: 'hero', label: 'Get the pack — $37' })}>Get the pack — $37</a>
           <span className="cta-note">Instant download · Commercial licence · 30-day money back</span>
         </div>
       </div>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { AccessSteps } from '@/components/checkout/AccessSteps';
 import { PageBar } from '@/components/PageBar';
+import { TrackView } from '@/components/TrackView';
 import { checkoutModel, deliverables } from '@/lib/checkout';
 import { driveLink, guidesLink, privateLinks } from '@/lib/config';
 import { PACKS } from '@/lib/data';
@@ -46,6 +47,7 @@ export default async function AccessPage({ searchParams }: { searchParams: Searc
 
   return (
     <main className="page">
+      <TrackView event="access_viewed" props={{ order_name: orderName, monthly, upsell: result.upsell }} email={email} />
       <PageBar>{result.upsell ? 'All four packs' : orderName} · paid</PageBar>
       <div className="access">
         <div className="access-head">

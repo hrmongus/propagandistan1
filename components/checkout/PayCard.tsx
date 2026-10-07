@@ -4,6 +4,7 @@ import { EmbeddedCheckout, EmbeddedCheckoutProvider } from '@stripe/react-stripe
 import { loadStripe } from '@stripe/stripe-js';
 import { useEffect, useState } from 'react';
 import { createCheckoutSession } from '@/app/checkout/actions';
+import { distinctId, track } from '@/lib/analytics/client';
 import type { CheckoutModel, Order } from '@/lib/checkout';
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
@@ -19,9 +20,16 @@ export function PayCard({ order, m }: { order: Order; m: CheckoutModel }) {
   useEffect(() => {
     if (!stripePromise) return;
     let stale = false;
-    createCheckoutSession(order).then(
-      (res) => { if (!stale) setSession({ key, ...res }); },
-      () => { if (!stale) setSession({ key, error: 'Could not start checkout. Please refresh and try again.' }); },
+    const failed = (error: string) => track('checkout_error', { pack: order.pack, plan: m.monthly ? 'monthly' : 'once', bundle_up: m.bundleUp, error });
+    createCheckoutSession(order, distinctId()).then(
+      (res) => {
+        if ('error' in res) failed(res.error);
+        if (!stale) setSession({ key, ...res });
+      },
+      () => {
+        failed('session request failed');
+        if (!stale) setSession({ key, error: 'Could not start checkout. Please refresh and try again.' });
+      },
     );
     return () => { stale = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- `key` captures everything in `order`

@@ -99,3 +99,9 @@ supabase gen types typescript --linked --schema public > lib/database.types.ts
 ```
 
 - Pack stock counts ("41 of 200 left") are still static copy in `lib/data.ts`.
+
+## Analytics (PostHog)
+
+Set `NEXT_PUBLIC_POSTHOG_KEY` (and `NEXT_PUBLIC_POSTHOG_HOST` for the EU cloud). Funnel events are sent from the
+browser through `/ingest` on this domain, and payments from the Stripe webhook. The event catalog, identity model and
+the rules for keeping events in sync with the UI are in [`docs/analytics.md`](docs/analytics.md).

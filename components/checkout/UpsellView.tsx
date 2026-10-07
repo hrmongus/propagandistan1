@@ -5,9 +5,12 @@ import { loadStripe } from '@stripe/stripe-js';
 import Link from 'next/link';
 import { useState, useTransition } from 'react';
 import { acceptUpsell } from '@/app/upsell/actions';
+import { track } from '@/lib/analytics/client';
+import { trackClick } from '@/lib/analytics/events';
 import { UPSELL_PRICE } from '@/lib/checkout';
 import { PACK_SLUGS } from '@/lib/data';
 import { Fan } from '../Fan';
+import { TrackView } from '../TrackView';
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
@@ -25,14 +28,21 @@ export function UpsellView({ sessionId, orderName, packs, monthly }: Props) {
   const accept = () =>
     start(async () => {
       setError(null);
+      track('upsell_accepted', { packs_offered: packs.length, monthly });
       // On success the action redirects to /access; otherwise it hands back a card form or an error.
       const res = await acceptUpsell(sessionId);
-      if ('clientSecret' in res) setClientSecret(res.clientSecret);
-      else setError(res.error);
+      if ('clientSecret' in res) {
+        track('upsell_card_required', { packs_offered: packs.length });
+        setClientSecret(res.clientSecret);
+      } else {
+        track('upsell_error', { error: res.error });
+        setError(res.error);
+      }
     });
 
   return (
     <div className="upsell">
+      <TrackView event="upsell_viewed" props={{ order_name: orderName, packs_offered: packs.length, monthly }} />
       <ol className="up-steps" aria-label="Order progress">
         <li className="done"><span>✓</span>Payment</li>
         <li className="on"><span>2</span>Complete the set</li>
@@ -88,7 +98,7 @@ export function UpsellView({ sessionId, orderName, packs, monthly }: Props) {
         )}
       </div>
 
-      <Link className="up-skip" href={access}>No thanks — take me to my {orderName} pack</Link>
+      <Link className="up-skip" href={access} {...trackClick('upsell_declined', { packs_offered: packs.length })}>No thanks — take me to my {orderName} pack</Link>
     </div>
   );
 }

@@ -39,7 +39,7 @@ export function Reveal() {
           ))}
         </div>
       </div>
-      <CtaRow label="Run the same format — $37" note="Instant download · No face required" />
+      <CtaRow location="reveal" label="Run the same format — $37" note="Instant download · No face required" />
     </section>
   );
 }

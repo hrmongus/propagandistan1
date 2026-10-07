@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { track } from '@/lib/analytics/client';
 import { FAQS } from '@/lib/data';
 import { Collapse, PlusMinus } from '../Collapse';
 
@@ -15,7 +16,7 @@ export function Faq() {
             const isOpen = open === i;
             return (
               <div className={isOpen ? 'faq-item open' : 'faq-item'} key={q}>
-                <button className="faq-btn" type="button" aria-expanded={isOpen} aria-controls={`faq-${i}`} onClick={() => setOpen(isOpen ? -1 : i)}>
+                <button className="faq-btn" type="button" aria-expanded={isOpen} aria-controls={`faq-${i}`} onClick={() => { setOpen(isOpen ? -1 : i); track('faq_toggled', { question: q, open: !isOpen }); }}>
                   <span className="faq-q">{q}</span>
                   <PlusMinus />
                 </button>

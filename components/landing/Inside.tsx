@@ -53,7 +53,7 @@ export function Inside() {
           </div>
         </div>
       </div>
-      <CtaRow label="See the four packs" note="Or the bundle at $97" />
+      <CtaRow location="inside" label="See the four packs" note="Or the bundle at $97" />
     </section>
   );
 }

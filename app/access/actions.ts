@@ -1,6 +1,7 @@
 'use server';
 
 import { redirect } from 'next/navigation';
+import { captureServer, DISTINCT_ID_KEY } from '@/lib/analytics/server';
 import { siteUrl } from '@/lib/site';
 import { paidOrder, stripe } from '@/lib/stripe';
 
@@ -14,5 +15,6 @@ export async function openBillingPortal(formData: FormData) {
     customer,
     return_url: `${await siteUrl()}/access?session_id=${encodeURIComponent(sessionId)}`,
   });
+  await captureServer(session.metadata?.[DISTINCT_ID_KEY] || session.customer_details?.email, 'billing_portal_opened', {});
   redirect(portal.url);
 }

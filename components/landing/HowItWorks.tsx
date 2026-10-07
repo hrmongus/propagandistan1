@@ -95,7 +95,7 @@ export function HowItWorks() {
         </div>
         <TimeCard />
       </div>
-      <CtaRow label="Get the pack — $37" note="30 clips · 4 minutes a day" />
+      <CtaRow location="how_it_works" label="Get the pack — $37" note="30 clips · 4 minutes a day" />
     </section>
   );
 }
