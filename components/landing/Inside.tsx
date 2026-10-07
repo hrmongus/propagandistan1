@@ -37,7 +37,7 @@ export function Inside() {
           </div>
           <div className="bento-card guides">
             <div className="copy">
-              <span className="stat">8<small>guides</small></span>
+              <span className="stat">9<small>guides</small></span>
               <span className="t">An editing guide for each tool</span>
               <p>Lyric overlays, cover art, text timing, transitions. Free tools are enough; CapCut and Canva cover everything.</p>
             </div>

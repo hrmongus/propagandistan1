@@ -474,6 +474,19 @@ img[data-broken] { visibility: hidden; }
 .link-btn:hover { color: var(--fg); }
 .order-fans { background: var(--deep); border-radius: 20px; padding: 24px 16px 18px; }
 .order-fans .row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.order-bundle { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; }
+.order-bundle .cell { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.order-bundle .cell > span:not(.name) { display: flex; justify-content: center; }
+.order-bundle .narrow { display: none !important; }
+.order-bundle .name { font-size: 13px; color: var(--muted); }
+@media (max-width: 640px) {
+  .order-fans:has(.order-bundle) { padding: 14px 10px 12px; }
+  .order-bundle { gap: 12px 8px; }
+  .order-bundle .cell { gap: 6px; }
+  .order-bundle .wide { display: none !important; }
+  .order-bundle .narrow { display: flex !important; }
+  .order-bundle .name { font-size: 12px; }
+}
 .order-name { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 24px; font-weight: 600; letter-spacing: -.02em; }
 .order-items { display: flex; flex-direction: column; border-top: 1px solid var(--line-2); }
 .order-item { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; }

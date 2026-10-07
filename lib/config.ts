@@ -17,3 +17,8 @@ export const privateLinks = () => ({
 export function driveLink(slug: string) {
   return process.env[`DRIVE_URL_${slug.toUpperCase().replace(/-/g, '_')}`] || '';
 }
+
+/** Google Drive folder with the editing guides (one per tool), from DRIVE_URL_GUIDES. Every paid order gets it. */
+export function guidesLink() {
+  return process.env.DRIVE_URL_GUIDES || '';
+}

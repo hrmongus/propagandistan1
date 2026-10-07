@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { checkoutModel, type Order, type Plan } from '@/lib/checkout';
-import { BundleFans, Fan } from '../Fan';
+import { PACKS } from '@/lib/data';
+import { Fan } from '../Fan';
 import { PayCard } from './PayCard';
 
 const FLAMES = [
@@ -33,7 +34,19 @@ export function CheckoutView({ initial }: { initial: Order }) {
             <Link className="link-btn" href="/#packs">Change pack</Link>
           </div>
           <div className="order-fans">
-            <div className="row">{m.isBundleOrder ? <BundleFans size="mid" /> : <Fan gi={packIndex} size="big" />}</div>
+            {m.isBundleOrder ? (
+              <div className="order-bundle">
+                {PACKS.filter((p) => !p.bundle).map((p, g) => (
+                  <div className="cell" key={p.slug}>
+                    <span className="wide"><Fan gi={g} size="mid" /></span>
+                    <span className="narrow"><Fan gi={g} size="small" /></span>
+                    <span className="name">{p.name}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="row"><Fan gi={packIndex} size="big" /></div>
+            )}
           </div>
           <div className="order-name"><span>{m.orderName}</span><span>{m.orderPrice}</span></div>
           <div className="order-items">

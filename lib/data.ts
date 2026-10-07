@@ -92,7 +92,7 @@ export const FAQS: [string, string][] = [
   ['Do I have to be on camera?', "No. Not once. There's no face, no voice and no filming anywhere in this."],
   ['How does my song get into the video?', "The videos ship silent. You upload one, pick your track from Instagram or TikTok's audio library, and post. Doing it that way is what links every view back to your release page — and it's why this converts to streams instead of just collecting views."],
   ["What if my song isn't on the platforms yet?", 'Distribute it first — DistroKid, TuneCore, whoever you use. Your track needs to exist in the audio library for the mechanic to work.'],
-  ['Do I need editing skills?', 'No. The 30 videos are hand-picked, colour graded and stitched for you, and there’s a step-by-step guide for each of eight editing tools, from CapCut to Premiere Pro.'],
+  ['Do I need editing skills?', 'No. The 30 videos are hand-picked, colour graded and stitched for you, and there’s a step-by-step guide for each of nine editing tools, from CapCut to Premiere Pro.'],
   ['How much time per day?', "15–20 minutes, once you've read the guide for your editor."],
   ['Will other artists have the same videos?', 'Each pack is capped at 200 copies and then retired. And because the audio, lyric overlays and artwork are yours, the same base footage reads as a format rather than a duplicate — the way a trend does.'],
   ['Is this an ad product? Do I need a budget?', 'No. This is organic posting. Zero ad spend.'],

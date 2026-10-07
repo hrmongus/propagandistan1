@@ -32,12 +32,17 @@ export function paymentSessionParams(order: Order, siteUrl: string): Stripe.Chec
 
 /* ---------- post-purchase upsell (a one-time payment for either plan) ---------- */
 
-/** True once the upsell for this order's Checkout Session has been paid (one-click or by card). */
-export async function upsellPaid(session: Stripe.Checkout.Session) {
+/** The paid upsell PaymentIntent for this order's Checkout Session (one-click or by card), if any. */
+export async function upsellIntent(session: Stripe.Checkout.Session) {
   const customer = customerOf(session);
-  if (!customer) return false;
+  if (!customer) return undefined;
   const intents = await stripe().paymentIntents.list({ customer, limit: 20 });
-  return intents.data.some((pi) => pi.metadata?.upsell_for === session.id && pi.status === 'succeeded');
+  return intents.data.find((pi) => pi.metadata?.upsell_for === session.id && pi.status === 'succeeded');
+}
+
+/** True once the upsell for this order's Checkout Session has been paid. */
+export async function upsellPaid(session: Stripe.Checkout.Session) {
+  return Boolean(await upsellIntent(session));
 }
 
 /** The card the buyer just paid with: saved for off-session use, or the subscription's default. */

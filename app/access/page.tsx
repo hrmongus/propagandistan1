@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import { AccessSteps } from '@/components/checkout/AccessSteps';
 import { PageBar } from '@/components/PageBar';
 import { checkoutModel, deliverables } from '@/lib/checkout';
-import { driveLink, privateLinks } from '@/lib/config';
+import { driveLink, guidesLink, privateLinks } from '@/lib/config';
 import { PACKS } from '@/lib/data';
 import { upsellPaid } from '@/lib/payment';
 import { paidOrder, stripeConfigured } from '@/lib/stripe';
@@ -39,7 +39,7 @@ export default async function AccessPage({ searchParams }: { searchParams: Searc
   // Links are read only here, after the session is verified as paid, and only for what the order unlocks.
   const { shown, emailed } = deliverables(result.order, result.upsell);
   const packName = (slug: string) => PACKS.find((p) => p.slug === slug)?.name ?? slug;
-  const drives = shown.map((slug) => ({ name: packName(slug), url: driveLink(slug) }));
+  const drives = [...shown.map((slug) => ({ name: packName(slug), url: driveLink(slug) })), { name: 'Editing guides', url: guidesLink() }];
   const emailedNote = emailed.length
     ? `${emailed.map(packName).join(', ').replace(/, ([^,]*)$/, ' and $1')} ${emailed.length > 1 ? 'are' : 'is'} on the way to ${email ?? 'your inbox'}.`
     : undefined;
@@ -51,7 +51,7 @@ export default async function AccessPage({ searchParams }: { searchParams: Searc
         <div className="access-head">
           <span className="ok"><span className="gdot" />Payment confirmed</span>
           <h1>Your pack is ready. Four steps to set up.</h1>
-          <p>About ten minutes, then you post your first clip tonight.{email && <> Your receipt is on its way to {email}.</>}</p>
+          <p>About ten minutes, then you post your first clip tonight.{email && <> Your links are also on their way to {email}.</>}</p>
         </div>
         <AccessSteps discordUrl={discordUrl} drives={drives} emailedNote={emailedNote} />
         {monthly && (

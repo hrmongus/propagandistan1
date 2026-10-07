@@ -52,7 +52,7 @@ export function AccessSteps({ discordUrl, drives, emailedNote }: { discordUrl: s
     },
     {
       title: 'Access everything',
-      sub: <>Finished videos, raw clips, guides and the playbook — one Google Drive folder per pack.</>,
+      sub: <>Finished videos, raw clips and the playbook in one Google Drive folder per pack, plus the editing guides.</>,
       body: () => (
         <>
           <div className="drives">
