@@ -20,7 +20,8 @@ html, body { margin: 0; background: var(--bg); color: var(--fg); -webkit-font-sm
 body { font-family: var(--font-geist), system-ui, sans-serif; font-size: 17px; line-height: 1.5; overflow-x: hidden; }
 * { box-sizing: border-box; }
 a { color: inherit; text-decoration: none; }
-a:hover { color: #fff; }
+/* zero specificity: a link's own colour (e.g. dark text on a light card) always beats this default */
+:where(a:hover) { color: #fff; }
 button { font-family: inherit; }
 h1, h2, h3, p { margin: 0; }
 video, img { display: block; }
@@ -66,6 +67,7 @@ img[data-broken] { visibility: hidden; }
 
 .cta-row { max-width: 1120px; margin: 56px auto 0; padding: 0 24px; display: flex; align-items: center; justify-content: center; gap: 14px 20px; flex-wrap: wrap; }
 .cta-note { font-size: 13px; color: var(--dim); }
+a.cta-note:hover { color: var(--fg); }
 
 .marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
 .marquee-track { display: flex; width: max-content; animation: marquee var(--dur, 50s) linear infinite; }
