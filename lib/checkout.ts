@@ -105,6 +105,12 @@ export function upsellPacks(order: Order): Pack[] {
   return PACKS.filter((p) => !p.bundle && p.slug !== m.sel.slug);
 }
 
+/** The packs an order pays for, as single-pack slugs (a four-pack order is all four). */
+export function orderPacks(order: Order): string[] {
+  const m = checkoutModel(order);
+  return m.isBundleOrder ? PACK_SLUGS : [m.sel.slug];
+}
+
 /**
  * Which Drive links an order unlocks, as pack slugs ('bundle' is the four-pack folder).
  * One-off buyers see everything they paid for on /access. Subscribers see only their pack; the packs they add

@@ -1,5 +1,6 @@
 import type Stripe from 'stripe';
-import { checkoutModel, deliverables } from './checkout';
+import { checkoutModel, deliverables, orderPacks, upsellPacks } from './checkout';
+import { recordPurchase } from './db';
 import { sendOrderEmail, sendUpsellEmail } from './email';
 import { upsellIntent } from './payment';
 import { siteUrl } from './site';
@@ -49,6 +50,25 @@ export async function fulfillOrder(session: Stripe.Checkout.Session) {
   console.info('[fulfillment] paid', { session: session.id, email, order: orderName, monthly, amount: session.amount_total });
 
   if (!email) return console.error('[fulfillment] no email on session', session.id);
+  await recordPurchase({
+    kind: 'order',
+    stripeRef: session.id,
+    email,
+    name: session.customer_details?.name,
+    customerId: idOf(session.customer),
+    checkoutSessionId: session.id,
+    paymentIntentId: idOf(session.payment_intent),
+    invoiceId: idOf(session.invoice),
+    subscriptionId: idOf(session.subscription),
+    plan: order.plan,
+    description: monthly ? `${orderName} · monthly` : orderName,
+    amountCents: session.amount_total ?? 0,
+    currency: session.currency ?? 'usd',
+    // No paid-at on a Checkout Session; the first delivery of the webhook is within seconds of it.
+    paidAt: null,
+    packs: orderPacks(order),
+  });
+
   const { shown } = deliverables(order, false);
   const url = await setupUrl(session.id);
   await sendOnce(orderPurchase(session), 'order', () =>
@@ -68,11 +88,30 @@ export async function fulfillUpsell(orderSessionId: string, paymentId: string) {
   console.info('[fulfillment] upsell paid', { session: session.id, payment: paymentId, email });
 
   if (!email) return console.error('[fulfillment] no email on session', session.id);
+  const pi = await upsellIntent(session);
+  if (pi) {
+    await recordPurchase({
+      kind: 'upsell',
+      stripeRef: pi.id,
+      email,
+      name: session.customer_details?.name,
+      customerId: idOf(pi.customer),
+      checkoutSessionId: session.id,
+      paymentIntentId: pi.id,
+      description: pi.description ?? 'Upsell',
+      amountCents: pi.amount_received,
+      currency: pi.currency,
+      paidAt: pi.created,
+      packs: upsellPacks(order).map((p) => p.slug),
+    });
+  } else {
+    console.error('[fulfillment] upsell paid but no PaymentIntent found — not recorded', session.id, paymentId);
+  }
+
   const before = deliverables(order, false).shown;
   const after = deliverables(order, true);
   const unlocked = [...after.shown, ...after.emailed].filter((slug) => !before.includes(slug));
   if (!unlocked.length) return;
-  const pi = await upsellIntent(session);
   const url = await setupUrl(session.id);
   await sendOnce(pi ? { kind: 'payment_intent', id: pi.id } : null, 'upsell', () =>
     sendUpsellEmail({ to: email, idempotencyKey: `upsell-${orderSessionId}`, slugs: unlocked, setupUrl: url }),
@@ -81,16 +120,35 @@ export async function fulfillUpsell(orderSessionId: string, paymentId: string) {
 
 /**
  * Runs on every monthly renewal the subscription pays for (not the first month — that's fulfillOrder).
- * This is where next month's pack goes out; for now it's logged.
+ * This is where next month's pack goes out; for now the payment is recorded, with no pack until that's decided.
  */
 export async function fulfillRenewal(invoice: Stripe.Invoice) {
   const details = invoice.parent?.subscription_details;
   const order = orderFromMetadata(details?.metadata);
+  const subscription = idOf(details?.subscription);
+  const { orderName } = checkoutModel(order);
   console.info('[fulfillment] renewal paid', {
     invoice: invoice.id,
-    subscription: typeof details?.subscription === 'string' ? details.subscription : details?.subscription?.id,
+    subscription,
     email: invoice.customer_email,
-    plan: checkoutModel(order).orderName,
+    plan: orderName,
     amount: invoice.amount_paid,
+  });
+
+  if (!invoice.id || !invoice.customer_email) return console.error('[fulfillment] no email on invoice', invoice.id);
+  await recordPurchase({
+    kind: 'renewal',
+    stripeRef: invoice.id,
+    email: invoice.customer_email,
+    name: invoice.customer_name,
+    customerId: idOf(invoice.customer),
+    invoiceId: invoice.id,
+    subscriptionId: subscription,
+    plan: 'monthly',
+    description: `${orderName} · monthly renewal`,
+    amountCents: invoice.amount_paid,
+    currency: invoice.currency,
+    paidAt: invoice.status_transitions?.paid_at,
+    packs: [],
   });
 }

@@ -75,6 +75,27 @@ How it works:
     right after the charge. Subscribers get a "Manage or cancel" link to the Stripe customer portal — enable the
   portal in the Stripe dashboard (Settings → Billing → Customer portal).
 - In production, add a webhook endpoint at `https://<your-domain>/api/stripe/webhook` for
-  `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `invoice.paid`,
-  `invoice.payment_failed` and `customer.subscription.deleted`.
+  `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`,
+  `payment_intent.succeeded`, `invoice.paid`, `invoice.payment_failed` and `customer.subscription.deleted`.
+## Database (Supabase)
+
+Project `fanpagekit` (ref `wuxdklbbbjllsburcxfy`, us-east-1). Schema in `supabase/migrations/`:
+
+- `users` — one row per buyer email (name, latest Stripe customer)
+- `transactions` — every paid order, upsell and subscription renewal, unique per Stripe object (session, PaymentIntent or invoice)
+- `purchased_kits` — the packs each transaction unlocked (a four-pack order is four rows; renewals have none until
+  monthly packs are assigned)
+
+`lib/fulfillment.ts` writes them through `record_purchase` (`lib/db.ts`) before sending the order email, in one
+database transaction and idempotently, so Stripe retries never duplicate rows. A failed write answers 500 and Stripe
+retries. Tables are server-only: RLS is on with no policies and the browser roles have no grants; the app uses
+`SUPABASE_SECRET_KEY`.
+
+```bash
+supabase link --project-ref wuxdklbbbjllsburcxfy   # once, asks for SUPABASE_DB_PASSWORD
+supabase migration new <name>                      # write SQL, then:
+supabase db push
+supabase gen types typescript --linked --schema public > lib/database.types.ts
+```
+
 - Pack stock counts ("41 of 200 left") are still static copy in `lib/data.ts`.
