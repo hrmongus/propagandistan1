@@ -3,8 +3,8 @@ import { PACKS } from './data';
 
 /*
  * Transactional email through Resend's HTTP API (RESEND_API_KEY + EMAIL_FROM). Without a key the email is
- * only logged, so local checkouts still work. EMAIL_FROM must be on a domain verified in Resend; replies go to
- * EMAIL_REPLY_TO when set.
+ * only logged in development, so local checkouts still work; in production it throws. EMAIL_FROM must be on
+ * a domain verified in Resend; replies go to EMAIL_REPLY_TO when set.
  */
 
 type Mail = { to: string; subject: string; html: string; text: string; idempotencyKey: string };
@@ -14,6 +14,8 @@ async function send(mail: Mail): Promise<boolean> {
   const key = process.env.RESEND_API_KEY;
   const from = process.env.EMAIL_FROM;
   if (!key || !from) {
+    // In production a missing key must fail the webhook, so Stripe retries until it's configured.
+    if (process.env.NODE_ENV === 'production') throw new Error('[email] RESEND_API_KEY / EMAIL_FROM not set — order email not sent');
     console.warn('[email] RESEND_API_KEY / EMAIL_FROM not set — not sent:', mail.subject, '→', mail.to);
     return false;
   }
