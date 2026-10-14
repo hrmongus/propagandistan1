@@ -11,6 +11,9 @@ properties; this file explains why each event exists and where it fires.
 | `NEXT_PUBLIC_POSTHOG_KEY` | Project API key (`phc_…`). Unset → nothing loads or sends, in the browser or on the server. |
 | `NEXT_PUBLIC_POSTHOG_HOST` | `https://us.i.posthog.com` (default) or `https://eu.i.posthog.com`. Must match the project's region. |
 | `NEXT_PUBLIC_POSTHOG_DEBUG` | `1` → log every PostHog call in the browser console. Leave unset in production. |
+| `NEXT_PUBLIC_META_PIXEL_ID` | Meta Pixel (dataset) ID. Unset → the pixel doesn't load and nothing goes to Meta. |
+| `META_CAPI_ACCESS_TOKEN` | Conversions API token (server-only). Unset → no server-side Purchase / Subscribe. |
+| `META_TEST_EVENT_CODE` | Code from Events Manager → Test events, to see server events live. Leave unset in production. |
 
 ## How it's wired
 
@@ -21,6 +24,8 @@ properties; this file explains why each event exists and where it fires.
 | `lib/analytics/events.ts` | **Typed event catalog** (`ClientEvents`, `ServerEvents`) and `trackClick()`. |
 | `lib/analytics/client.ts` | `track()`, `identify()`, `distinctId()` for client components. |
 | `lib/analytics/server.ts` | `posthog-node`: `captureServer()` and the payment trackers called by the Stripe webhook. |
+| `lib/analytics/meta.ts` | Loads the Meta Pixel; `track()` forwards mapped events to it (see *Meta* below). |
+| `lib/analytics/meta-server.ts` | Meta Conversions API: `sendMetaEvent()` and `metaCheckoutMetadata()`. |
 | `components/TrackView.tsx` | Sends a `*_viewed` event once on mount (and identifies the buyer on `/access`). |
 
 How to send an event, by where the code runs:
@@ -96,6 +101,24 @@ payment form is a cross-origin iframe, so card details are never recorded.
 
 Amounts are in dollars (Stripe cents ÷ 100).
 
+### Meta (Pixel + Conversions API)
+
+Meta gets a small subset of the funnel, as its standard events, for ad attribution and optimisation. PostHog stays
+the full record. Mapping lives in `metaEvents` (`lib/analytics/meta.ts`) and the payment trackers in
+`lib/analytics/server.ts`.
+
+| Meta event | Sent from | Our event | Data |
+| --- | --- | --- | --- |
+| `PageView` | Pixel (automatic, incl. client-side navigations) | `$pageview` | — |
+| `ViewContent` | Pixel | `pack_selected` | `content_ids: [pack]`, `value: price`, `currency: USD` |
+| `InitiateCheckout` | Pixel | `checkout_viewed` | `content_ids: [pack]` |
+| `Purchase` | Conversions API (webhook) | `order_paid`, `upsell_paid` | `value`, `currency`, `content_ids: packs`; `event_id` = Checkout Session / PaymentIntent id |
+| `Subscribe` | Conversions API (webhook) | `order_paid` with `plan: monthly` | as `Purchase`; `event_id` = `<session id>:subscribe` |
+
+Matching: the checkout action stores the buyer's `_fbp` / `_fbc` cookies, IP and user agent in the Checkout Session
+metadata (`meta_fbp`, `meta_fbc`, `meta_ip`, `meta_ua`); the webhook sends them with the SHA-256 hashed email.
+Renewals, failures and cancellations are not sent to Meta.
+
 ### Suggested insights
 
 - **Funnel:** `$pageview` on `/` → `pack_selected` → `checkout_viewed` → `order_paid` → `upsell_viewed` →
@@ -122,5 +145,8 @@ Any change to a flow or UI must leave the analytics matching it **in the same ch
    allowed only as the person identity (`identify`, `$set`).
 7. **Naming**: snake_case `object_action`, past tense (`pack_selected`, not `selectPack` or `click_pack`). Reuse an
    existing event with a new property before adding a near-duplicate event.
-8. Before finishing: `npm run typecheck`, then confirm the new event in PostHog's Activity tab (or in the console with
+8. **Meta**: if a changed event is in the Meta mapping above (`pack_selected`, `checkout_viewed`, `order_paid`,
+   `upsell_paid`), update `metaEvents` or the server trackers and the Meta table too. Money goes to Meta only from
+   the server, like PostHog.
+9. Before finishing: `npm run typecheck`, then confirm the new event in PostHog's Activity tab (or in the console with
    `NEXT_PUBLIC_POSTHOG_DEBUG=1`).

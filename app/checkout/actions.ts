@@ -1,5 +1,6 @@
 'use server';
 
+import { metaCheckoutMetadata } from '@/lib/analytics/meta-server';
 import { DISTINCT_ID_KEY } from '@/lib/analytics/server';
 import { parseOrder, type Order } from '@/lib/checkout';
 import { paymentSessionParams } from '@/lib/payment';
@@ -22,6 +23,8 @@ export async function createCheckoutSession(input: Order, distinctId?: string): 
     // Renewals and cancellations only see the subscription's metadata.
     if (params.subscription_data) params.subscription_data.metadata = { ...params.subscription_data.metadata, [DISTINCT_ID_KEY]: id };
   }
+  // The buyer's Meta cookies, IP and user agent, so the webhook's Purchase is matched to their ad click.
+  params.metadata = { ...params.metadata, ...(await metaCheckoutMetadata()) };
   try {
     const session = await stripe().checkout.sessions.create(params);
     if (!session.client_secret) return { error: 'Could not start checkout.' };

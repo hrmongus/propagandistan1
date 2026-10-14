@@ -1,11 +1,14 @@
 import posthog from 'posthog-js';
 import type { ClientEvent, ClientEvents } from './events';
+import { trackMeta } from './meta';
 
 /* Browser-side PostHog. Initialised in instrumentation-client.ts; every call here is a no-op until then. */
 
 export const analyticsEnabled = () => Boolean(process.env.NEXT_PUBLIC_POSTHOG_KEY);
 
+/** Sends `event` to PostHog, and its Meta Pixel equivalent when it has one (lib/analytics/meta.ts). */
 export function track<E extends ClientEvent>(event: E, props: ClientEvents[E]) {
+  trackMeta(event, props);
   if (!analyticsEnabled()) return;
   posthog.capture(event, props);
 }

@@ -3,6 +3,7 @@ import type Stripe from 'stripe';
 import { checkoutModel, orderPacks, upsellPacks } from '../checkout';
 import { idOf, orderFromMetadata, paidOrder, stripe } from '../stripe';
 import type { ServerEvent, ServerEvents } from './events';
+import { sendMetaEvent } from './meta-server';
 
 /*
  * Server-side PostHog, for events whose truth is on the server: payments (from the Stripe webhook) and the billing
@@ -11,6 +12,8 @@ import type { ServerEvent, ServerEvents } from './events';
  *
  * Events go to the browser's PostHog id when checkout recorded one (`ph_distinct_id` in the Stripe metadata),
  * else to the buyer's email. /access identifies the browser by that email, so both end up on one person.
+ *
+ * Paid orders and upsells are also sent to Meta as Purchase (and Subscribe for monthly) through the Conversions API.
  */
 
 let client: PostHog | null = null;
@@ -61,27 +64,41 @@ export const trackOrderPaid = safe('trackOrderPaid', async (session: Stripe.Chec
   const order = orderFromMetadata(session.metadata);
   const m = checkoutModel(order);
   const email = session.customer_details?.email;
-  await captureServer(personOf(session.metadata, email), 'order_paid', {
-    pack: m.sel.slug,
-    plan: order.plan,
-    bundle_up: m.bundleUp,
-    order_name: m.orderName,
-    packs: orderPacks(order),
-    amount: dollars(session.amount_total),
-    currency: session.currency ?? 'usd',
-  }, { email, name: session.customer_details?.name, plan: order.plan });
+  const packs = orderPacks(order);
+  const amount = dollars(session.amount_total);
+  const currency = session.currency ?? 'usd';
+  const meta = { value: amount, currency, packs, email, metadata: session.metadata };
+  await Promise.all([
+    captureServer(personOf(session.metadata, email), 'order_paid', {
+      pack: m.sel.slug,
+      plan: order.plan,
+      bundle_up: m.bundleUp,
+      order_name: m.orderName,
+      packs,
+      amount,
+      currency,
+    }, { email, name: session.customer_details?.name, plan: order.plan }),
+    sendMetaEvent({ name: 'Purchase', eventId: session.id, ...meta }),
+    order.plan === 'monthly' && sendMetaEvent({ name: 'Subscribe', eventId: `${session.id}:subscribe`, ...meta }),
+  ]);
 });
 
 /** Both upsell routes (one-click and the fallback Checkout) end in one succeeded PaymentIntent, so this runs once. */
 export const trackUpsellPaid = safe('trackUpsellPaid', async (pi: Stripe.PaymentIntent) => {
   const { session, order } = await paidOrder(pi.metadata.upsell_for ?? '');
   if (!order) return;
-  await captureServer(personOf(session.metadata, session.customer_details?.email), 'upsell_paid', {
-    packs: upsellPacks(order).map((p) => p.slug),
-    amount: dollars(pi.amount_received),
-    currency: pi.currency,
-    method: pi.metadata.kind === 'upsell' ? 'checkout' : 'one_click',
-  });
+  const email = session.customer_details?.email;
+  const packs = upsellPacks(order).map((p) => p.slug);
+  const amount = dollars(pi.amount_received);
+  await Promise.all([
+    captureServer(personOf(session.metadata, email), 'upsell_paid', {
+      packs,
+      amount,
+      currency: pi.currency,
+      method: pi.metadata.kind === 'upsell' ? 'checkout' : 'one_click',
+    }),
+    sendMetaEvent({ name: 'Purchase', eventId: pi.id, value: amount, currency: pi.currency, packs, email, metadata: session.metadata }),
+  ]);
 });
 
 export const trackRenewal = safe('trackRenewal', async (invoice: Stripe.Invoice) => {
