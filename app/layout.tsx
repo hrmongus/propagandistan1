@@ -16,6 +16,8 @@ export const metadata: Metadata = {
   description,
   openGraph: { title, description, type: 'website', siteName: 'FanpageKit', url: '/' },
   twitter: { card: 'summary_large_image', title, description },
+  // Meta Business domain verification for fanpagekit.com; keep it, Meta re-checks periodically.
+  verification: { other: { 'facebook-domain-verification': 'sh1b2n91nj7hy6eg2l7ka57iwcvvdc' } },
 };
 
 export const viewport: Viewport = { themeColor: '#000000' };
