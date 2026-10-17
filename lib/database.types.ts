@@ -14,6 +14,21 @@ export type Database = {
   }
   public: {
     Tables: {
+      analytics_events: {
+        Row: {
+          event_key: string
+          sent_at: string
+        }
+        Insert: {
+          event_key: string
+          sent_at?: string
+        }
+        Update: {
+          event_key?: string
+          sent_at?: string
+        }
+        Relationships: []
+      }
       purchased_kits: {
         Row: {
           created_at: string

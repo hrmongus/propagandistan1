@@ -116,8 +116,19 @@ the full record. Mapping lives in `metaEvents` (`lib/analytics/meta.ts`) and the
 | `Subscribe` | Conversions API (webhook) | `order_paid` with `plan: monthly` | as `Purchase`; `event_id` = `<session id>:subscribe` |
 
 Matching: the checkout action stores the buyer's `_fbp` / `_fbc` cookies, IP and user agent in the Checkout Session
-metadata (`meta_fbp`, `meta_fbc`, `meta_ip`, `meta_ua`); the webhook sends them with the SHA-256 hashed email.
-Renewals, failures and cancellations are not sent to Meta.
+metadata (`meta_fbp`, `meta_fbc`, `meta_ip`, `meta_ua`). The webhook sends them with what Stripe Checkout collected,
+normalised and SHA-256 hashed as Meta requires: email (`em`), first and last name (`fn`, `ln`), city, state, ZIP and
+country (`ct`, `st`, `zp`, `country`, when Stripe has them) and the Stripe customer id (`external_id`). Phone isn't
+collected at checkout, so it isn't sent. Renewals, failures and cancellations are not sent to Meta.
+
+### Once per payment
+
+Stripe redelivers webhooks, and keeps its automatic retries going even after a manual resend succeeded. Every
+server-side payment event (`order_paid`, `upsell_paid`, `subscription_renewed`, Meta `Purchase` / `Subscribe`) goes
+through `sendEventOnce` (`lib/db.ts`), which claims the key `<destination>:<event>:<stripe ref>` in the Supabase
+`analytics_events` table before sending. A redelivery finds the row and skips; a failed send deletes it so a later
+retry sends. If the claim itself fails (no database), the event is sent anyway. Look up what was sent with
+`select * from analytics_events where event_key like '%cs_live_…'`.
 
 ### Suggested insights
 
@@ -140,7 +151,8 @@ Any change to a flow or UI must leave the analytics matching it **in the same ch
    event a new name rather than silently changing what the old one means.
 4. **Copy-only changes** don't need a new event, but update `label` values passed to `cta_clicked` so they match the
    button text.
-5. **Payments, subscriptions and refunds** are tracked only on the server, in the webhook, after fulfillment succeeds.
+5. **Payments, subscriptions and refunds** are tracked only on the server, in the webhook, after fulfillment succeeds,
+   and through `sendEventOnce` so a redelivered webhook doesn't count them twice.
 6. **No secrets or private links in properties**: no Drive URLs, Discord invite, Stripe secrets or card data. Email is
    allowed only as the person identity (`identify`, `$set`).
 7. **Naming**: snake_case `object_action`, past tense (`pack_selected`, not `selectPack` or `click_pack`). Reuse an

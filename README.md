@@ -85,6 +85,8 @@ Project `fanpagekit` (ref `wuxdklbbbjllsburcxfy`, us-east-1). Schema in `supabas
 - `transactions` — every paid order, upsell and subscription renewal, unique per Stripe object (session, PaymentIntent or invoice)
 - `purchased_kits` — the packs each transaction unlocked (a four-pack order is four rows; renewals have none until
   monthly packs are assigned)
+- `analytics_events` — server-side analytics events already sent (Meta `Purchase`, PostHog `order_paid`, …), so a
+  redelivered webhook never sends one twice (`sendEventOnce` in `lib/db.ts`)
 
 `lib/fulfillment.ts` writes them through `record_purchase` (`lib/db.ts`) before sending the order email, in one
 database transaction and idempotently, so Stripe retries never duplicate rows. A failed write answers 500 and Stripe

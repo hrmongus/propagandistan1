@@ -72,3 +72,38 @@ export async function recordPurchase(p: Purchase) {
   console.info('[db] recorded', p.kind, p.stripeRef, '→', data);
   return data;
 }
+
+/**
+ * Sends a server-side analytics event at most once per `key`, however often Stripe redelivers the webhook:
+ * claims the key in analytics_events first, so only the first delivery sends; a failed send releases the claim
+ * so a later retry can try again. `send` resolves to whether the event was delivered.
+ *
+ * Without a database (dev) or if the claim itself fails, it sends anyway: a rare duplicate beats a lost purchase.
+ */
+export async function sendEventOnce(key: string, send: () => Promise<boolean>) {
+  let supabase: SupabaseClient<Database> | null = null;
+  try {
+    supabase = db();
+  } catch {
+    // production without Supabase config — handled like a failed claim below
+  }
+  if (supabase) {
+    const { data, error } = await supabase
+      .from('analytics_events')
+      .upsert({ event_key: key }, { onConflict: 'event_key', ignoreDuplicates: true })
+      .select('event_key');
+    if (!error && !data.length) return console.info('[analytics] already sent, skipping', key);
+    if (error) {
+      console.error('[analytics] could not claim event, sending anyway', key, error.message);
+      supabase = null;
+    }
+  }
+  const sent = await send().catch((err) => {
+    console.error('[analytics] send failed', key, err);
+    return false;
+  });
+  if (!sent && supabase) {
+    const { error } = await supabase.from('analytics_events').delete().eq('event_key', key);
+    if (error) console.error('[analytics] could not release claim', key, error.message);
+  }
+}
