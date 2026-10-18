@@ -38,10 +38,25 @@ How to send an event, by where the code runs:
 
 ### Identity
 
-1. Every visitor is anonymous (`person_profiles: 'identified_only'`, so no person profile until step 3).
+1. Every visitor is anonymous (`person_profiles: 'identified_only'`, so no person profile until they pay).
 2. Checkout sends the browser's PostHog id to `createCheckoutSession`, which stores it as `ph_distinct_id` in the
    Checkout Session (and Subscription) metadata. Server events use it, falling back to the buyer's email.
-3. `/access` calls `identify(email)`, which merges the anonymous history into the buyer's person.
+3. `order_paid` (webhook) sets `email`, `name` and `plan` on that browser's person, so the buyer is known from the
+   moment they pay, whether or not they ever open `/access`.
+4. `/access` also calls `identify(email)`, which merges this browser with any purchase sent under the email (no
+   `ph_distinct_id`) and with the buyer's other devices.
+
+### Internal users
+
+Two filters in PostHog's project settings (*Filter out internal and test users*, on by default) keep the team out of
+every insight:
+
+- **Cohort "Internal team (by email)"** — people whose `email` is one of the team's. Matches anyone on the team who
+  has paid, including their browsing before they paid. Add new teammates' emails to the cohort.
+- **Cohort "Internal / Test users"** — `$internal_or_test_user` is set. posthog-js sets it automatically on
+  `localhost`, and on any browser opened once with **`?internal=1`** (`instrumentation-client.ts`; `?internal=0`
+  undoes it). Use the link on every phone and laptop the team browses the site from. Those browsers also skip the
+  Meta Pixel.
 
 ### Automatic (SDK)
 

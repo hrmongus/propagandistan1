@@ -7,6 +7,7 @@ import { cents, checkoutBase, customerOf, idOf, orderMetadata, stripe } from './
 export function paymentSessionParams(order: Order, siteUrl: string): Stripe.Checkout.SessionCreateParams {
   const m = checkoutModel(order);
   const metadata = orderMetadata(order);
+  const name = `FanpageKit — ${m.orderName}`;
   return {
     ...checkoutBase(order, siteUrl),
     mode: 'payment',
@@ -16,7 +17,7 @@ export function paymentSessionParams(order: Order, siteUrl: string): Stripe.Chec
         currency: 'usd',
         unit_amount: cents(m.dueToday),
         product_data: {
-          name: m.isBundleOrder ? 'FanpageKit — All four packs' : `FanpageKit — ${m.sel.name}`,
+          name,
           description: m.isBundleOrder
             ? '120 finished videos, 448 raw clips, editing guides and the posting playbook.'
             : '30 finished videos, 112 raw clips, editing guides and the posting playbook.',
@@ -25,8 +26,9 @@ export function paymentSessionParams(order: Order, siteUrl: string): Stripe.Chec
     }],
     customer_creation: 'always',
     invoice_creation: { enabled: true, invoice_data: { metadata } },
-    // Keep the card on the customer so the post-purchase upsell is one click.
-    payment_intent_data: { metadata, setup_future_usage: 'off_session' },
+    // Keep the card on the customer so the post-purchase upsell is one click. Without a description the
+    // dashboard lists the payment by its PaymentIntent id.
+    payment_intent_data: { description: name, metadata, setup_future_usage: 'off_session' },
   };
 }
 
@@ -92,16 +94,17 @@ export async function chargeUpsell(session: Stripe.Checkout.Session, order: Orde
 /** Embedded Checkout for the upsell, used when the one-click charge can't go through. */
 export function upsellSessionParams(session: Stripe.Checkout.Session, order: Order, siteUrl: string): Stripe.Checkout.SessionCreateParams {
   const metadata = { kind: 'upsell', upsell_for: session.id };
+  const description = upsellDescription(order);
   return {
     ui_mode: 'embedded_page',
     mode: 'payment',
     customer: customerOf(session) ?? undefined,
     line_items: [{
       quantity: 1,
-      price_data: { currency: 'usd', unit_amount: cents(UPSELL_PRICE), product_data: { name: upsellDescription(order) } },
+      price_data: { currency: 'usd', unit_amount: cents(UPSELL_PRICE), product_data: { name: description } },
     }],
     metadata,
-    payment_intent_data: { metadata },
+    payment_intent_data: { description, metadata },
     return_url: `${siteUrl}/access?session_id=${encodeURIComponent(session.id)}`,
   };
 }

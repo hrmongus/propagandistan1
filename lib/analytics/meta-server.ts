@@ -23,7 +23,9 @@ const KEYS = { fbp: 'meta_fbp', fbc: 'meta_fbc', ip: 'meta_ip', ua: 'meta_ua' } 
 /** The buyer's Meta cookies, IP and user agent, read in the checkout server action, for the Checkout Session metadata. */
 export async function metaCheckoutMetadata(): Promise<Record<string, string>> {
   if (!metaConfigured()) return {};
-  const [c, h] = await Promise.all([cookies(), headers()]);
+  // Checkout must never fail for analytics: without these, Meta just matches the purchase less well.
+  const [c, h] = await Promise.all([cookies(), headers()]).catch(() => [null, null] as const);
+  if (!c || !h) return {};
   const values = {
     [KEYS.fbp]: c.get('_fbp')?.value,
     [KEYS.fbc]: c.get('_fbc')?.value,
@@ -44,16 +46,17 @@ const hashed = (v: string | undefined) => (v ? [sha256(v)] : undefined);
 
 /** Hashed customer details for Meta's user_data, from what Stripe Checkout collected. */
 function customerData(customer: Stripe.Checkout.Session.CustomerDetails | null | undefined, customerId: string | null | undefined) {
-  const parts = customer?.name?.trim().split(/\s+/) ?? [];
+  // Words that are letters after cleaning, so "😀 Ann 2 Lee" gives fn ann, ln lee.
+  const parts = (customer?.name?.split(/\s+/) ?? []).map(letters).filter(Boolean);
   const address = customer?.address;
   const country = lower(address?.country);
   // US ZIPs as their first five digits; elsewhere lowercase without spaces or dashes.
   const zip = lower(address?.postal_code)?.replace(/[\s-]/g, '');
   return {
     em: hashed(lower(customer?.email)),
-    fn: hashed(letters(parts[0])),
+    fn: hashed(parts[0]),
     // A single-word name is only a first name.
-    ln: hashed(parts.length > 1 ? letters(parts.at(-1)) : undefined),
+    ln: hashed(parts.length > 1 ? parts.at(-1) : undefined),
     ct: hashed(letters(address?.city)),
     st: hashed(letters(address?.state)),
     zp: hashed(country === 'us' ? zip?.slice(0, 5) : zip),

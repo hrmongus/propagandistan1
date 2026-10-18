@@ -14,6 +14,22 @@ import { loadMetaPixel } from '@/lib/analytics/meta';
 const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 
+/*
+ * Internal devices: open the site once with ?internal=1 (?internal=0 undoes it). PostHog flags the person as
+ * $internal_or_test_user, which the project's test-account filter excludes, and this browser stops loading the
+ * Meta Pixel so team visits don't train the ads. Works without ever buying or reaching /access.
+ */
+const INTERNAL_KEY = 'fk_internal';
+const internalParam = new URLSearchParams(location.search).get('internal');
+let internal = false;
+try {
+  if (internalParam === '1') localStorage.setItem(INTERNAL_KEY, '1');
+  if (internalParam === '0') localStorage.removeItem(INTERNAL_KEY);
+  internal = localStorage.getItem(INTERNAL_KEY) === '1';
+} catch {
+  internal = internalParam === '1';
+}
+
 if (key) {
   try {
     posthog.init(key, {
@@ -24,13 +40,18 @@ if (key) {
       person_profiles: 'identified_only',
       capture_exceptions: true,
       debug: process.env.NEXT_PUBLIC_POSTHOG_DEBUG === '1',
+      // Runs before the first pageview is captured, so even that one is flagged.
+      loaded: (ph) => {
+        if (internalParam === '1') ph.setInternalOrTestUser();
+        if (internalParam === '0') ph.setPersonProperties({ $internal_or_test_user: false });
+      },
     });
   } catch (err) {
     console.error('[analytics] PostHog init failed', err);
   }
 }
 
-if (pixelId) {
+if (pixelId && !internal) {
   try {
     loadMetaPixel(pixelId);
   } catch (err) {
