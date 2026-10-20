@@ -4,7 +4,7 @@ import { AccessSteps } from '@/components/checkout/AccessSteps';
 import { PageBar } from '@/components/PageBar';
 import { TrackView } from '@/components/TrackView';
 import { checkoutModel, deliverables } from '@/lib/checkout';
-import { driveLink, guidesLink, privateLinks } from '@/lib/config';
+import { driveLink, fanpagekitGuideLink, guidesLink, privateLinks } from '@/lib/config';
 import { PACKS } from '@/lib/data';
 import { upsellPaid } from '@/lib/payment';
 import { paidOrder, stripeConfigured } from '@/lib/stripe';
@@ -40,7 +40,11 @@ export default async function AccessPage({ searchParams }: { searchParams: Searc
   // Links are read only here, after the session is verified as paid, and only for what the order unlocks.
   const { shown, emailed } = deliverables(result.order, result.upsell);
   const packName = (slug: string) => PACKS.find((p) => p.slug === slug)?.name ?? slug;
-  const drives = [...shown.map((slug) => ({ name: packName(slug), url: driveLink(slug) })), { name: 'Editing guides', url: guidesLink() }];
+  const drives = [
+    ...shown.map((slug) => ({ name: packName(slug), url: driveLink(slug) })),
+    { name: 'The FanpageKit Guide', url: fanpagekitGuideLink() },
+    { name: 'Editing guides', url: guidesLink() },
+  ];
   const emailedNote = emailed.length
     ? `${emailed.map(packName).join(', ').replace(/, ([^,]*)$/, ' and $1')} ${emailed.length > 1 ? 'are' : 'is'} on the way to ${email ?? 'your inbox'}.`
     : undefined;

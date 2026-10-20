@@ -101,7 +101,7 @@ payment form is a cross-origin iframe, so card details are never recorded.
 | `access_viewed` | `order_name`, `monthly`, `upsell` | The access page loads (also identifies the buyer by email) |
 | `access_step_completed` | `step`, `step_name`, `action` (`continue` / `skip`) | A setup step is finished or skipped |
 | `discord_join_clicked` | — | "Join Discord" |
-| `drive_opened` | `name` | A Google Drive folder link |
+| `drive_opened` | `name` | A Google Drive link on /access (`name`: the pack name, `The FanpageKit Guide` or `Editing guides`) |
 
 ### Server (Stripe webhook, server actions)
 

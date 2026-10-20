@@ -18,6 +18,11 @@ export function driveLink(slug: string) {
   return process.env[`DRIVE_URL_${slug.toUpperCase().replace(/-/g, '_')}`] || '';
 }
 
+/** The FanpageKit Guide on Google Drive, from DRIVE_URL_FANPAGEKIT_GUIDE. Every paid order gets it. */
+export function fanpagekitGuideLink() {
+  return process.env.DRIVE_URL_FANPAGEKIT_GUIDE || '';
+}
+
 /** Google Drive folder with the editing guides (one per tool), from DRIVE_URL_GUIDES. Every paid order gets it. */
 export function guidesLink() {
   return process.env.DRIVE_URL_GUIDES || '';

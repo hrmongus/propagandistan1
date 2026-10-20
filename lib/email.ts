@@ -1,4 +1,4 @@
-import { driveLink, guidesLink, privateLinks } from './config';
+import { driveLink, fanpagekitGuideLink, guidesLink, privateLinks } from './config';
 import { PACKS } from './data';
 
 /*
@@ -40,11 +40,13 @@ async function send(mail: Mail): Promise<boolean> {
 
 /* ---------- content ---------- */
 
-type Folder = { name: string; sub: string; url: string };
+/** `cta` is the button label; folders default to "Open folder". */
+type Folder = { name: string; sub: string; url: string; cta?: string };
 
 const PACK_SUB = '30 finished videos · raw clips · posting playbook';
 const BUNDLE_SUB = '120 finished videos · raw clips · 4 months of playbook';
 const GUIDES_SUB = '9 step-by-step guides, one per editing tool';
+const FANPAGEKIT_GUIDE_SUB = 'The method, start to finish — read this first';
 
 /** Drive folders for pack slugs ('bundle' is the four-pack folder). Missing links are logged and kept, shown as pending. */
 function packFolders(slugs: string[]): Folder[] {
@@ -54,6 +56,12 @@ function packFolders(slugs: string[]): Folder[] {
     const name = PACKS.find((p) => p.slug === slug)?.name ?? slug;
     return { name: slug === 'bundle' ? 'All four packs' : name, sub: slug === 'bundle' ? BUNDLE_SUB : PACK_SUB, url };
   });
+}
+
+function fanpagekitGuide(): Folder {
+  const url = fanpagekitGuideLink();
+  if (!url) console.error('[email] DRIVE_URL_FANPAGEKIT_GUIDE is not set');
+  return { name: 'The FanpageKit Guide', sub: FANPAGEKIT_GUIDE_SUB, url, cta: 'Open guide' };
 }
 
 function guidesFolder(): Folder {
@@ -73,17 +81,17 @@ type Content = {
   setupUrl?: string;
 };
 
-/** Emails a paid order: its pack folders, the guides, and the way back to the setup page. */
+/** Emails a paid order: its pack folders, The FanpageKit Guide, the editing guides, Discord and the way back to the setup page. */
 export async function sendOrderEmail(opts: {
   to: string; idempotencyKey: string; orderName: string; slugs: string[]; monthly: boolean; total: string; setupUrl: string;
 }) {
   const many = opts.slugs.includes('bundle') || opts.slugs.length > 1;
   return deliver(opts.to, opts.idempotencyKey, {
     subject: many ? 'Your FanpageKit packs are ready' : `Your FanpageKit pack is ready: ${opts.orderName}`,
-    preheader: 'Your Drive folders, the editing guides and your setup steps.',
+    preheader: 'Your Drive folders, The FanpageKit Guide, the editing guides and your Discord invite.',
     heading: many ? 'Your packs are ready.' : 'Your pack is ready.',
     intro: `Thanks for your order — ${opts.orderName}, ${opts.total}${opts.monthly ? ' a month' : ''}. Everything is in the folders below. Save this email so you can come back to them any time.`,
-    folders: [...packFolders(opts.slugs), guidesFolder()],
+    folders: [...packFolders(opts.slugs), fanpagekitGuide(), guidesFolder()],
     note: opts.monthly ? 'You’re on the monthly plan: a fresh 30-video pack arrives by email every month. Cancel any time from your setup page.' : undefined,
     setupUrl: opts.setupUrl,
   });
@@ -111,6 +119,8 @@ async function deliver(to: string, idempotencyKey: string, c: Content) {
 
 const esc = (s: string) => s.replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]!);
 
+const DISCORD_BLURB = 'where musicians share how they grow fan pages organically, from a single page to 20 at scale. Ask questions, share your numbers, get feedback on your clips.';
+
 const FONT = `-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif`;
 const C = { bg: '#F2F2F4', card: '#FFFFFF', fg: '#0A0A0B', muted: '#6E6E73', line: '#E6E6EA', tile: '#F6F6F8', green: '#1F9D46' };
 
@@ -123,7 +133,7 @@ function text(c: Content, discord: string) {
     ...c.folders.map((f) => `${f.name} — ${f.sub}\n${f.url || 'Link on its way — we’ll follow up shortly.'}\n`),
     ...(c.note ? [c.note, ''] : []),
     ...(c.setupUrl ? ['Finish setting up (onboarding video, 1:1 call, community):', c.setupUrl, ''] : []),
-    ...(discord ? ['Join the community on Discord:', discord, ''] : []),
+    ...(discord ? [`Join the community on Discord — ${DISCORD_BLURB}`, discord, ''] : []),
     'Questions or a missing link? Just reply to this email.',
     '',
     '— FanpageKit',
@@ -132,7 +142,7 @@ function text(c: Content, discord: string) {
 
 function folderRow(f: Folder) {
   const action = f.url
-    ? `<a href="${esc(f.url)}" style="display:inline-block;background:${C.fg};color:#FFFFFF;text-decoration:none;font-size:14px;font-weight:600;padding:10px 16px;border-radius:999px;white-space:nowrap;">Open folder&nbsp;→</a>`
+    ? `<a href="${esc(f.url)}" style="display:inline-block;background:${C.fg};color:#FFFFFF;text-decoration:none;font-size:14px;font-weight:600;padding:10px 16px;border-radius:999px;white-space:nowrap;">${esc(f.cta ?? 'Open folder')}&nbsp;→</a>`
     : `<span style="font-size:13px;color:${C.muted};white-space:nowrap;">Link coming soon</span>`;
   return `
   <tr><td style="padding:0 0 10px;">
@@ -155,7 +165,14 @@ function html(c: Content, discord: string) {
         <div style="font-size:16px;font-weight:600;color:${C.fg};">Finish setting up</div>
         <div style="font-size:14px;line-height:1.55;color:${C.muted};padding:6px 0 16px;">Watch the 7-minute welcome video, book your onboarding call and join the community — about ten minutes, then you post your first clip.</div>
         <a href="${esc(c.setupUrl)}" style="display:inline-block;background:${C.green};color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:999px;">Open your setup page</a>
-        ${discord ? `<a href="${esc(discord)}" style="display:inline-block;margin-left:8px;color:${C.fg};text-decoration:none;font-size:15px;font-weight:600;padding:12px 6px;">Join Discord&nbsp;→</a>` : ''}
+      </td></tr>`
+    : '';
+  const community = discord
+    ? `
+      <tr><td style="padding:26px 0 0;${c.setupUrl ? '' : `border-top:1px solid ${C.line};`}">
+        <div style="font-size:16px;font-weight:600;color:${C.fg};">Join the community</div>
+        <div style="font-size:14px;line-height:1.55;color:${C.muted};padding:6px 0 16px;">Our Discord is ${esc(DISCORD_BLURB)}</div>
+        <a href="${esc(discord)}" style="display:inline-block;background:#5865F2;color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:999px;">Join Discord&nbsp;→</a>
       </td></tr>`
     : '';
 
@@ -182,6 +199,7 @@ function html(c: Content, discord: string) {
           ${c.note ? `<tr><td style="padding:8px 0 4px;font-size:14px;line-height:1.55;color:${C.muted};">${esc(c.note)}</td></tr>` : ''}
           <tr><td style="height:18px;"></td></tr>
           ${setup}
+          ${community}
         </table>
       </td></tr>
       <tr><td style="padding:20px 8px 0;font-size:12px;line-height:1.6;color:${C.muted};">
