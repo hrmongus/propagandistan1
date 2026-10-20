@@ -99,7 +99,7 @@ payment form is a cross-origin iframe, so card details are never recorded.
 | Event | Properties | Fires when |
 | --- | --- | --- |
 | `access_viewed` | `order_name`, `monthly`, `upsell` | The access page loads (also identifies the buyer by email) |
-| `access_step_completed` | `step`, `step_name`, `action` (`continue` / `skip`) | A setup step is finished or skipped |
+| `access_step_completed` | `step`, `step_name`, `action` (`continue` / `skip`) | A setup step is finished or skipped. "Watch the video" only exists when `NEXT_PUBLIC_VSL_URL` is set, so `step` (the position on the page) shifts by one without it — compare steps by `step_name` |
 | `discord_join_clicked` | — | "Join Discord" |
 | `drive_opened` | `name` | A Google Drive link on /access (`name`: the pack name, `The FanpageKit Guide` or `Editing guides`) |
 

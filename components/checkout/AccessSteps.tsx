@@ -9,20 +9,27 @@ type Step = { title: string; sub: React.ReactNode; body: (next: () => void, skip
 
 type Drive = { name: string; url: string };
 
+const isVideoFile = (url: string) => /\.(mp4|webm|mov)(\?|#|$)/i.test(url);
+
 export function AccessSteps({ discordUrl, drives, emailedNote }: { discordUrl: string; drives: Drive[]; emailedNote?: string }) {
   const [current, setCurrent] = useState(1);
 
   const steps: Step[] = [
-    {
+    // The video step only exists when a VSL is configured.
+    ...(config.vslUrl ? [{
       title: 'Watch the video',
       sub: 'Seven minutes on how the 30 days work.',
-      body: (next) => (
+      body: (next: () => void) => (
         <>
-          <div className="vsl"><span className="play"><i /></span><span className="cap">drop VSL · welcome.mp4</span></div>
+          <div className="vsl">
+            {isVideoFile(config.vslUrl)
+              ? <video src={config.vslUrl} controls playsInline preload="metadata" />
+              : <iframe src={config.vslUrl} title="Welcome video" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />}
+          </div>
           <button className="btn" type="button" onClick={next} style={{ alignSelf: 'flex-start' }}>I&apos;ve watched it — continue</button>
         </>
       ),
-    },
+    }] : []),
     {
       title: 'Book your onboarding',
       sub: 'The method has a basic form, but every musician spins it their own way to hit the best numbers. 20 minutes with us gets you there faster.',
@@ -89,7 +96,7 @@ export function AccessSteps({ discordUrl, drives, emailedNote }: { discordUrl: s
             <div className="astep-head">
               <span className="astep-num">{done ? '✓' : n}</span>
               <span className="astep-text"><span className="astep-title">{s.title}</span><span className="astep-sub">{s.sub}</span></span>
-              <span className="astep-count">Step {n} of 4</span>
+              <span className="astep-count">Step {n} of {steps.length}</span>
             </div>
             {open && <div className="astep-body">{s.body(() => advance(n, s.title, 'continue'), () => advance(n, s.title, 'skip'))}</div>}
           </div>

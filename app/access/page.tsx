@@ -4,7 +4,7 @@ import { AccessSteps } from '@/components/checkout/AccessSteps';
 import { PageBar } from '@/components/PageBar';
 import { TrackView } from '@/components/TrackView';
 import { checkoutModel, deliverables } from '@/lib/checkout';
-import { driveLink, fanpagekitGuideLink, guidesLink, privateLinks } from '@/lib/config';
+import { config, driveLink, fanpagekitGuideLink, guidesLink, privateLinks } from '@/lib/config';
 import { PACKS } from '@/lib/data';
 import { upsellPaid } from '@/lib/payment';
 import { paidOrder, stripeConfigured } from '@/lib/stripe';
@@ -56,7 +56,7 @@ export default async function AccessPage({ searchParams }: { searchParams: Searc
       <div className="access">
         <div className="access-head">
           <span className="ok"><span className="gdot" />Payment confirmed</span>
-          <h1>Your pack is ready. Four steps to set up.</h1>
+          <h1>Your pack is ready. {config.vslUrl ? 'Four' : 'Three'} steps to set up.</h1>
           <p>About ten minutes, then you post your first clip tonight.{email && <> Your links are also on their way to {email}.</>}</p>
         </div>
         <AccessSteps discordUrl={discordUrl} drives={drives} emailedNote={emailedNote} />

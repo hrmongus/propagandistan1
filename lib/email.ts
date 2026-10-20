@@ -1,4 +1,4 @@
-import { driveLink, fanpagekitGuideLink, guidesLink, privateLinks } from './config';
+import { config, driveLink, fanpagekitGuideLink, guidesLink, privateLinks } from './config';
 import { PACKS } from './data';
 
 /*
@@ -132,7 +132,7 @@ function text(c: Content, discord: string) {
     '',
     ...c.folders.map((f) => `${f.name} — ${f.sub}\n${f.url || 'Link on its way — we’ll follow up shortly.'}\n`),
     ...(c.note ? [c.note, ''] : []),
-    ...(c.setupUrl ? ['Finish setting up (onboarding video, 1:1 call, community):', c.setupUrl, ''] : []),
+    ...(c.setupUrl ? [`Finish setting up (${config.vslUrl ? 'onboarding video, ' : ''}1:1 call, community):`, c.setupUrl, ''] : []),
     ...(discord ? [`Join the community on Discord — ${DISCORD_BLURB}`, discord, ''] : []),
     'Questions or a missing link? Just reply to this email.',
     '',
@@ -163,7 +163,7 @@ function html(c: Content, discord: string) {
     ? `
       <tr><td style="padding:26px 0 0;border-top:1px solid ${C.line};">
         <div style="font-size:16px;font-weight:600;color:${C.fg};">Finish setting up</div>
-        <div style="font-size:14px;line-height:1.55;color:${C.muted};padding:6px 0 16px;">Watch the 7-minute welcome video, book your onboarding call and join the community — about ten minutes, then you post your first clip.</div>
+        <div style="font-size:14px;line-height:1.55;color:${C.muted};padding:6px 0 16px;">${config.vslUrl ? 'Watch the 7-minute welcome video, book' : 'Book'} your onboarding call and join the community — about ten minutes, then you post your first clip.</div>
         <a href="${esc(c.setupUrl)}" style="display:inline-block;background:${C.green};color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:999px;">Open your setup page</a>
       </td></tr>`
     : '';
