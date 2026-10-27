@@ -1,10 +1,14 @@
 import { createHash } from 'node:crypto';
 import { cookies, headers } from 'next/headers';
 import type Stripe from 'stripe';
+import { orderPacks, upsellPacks, type Order } from '../checkout';
+import { idOf } from '../stripe';
+import type { MetaPurchase } from './meta';
 
 /*
  * Meta Conversions API: purchases sent from the server (the Stripe webhook), so ad blockers and browser privacy
- * features can't drop them. Server-only. Without NEXT_PUBLIC_META_PIXEL_ID and META_CAPI_ACCESS_TOKEN every call is
+ * features can't drop them. /upsell and /access send the same events from the Pixel with the same event ids
+ * (metaBrowserPurchases), which gives Meta the browser's ad click to attribute them to; Meta counts each once. Server-only. Without NEXT_PUBLIC_META_PIXEL_ID and META_CAPI_ACCESS_TOKEN every call is
  * a no-op, and a failure is logged, never thrown, so Meta can't fail a webhook.
  *
  * Meta matches a server event to the ad click through the browser's _fbp/_fbc cookies, IP and user agent. The
@@ -65,13 +69,47 @@ function customerData(customer: Stripe.Checkout.Session.CustomerDetails | null |
   };
 }
 
-type MetaServerEvent = {
-  name: 'Purchase' | 'Subscribe';
-  /** Unique per payment: the key sendEventOnce guards, and Meta's own dedup id. */
-  eventId: string;
-  value: number;
-  currency: string;
-  packs: string[];
+const dollars = (cents: number | null | undefined) => (cents ?? 0) / 100;
+
+/** The order's Purchase, identical from the webhook and the browser. eventId: the key sendEventOnce guards, and Meta's dedup id. */
+export const orderPurchase = (session: Stripe.Checkout.Session, order: Order) => ({
+  eventId: session.id,
+  value: dollars(session.amount_total),
+  currency: session.currency ?? 'usd',
+  packs: orderPacks(order),
+});
+
+/** A monthly order's Subscribe: the order's Purchase under its own event id. */
+export const orderSubscribe = (session: Stripe.Checkout.Session, order: Order) => ({
+  ...orderPurchase(session, order),
+  eventId: `${session.id}:subscribe`,
+});
+
+/** The upsell's Purchase, identical from the webhook and the browser. */
+export const upsellPurchase = (pi: Stripe.PaymentIntent, order: Order) => ({
+  eventId: pi.id,
+  value: dollars(pi.amount_received),
+  currency: pi.currency,
+  packs: upsellPacks(order).map((p) => p.slug),
+});
+
+/**
+ * What the Pixel sends on /upsell and /access: the order's events (and the upsell's once paid), plus the buyer's
+ * hashed details for advanced matching. The Pixel takes pre-hashed values as they are.
+ */
+export function metaBrowserPurchases(session: Stripe.Checkout.Session, order: Order, upsell?: Stripe.PaymentIntent | null) {
+  const events: MetaPurchase[] = [{ name: 'Purchase', ...orderPurchase(session, order) }];
+  if (order.plan === 'monthly') events.push({ name: 'Subscribe', ...orderSubscribe(session, order) });
+  if (upsell) events.push({ name: 'Purchase', ...upsellPurchase(upsell, order) });
+  const match = Object.fromEntries(
+    Object.entries(customerData(session.customer_details, idOf(session.customer))).flatMap(([k, v]) => (v ? [[k, v[0]]] : [])),
+  );
+  return { events, match };
+}
+
+type MetaServerEvent = MetaPurchase & {
+  /** The page the browser sends the same event from. */
+  path: '/upsell' | '/access';
   /** What the buyer entered at checkout: email, name and billing address. */
   customer: Stripe.Checkout.Session.CustomerDetails | null | undefined;
   /** The Stripe customer, sent as external_id so the order and its upsell match the same person. */
@@ -81,7 +119,8 @@ type MetaServerEvent = {
 };
 
 /**
- * Sends one event; resolves to whether Meta accepted it (true when Meta isn't configured, so nothing is retried).
+ * Sends one event; resolves to false only when a retry could succeed (network, timeout, 429, 5xx), so the webhook
+ * fails and Stripe redelivers it. Not configured or rejected by Meta (4xx) resolves to true: retrying won't help.
  * Call it through sendEventOnce (lib/db.ts) so a redelivered webhook doesn't send it twice.
  */
 export async function sendMetaEvent(event: MetaServerEvent): Promise<boolean> {
@@ -94,7 +133,7 @@ export async function sendMetaEvent(event: MetaServerEvent): Promise<boolean> {
         event_time: Math.floor(Date.now() / 1000),
         event_id: event.eventId,
         action_source: 'website',
-        event_source_url: `${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/checkout`,
+        event_source_url: `${process.env.NEXT_PUBLIC_SITE_URL ?? ''}${event.path}`,
         user_data: {
           ...customerData(event.customer, event.customerId),
           fbp: m[KEYS.fbp] || undefined,
@@ -123,7 +162,7 @@ export async function sendMetaEvent(event: MetaServerEvent): Promise<boolean> {
     });
     if (!res.ok) {
       console.error('[analytics] Meta event rejected', event.name, event.eventId, res.status, await res.text());
-      return false;
+      return res.status < 500 && res.status !== 429;
     }
     console.info('[analytics] Meta event sent', event.name, event.eventId, await res.text());
     return true;

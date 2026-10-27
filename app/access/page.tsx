@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { AccessSteps } from '@/components/checkout/AccessSteps';
+import { MetaPurchase } from '@/components/MetaPurchase';
 import { PageBar } from '@/components/PageBar';
 import { TrackView } from '@/components/TrackView';
+import { metaBrowserPurchases } from '@/lib/analytics/meta-server';
 import { checkoutModel, deliverables } from '@/lib/checkout';
 import { config, driveLink, fanpagekitGuideLink, guidesLink, privateLinks } from '@/lib/config';
 import { PACKS } from '@/lib/data';
-import { upsellPaid } from '@/lib/payment';
+import { upsellIntent } from '@/lib/payment';
 import { paidOrder, stripeConfigured } from '@/lib/stripe';
 import { openBillingPortal } from './actions';
 
@@ -17,7 +19,8 @@ type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 async function lookup(sessionId: string) {
   try {
     const result = await paidOrder(sessionId);
-    return { ...result, upsell: result.order ? await upsellPaid(result.session) : false };
+    const upsellPi = result.order ? await upsellIntent(result.session) : undefined;
+    return { ...result, upsellPi, upsell: Boolean(upsellPi) };
   } catch (err) {
     console.error('[access] session lookup failed', err);
     return null;
@@ -51,6 +54,7 @@ export default async function AccessPage({ searchParams }: { searchParams: Searc
 
   return (
     <main className="page">
+      <MetaPurchase {...metaBrowserPurchases(result.session, result.order, result.upsellPi)} />
       <TrackView event="access_viewed" props={{ order_name: orderName, monthly, upsell: result.upsell }} email={email} />
       <PageBar>{result.upsell ? 'All four packs' : orderName} · paid</PageBar>
       <div className="access">

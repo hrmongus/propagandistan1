@@ -76,11 +76,12 @@ export async function recordPurchase(p: Purchase) {
 /**
  * Sends a server-side analytics event at most once per `key`, however often Stripe redelivers the webhook:
  * claims the key in analytics_events first, so only the first delivery sends; a failed send releases the claim
- * so a later retry can try again. `send` resolves to whether the event was delivered.
+ * so a later retry can try again. `send` resolves to whether the event was delivered, and so does this: false means
+ * the caller should fail the webhook so Stripe redelivers it.
  *
  * Without a database (dev) or if the claim itself fails, it sends anyway: a rare duplicate beats a lost purchase.
  */
-export async function sendEventOnce(key: string, send: () => Promise<boolean>) {
+export async function sendEventOnce(key: string, send: () => Promise<boolean>): Promise<boolean> {
   let supabase: SupabaseClient<Database> | null = null;
   try {
     supabase = db();
@@ -92,7 +93,10 @@ export async function sendEventOnce(key: string, send: () => Promise<boolean>) {
       .from('analytics_events')
       .upsert({ event_key: key }, { onConflict: 'event_key', ignoreDuplicates: true })
       .select('event_key');
-    if (!error && !data.length) return console.info('[analytics] already sent, skipping', key);
+    if (!error && !data.length) {
+      console.info('[analytics] already sent, skipping', key);
+      return true;
+    }
     if (error) {
       console.error('[analytics] could not claim event, sending anyway', key, error.message);
       supabase = null;
@@ -106,4 +110,5 @@ export async function sendEventOnce(key: string, send: () => Promise<boolean>) {
     const { error } = await supabase.from('analytics_events').delete().eq('event_key', key);
     if (error) console.error('[analytics] could not release claim', key, error.message);
   }
+  return sent;
 }

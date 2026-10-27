@@ -24,8 +24,8 @@ properties; this file explains why each event exists and where it fires.
 | `lib/analytics/events.ts` | **Typed event catalog** (`ClientEvents`, `ServerEvents`) and `trackClick()`. |
 | `lib/analytics/client.ts` | `track()`, `identify()`, `distinctId()` for client components. |
 | `lib/analytics/server.ts` | `posthog-node`: `captureServer()` and the payment trackers called by the Stripe webhook. |
-| `lib/analytics/meta.ts` | Loads the Meta Pixel; `track()` forwards mapped events to it (see *Meta* below). |
-| `lib/analytics/meta-server.ts` | Meta Conversions API: `sendMetaEvent()` and `metaCheckoutMetadata()`. |
+| `lib/analytics/meta.ts` | Loads the Meta Pixel; `track()` forwards mapped events to it; `trackMetaPurchases()` sends paid events from the browser (see *Meta* below). |
+| `lib/analytics/meta-server.ts` | Meta Conversions API: `sendMetaEvent()`, `metaCheckoutMetadata()`, and `metaBrowserPurchases()` for the Pixel copy. |
 | `components/TrackView.tsx` | Sends a `*_viewed` event once on mount (and identifies the buyer on `/access`). |
 
 How to send an event, by where the code runs:
@@ -126,15 +126,26 @@ the full record. Mapping lives in `metaEvents` (`lib/analytics/meta.ts`) and the
 | --- | --- | --- | --- |
 | `PageView` | Pixel (automatic, incl. client-side navigations) | `$pageview` | — |
 | `ViewContent` | Pixel | `pack_selected` | `content_ids: [pack]`, `value: price`, `currency: USD` |
-| `InitiateCheckout` | Pixel | `checkout_viewed` | `content_ids: [pack]` |
-| `Purchase` | Conversions API (webhook) | `order_paid`, `upsell_paid` | `value`, `currency`, `content_ids: packs`; `event_id` = Checkout Session / PaymentIntent id |
-| `Subscribe` | Conversions API (webhook) | `order_paid` with `plan: monthly` | as `Purchase`; `event_id` = `<session id>:subscribe` |
+| `InitiateCheckout` | Pixel | `checkout_viewed` | `content_ids: [pack]`, `value` (due today), `currency: USD` |
+| `Purchase` | Conversions API (webhook) **and** Pixel (`/upsell`, `/access`) | `order_paid`, `upsell_paid` | `value`, `currency`, `content_ids: packs`; `event_id` = Checkout Session / PaymentIntent id |
+| `Subscribe` | Conversions API (webhook) **and** Pixel (`/upsell`, `/access`) | `order_paid` with `plan: monthly` | as `Purchase`; `event_id` = `<session id>:subscribe` |
+
+Purchases are sent twice on purpose: the webhook is the source of truth (ad blockers can't drop it), and the Pixel
+copy gives Meta the browser's ad click to attribute it to. Both carry the same `event_id`, so Meta counts each once.
+The browser values come from the same builders as the webhook's (`orderPurchase` / `orderSubscribe` /
+`upsellPurchase` in `lib/analytics/meta-server.ts`, sent by `<MetaPurchase>` via `metaBrowserPurchases`); keep them
+that way or Meta stops deduplicating. A reload doesn't resend (sessionStorage guard).
 
 Matching: the checkout action stores the buyer's `_fbp` / `_fbc` cookies, IP and user agent in the Checkout Session
 metadata (`meta_fbp`, `meta_fbc`, `meta_ip`, `meta_ua`). The webhook sends them with what Stripe Checkout collected,
 normalised and SHA-256 hashed as Meta requires: email (`em`), first and last name (`fn`, `ln`), city, state, ZIP and
 country (`ct`, `st`, `zp`, `country`, when Stripe has them) and the Stripe customer id (`external_id`). Phone isn't
-collected at checkout, so it isn't sent. Renewals, failures and cancellations are not sent to Meta.
+collected at checkout, so it isn't sent. On `/upsell` and `/access` the Pixel gets the same hashed details as
+advanced matching. Meta only accepts those at the pixel's first `init`, so on those two paths `startMetaPixel` holds
+the pixel back until the page hands them over. Renewals, failures and cancellations are not sent to Meta.
+
+Retries: a Meta send that fails for a reason a retry can fix (network, timeout, 429, 5xx) fails the webhook with a
+500, so Stripe redelivers it; events already sent are skipped (below). A 4xx rejection is logged and not retried.
 
 ### Once per payment
 
@@ -142,7 +153,7 @@ Stripe redelivers webhooks, and keeps its automatic retries going even after a m
 server-side payment event (`order_paid`, `upsell_paid`, `subscription_renewed`, Meta `Purchase` / `Subscribe`) goes
 through `sendEventOnce` (`lib/db.ts`), which claims the key `<destination>:<event>:<stripe ref>` in the Supabase
 `analytics_events` table before sending. A redelivery finds the row and skips; a failed send deletes it so a later
-retry sends. If the claim itself fails (no database), the event is sent anyway. Look up what was sent with
+retry sends; the payment trackers report a failed send so the webhook returns 500 and Stripe retries. If the claim itself fails (no database), the event is sent anyway. Look up what was sent with
 `select * from analytics_events where event_key like '%cs_live_…'`.
 
 ### Suggested insights

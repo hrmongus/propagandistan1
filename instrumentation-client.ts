@@ -1,14 +1,15 @@
 import posthog from 'posthog-js';
 import type { ClientEvent } from '@/lib/analytics/events';
 import { track } from '@/lib/analytics/client';
-import { loadMetaPixel } from '@/lib/analytics/meta';
+import { startMetaPixel } from '@/lib/analytics/meta';
 
 /*
  * PostHog, initialised before the app hydrates. Without NEXT_PUBLIC_POSTHOG_KEY nothing loads or sends.
  * Pageviews (including client-side navigations), page leaves, autocaptured clicks and uncaught errors come from
  * the SDK; the funnel's custom events are listed in lib/analytics/events.ts.
  *
- * Meta Pixel, loaded alongside when NEXT_PUBLIC_META_PIXEL_ID is set (lib/analytics/meta.ts).
+ * Meta Pixel, loaded alongside when NEXT_PUBLIC_META_PIXEL_ID is set (lib/analytics/meta.ts); on /upsell and /access
+ * once the page hands it the buyer's details.
  */
 
 const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
@@ -53,7 +54,7 @@ if (key) {
 
 if (pixelId && !internal) {
   try {
-    loadMetaPixel(pixelId);
+    startMetaPixel(pixelId);
   } catch (err) {
     console.error('[analytics] Meta Pixel init failed', err);
   }

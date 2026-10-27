@@ -1,10 +1,10 @@
 import { PostHog } from 'posthog-node';
 import type Stripe from 'stripe';
-import { checkoutModel, orderPacks, upsellPacks } from '../checkout';
+import { checkoutModel } from '../checkout';
 import { sendEventOnce } from '../db';
 import { idOf, orderFromMetadata, paidOrder, stripe } from '../stripe';
 import type { ServerEvent, ServerEvents } from './events';
-import { sendMetaEvent } from './meta-server';
+import { orderPurchase, orderSubscribe, sendMetaEvent, upsellPurchase } from './meta-server';
 
 /*
  * Server-side PostHog, for events whose truth is on the server: payments (from the Stripe webhook) and the billing
@@ -16,7 +16,8 @@ import { sendMetaEvent } from './meta-server';
  *
  * Paid orders and upsells are also sent to Meta as Purchase (and Subscribe for monthly) through the Conversions API.
  * Payment events go through sendEventOnce (lib/db.ts): Stripe can redeliver a webhook after it already succeeded,
- * and each payment must still be counted once, in PostHog and in Meta.
+ * and each payment must still be counted once, in PostHog and in Meta. The payment trackers resolve to whether every
+ * event was delivered; the webhook fails on false, so Stripe redelivers it and only the unsent events go out again.
  */
 
 let client: PostHog | null = null;
@@ -53,14 +54,17 @@ export const DISTINCT_ID_KEY = 'ph_distinct_id';
 const personOf = (metadata: Stripe.Metadata | null | undefined, email: string | null | undefined) =>
   metadata?.[DISTINCT_ID_KEY] || email || null;
 
-/** Wraps a tracker so a Stripe lookup it needs can't throw into the webhook either. */
-const safe = <A extends unknown[]>(name: string, fn: (...args: A) => Promise<void>) => async (...args: A) => {
+/** Wraps a tracker so a Stripe lookup it needs can't throw into the webhook either; a throw counts as not sent. */
+const safe = <A extends unknown[]>(name: string, fn: (...args: A) => Promise<boolean | void>) => async (...args: A): Promise<boolean> => {
   try {
-    await fn(...args);
+    return (await fn(...args)) ?? true;
   } catch (err) {
     console.error(`[analytics] ${name} failed`, err);
+    return false;
   }
 };
+
+const allSent = (results: boolean[]) => results.every(Boolean);
 
 const dollars = (cents: number | null | undefined) => (cents ?? 0) / 100;
 
@@ -70,11 +74,10 @@ export const trackOrderPaid = safe('trackOrderPaid', async (session: Stripe.Chec
   const order = orderFromMetadata(session.metadata);
   const m = checkoutModel(order);
   const email = session.customer_details?.email;
-  const packs = orderPacks(order);
-  const amount = dollars(session.amount_total);
-  const currency = session.currency ?? 'usd';
-  const meta = { value: amount, currency, packs, customer: session.customer_details, customerId: idOf(session.customer), metadata: session.metadata };
-  await Promise.all([
+  const purchase = orderPurchase(session, order);
+  const { packs, value: amount, currency } = purchase;
+  const buyer = { customer: session.customer_details, customerId: idOf(session.customer), metadata: session.metadata, path: '/upsell' } as const;
+  return allSent(await Promise.all([
     sendEventOnce(`posthog:order_paid:${session.id}`, () => captureServer(personOf(session.metadata, email), 'order_paid', {
       pack: m.sel.slug,
       plan: order.plan,
@@ -84,10 +87,10 @@ export const trackOrderPaid = safe('trackOrderPaid', async (session: Stripe.Chec
       amount,
       currency,
     }, { email, name: session.customer_details?.name, plan: order.plan })),
-    sendEventOnce(`meta:Purchase:${session.id}`, () => sendMetaEvent({ name: 'Purchase', eventId: session.id, ...meta })),
-    order.plan === 'monthly' &&
-      sendEventOnce(`meta:Subscribe:${session.id}`, () => sendMetaEvent({ name: 'Subscribe', eventId: `${session.id}:subscribe`, ...meta })),
-  ]);
+    sendEventOnce(`meta:Purchase:${session.id}`, () => sendMetaEvent({ name: 'Purchase', ...purchase, ...buyer })),
+    order.plan !== 'monthly' ||
+      sendEventOnce(`meta:Subscribe:${session.id}`, () => sendMetaEvent({ name: 'Subscribe', ...orderSubscribe(session, order), ...buyer })),
+  ]));
 });
 
 /** Both upsell routes (one-click and the fallback Checkout) end in one succeeded PaymentIntent, so this runs once. */
@@ -95,9 +98,9 @@ export const trackUpsellPaid = safe('trackUpsellPaid', async (pi: Stripe.Payment
   const { session, order } = await paidOrder(pi.metadata.upsell_for ?? '');
   if (!order) return;
   const email = session.customer_details?.email;
-  const packs = upsellPacks(order).map((p) => p.slug);
-  const amount = dollars(pi.amount_received);
-  await Promise.all([
+  const purchase = upsellPurchase(pi, order);
+  const { packs, value: amount } = purchase;
+  return allSent(await Promise.all([
     sendEventOnce(`posthog:upsell_paid:${pi.id}`, () => captureServer(personOf(session.metadata, email), 'upsell_paid', {
       packs,
       amount,
@@ -106,20 +109,18 @@ export const trackUpsellPaid = safe('trackUpsellPaid', async (pi: Stripe.Payment
     })),
     sendEventOnce(`meta:Purchase:${pi.id}`, () => sendMetaEvent({
       name: 'Purchase',
-      eventId: pi.id,
-      value: amount,
-      currency: pi.currency,
-      packs,
+      ...purchase,
+      path: '/access',
       customer: session.customer_details,
       customerId: idOf(pi.customer) ?? idOf(session.customer),
       metadata: session.metadata,
     })),
-  ]);
+  ]));
 });
 
 export const trackRenewal = safe('trackRenewal', async (invoice: Stripe.Invoice) => {
   const metadata = invoice.parent?.subscription_details?.metadata;
-  await sendEventOnce(`posthog:subscription_renewed:${invoice.id}`, () => captureServer(personOf(metadata, invoice.customer_email), 'subscription_renewed', {
+  return sendEventOnce(`posthog:subscription_renewed:${invoice.id}`, () => captureServer(personOf(metadata, invoice.customer_email), 'subscription_renewed', {
     pack: orderFromMetadata(metadata).pack,
     amount: dollars(invoice.amount_paid),
     currency: invoice.currency,

@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { UpsellView } from '@/components/checkout/UpsellView';
+import { MetaPurchase } from '@/components/MetaPurchase';
 import { PageBar } from '@/components/PageBar';
+import { metaBrowserPurchases } from '@/lib/analytics/meta-server';
 import { checkoutModel, upsellPacks } from '@/lib/checkout';
 import { upsellPaid } from '@/lib/payment';
 import { paidOrder, stripeConfigured } from '@/lib/stripe';
@@ -36,6 +38,7 @@ export default async function UpsellPage({ searchParams }: { searchParams: Searc
   const { orderName, monthly } = checkoutModel(result.order);
   return (
     <main className="page">
+      <MetaPurchase {...metaBrowserPurchases(result.session, result.order)} />
       <PageBar><span className="gdot" />{orderName} · paid</PageBar>
       <UpsellView
         sessionId={sessionId}

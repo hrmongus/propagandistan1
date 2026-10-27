@@ -26,7 +26,7 @@ export async function POST(req: Request) {
         else {
           await fulfillOrder(session);
           // After fulfillment, so a failed run that Stripe retries isn't counted twice.
-          await trackOrderPaid(session);
+          if (!(await trackOrderPaid(session))) throw new Error('analytics not delivered');
         }
         break;
       }
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
         if (upsellFor) {
           await fulfillUpsell(upsellFor, event.data.object.id);
           // Every upsell (one-click or by card) ends here exactly once; upsell Checkout Sessions aren't counted.
-          await trackUpsellPaid(event.data.object);
+          if (!(await trackUpsellPaid(event.data.object))) throw new Error('analytics not delivered');
         }
         break;
       }
@@ -44,7 +44,7 @@ export async function POST(req: Request) {
         // The first month is fulfilled from checkout.session.completed; this covers every renewal after it.
         if (event.data.object.billing_reason === 'subscription_cycle') {
           await fulfillRenewal(event.data.object);
-          await trackRenewal(event.data.object);
+          if (!(await trackRenewal(event.data.object))) throw new Error('analytics not delivered');
         }
         break;
       case 'invoice.payment_failed':
@@ -60,7 +60,7 @@ export async function POST(req: Request) {
         break;
     }
   } catch (err) {
-    // 500 makes Stripe retry. The signature is already verified, so the reason is safe to show in the dashboard.
+    // 500 makes Stripe retry: fulfillment is idempotent and sendEventOnce skips events already sent. The signature is already verified, so the reason is safe to show in the dashboard.
     console.error('[webhook] fulfillment failed', event.type, event.id, err);
     return new Response(`Fulfillment failed: ${(err as Error).message}`, { status: 500 });
   }
