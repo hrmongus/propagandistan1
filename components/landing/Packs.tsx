@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { track } from '@/lib/analytics/client';
 import { trackClick } from '@/lib/analytics/events';
 import { PRICES } from '@/lib/checkout';
@@ -11,16 +11,40 @@ import { Seal } from './Seal';
 
 const singles = PACKS.filter((p) => !p.bundle);
 const bundle = PACKS.find((p) => p.bundle)!;
-/** The monthly plan's real saving against buying a pack once, so the sign can never overstate it. */
-const SUB_OFF = Math.round(((PRICES.pack - PRICES.packMonthly) / PRICES.pack) * 100);
 
 /**
- * The offer, top to bottom: the monthly subscription (it starts with the chosen look), the one pack that's picked,
- * with its aesthetic picker under its visual, then the four-pack bundle. Every card carries the money back seal.
+ * The offer: the one pack that's picked, with its aesthetic picker under its visual, then the four-pack bundle.
+ * Both cards carry the money back seal. The monthly plan is offered at checkout.
  */
 export function Packs() {
   const [sel, setSel] = useState(0);
+  // which way the preview slides in (+1 from the right, -1 from the left) and whether the visitor has tried it yet
+  const [dir, setDir] = useState(1);
+  const [touched, setTouched] = useState(false);
+  const [hint, setHint] = useState(false);
+  const card = useRef<HTMLDivElement>(null);
+  const swipeX = useRef<number | null>(null);
   const p = singles[sel];
+
+  const pick = (i: number, method: 'swatch' | 'arrow' | 'swipe') => {
+    const next = (i + singles.length) % singles.length;
+    setTouched(true);
+    if (next === sel) return;
+    setDir(i > sel ? 1 : -1);
+    setSel(next);
+    track('aesthetic_selected', { pack: singles[next].slug, method });
+  };
+
+  // the first time the card is on screen, the preview nudges sideways once, like a swipe, to show it can be changed
+  useEffect(() => {
+    const el = card.current;
+    if (!el || !('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setHint(true); io.disconnect(); }
+    }, { threshold: 0.6 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   // the FAQ's genre chips pick an aesthetic from outside this section
   useEffect(() => {
@@ -32,44 +56,34 @@ export function Packs() {
     return () => window.removeEventListener(AESTHETIC_EVENT, onPick);
   }, []);
 
-  // the picked aesthetic gives the whole page a faint tint of its colour (see --bg in globals.css)
-  useEffect(() => {
-    const root = document.documentElement;
-    if (p.tint) root.style.setProperty('--aesthetic', p.tint);
-    return () => { root.style.removeProperty('--aesthetic'); };
-  }, [p.tint]);
-
   return (
     <section id="packs" className="section">
       <div className="packs">
-        <div id="subscribe" className="sub-offer">
-          <Seal uid="sub" className="seal sub-seal" />
-          <div className="sub-copy">
-            <span className="sub-kicker">Subscribe &amp; save</span>
-            <h3 className="sub-title">A new pack every month</h3>
-            <p>Start with {p.name}, then a fresh 30-video pack lands every month. Cancel any time in one click.</p>
-            <div className="sub-buy">
-              <span className="pack-price"><span className="now">${PRICES.packMonthly}<small>/mo</small></span><span className="was">${PRICES.pack}</span></span>
-              <Link className="btn btn-green" href={`/checkout?pack=${p.slug}&plan=monthly`} {...trackClick('pack_selected', { pack: p.slug, price: PRICES.packMonthly, bundle: false, plan: 'monthly' })}>
-                Subscribe — ${PRICES.packMonthly}/mo
-              </Link>
-            </div>
-          </div>
-          <span className="sub-burst" aria-label={`${SUB_OFF}% off every pack`}>
-            <b>{SUB_OFF}%</b>OFF
-          </span>
-        </div>
-
         <div className="packs-grid">
-          <div className="pack solo">
+          {/* the card takes on a faint tint of the picked aesthetic's colour (--tint) */}
+          <div className={'pack solo' + (hint && !touched ? ' hinting' : '')} ref={card} style={{ '--tint': p.tint } as React.CSSProperties}>
             <div className="solo-visual">
-              <div className="fan-box">
+              <div
+                className="fan-box"
+                onPointerDown={(e) => { swipeX.current = e.clientX; }}
+                onPointerUp={(e) => {
+                  const dx = swipeX.current == null ? 0 : e.clientX - swipeX.current;
+                  swipeX.current = null;
+                  if (Math.abs(dx) > 40) pick(sel + (dx < 0 ? 1 : -1), 'swipe');
+                }}
+                onPointerCancel={() => { swipeX.current = null; }}
+              >
                 <Seal uid="solo" className="seal corner-seal" />
-                <Fan gi={sel} size="big" />
+                <button type="button" className="fan-arrow prev" aria-label="Previous aesthetic" onClick={() => pick(sel - 1, 'arrow')}>‹</button>
+                <span className="fan-slide" key={p.slug} style={{ '--from': `${dir * 40}px` } as React.CSSProperties}>
+                  <Fan gi={sel} size="big" />
+                </span>
+                <button type="button" className="fan-arrow next" aria-label="Next aesthetic" onClick={() => pick(sel + 1, 'arrow')}>›</button>
+                {!touched && <span className="swipe-hint" aria-hidden="true"><i />Swipe to explore {singles.length} aesthetics</span>}
               </div>
-              {/* colourway-style picker under the visual: one photo swatch per aesthetic */}
+              {/* colourway-style picker under the visual: one named photo swatch per aesthetic */}
               <div className="aesthetics">
-                <span className="aesthetics-label" id="aesthetic-label">Aesthetic: <b>{p.name}</b></span>
+                <span className="aesthetics-label" id="aesthetic-label">Choose your aesthetic <b>{sel + 1}/{singles.length}</b></span>
                 <div className="swatches" role="radiogroup" aria-labelledby="aesthetic-label">
                   {singles.map((s, i) => (
                     <button
@@ -77,17 +91,13 @@ export function Packs() {
                       type="button"
                       role="radio"
                       aria-checked={i === sel}
-                      aria-label={s.name}
-                      title={s.name}
                       className={'swatch' + (i === sel ? ' on' : '')}
-                      onClick={() => {
-                        if (i === sel) return;
-                        setSel(i);
-                        track('aesthetic_selected', { pack: s.slug });
-                      }}
+                      style={{ '--i': i } as React.CSSProperties}
+                      onClick={() => pick(i, 'swatch')}
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={`/uploads/packs/${s.slug}-1.webp`} alt="" loading="lazy" decoding="async" />
+                      <span className="nm">{s.name}</span>
                     </button>
                   ))}
                 </div>

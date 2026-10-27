@@ -10,7 +10,7 @@ export function Reveal() {
         <h2 className="h2">You&apos;ve seen this format a thousand times.</h2>
       </div>
       <div className="marquee">
-        <div className="marquee-track accounts-track" style={{ '--dur': '50s' } as React.CSSProperties}>
+        <div className="marquee-track accounts-track" style={{ '--dur': '85s' } as React.CSSProperties}>
           {items.map((a, i) => (
             <div className="acc" key={i} aria-hidden={i >= ACCOUNTS.length || undefined}>
               <div className="acc-head">

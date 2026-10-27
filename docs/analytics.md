@@ -72,8 +72,9 @@ payment form is a cross-origin iframe, so card details are never recorded.
 | --- | --- | --- |
 | `cta_clicked` | `location` (`nav`, `hero`, `reveal`, `how_it_works`, `final`), `label` | A "Get the pack" style button that scrolls to `#packs` |
 | `pack_selected` | `pack`, `price`, `bundle`, `plan` (`once` / `monthly`) | A checkout button in the packs section: the selected pack (`once`), the bundle (`once`, `bundle: true`), or the subscription card (`monthly`, `price` = monthly price, `pack` = the aesthetic it starts with) |
-| `aesthetic_selected` | `pack` | A pill in the "Select aesthetic" picker; only that pack's card is shown below |
+| `aesthetic_selected` | `pack`, `method` (`swatch` / `arrow` / `swipe`) | The pack card switches aesthetic: a swatch under the preview, the ‹ › arrows on it, or a swipe across it. Only that pack's card is shown |
 | `faq_toggled` | `question`, `open` | An FAQ item is opened or closed |
+| `reviews_navigated` | `method` (`arrow` / `dot`), `index` | The results carousel under the reel breakdown is moved by its ‹ › arrows or dots (swipes aren't tracked); `index` is the card it moved to |
 | `faq_action_clicked` | `question`, `label`, `target` | A link or button inside an FAQ answer: a jump to a section (`#how`, `#inside`, `#guarantee`…), a buy button (`#packs`), the subscription (`#subscribe`), or a genre chip that also picks that aesthetic (`#packs:<pack>`) |
 
 ### Checkout (`/checkout`)

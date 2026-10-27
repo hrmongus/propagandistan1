@@ -2,18 +2,20 @@ import Link from 'next/link';
 import { trackClick } from '@/lib/analytics/events';
 import { Seal } from './Seal';
 
-/** Compact guarantee strip: the seal, one headline, one line on the condition. */
+const PROMISES = ['Full refund', 'Keep the pack', 'One email'];
+
+/** Compact guarantee strip: the seal stuck over the card's edge, a headline, three one-word-ish promises. */
 export function Guarantee() {
   return (
     <section id="guarantee" className="section guarantee-section">
       <div className="guarantee">
-        <div className="seal-wrap">
-          <Seal uid="guarantee" />
-          <Link className="seal-terms" href="/guarantee">*Conditions apply</Link>
-        </div>
+        <Seal uid="guarantee" className="seal guarantee-seal" />
         <div className="copy">
           <h2 className="h3">30-day money back guarantee</h2>
-          <p>Post for 30 days. If nothing moves, you get every cent back — and keep the pack.</p>
+          <ul className="g-promises">
+            {PROMISES.map((p) => <li key={p}><span aria-hidden="true">✓</span>{p}</li>)}
+          </ul>
+          <Link className="seal-terms" href="/guarantee">*Conditions apply</Link>
         </div>
       </div>
     </section>

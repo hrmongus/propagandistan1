@@ -15,9 +15,11 @@ export type ClientEvents = {
   cta_clicked: { location: 'nav' | 'hero' | 'reveal' | 'how_it_works' | 'final'; label: string };
   /** A checkout button in the packs section: the selected pack, the bundle, or the monthly subscription (`plan`). */
   pack_selected: { pack: PackSlug; price: number; bundle: boolean; plan: Plan };
-  /** A pill in the packs section's aesthetic picker; the pack card below switches to it. */
-  aesthetic_selected: { pack: PackSlug };
+  /** The pack card switches aesthetic: a swatch, the ‹ › arrows on the preview, or a swipe across it. */
+  aesthetic_selected: { pack: PackSlug; method: 'swatch' | 'arrow' | 'swipe' };
   faq_toggled: { question: string; open: boolean };
+  /** The results carousel moved by its arrows or dots (swipes aren't tracked). `index` is the card it moved to. */
+  reviews_navigated: { method: 'arrow' | 'dot'; index: number };
   /** A link or button inside an FAQ answer. `target` is the in-page anchor, plus `:<pack>` for a genre chip that picks an aesthetic. */
   faq_action_clicked: { question: string; label: string; target: string };
 

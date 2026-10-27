@@ -27,18 +27,15 @@ export function Inside() {
           <div className="bento-card">
             <span className="stat">112<small>clips</small></span>
             <span className="t">Every raw clip</span>
-            <p>All the source footage behind the 30 edits. Recut it, re-time it, build your own versions.</p>
           </div>
           <div className="bento-card">
             <span className="stat">24<small>pages</small></span>
             <span className="t">The posting playbook</span>
-            <p>What to post when, how to write the hook line, how to attach audio so it credits your release.</p>
           </div>
           <div className="bento-card guides">
             <div className="copy">
               <span className="stat">9<small>guides</small></span>
               <span className="t">An editing guide for each tool</span>
-              <p>Lyric overlays, cover art, text timing, transitions. Free tools are enough; CapCut and Canva cover everything.</p>
             </div>
             <ul className="tool-grid">
               {TOOLS.map((t) => (

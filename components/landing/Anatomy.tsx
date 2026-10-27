@@ -34,6 +34,22 @@ const GRID_H = PHONE_H + 16;
 const STEP_VH = 14;
 const HOLD_VH = 45;
 
+let probe: HTMLDivElement | null = null;
+/**
+ * The viewport height with the browser's toolbars showing (100svh). Mobile browsers slide their address bar in and
+ * out while you scroll, which changes innerHeight every time; sizing from this instead keeps the pinned phone, its
+ * scale and the scroll steps still, so the page never jumps under your finger.
+ */
+function stableVh() {
+  if (!probe) {
+    probe = document.createElement('div');
+    // 100vh first as the fallback for browsers without svh
+    probe.style.cssText = 'position:fixed;top:0;left:0;width:0;height:100vh;height:100svh;visibility:hidden;pointer-events:none';
+    document.body.appendChild(probe);
+  }
+  return probe.offsetHeight || window.innerHeight;
+}
+
 const Heart = () => <svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-9.2-9.3C1.6 7.8 3.8 4.5 7.2 4.5c2 0 3.5 1.1 4.8 2.8 1.3-1.7 2.8-2.8 4.8-2.8 3.4 0 5.6 3.3 4.4 6.7-1.7 4.7-9.2 9.3-9.2 9.3z" /></svg>;
 const Bubble = () => <svg viewBox="0 0 24 24"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.6 7.4L3.5 20l1.2-4.1A8.5 8.5 0 1 1 20.5 11.5z" /></svg>;
 const Send = () => <svg viewBox="0 0 24 24"><path d="M21.5 3 10 13.5M21.5 3l-6.8 18-4.7-7.5L2.5 9z" /></svg>;
@@ -60,7 +76,7 @@ export function Anatomy() {
     let raf = 0;
     const update = () => {
       raf = 0;
-      const vh = window.innerHeight / 100;
+      const vh = stableVh() / 100;
       const pinned = (parseFloat(panel.current!.style.top) || 0) - track.current!.getBoundingClientRect().top;
       // part 1 lands just before the panel pins, then one more every STEP_VH
       setShown(pinned < -12 * vh ? 0 : Math.min(PARTS.length, Math.floor(Math.max(0, pinned) / (STEP_VH * vh)) + 1));
@@ -68,10 +84,8 @@ export function Anatomy() {
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
     onScroll(); // next frame, once the layout effect below has pinned the panel
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
     return () => {
       window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
       cancelAnimationFrame(raf);
     };
   }, []);
@@ -153,15 +167,20 @@ export function Anatomy() {
     const pin = () => {
       const p = panel.current!;
       const navH = document.querySelector('.nav')?.getBoundingClientRect().height ?? 0;
-      const free = window.innerHeight - navH;
+      const free = stableVh() - navH;
       p.style.top = `${Math.round(navH + Math.max(12, (free - p.getBoundingClientRect().height) / 2))}px`;
       return navH;
     };
 
     /** Scale the grid with a transform (not CSS zoom, which browsers measure differently) so the panel fits the viewport. */
-    const onResize = () => {
-      const room = window.innerHeight - pin() - 24;
+    let last = '';
+    const onResize = (force?: unknown) => {
       const W = el.parentElement!.clientWidth;
+      // only a real change of width or stable height re-lays out; toolbar slides on phones don't
+      const key = `${W}x${stableVh()}x${narrow.matches}`;
+      if (key === last && force !== true) return;
+      last = key;
+      const room = stableVh() - pin() - 24;
       el.style.transform = el.style.width = el.style.marginLeft = el.style.marginBottom = '';
       const chrome = panel.current!.getBoundingClientRect().height - el.getBoundingClientRect().height;
       // phones may scale the reel up to the screen width; desktop only ever scales down
@@ -180,8 +199,8 @@ export function Anatomy() {
       pin();
     };
 
-    onResize();
-    document.fonts?.ready.then(onResize);
+    onResize(true);
+    document.fonts?.ready.then(() => onResize(true));
     const ro = new ResizeObserver(onResize);
     ro.observe(el.parentElement!);
     window.addEventListener('resize', onResize);

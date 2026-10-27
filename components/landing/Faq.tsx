@@ -114,7 +114,7 @@ const ITEMS: Item[] = [
     q: 'What happens after the 30 days?',
     lead: `Keep going for $${PRICES.packMonthly} a month — ${SUB_OFF}% off.`,
     body: 'A fresh 30-video pack lands every month, so your posting never stops. Cancel any time in one click. Or just buy the next pack when you’re ready.',
-    actions: [{ label: `Subscribe & save ${SUB_OFF}%`, href: '#subscribe', primary: true }],
+    actions: [{ label: `Subscribe & save ${SUB_OFF}%`, href: `/checkout?pack=${singles[0].slug}&plan=monthly`, primary: true }],
   },
   {
     q: 'Which genres does this work for?',
