@@ -12,10 +12,14 @@ type Plan = 'once' | 'monthly';
 export type ClientEvents = {
   /* landing */
   /** Any "Get the pack" style button that scrolls to #packs. */
-  cta_clicked: { location: 'nav' | 'hero' | 'reveal' | 'how_it_works' | 'inside' | 'guarantee' | 'final'; label: string };
-  /** A pack's checkout button in the packs grid. */
-  pack_selected: { pack: PackSlug; price: number; bundle: boolean };
+  cta_clicked: { location: 'nav' | 'hero' | 'reveal' | 'how_it_works' | 'final'; label: string };
+  /** A checkout button in the packs section: the selected pack, the bundle, or the monthly subscription (`plan`). */
+  pack_selected: { pack: PackSlug; price: number; bundle: boolean; plan: Plan };
+  /** A pill in the packs section's aesthetic picker; the pack card below switches to it. */
+  aesthetic_selected: { pack: PackSlug };
   faq_toggled: { question: string; open: boolean };
+  /** A link or button inside an FAQ answer. `target` is the in-page anchor, plus `:<pack>` for a genre chip that picks an aesthetic. */
+  faq_action_clicked: { question: string; label: string; target: string };
 
   /* checkout */
   checkout_viewed: { pack: PackSlug; plan: Plan; bundle_up: boolean };

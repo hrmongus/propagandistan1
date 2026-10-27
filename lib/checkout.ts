@@ -14,8 +14,12 @@ export type Order = {
   plan: Plan;
 };
 
-/** Prices in whole dollars. packMonthly must match the Stripe Price in STRIPE_PRICE_MONTHLY_PACK. */
-export const PRICES = { pack: 37, bundle: 97, packMonthly: 29, fourSingles: 148 } as const;
+/**
+ * Prices in whole dollars. packMonthly must match the Stripe Price in STRIPE_PRICE_MONTHLY_PACK.
+ * packWas is the single pack's list price, shown struck through next to the discounted `pack` price (display only:
+ * the charge is always `pack`).
+ */
+export const PRICES = { pack: 37, packWas: 57, bundle: 97, packMonthly: 29, fourSingles: 148 } as const;
 
 const ITEMS_SINGLE: [string, string][] = [['Finished videos', '30 · 9:16 · silent'], ['Raw clips', '112'], ['Editing guides', '9 · one per tool'], ['Posting playbook', '24 pages'], ['Commercial licence', 'No expiry'], ['Money back guarantee', '30 days']];
 const ITEMS_BUNDLE: [string, string][] = [['Finished videos', '120 · 9:16 · silent'], ['Raw clips', '448'], ['Editing guides', '9 · one per tool'], ['Posting playbook', '4 months'], ['Commercial licence', 'No expiry'], ['Money back guarantee', '30 days']];
@@ -46,6 +50,10 @@ export function checkoutModel(order: Order) {
   const dueToday = monthly ? monthlyPrice : oncePrice;
   const orderName = isBundleOrder ? 'All four packs' : sel.name;
   const per = monthly ? ' / mo' : '';
+  // a single pack paid once shows its list price and the launch discount; the bundle and the plan have their own deals
+  const discounted = !monthly && !sel.bundle;
+  const dealPct = Math.round(((PRICES.packWas - PRICES.pack) / PRICES.packWas) * 100);
+  const discountLine: [string, string] = [`Launch discount · ${dealPct}% off`, `−$${PRICES.packWas - PRICES.pack}`];
 
   return {
     sel,
@@ -55,12 +63,18 @@ export function checkoutModel(order: Order) {
     dueToday,
     orderName,
     orderPrice: `$${dueToday}${per}`,
+    /** The single pack's struck-through list price, when it applies. */
+    orderWas: discounted && !bundleUp ? `$${PRICES.packWas}` : '',
+    /** The launch discount on a single pack, in percent. */
+    dealPct,
     /** Rows of the payment summary. */
     lines: (monthly
       ? [[`${orderName} · monthly`, `$${monthlyPrice} / mo`]]
       : bundleUp
-        ? [[sel.name, `$${PRICES.pack}`], ['Upgrade to all four packs', `+$${PRICES.bundle - PRICES.pack}`]]
-        : [[orderName, `$${oncePrice}`]]) as [string, string][],
+        ? [[sel.name, `$${PRICES.packWas}`], discountLine, ['Upgrade to all four packs', `+$${PRICES.bundle - PRICES.pack}`]]
+        : discounted
+          ? [[orderName, `$${PRICES.packWas}`], discountLine]
+          : [[orderName, `$${oncePrice}`]]) as [string, string][],
     total: `$${dueToday}`,
     /** The single-pack → all-four upgrade. It's one-time, so taking it switches a monthly order to paying once. */
     upgrade: monthly
@@ -77,7 +91,7 @@ export function checkoutModel(order: Order) {
         title: 'Pay once',
         body: `${orderName}, one payment. Nothing renews.`,
         price: `$${oncePrice}`,
-        was: '',
+        was: isBundleOrder ? '' : `$${PRICES.packWas}`,
       },
       {
         id: 'monthly' as const,
@@ -96,7 +110,7 @@ export type CheckoutModel = ReturnType<typeof checkoutModel>;
 /* ---------- post-purchase upsell ---------- */
 
 /** One-click offer shown between payment and /access: the packs the buyer doesn't own yet, for one low price. */
-export const UPSELL_PRICE = 27;
+export const UPSELL_PRICE = 47;
 
 /** Single packs the order doesn't include, or [] when it already has all four (nothing to upsell). */
 export function upsellPacks(order: Order): Pack[] {

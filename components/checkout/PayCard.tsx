@@ -42,7 +42,7 @@ export function PayCard({ order, m }: { order: Order; m: CheckoutModel }) {
     <div className="pay">
       <div className="totals">
         {m.lines.map(([label, price]) => (
-          <div className="row" key={label}><span>{label}</span><span>{price}</span></div>
+          <div className={price.startsWith('−') ? 'row discount' : 'row'} key={label}><span>{label}</span><span>{price}</span></div>
         ))}
         <div className="row due"><span>Due today</span><span>{m.total}</span></div>
       </div>

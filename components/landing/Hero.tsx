@@ -3,6 +3,7 @@ import { trackClick } from '@/lib/analytics/events';
 import { HERO_VIDEOS } from '@/lib/data';
 import { posterFor } from '@/lib/media';
 import { LazyVideo } from '../LazyVideo';
+import { Compare } from './Compare';
 
 const SpotifyIcon = () => (
   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1ED760" strokeWidth="2.6" strokeLinecap="round">
@@ -20,7 +21,10 @@ export function Hero() {
   return (
     <section id="top" className="hero">
       <div className="hero-top">
-        <span className="hero-pill">For independent artists stuck under 100k monthly listeners</span>
+        <span className="hero-pill">
+          <span className="long">For independent artists stuck under 100k monthly listeners</span>
+          <span className="short">For indie artists stuck under 100k listeners</span>
+        </span>
       </div>
       <div className="hero-reels">
         <div className="marquee-track hero-track" style={{ '--dur': '60s' } as React.CSSProperties}>
@@ -29,8 +33,9 @@ export function Hero() {
               <div className="reel-frame">
                 <LazyVideo src={v.src} priority={i < HERO_VIDEOS.length} />
                 <div className="reel-views">
-                  <span className="play-tri" />
-                  {v.views} <span className="lbl">views</span>
+                  <span className="play"><span className="play-tri" /></span>
+                  <span className="num">{v.views}</span>
+                  <span className="lbl">views</span>
                 </div>
               </div>
               <div className="reel-stats">
@@ -49,14 +54,13 @@ export function Hero() {
         </div>
       </div>
       <div className="hero-bottom">
-        <p className="hero-sub">
-          30 videos, hand-picked, colour graded and stitched, silent by design. Your own track from the Instagram or TikTok
-          audio library becomes the sound, so every view is a view of your song. You never appear in one of them.
-        </p>
         <div className="hero-cta">
           <a href="#packs" className="btn btn-lg" {...trackClick('cta_clicked', { location: 'hero', label: 'Get the pack — $37' })}>Get the pack — $37</a>
           <span className="cta-note">Instant download · Commercial licence · 30-day money back</span>
         </div>
+      </div>
+      <div className="hero-compare">
+        <Compare />
       </div>
     </section>
   );

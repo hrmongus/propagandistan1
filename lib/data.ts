@@ -53,12 +53,6 @@ export const ACCOUNTS: Account[] = [
 ];
 
 /* ---------- how it works ---------- */
-export const STEPS = [
-  { n: '1', title: 'Download the pack', short: 'One download, 30 finished MP4s + raw clips.', body: '30 vertical MP4s, hand-picked, colour graded and stitched, no audio. Plus every raw clip used to build them.' },
-  { n: '2', title: 'Make it yours', short: 'Lyric overlay, cover art, your track — two minutes.', body: "Drop in a lyric overlay, your cover art, your release date — two minutes in CapCut, guide included. Upload, pick your song from the audio library, post. The video is silent on purpose: the platform's audio is what links the view to your release page." },
-  { n: '3', title: 'Post daily for a month', short: 'One clip a day. The playbook tells you when.', body: 'One clip a day for 30 days. The included playbook covers hooks, captions, posting times and what to do when one takes off.' },
-];
-
 export const TOOLS = ['CapCut', 'DaVinci Resolve', 'Final Cut Pro', 'Premiere Pro', 'Canva', 'iMovie', 'Edits', 'Instagram', 'TikTok'].map((name) => ({
   name,
   logo: '/uploads/logos/' + name.toLowerCase().replace(/[^a-z]+/g, '-') + '.png',
@@ -68,15 +62,20 @@ export const TOOLS = ['CapCut', 'DaVinci Resolve', 'Final Cut Pro', 'Premiere Pr
 export type Pack = {
   n: string; stock: string; stockColor: string; slug: string; name: string; genres: string;
   desc: string; priceN: number; was: string; cta: string; bundle: boolean;
+  /** The pack's dominant colour, read from its footage; tints the landing page when its aesthetic is picked. */
+  tint?: string;
 };
 
 export const PACKS: Pack[] = [
-  { n: 'Pack 01', stock: '41 of 200 left', stockColor: '#F5F5F7', slug: 'golden-hour', name: 'Golden Hour', genres: 'Indie · Singer-songwriter · Bedroom pop · Alt-R&B', desc: 'Warm, hazy, golden-hour footage. Built for songs that sound like a memory.', priceN: 37, was: '', cta: 'Get the pack — $37', bundle: false },
-  { n: 'Pack 02', stock: '128 of 200 left', stockColor: '#6E6E73', slug: 'midnight-city', name: 'Midnight City', genres: 'Rap · Trap · Drill · Hyperpop', desc: 'Night cities, headlights, motion. High contrast, hard cuts.', priceN: 37, was: '', cta: 'Get the pack — $37', bundle: false },
-  { n: 'Pack 03', stock: '176 of 200 left', stockColor: '#6E6E73', slug: 'coastal-drive', name: 'Coastal Drive', genres: 'Pop · Dance · Alt-pop · Surf rock', desc: 'Coast roads, sea light, wind in the frame. Bright, open, moving.', priceN: 37, was: '', cta: 'Get the pack — $37', bundle: false },
-  { n: 'Pack 04', stock: '200 of 200 left', stockColor: '#6E6E73', slug: 'forest-trail', name: 'Forest Trail', genres: 'Folk · Acoustic · Ambient · Country', desc: 'Woodland, weather, slow light. Quiet and unhurried.', priceN: 37, was: '', cta: 'Get the pack — $37', bundle: false },
+  { n: 'Pack 01', stock: '41 of 200 left', stockColor: '#F5F5F7', slug: 'golden-hour', name: 'Golden Hour', genres: 'Indie · Singer-songwriter · Bedroom pop · Alt-R&B', desc: 'Warm, hazy, golden-hour footage. Built for songs that sound like a memory.', priceN: 37, was: '', cta: 'Get the pack — $37', bundle: false, tint: '#E08A3C' },
+  { n: 'Pack 02', stock: '128 of 200 left', stockColor: '#6E6E73', slug: 'midnight-city', name: 'Midnight City', genres: 'Rap · Trap · Drill · Hyperpop', desc: 'Night cities, headlights, motion. High contrast, hard cuts.', priceN: 37, was: '', cta: 'Get the pack — $37', bundle: false, tint: '#4466E0' },
+  { n: 'Pack 03', stock: '176 of 200 left', stockColor: '#6E6E73', slug: 'coastal-drive', name: 'Coastal Drive', genres: 'Pop · Dance · Alt-pop · Surf rock', desc: 'Coast roads, sea light, wind in the frame. Bright, open, moving.', priceN: 37, was: '', cta: 'Get the pack — $37', bundle: false, tint: '#2FB0B8' },
+  { n: 'Pack 04', stock: '200 of 200 left', stockColor: '#6E6E73', slug: 'forest-trail', name: 'Forest Trail', genres: 'Folk · Acoustic · Ambient · Country', desc: 'Woodland, weather, slow light. Quiet and unhurried.', priceN: 37, was: '', cta: 'Get the pack — $37', bundle: false, tint: '#6FA83A' },
   { n: 'Bundle · all four', stock: 'Save $51', stockColor: '#30D158', slug: 'bundle', name: 'All four packs', genres: '120 videos · every genre above', desc: 'Golden Hour, Midnight City, Coastal Drive and Forest Trail. Four months of posting, one download.', priceN: 97, was: '$148', cta: 'Get the bundle — $97', bundle: true },
 ];
+
+/** Window event (detail: pack slug) that asks the packs section to switch aesthetic, e.g. from an FAQ answer. */
+export const AESTHETIC_EVENT = 'fpk:aesthetic';
 
 export const PACK_SLUGS = ['golden-hour', 'midnight-city', 'coastal-drive', 'forest-trail'];
 
@@ -85,17 +84,4 @@ export const GRADS = [
   ['linear-gradient(160deg,#1E2A44,#0B0E18)', 'linear-gradient(160deg,#3A2A55,#101018)', 'linear-gradient(160deg,#C0392B,#1A0D10)', 'linear-gradient(160deg,#2C4A6E,#0A0F18)', 'linear-gradient(160deg,#5A2A6A,#120A18)'],
   ['linear-gradient(160deg,#2E6E8A,#0E1E2A)', 'linear-gradient(160deg,#9FCBD8,#3A5560)', 'linear-gradient(160deg,#E8C9A0,#4A3A2A)', 'linear-gradient(160deg,#4A8FA8,#102030)', 'linear-gradient(160deg,#D9B37A,#2A3A40)'],
   ['linear-gradient(160deg,#3E5C3A,#14200F)', 'linear-gradient(160deg,#8A7A55,#2A2415)', 'linear-gradient(160deg,#A9B7C6,#3C4A55)', 'linear-gradient(160deg,#C58F5A,#2E2015)', 'linear-gradient(160deg,#6E8A6A,#1A2418)'],
-];
-
-/* ---------- faq ---------- */
-export const FAQS: [string, string][] = [
-  ['Do I have to be on camera?', "No. Not once. There's no face, no voice and no filming anywhere in this."],
-  ['How does my song get into the video?', "The videos ship silent. You upload one, pick your track from Instagram or TikTok's audio library, and post. Doing it that way is what links every view back to your release page — and it's why this converts to streams instead of just collecting views."],
-  ["What if my song isn't on the platforms yet?", 'Distribute it first — DistroKid, TuneCore, whoever you use. Your track needs to exist in the audio library for the mechanic to work.'],
-  ['Do I need editing skills?', 'No. The 30 videos are hand-picked, colour graded and stitched for you, and there’s a step-by-step guide for each of nine editing tools, from CapCut to Premiere Pro.'],
-  ['How much time per day?', "15–20 minutes, once you've read the guide for your editor."],
-  ['Will other artists have the same videos?', 'Each pack is capped at 200 copies and then retired. And because the audio, lyric overlays and artwork are yours, the same base footage reads as a format rather than a duplicate — the way a trend does.'],
-  ['Is this an ad product? Do I need a budget?', 'No. This is organic posting. Zero ad spend.'],
-  ['What happens after the 30 days?', 'Buy the next pack, or take the monthly option at checkout and a new one arrives automatically.'],
-  ['Which genres does this work for?', "Each pack is labelled by genre. If nothing on the list matches your sound, don't buy yet — tell us what you make and we'll say when a fitting pack is coming."],
 ];

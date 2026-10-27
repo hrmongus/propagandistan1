@@ -7,7 +7,7 @@ import { useState, useTransition } from 'react';
 import { acceptUpsell } from '@/app/upsell/actions';
 import { track } from '@/lib/analytics/client';
 import { trackClick } from '@/lib/analytics/events';
-import { UPSELL_PRICE } from '@/lib/checkout';
+import { PRICES, UPSELL_PRICE } from '@/lib/checkout';
 import { PACK_SLUGS } from '@/lib/data';
 import { Fan } from '../Fan';
 import { TrackView } from '../TrackView';
@@ -22,7 +22,7 @@ export function UpsellView({ sessionId, orderName, packs, monthly }: Props) {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const access = `/access?session_id=${encodeURIComponent(sessionId)}`;
-  const value = packs.length * 37;
+  const value = packs.length * PRICES.pack;
   const off = Math.round((1 - UPSELL_PRICE / value) * 100);
 
   const accept = () =>
@@ -53,7 +53,7 @@ export function UpsellView({ sessionId, orderName, packs, monthly }: Props) {
         <span className="ok"><span className="gdot" />{orderName} is yours — your access link is one click away</span>
         <h1>Get the other {packs.length} packs for ${UPSELL_PRICE}. Not each — all {packs.length}.</h1>
         <p>
-          That&apos;s ${(UPSELL_PRICE / packs.length).toFixed(0)} a pack instead of $37: {packs.length * 30} more finished videos and {packs.length * 112} raw
+          That&apos;s ${(UPSELL_PRICE / packs.length).toFixed(0)} a pack instead of ${PRICES.pack}: {packs.length * 30} more finished videos and {packs.length * 112} raw
           clips, so you can post four times a day or line up the next three months. This price exists only on this page, only right after checkout.
         </p>
       </div>

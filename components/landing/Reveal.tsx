@@ -8,10 +8,6 @@ export function Reveal() {
     <section className="reveal">
       <div className="reveal-head">
         <h2 className="h2">You&apos;ve seen this format a thousand times.</h2>
-        <p>
-          The pages pushing today&apos;s biggest songs aren&apos;t run by the artists. They&apos;re small accounts posting the
-          same short, faceless, music-first format on repeat. Same structure, different track. That&apos;s the entire machine.
-        </p>
       </div>
       <div className="marquee">
         <div className="marquee-track accounts-track" style={{ '--dur': '50s' } as React.CSSProperties}>

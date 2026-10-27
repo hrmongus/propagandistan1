@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { TOOLS } from '@/lib/data';
-import { CtaRow } from './Nav';
 
 // clean frames from the packs themselves: graded footage, no lyrics or overlays
 const REELS = ['midnight-city-2', 'golden-hour-3', 'coastal-drive-2'].map((n) => `/uploads/packs/${n}.webp`);
@@ -53,7 +52,6 @@ export function Inside() {
           </div>
         </div>
       </div>
-      <CtaRow location="inside" label="See the four packs" note="Or the bundle at $97" />
     </section>
   );
 }

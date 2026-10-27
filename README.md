@@ -22,7 +22,7 @@ npm run dev
 
 - `/` — the landing page
 - `/checkout?pack=<slug>[&plan=monthly]` — order summary, bundle upgrade, pay-once or monthly plan, and payment (`golden-hour`, `midnight-city`, `coastal-drive`, `forest-trail`, `bundle`)
-- `/upsell?session_id=…` — one-click post-purchase offer: the packs the buyer doesn't own, $27 for all three (skipped for all-four orders)
+- `/upsell?session_id=…` — one-click post-purchase offer: the packs the buyer doesn't own, $47 for all three (skipped for all-four orders)
 - `/access?session_id=…` — the four-step setup and Drive links; only reachable with a paid Stripe Checkout Session
 - `POST /api/stripe/webhook` — Stripe webhook (fulfillment hook in `lib/fulfillment.ts`)
 
@@ -65,9 +65,9 @@ How it works:
     Taking the four-pack upgrade switches the order to pay once. The first month is charged at checkout, then it renews on the same day every month until cancelled.
     Renewals arrive as `invoice.paid` (`billing_reason: subscription_cycle`) and run `fulfillRenewal`.
 - Stripe returns to `/upsell?session_id=…`. One-off payments save the card (`setup_future_usage: off_session`) and
-  subscriptions keep it as their default, so "Yes" charges $27 for the remaining packs in one click (PaymentIntent with
+  subscriptions keep it as their default, so "Yes" charges $47 for the remaining packs in one click (PaymentIntent with
   `metadata.upsell_for = <checkout session id>`, idempotent per order). If the bank needs 3-D Secure or there is no saved
-  card, an embedded Checkout for the same $27 opens instead. "No thanks" goes straight to `/access`.
+  card, an embedded Checkout for the same $47 opens instead. "No thanks" goes straight to `/access`.
 - `/access` verifies the session is paid (and looks up a paid upsell on the customer) before reading any link. Drive
   links are server-only env vars, one per pack plus one for the bundle:
   - one-off single pack → that pack's folder; bundle, bundle upgrade or single + upsell → the bundle folder;

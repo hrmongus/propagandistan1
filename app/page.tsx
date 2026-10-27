@@ -18,8 +18,8 @@ export default function Home() {
         <Bridge />
         <HowItWorks />
         <Inside />
-        <Packs />
         <Guarantee />
+        <Packs />
         <Faq />
         <Final />
       </main>

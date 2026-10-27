@@ -1,33 +1,21 @@
 import Link from 'next/link';
 import { trackClick } from '@/lib/analytics/events';
-import { CtaRow } from './Nav';
+import { Seal } from './Seal';
 
-const PROMISES = ['Full refund. No forms, no back-and-forth.', 'Keep the videos and the guides either way.', 'One email is all it takes.'];
-
-const Check = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
-);
-
+/** Compact guarantee strip: the seal, one headline, one line on the condition. */
 export function Guarantee() {
   return (
-    <section id="guarantee" className="section">
+    <section id="guarantee" className="section guarantee-section">
       <div className="guarantee">
-        <div className="copy">
-          <span className="kicker">30-day money back</span>
-          <h2 className="h2">Post for 30 days. If nothing moves, you get every cent back.</h2>
-          <p className="lead">
-            Post 20 of the 30 videos on TikTok within 30 days. If none of them reaches 1,000 views, email us and we&apos;ll
-            refund you in full — and you keep the pack. The risk is ours, not yours.
-          </p>
-          <Link className="rules-link" href="/guarantee">See the guarantee rules <span aria-hidden="true">→</span></Link>
+        <div className="seal-wrap">
+          <Seal uid="guarantee" />
+          <Link className="seal-terms" href="/guarantee">*Conditions apply</Link>
         </div>
-        <ul className="promises">
-          {PROMISES.map((p) => (
-            <li key={p}><span className="tick"><Check /></span>{p}</li>
-          ))}
-        </ul>
+        <div className="copy">
+          <h2 className="h3">30-day money back guarantee</h2>
+          <p>Post for 30 days. If nothing moves, you get every cent back — and keep the pack.</p>
+        </div>
       </div>
-      <CtaRow location="guarantee" label="Get the pack — $37" note="Covered by the 30-day guarantee" />
     </section>
   );
 }
