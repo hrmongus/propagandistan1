@@ -170,8 +170,8 @@ a.cta-note:hover { color: var(--fg); }
 .panel-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
 .panel-head .sub { font-size: 13px; color: var(--dim); }
 
-/* anatomy: the panel pins while the page scrolls through the runway below it; each part reveals in turn */
-.anatomy { gap: 28px; position: sticky; top: 72px; }
+/* anatomy: scrolls like any section; each part reveals as its spot on the reel passes ~70% of the viewport */
+.anatomy { gap: 28px; }
 .anatomy-clip { overflow: hidden; width: 100%; }
 .anatomy-grid { transform-origin: top center; display: grid; grid-template-columns: 330px minmax(0, 300px); gap: 0 110px; justify-content: center; position: relative; width: 100%; padding: 8px 0; margin: 0 auto; }
 .anatomy-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 3; }
@@ -186,14 +186,21 @@ a.cta-note:hover { color: var(--fg); }
 
 .phone { width: 330px; border-radius: 46px; padding: 10px; background: #1C1C1E; border: 1px solid rgba(255,255,255,.14); box-shadow: inset 0 0 0 2px #0A0A0B, 0 30px 70px rgba(0,0,0,.6); position: relative; }
 /* the screen, not the body, is 9:16, so the reel shows whole with no crop */
-.phone-screen { position: relative; width: 100%; aspect-ratio: 9/16; border-radius: 36px; overflow: hidden; background: #000; color: #fff; font-size: 12px; line-height: 1.2; }
+/* a real iPhone screen (9:19.5); the 9:16 reel sits under the status bar, Instagram's tab bar under it */
+.phone-screen { position: relative; width: 100%; aspect-ratio: 9/19.5; border-radius: 36px; overflow: hidden; background: #000; color: #fff; font-size: 12px; line-height: 1.2; }
 .phone-status { position: absolute; top: 0; left: 0; right: 0; height: 40px; display: flex; align-items: center; justify-content: space-between; padding: 4px 22px 0 26px; font-size: 13px; font-weight: 600; z-index: 2; }
 .phone-status .island { position: absolute; left: 50%; top: 9px; width: 80px; height: 22px; margin-left: -40px; border-radius: 12px; background: #000; box-shadow: 0 0 0 1px rgba(255,255,255,.06); }
 .phone-status .sys { display: flex; gap: 5px; align-items: center; }
 .phone-status .sys svg { height: 10px; width: auto; fill: currentColor; }
 .phone-title { position: absolute; top: 44px; left: 16px; font-size: 18px; font-weight: 700; letter-spacing: -.01em; z-index: 2; }
 /* the reel fills the screen, as in the app; the status bar and UI sit on top of it */
+.phone-stage { position: absolute; left: 0; right: 0; top: 44px; aspect-ratio: 9/16; }
 .phone-video { position: absolute; inset: 0; }
+.phone-tabs { position: absolute; left: 0; right: 0; bottom: 18px; display: flex; justify-content: space-around; align-items: center; padding: 0 14px; }
+.phone-tabs svg { width: 22px; height: 22px; fill: none; stroke: rgba(255,255,255,.85); stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round; }
+.phone-tabs .on svg { stroke: #fff; stroke-width: 2.2; }
+.phone-tabs .me { width: 22px; height: 22px; border-radius: 50%; background: url(/uploads/hero-4.webp) center / cover, #2C2C2E; border: 1px solid rgba(255,255,255,.4); }
+.home-bar { position: absolute; left: 50%; bottom: 6px; width: 110px; height: 4px; margin-left: -55px; border-radius: 2px; background: rgba(255,255,255,.85); }
 .phone-video video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .anchor { position: absolute; width: 1px; height: 1px; pointer-events: none; }
 .anchor.inline { position: relative; display: inline-block; margin-left: 10px; flex: none; }
@@ -236,22 +243,25 @@ a.cta-note:hover { color: var(--fg); }
   .anatomy-grid { grid-template-columns: 1fr; justify-items: center; padding: 4px 0; }
   .parts, .anatomy-svg { display: none; }
   /* the top notes take the black band the title would sit in */
-  .phone-title { display: none; }
   .ov-lines { display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; overflow: visible; }
-  .ov-lines path { stroke: rgba(255,255,255,.8); stroke-width: 1; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .4s cubic-bezier(.6,0,.3,1) .25s; }
-  .ov-lines circle { fill: #fff; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(0); transition: opacity .2s, transform .35s cubic-bezier(.3,1.6,.5,1); }
+  .ov-lines path { stroke: #fff; stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .4s cubic-bezier(.6,0,.3,1) .25s; }
+  .ov-lines circle { fill: #fff; stroke: rgba(0,0,0,.4); stroke-width: 1; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(0); transition: opacity .2s, transform .35s cubic-bezier(.3,1.6,.5,1); }
   .ov-lines .audio path { stroke: rgba(30,215,96,.9); }
   .ov-lines .audio circle { fill: var(--spotify); }
   .ov-lines .on path { stroke-dashoffset: 0; }
   .ov-lines .on circle { opacity: 1; transform: none; }
-  .ov { display: block; position: absolute; z-index: 4; padding: 5px 8px 6px; border-radius: 10px; background: linear-gradient(160deg, rgba(255,255,255,.16), rgba(255,255,255,.05)); -webkit-backdrop-filter: blur(10px) saturate(180%); backdrop-filter: blur(10px) saturate(180%); border: 1px solid rgba(255,255,255,.22); box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 6px 18px rgba(0,0,0,.35); opacity: 0; transform: translateY(4px) scale(.96); transition: opacity .3s ease, transform .4s cubic-bezier(.2,.8,.2,1), border-color .3s; }
+  /* notes: solid enough to read at a glance, popping in with a small overshoot; the newest one glows */
+  .ov { display: block; position: absolute; z-index: 4; padding: 6px 8px 7px; border-radius: 10px; background: linear-gradient(160deg, rgba(58,58,62,.92), rgba(24,24,26,.92)); -webkit-backdrop-filter: blur(10px) saturate(180%); backdrop-filter: blur(10px) saturate(180%); border: 1px solid rgba(255,255,255,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 8px 22px rgba(0,0,0,.55); opacity: 0; transform: translateY(8px) scale(.9); transition: opacity .35s ease, transform .5s cubic-bezier(.3,1.5,.5,1), border-color .3s, box-shadow .3s; }
   .ov.on { opacity: 1; transform: none; }
-  .ov.cur { border-color: rgba(255,255,255,.45); }
+  .ov.cur { border-color: rgba(255,255,255,.75); box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 8px 22px rgba(0,0,0,.55), 0 0 0 3px rgba(255,255,255,.12), 0 0 26px rgba(255,255,255,.18); }
   .ov.audio { background: linear-gradient(160deg, rgba(30,215,96,.22), rgba(30,215,96,.06)); border-color: rgba(30,215,96,.45); }
-  .ov .t { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; letter-spacing: -.01em; line-height: 1.2; }
+  .ov .t { display: flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 600; letter-spacing: -.01em; line-height: 1.2; }
   .ov .num { min-width: 16px; height: 15px; padding: 0 3px; border-radius: 4px; background: #fff; color: #000; font-size: 8.5px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; font-variant-numeric: tabular-nums; }
   .ov.audio .num { background: var(--spotify); }
-  .ov .b { display: block; margin-top: 2px; font-size: 10px; line-height: 1.25; color: rgba(255,255,255,.82); }
+  .ov .b { display: block; margin-top: 2px; font-size: 10.5px; line-height: 1.25; color: rgba(255,255,255,.88); }
+  /* the newest note's dot pulses so the eye finds it */
+  .ov-lines .cur circle { animation: ov-pulse 1.6s ease-out infinite; }
+  @keyframes ov-pulse { 0% { filter: drop-shadow(0 0 0 rgba(255,255,255,.9)); } 100% { filter: drop-shadow(0 0 6px rgba(255,255,255,0)); } }
   .anatomy-hint { font-size: 12px; }
 }
 

@@ -13,9 +13,9 @@ const PARTS = [
 ] as const;
 
 /**
- * Phone layout: notes sit inside the screen, side by side in this reel's two black bands (above the hook text, and
- * between the picture and the handle, left of the action rail), so none covers the video. Lines are fixed in the
- * screen's own pixels (308 × 548 unscaled, exactly 9:16), so they can't drift from the boxes. `from` is where a line leaves its
+ * Phone layout: notes sit on the reel, side by side in its two black bands (above the hook text, and between the
+ * picture and the handle, left of the action rail), so none covers the video. Lines are fixed in the reel's own
+ * pixels (308 × 548 unscaled, exactly 9:16), so they can't drift from the boxes. `from` is where a line leaves its
  * box, `to` its dot.
  */
 const SCREEN = { w: 308, h: 548 };
@@ -27,18 +27,13 @@ const OVERLAY = [
 ] as const;
 
 const WIDTH = 770;
-/** Unscaled height of the phone: a 9:16 screen 308px wide, plus 11px of bezel top and bottom; and of the grid around it. */
-const PHONE_H = 308 * 16 / 9 + 22;
-const GRID_H = PHONE_H + 16;
-/** Scroll per revealed part, then a hold with everything on screen so there's time to read before the panel unpins. */
-const STEP_VH = 14;
-const HOLD_VH = 45;
+/** A part reveals once its spot on the reel scrolls above this share of the viewport — where the eye already is. */
+const REVEAL_AT = 0.7;
 
 let probe: HTMLDivElement | null = null;
 /**
  * The viewport height with the browser's toolbars showing (100svh). Mobile browsers slide their address bar in and
- * out while you scroll, which changes innerHeight every time; sizing from this instead keeps the pinned phone, its
- * scale and the scroll steps still, so the page never jumps under your finger.
+ * out while you scroll, which changes innerHeight every time; measuring from this keeps the reveal line still.
  */
 function stableVh() {
   if (!probe) {
@@ -53,13 +48,17 @@ function stableVh() {
 const Heart = () => <svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-9.2-9.3C1.6 7.8 3.8 4.5 7.2 4.5c2 0 3.5 1.1 4.8 2.8 1.3-1.7 2.8-2.8 4.8-2.8 3.4 0 5.6 3.3 4.4 6.7-1.7 4.7-9.2 9.3-9.2 9.3z" /></svg>;
 const Bubble = () => <svg viewBox="0 0 24 24"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.6 7.4L3.5 20l1.2-4.1A8.5 8.5 0 1 1 20.5 11.5z" /></svg>;
 const Send = () => <svg viewBox="0 0 24 24"><path d="M21.5 3 10 13.5M21.5 3l-6.8 18-4.7-7.5L2.5 9z" /></svg>;
+const Home = () => <svg viewBox="0 0 24 24"><path d="M3.5 10.5 12 3.5l8.5 7V20a.5.5 0 0 1-.5.5h-5v-6h-6v6H4a.5.5 0 0 1-.5-.5z" /></svg>;
+const Search = () => <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4.5 4.5" /></svg>;
+const Plus = () => <svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><path d="M12 8v8M8 12h8" /></svg>;
+const ReelsIcon = () => <svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><path d="M3.5 8.5h17M9 3.5l2.5 5M14.5 3.5l2.5 5M10.5 12.2v4.6l4-2.3z" /></svg>;
 const Note = () => <svg viewBox="0 0 24 24" className="fill"><path d="M9 18.5a3 3 0 1 1-2-2.8V5l12-2.5v12.5a3 3 0 1 1-2-2.8V6.6L9 8.2z" /></svg>;
 
 /**
- * "Anatomy of one reel": a phone playing a reel, with numbered callouts wired to each part by connector lines.
- * The panel pins while the page scrolls through a runway below it; the parts reveal one by one early in the runway,
- * then everything holds for reading. Wide screens put the callouts beside the phone (scaled down under 720px);
- * under 640px the callouts move inside the phone, into the reel's black areas (see OVERLAY).
+ * "Anatomy of one reel": an iPhone playing a reel, with numbered callouts wired to each part by connector lines.
+ * Nothing pins: as the page scrolls, each part reveals when its spot on the reel passes REVEAL_AT of the viewport, so
+ * the notes arrive where the reader is looking. Wide screens put the callouts beside the phone (scaled down under
+ * 770px); under 640px they sit on the reel itself, in its black areas (see OVERLAY).
  */
 export function Anatomy() {
   const grid = useRef<HTMLDivElement>(null);
@@ -67,27 +66,21 @@ export function Anatomy() {
   const boxes = useRef<(HTMLDivElement | null)[]>([]);
   const lines = useRef<(SVGPathElement | null)[]>([]);
   const dots = useRef<(SVGCircleElement | null)[]>([]);
-  const track = useRef<HTMLDivElement>(null);
-  const panel = useRef<HTMLDivElement>(null);
-  // how many parts are revealed, driven by how far the page has scrolled past the point where the panel pins
+  const stage = useRef<HTMLDivElement>(null);
+  // how many parts are revealed; it only ever grows, so a part never blinks out when scrolling back
   const [shown, setShown] = useState(0);
 
   useEffect(() => {
-    let raf = 0;
     const update = () => {
-      raf = 0;
-      const vh = stableVh() / 100;
-      const pinned = (parseFloat(panel.current!.style.top) || 0) - track.current!.getBoundingClientRect().top;
-      // part 1 lands just before the panel pins, then one more every STEP_VH
-      setShown(pinned < -12 * vh ? 0 : Math.min(PARTS.length, Math.floor(Math.max(0, pinned) / (STEP_VH * vh)) + 1));
+      const r = stage.current!.getBoundingClientRect();
+      const line = stableVh() * REVEAL_AT;
+      // each part's own spot on the reel (the phone notes' dots, as a share of the reel's height)
+      const passed = OVERLAY.filter((o) => r.top + (o.to[1] / SCREEN.h) * r.height < line).length;
+      setShown((n) => Math.max(n, passed));
     };
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
-    onScroll(); // next frame, once the layout effect below has pinned the panel
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(raf);
-    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
   }, []);
 
 
@@ -163,28 +156,17 @@ export function Anatomy() {
       return tops;
     };
 
-    /** Centre the pinned panel in the viewport below the nav. */
-    const pin = () => {
-      const p = panel.current!;
-      const navH = document.querySelector('.nav')?.getBoundingClientRect().height ?? 0;
-      const free = stableVh() - navH;
-      p.style.top = `${Math.round(navH + Math.max(12, (free - p.getBoundingClientRect().height) / 2))}px`;
-      return navH;
-    };
-
-    /** Scale the grid with a transform (not CSS zoom, which browsers measure differently) so the panel fits the viewport. */
+    /** Scale the grid with a transform (not CSS zoom, which browsers measure differently) to fit the width. */
     let last = '';
     const onResize = (force?: unknown) => {
       const W = el.parentElement!.clientWidth;
-      // only a real change of width or stable height re-lays out; toolbar slides on phones don't
-      const key = `${W}x${stableVh()}x${narrow.matches}`;
+      // only a width change re-lays out; a phone's toolbar sliding in and out changes the height alone
+      const key = `${W}x${narrow.matches}`;
       if (key === last && force !== true) return;
       last = key;
-      const room = stableVh() - pin() - 24;
       el.style.transform = el.style.width = el.style.marginLeft = el.style.marginBottom = '';
-      const chrome = panel.current!.getBoundingClientRect().height - el.getBoundingClientRect().height;
-      // phones may scale the reel up to the screen width; desktop only ever scales down
-      const z = Math.round(Math.max(0.6, Math.min(narrow.matches ? Math.min(1.3, W / 334) : Math.min(1, W / WIDTH), (room - chrome) / GRID_H)) * 1000) / 1000;
+      // phones may scale the phone up to the screen width; desktop only ever scales down
+      const z = Math.round(Math.max(0.6, narrow.matches ? Math.min(1.3, W / 334) : Math.min(1, W / WIDTH)) * 1000) / 1000;
       // the layout width that fills the clip once scaled: 720px beside-layout on desktop, the full width on phones
       const lw = narrow.matches ? W / z : Math.max(W, WIDTH) === W ? W : WIDTH;
       if (lw !== W) {
@@ -196,7 +178,6 @@ export function Anatomy() {
       el.style.marginBottom = z !== 1 ? `${-(1 - z) * el.offsetHeight}px` : '';
       // phones draw their callouts inside the phone from fixed coordinates; only desktop measures
       if (!narrow.matches) measure();
-      pin();
     };
 
     onResize(true);
@@ -210,34 +191,35 @@ export function Anatomy() {
   const state = (i: number) => (i < shown ? ' on' : '') + (i === shown - 1 ? ' cur' : '');
 
   return (
-    <div id="anatomy" className="anatomy-track" ref={track}>
-      <div className="panel anatomy" ref={panel}>
-        <div className="panel-head">
-          <h3 className="h3">Anatomy of one reel</h3>
-          <span className="sub">Four parts. Each one does a job.</span>
-        </div>
-        <div className="anatomy-clip">
-          <div className="anatomy-grid" ref={grid}>
-            <svg className="anatomy-svg" fill="none" aria-hidden="true">
-              {PARTS.map((p, i) => (
-                <g key={p.n} className={(p.at ? '' : 'audio') + state(i)}>
-                  <path ref={(e) => { lines.current[i] = e; }} d="" pathLength={1} />
-                  <circle ref={(e) => { dots.current[i] = e; }} cx="-10" cy="-10" r="4.5" />
-                </g>
-              ))}
-            </svg>
+    <div id="anatomy" className="panel anatomy">
+      <div className="panel-head">
+        <h3 className="h3">Anatomy of one reel</h3>
+        <span className="sub">Four parts. Each one does a job.</span>
+      </div>
+      <div className="anatomy-clip">
+        <div className="anatomy-grid" ref={grid}>
+          <svg className="anatomy-svg" fill="none" aria-hidden="true">
+            {PARTS.map((p, i) => (
+              <g key={p.n} className={(p.at ? '' : 'audio') + state(i)}>
+                <path ref={(e) => { lines.current[i] = e; }} d="" pathLength={1} />
+                <circle ref={(e) => { dots.current[i] = e; }} cx="-10" cy="-10" r="4.5" />
+              </g>
+            ))}
+          </svg>
 
-            <div className="phone" aria-hidden="true">
-              <div className="phone-screen">
-                <div className="phone-status">
-                  <span>9:41</span>
-                  <span className="island" />
-                  <span className="sys">
-                    <svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx=".8" /><rect x="5" y="5.5" width="3" height="6.5" rx=".8" /><rect x="10" y="3" width="3" height="9" rx=".8" /><rect x="15" y="0" width="3" height="12" rx=".8" /></svg>
-                    <svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4" /><rect x="2" y="2" width="17" height="8" rx="2" /><rect x="23.5" y="4" width="1.8" height="4" rx=".9" opacity=".4" /></svg>
-                  </span>
-                </div>
-                <div className="phone-title">Reels</div>
+          <div className="phone" aria-hidden="true">
+            <div className="phone-screen">
+              <div className="phone-status">
+                <span>9:41</span>
+                <span className="island" />
+                <span className="sys">
+                  <svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx=".8" /><rect x="5" y="5.5" width="3" height="6.5" rx=".8" /><rect x="10" y="3" width="3" height="9" rx=".8" /><rect x="15" y="0" width="3" height="12" rx=".8" /></svg>
+                  <svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4" /><rect x="2" y="2" width="17" height="8" rx="2" /><rect x="23.5" y="4" width="1.8" height="4" rx=".9" opacity=".4" /></svg>
+                </span>
+              </div>
+              <div className="phone-title">Reels</div>
+              {/* the reel itself, exactly 9:16; everything placed on the video lives in here */}
+              <div className="phone-stage" ref={stage}>
                 <div className="phone-video">
                   <LazyVideo src={ANATOMY_VIDEO} />
                   {PARTS.map((p, i) =>
@@ -276,30 +258,33 @@ export function Anatomy() {
                   </div>
                 ))}
               </div>
-            </div>
-
-            <div className="parts">
-              {PARTS.map((p, i) => (
-                <div key={p.n} className={'part' + (p.at ? '' : ' audio') + state(i)} ref={(e) => { boxes.current[i] = e; }}>
-                  <span className="num">{p.n}</span>
-                  <div>
-                    <span className="t">{p.t}</span>
-                    <span className="b">{p.b}</span>
-                  </div>
-                </div>
-              ))}
+              <div className="phone-tabs">
+                <Home /><Search /><Plus /><span className="on"><ReelsIcon /></span><span className="me" />
+              </div>
+              <span className="home-bar" />
             </div>
           </div>
-        </div>
-        <div className={'anatomy-hint' + (shown === PARTS.length ? ' done' : '')} aria-hidden="true">
-          <span className="mouse" />
-          <span>Scroll to reveal</span>
-          <span className="dots">
-            {PARTS.map((p, i) => <span key={p.n} className={i < shown ? 'on' : undefined} />)}
-          </span>
+
+          <div className="parts">
+            {PARTS.map((p, i) => (
+              <div key={p.n} className={'part' + (p.at ? '' : ' audio') + state(i)} ref={(e) => { boxes.current[i] = e; }}>
+                <span className="num">{p.n}</span>
+                <div>
+                  <span className="t">{p.t}</span>
+                  <span className="b">{p.b}</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-      <div style={{ height: `${(PARTS.length - 1) * STEP_VH + HOLD_VH}vh` }} aria-hidden="true" />
+      <div className={'anatomy-hint' + (shown === PARTS.length ? ' done' : '')} aria-hidden="true">
+        <span className="mouse" />
+        <span>Scroll to reveal</span>
+        <span className="dots">
+          {PARTS.map((p, i) => <span key={p.n} className={i < shown ? 'on' : undefined} />)}
+        </span>
+      </div>
     </div>
   );
 }
