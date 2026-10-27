@@ -673,8 +673,8 @@ a.cta-note:hover { color: var(--fg); }
 .order-name .was { font-size: .8em; font-weight: 500; color: var(--dim); margin-right: 8px; }
 .order-name .op { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 /* subscription chart: a small Spotify-for-Artists style card; paying once fades after month 1 */
-.sub-growth { margin: 4px 0 0; padding: 14px 14px 10px; border-radius: 14px; background: #fff; color: #121212; display: flex; flex-direction: column; gap: 6px; }
-.sg-plot { position: relative; height: 84px; margin-top: 14px; border-bottom: 1px solid #E6E8EB; }
+.sub-growth { grid-column: 1 / -1; margin: 2px 0 0; padding: 14px 14px 10px; border-radius: 14px; background: #fff; color: #121212; display: flex; flex-direction: column; gap: 6px; }
+.sg-plot { display: block; position: relative; height: 84px; margin-top: 14px; border-bottom: 1px solid #E6E8EB; }
 .sg-plot svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .sg-plot .area { fill: #4A7FE5; opacity: .18; }
 .sg-plot .line { fill: none; stroke: #3E73DD; stroke-width: 1.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
@@ -685,7 +685,7 @@ a.cta-note:hover { color: var(--fg); }
 .sg-tip { position: absolute; top: -18px; right: -6px; font-size: 10.5px; font-weight: 600; color: #fff; background: #1F5FD8; border-radius: 9px; padding: 2px 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .sub-growth:not(.on) .sg-tip { background: #8A8F98; }
 .sg-months { display: flex; justify-content: space-between; font-size: 10px; color: #8A8F98; }
-.sub-growth figcaption { font-size: 11.5px; color: #4A4F57; }
+.sg-cap { font-size: 11.5px; color: #4A4F57; }
 
 /* launch discount pill: green, with a slow sheen passing over it */
 .deal { position: relative; overflow: hidden; display: inline-flex; align-items: center; font-size: 12px; font-weight: 700; letter-spacing: -.005em; color: #04220F; background: linear-gradient(135deg, #7FE3A3, #30D158 55%, #1FB24A); border-radius: 999px; padding: 4px 11px; white-space: nowrap; box-shadow: 0 0 0 1px rgba(48,209,88,.35), 0 6px 18px -6px rgba(48,209,88,.6); }

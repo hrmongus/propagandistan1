@@ -46,8 +46,9 @@ const LAST = POSTING[POSTING.length - 1];
 function SubGrowth({ monthly }: { monthly: boolean }) {
   const endY = monthly ? gy(LAST) : gy(FADE[FADE.length - 1]);
   return (
-    <figure className={monthly ? 'sub-growth on' : 'sub-growth'} aria-label={monthly ? 'Listeners keep climbing over six months of posting' : 'Listeners fade after you stop posting at month one'}>
-      <div className="sg-plot">
+    // spans, not figure/div: this sits inside the plan's radio button, which only allows phrasing content
+    <span className={monthly ? 'sub-growth on' : 'sub-growth'} role="img" aria-label={monthly ? 'Listeners keep climbing over six months of posting' : 'Listeners fade after you stop posting at month one'}>
+      <span className="sg-plot">
         <svg viewBox={`0 0 ${GW} ${GH}`} preserveAspectRatio="none" aria-hidden="true">
           {monthly ? (
             <>
@@ -66,10 +67,10 @@ function SubGrowth({ monthly }: { monthly: boolean }) {
         </svg>
         <span className={monthly ? 'sg-dot' : 'sg-dot off'} style={{ top: `${(endY / GH) * 100}%` }} />
         <span className="sg-tip">{monthly ? `Month 6 · ${Math.round(LAST).toLocaleString('en-US')}` : 'Stopped posting'}</span>
-      </div>
-      <div className="sg-months">{[1, 2, 3, 4, 5, 6].map((n) => <span key={n}>M{n}</span>)}</div>
-      <figcaption>Consistency pays off — every month you post stacks on the last.</figcaption>
-    </figure>
+      </span>
+      <span className="sg-months">{[1, 2, 3, 4, 5, 6].map((n) => <span key={n}>M{n}</span>)}</span>
+      <span className="sg-cap">Consistency pays off — every month you post stacks on the last.</span>
+    </span>
   );
 }
 
@@ -168,11 +169,11 @@ export function CheckoutView({ initial }: { initial: Order }) {
                   <span className="ring"><i /></span>
                   <span className="txt"><span className="t">{u.title}</span><span className="b">{u.body}</span></span>
                   <span className="pr"><span className="now">{u.price}</span>{u.was && <span className="was">{u.was}</span>}</span>
+                  {u.id === 'monthly' && <SubGrowth monthly={m.monthly} />}
                 </button>
               );
             })}
           </div>
-          <SubGrowth monthly={m.monthly} />
         </div>}
       </div>
 
