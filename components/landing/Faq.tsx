@@ -45,7 +45,7 @@ const ITEMS: Item[] = [
     body: 'Post 20 of the 30 videos within 30 days. If none reaches 1,000 views, one email gets you a full refund.',
     visual: (
       <div className="fv-seal">
-        <Seal uid="faq" className="seal faq-seal" />
+        <Seal variant="card" />
       </div>
     ),
     actions: [{ label: 'Read the guarantee', href: '#guarantee' }, BUY],

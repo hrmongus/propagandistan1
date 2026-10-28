@@ -14,7 +14,7 @@ const bundle = PACKS.find((p) => p.bundle)!;
 
 /**
  * The offer: the one pack that's picked, with its aesthetic picker under its visual, then the four-pack bundle.
- * Both cards carry the money back seal. The monthly plan is offered at checkout.
+ * Both cards carry the money-back badge. The monthly plan is offered at checkout.
  */
 export function Packs() {
   const [sel, setSel] = useState(0);
@@ -24,6 +24,24 @@ export function Packs() {
   const [hint, setHint] = useState(false);
   const card = useRef<HTMLDivElement>(null);
   const swipeX = useRef<number | null>(null);
+  const bundleBox = useRef<HTMLDivElement>(null);
+  const bundleRow = useRef<HTMLSpanElement>(null);
+
+  // scale the bundle's row of fans to the space it has, so it stays one row at every width
+  useEffect(() => {
+    const box = bundleBox.current!, row = bundleRow.current!;
+    const fit = () => {
+      row.style.zoom = '';
+      const cs = getComputedStyle(box);
+      const room = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      const s = Math.min(1, room / row.scrollWidth);
+      row.style.zoom = s < 1 ? String(Math.floor(s * 1000) / 1000) : '';
+    };
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(box);
+    return () => ro.disconnect();
+  }, []);
   const p = singles[sel];
 
   const pick = (i: number, method: 'swatch' | 'arrow' | 'swipe') => {
@@ -73,7 +91,7 @@ export function Packs() {
                 }}
                 onPointerCancel={() => { swipeX.current = null; }}
               >
-                <Seal uid="solo" className="seal corner-seal" />
+                <Seal variant="pill" className="corner-badge" />
                 <button type="button" className="fan-arrow prev" aria-label="Previous aesthetic" onClick={() => pick(sel - 1, 'arrow')}>‹</button>
                 <span className="fan-slide" key={p.slug} style={{ '--from': `${dir * 40}px` } as React.CSSProperties}>
                   <Fan gi={sel} size="big" />
@@ -122,10 +140,9 @@ export function Packs() {
             </div>
           </div>
           <div className="pack bundle">
-            <div className="fan-box">
-              <Seal uid="bundle" className="seal corner-seal" />
-              <span className="wide"><BundleFans size="mid" /></span>
-              <span className="narrow"><BundleFans size="tiny" /></span>
+            {/* one row of four fans at full size, scaled down only when the space is narrower (never wraps) */}
+            <div className="fan-box" ref={bundleBox}>
+              <span className="bundle-row" ref={bundleRow}><BundleFans size="xl" /></span>
             </div>
             <div className="pack-body">
               <span className="bundle-kicker">Best value · {bundle.n}</span>
@@ -137,7 +154,10 @@ export function Packs() {
                 <span className="was">{bundle.was}</span>
                 <span className="save">{bundle.stock}</span>
               </div>
-              <Link className="btn btn-green" href={`/checkout?pack=${bundle.slug}`} {...trackClick('pack_selected', { pack: bundle.slug, price: bundle.priceN, bundle: true, plan: 'once' })}>{bundle.cta}</Link>
+              <div className="bundle-buy">
+                <Link className="btn btn-green" href={`/checkout?pack=${bundle.slug}`} {...trackClick('pack_selected', { pack: bundle.slug, price: bundle.priceN, bundle: true, plan: 'once' })}>{bundle.cta}</Link>
+                <Seal variant="inline" />
+              </div>
             </div>
           </div>
         </div>

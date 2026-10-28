@@ -4,12 +4,12 @@ import { Seal } from './Seal';
 
 const PROMISES = ['Full refund', 'Keep the pack', 'One email'];
 
-/** Compact guarantee strip: the seal stuck over the card's edge, a headline, three one-word-ish promises. */
+/** Compact guarantee strip: the shield-check mark, a headline, three one-word-ish promises. */
 export function Guarantee() {
   return (
     <section id="guarantee" className="section guarantee-section">
       <div className="guarantee">
-        <Seal uid="guarantee" className="seal guarantee-seal" />
+        <Seal variant="icon" className="guarantee-icon" />
         <div className="copy">
           <h2 className="h3">30-day money back guarantee</h2>
           <ul className="g-promises">

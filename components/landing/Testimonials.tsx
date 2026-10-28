@@ -4,30 +4,41 @@
 import { useEffect, useRef, useState } from 'react';
 import { track } from '@/lib/analytics/client';
 
-// PLACEHOLDER COPY: every screenshot must belong to a real customer who agreed to be shown, and every quote, name and
-// genre must be theirs. Replace these before launch: invented testimonials presented as real — especially next to
-// real-looking results — are deceptive advertising under FTC rules. Quotes carry no numbers so they can't contradict
-// the charts.
-const REVIEWS = [
-  { img: 1, q: 'posted every single day since march. the chart speaks for itself', name: 'Jade M.', who: 'Indie pop' },
-  { img: 2, q: 'stopped paying for playlist pitching. this did more in a month', name: 'Luca R.', who: 'Bedroom producer' },
-  { img: 3, q: 'didn’t think faceless clips would work for my stuff. they do', name: 'Nia K.', who: 'Alt-R&B' },
-  { img: 4, q: 'one clip popped and the whole catalogue moved with it', name: 'Marco D.', who: 'Rap' },
-  { img: 5, q: 'slow start, then it just kept climbing. finally real fans', name: 'Ella S.', who: 'Singer-songwriter' },
-  { img: 6, q: 'saves went up more than streams. people actually keep the song', name: 'Theo W.', who: 'Alt-pop' },
-  { img: 7, q: 'easiest promo i’ve done. 5 minutes a day, no ads', name: 'Ana P.', who: 'Folk' },
-  { img: 8, q: 'my best months ever and i never showed my face once', name: 'Kai L.', who: 'Hyperpop' },
-  { img: 9, q: 'the consistency is the trick. the videos make it easy', name: 'Rosa V.', who: 'Dance' },
-  { img: 10, q: 'went in sceptical. now it’s the only promo i run', name: 'Sam O.', who: 'Surf rock' },
+// PLACEHOLDER COPY: every screenshot must belong to a real customer who agreed to be shown, and every title, quote,
+// name, genre and date must be theirs. Replace these before launch: invented testimonials presented as real — especially
+// next to real-looking results — are deceptive advertising under FTC rules. Quotes carry no numbers so they can't
+// contradict the charts. Country codes and dates are placeholders too. Set `verified: true` only for reviews from a confirmed purchase; it shows a "Verified buyer"
+// label. The cards borrow a review-site look but never another platform's name or logo: these aren't hosted there.
+type Review = { img: number; title: string; q: string; name: string; who: string; cc: string; date: string; verified?: boolean };
+const REVIEWS: Review[] = [
+  { img: 1, title: 'The chart speaks for itself', q: 'Posted every single day since March. Didn’t change anything else about my releases.', name: 'Jade M.', who: 'Indie pop', cc: 'US', date: 'Sep 24, 2026' },
+  { img: 2, title: 'Better than playlist pitching', q: 'Stopped paying for pitching. This did more in a month than that did all year.', name: 'Luca R.', who: 'Bedroom producer', cc: 'GB', date: 'Sep 18, 2026' },
+  { img: 3, title: 'Works for my sound too', q: 'Didn’t think faceless clips would work for slow R&B. They do.', name: 'Nia K.', who: 'Alt-R&B', cc: 'US', date: 'Aug 30, 2026' },
+  { img: 4, title: 'The whole catalogue moved', q: 'One clip popped and people started playing my older songs too.', name: 'Marco D.', who: 'Rap', cc: 'CA', date: 'Sep 19, 2026' },
+  { img: 5, title: 'Slow start, then it climbed', q: 'First few weeks felt quiet. Then it just kept going up. Finally real fans.', name: 'Ella S.', who: 'Singer-songwriter', cc: 'AU', date: 'Aug 12, 2026' },
+  { img: 6, title: 'People actually save the song', q: 'Saves went up faster than streams, which is what I care about.', name: 'Theo W.', who: 'Alt-pop', cc: 'US', date: 'Sep 20, 2026' },
+  { img: 7, title: 'Easiest promo I’ve done', q: 'Five minutes a day, no ads, no filming. I just post and get back to writing.', name: 'Ana P.', who: 'Folk', cc: 'IE', date: 'Aug 4, 2026' },
+  { img: 8, title: 'Never showed my face once', q: 'My best months ever and nobody has seen my face. That was the whole point.', name: 'Kai L.', who: 'Hyperpop', cc: 'DE', date: 'Sep 2, 2026' },
+  { img: 9, title: 'Consistency is the trick', q: 'The videos make posting daily easy enough that I actually stuck with it.', name: 'Rosa V.', who: 'Dance', cc: 'US', date: 'Sep 5, 2026' },
+  { img: 10, title: 'Went in sceptical', q: 'Now it’s the only promotion I run. Renewed for another month.', name: 'Sam O.', who: 'Surf rock', cc: 'NZ', date: 'Aug 1, 2026' },
 ];
 
-const Star = () => (
-  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.2 5.7.8-4.1 4 1 5.6L10 14.5l-5.1 2.7 1-5.6-4.1-4 5.7-.8z" /></svg>
+/** Initials avatars in a few muted colours, picked by name so each reviewer keeps theirs. */
+const AVATARS = ['#E8DCCB', '#D6E4F0', '#E4D8EE', '#D9EBDD', '#F2DCD5', '#E9E4C9'];
+const avatarBg = (name: string) => AVATARS[[...name].reduce((n, c) => n + c.charCodeAt(0), 0) % AVATARS.length];
+
+/** Five filled square star tiles, the review-site way of drawing a rating. */
+const Tiles = ({ size = 'md' }: { size?: 'sm' | 'md' }) => (
+  <span className={'tiles ' + size} role="img" aria-label="Rated 5 out of 5">
+    {[0, 1, 2, 3, 4].map((i) => (
+      <span key={i}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.6l2.2 4.6 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5L2.8 7.9l5-.7z" /></svg></span>
+    ))}
+  </span>
 );
 
 /**
- * Artist results under the reel breakdown: a swipeable row of review cards, each a Spotify-for-Artists screenshot with
- * a short quote. Three across on desktop with arrows; one (and a peek of the next) on phones.
+ * Artist reviews under the reel breakdown: a swipeable row of review-site style cards — reviewer, the star tiles and
+ * date, a title, the review, and their Spotify-for-Artists screenshot as the attached photo. Three across on desktop with arrows; one (and a peek of the next) on phones.
  */
 export function Testimonials() {
   const row = useRef<HTMLDivElement>(null);
@@ -63,10 +74,10 @@ export function Testimonials() {
   };
 
   return (
-    <section className="reviews" aria-label="Artist results">
+    <section className="reviews" aria-label="Artist reviews">
       <div className="reviews-head">
         <div className="reviews-title">
-          <span className="stars" role="img" aria-label="5 out of 5 stars">{[0, 1, 2, 3, 4].map((i) => <Star key={i} />)}</span>
+          <span className="reviews-score"><Tiles size="sm" /><b>5.0</b></span>
           <h3 className="h3">Real results from artists posting daily</h3>
         </div>
         <div className="reviews-nav">
@@ -76,15 +87,22 @@ export function Testimonials() {
       </div>
       <div className="reviews-row" ref={row}>
         {REVIEWS.map((r) => (
-          <figure className="review" key={r.img}>
-            <img src={`/uploads/results/result-${String(r.img).padStart(2, '0')}.webp`} alt={`Spotify for Artists growth chart shared by ${r.name}`} width={720} height={720} loading="lazy" decoding="async" />
-            <blockquote>{r.q}</blockquote>
-            <figcaption>
-              <span className="avatar" aria-hidden="true">{r.name[0]}</span>
-              <span><b>{r.name}</b> · {r.who}</span>
-              <span className="mini-stars" aria-hidden="true">{[0, 1, 2, 3, 4].map((i) => <Star key={i} />)}</span>
-            </figcaption>
-          </figure>
+          <article className="review" key={r.img}>
+            <header className="rv-head">
+              <span className="rv-avatar" style={{ background: avatarBg(r.name) }} aria-hidden="true">{r.name.split(' ').map((w) => w[0]).join('')}</span>
+              <span className="rv-who"><b>{r.name}</b><span><span className="rv-cc">{r.cc}</span> · {r.who}</span></span>
+            </header>
+            <div className="rv-rate">
+              <Tiles />
+              {r.verified && <span className="rv-verified"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" /><path d="m5 8.2 2 2 4-4.2" /></svg>Verified</span>}
+              <time className="rv-date">{r.date}</time>
+            </div>
+            <h4 className="rv-title">{r.title}</h4>
+            <p className="rv-body">{r.q}</p>
+            <div className="rv-shot">
+              <img src={`/uploads/results/result-${String(r.img).padStart(2, '0')}.webp`} alt={`Spotify for Artists growth chart shared by ${r.name}`} width={760} height={730} loading="lazy" decoding="async" />
+            </div>
+          </article>
         ))}
       </div>
       <div className="reviews-dots">
