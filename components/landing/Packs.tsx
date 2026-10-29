@@ -7,6 +7,7 @@ import { trackClick } from '@/lib/analytics/events';
 import { PRICES } from '@/lib/checkout';
 import { AESTHETIC_EVENT, PACKS } from '@/lib/data';
 import { BundleFans, Fan } from '../Fan';
+import { useFitRow } from '../useFitRow';
 import { Seal } from './Seal';
 
 const singles = PACKS.filter((p) => !p.bundle);
@@ -24,24 +25,8 @@ export function Packs() {
   const [hint, setHint] = useState(false);
   const card = useRef<HTMLDivElement>(null);
   const swipeX = useRef<number | null>(null);
-  const bundleBox = useRef<HTMLDivElement>(null);
-  const bundleRow = useRef<HTMLSpanElement>(null);
-
-  // scale the bundle's row of fans to the space it has, so it stays one row at every width
-  useEffect(() => {
-    const box = bundleBox.current!, row = bundleRow.current!;
-    const fit = () => {
-      row.style.zoom = '';
-      const cs = getComputedStyle(box);
-      const room = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-      const s = Math.min(1, room / row.scrollWidth);
-      row.style.zoom = s < 1 ? String(Math.floor(s * 1000) / 1000) : '';
-    };
-    fit();
-    const ro = new ResizeObserver(fit);
-    ro.observe(box);
-    return () => ro.disconnect();
-  }, []);
+  // the bundle's row of fans stays one row at every width
+  const { box: bundleBox, row: bundleRow } = useFitRow<HTMLDivElement, HTMLSpanElement>();
   const p = singles[sel];
 
   const pick = (i: number, method: 'swatch' | 'arrow' | 'swipe') => {

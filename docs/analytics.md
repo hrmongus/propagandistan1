@@ -96,10 +96,10 @@ payment form is a cross-origin iframe, so card details are never recorded.
 | Event | Properties | Fires when |
 | --- | --- | --- |
 | `upsell_viewed` | `order_name`, `packs_offered`, `monthly` | The offer is shown |
-| `upsell_accepted` | `packs_offered`, `monthly` | "Yes — add all N packs" |
+| `upsell_accepted` | `packs_offered`, `monthly`, `cta` (`offer` / `sticky`) | "Add all N for $47": the offer's button (`offer`) or the bottom bar shown while that button is off screen (`sticky`) |
 | `upsell_card_required` | `packs_offered` | The one-click charge needs the buyer, so the card form opens |
 | `upsell_error` | `error` | The upsell couldn't be added |
-| `upsell_declined` | `packs_offered` | "No thanks" |
+| `upsell_declined` | `packs_offered` | "No thanks, just <pack>" |
 
 ### Access (`/access`)
 

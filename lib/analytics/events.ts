@@ -33,7 +33,8 @@ export type ClientEvents = {
 
   /* upsell */
   upsell_viewed: { order_name: string; packs_offered: number; monthly: boolean };
-  upsell_accepted: { packs_offered: number; monthly: boolean };
+  /** `cta`: the offer's own button, or the bar that stays on screen while it's scrolled away. */
+  upsell_accepted: { packs_offered: number; monthly: boolean; cta: 'offer' | 'sticky' };
   /** The one-click charge needs the buyer (3-D Secure, no saved card), so the card form opened. */
   upsell_card_required: { packs_offered: number };
   upsell_error: { error: string };
