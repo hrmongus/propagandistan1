@@ -1,5 +1,7 @@
 /* Page content, lifted from the Claude Design source. */
 
+import { BUNDLE_SAVE, FOUR_SINGLES, PACK_CTA, PRICES } from './prices';
+
 export function lcg(seed: number) {
   let s = seed;
   return () => {
@@ -72,11 +74,11 @@ export type Pack = {
 };
 
 export const PACKS: Pack[] = [
-  { n: 'Pack 01', stock: '41 of 200 left', stockColor: '#F5F5F7', slug: 'golden-hour', name: 'Golden Hour', genres: 'Indie · Singer-songwriter · Bedroom pop · Alt-R&B', desc: 'Warm, hazy, golden-hour footage. Built for songs that sound like a memory.', priceN: 37, was: '', cta: 'Get the pack — $37', bundle: false, tint: '#E08A3C', audience: ['Women 18–34', 'Indie & bedroom pop', 'Nostalgia edits'] },
-  { n: 'Pack 02', stock: '128 of 200 left', stockColor: '#6E6E73', slug: 'midnight-city', name: 'Midnight City', genres: 'Rap · Trap · Drill · Hyperpop', desc: 'Night cities, headlights, motion. High contrast, hard cuts.', priceN: 37, was: '', cta: 'Get the pack — $37', bundle: false, tint: '#4466E0', audience: ['Men 18–30', 'Rap & trap', 'Night-drive edits'] },
-  { n: 'Pack 03', stock: '176 of 200 left', stockColor: '#6E6E73', slug: 'coastal-drive', name: 'Coastal Drive', genres: 'Pop · Dance · Alt-pop · Surf rock', desc: 'Coast roads, sea light, wind in the frame. Bright, open, moving.', priceN: 37, was: '', cta: 'Get the pack — $37', bundle: false, tint: '#2FB0B8', audience: ['Gen Z 16–24', 'Pop & dance', 'Summer & travel'] },
-  { n: 'Pack 04', stock: '200 of 200 left', stockColor: '#6E6E73', slug: 'forest-trail', name: 'Forest Trail', genres: 'Folk · Acoustic · Ambient · Country', desc: 'Woodland, weather, slow light. Quiet and unhurried.', priceN: 37, was: '', cta: 'Get the pack — $37', bundle: false, tint: '#6FA83A', audience: ['Adults 25–44', 'Folk & acoustic', 'Slow living'] },
-  { n: 'Bundle · all four', stock: 'Save $51', stockColor: '#30D158', slug: 'bundle', name: 'All four packs', genres: '120 videos · every genre above', desc: 'Golden Hour, Midnight City, Coastal Drive and Forest Trail. Four months of posting, one download.', priceN: 97, was: '$148', cta: 'Get the bundle — $97', bundle: true },
+  { n: 'Pack 01', stock: '41 of 200 left', stockColor: '#F5F5F7', slug: 'golden-hour', name: 'Golden Hour', genres: 'Indie · Singer-songwriter · Bedroom pop · Alt-R&B', desc: 'Warm, hazy, golden-hour footage. Built for songs that sound like a memory.', priceN: PRICES.pack, was: '', cta: PACK_CTA, bundle: false, tint: '#E08A3C', audience: ['Women 18–34', 'Indie & bedroom pop', 'Nostalgia edits'] },
+  { n: 'Pack 02', stock: '128 of 200 left', stockColor: '#6E6E73', slug: 'midnight-city', name: 'Midnight City', genres: 'Rap · Trap · Drill · Hyperpop', desc: 'Night cities, headlights, motion. High contrast, hard cuts.', priceN: PRICES.pack, was: '', cta: PACK_CTA, bundle: false, tint: '#4466E0', audience: ['Men 18–30', 'Rap & trap', 'Night-drive edits'] },
+  { n: 'Pack 03', stock: '176 of 200 left', stockColor: '#6E6E73', slug: 'coastal-drive', name: 'Coastal Drive', genres: 'Pop · Dance · Alt-pop · Surf rock', desc: 'Coast roads, sea light, wind in the frame. Bright, open, moving.', priceN: PRICES.pack, was: '', cta: PACK_CTA, bundle: false, tint: '#2FB0B8', audience: ['Gen Z 16–24', 'Pop & dance', 'Summer & travel'] },
+  { n: 'Pack 04', stock: '200 of 200 left', stockColor: '#6E6E73', slug: 'forest-trail', name: 'Forest Trail', genres: 'Folk · Acoustic · Ambient · Country', desc: 'Woodland, weather, slow light. Quiet and unhurried.', priceN: PRICES.pack, was: '', cta: PACK_CTA, bundle: false, tint: '#6FA83A', audience: ['Adults 25–44', 'Folk & acoustic', 'Slow living'] },
+  { n: 'Bundle · all four', stock: `Save $${BUNDLE_SAVE}`, stockColor: '#30D158', slug: 'bundle', name: 'All four packs', genres: '120 videos · every genre above', desc: 'Golden Hour, Midnight City, Coastal Drive and Forest Trail. Four months of posting, one download.', priceN: PRICES.bundle, was: `$${FOUR_SINGLES}`, cta: `Get the bundle — $${PRICES.bundle}`, bundle: true },
 ];
 
 /** Window event (detail: pack slug) that asks the packs section to switch aesthetic, e.g. from an FAQ answer. */

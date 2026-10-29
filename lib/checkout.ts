@@ -1,4 +1,7 @@
 import { PACKS, PACK_SLUGS, type Pack } from './data';
+import { PRICES, UPSELL_PRICE } from './prices';
+
+export { PRICES, UPSELL_PRICE };
 
 /**
  * 'once' is a single payment that never renews; 'monthly' is a subscription for one pack, billed today and every
@@ -14,12 +17,6 @@ export type Order = {
   plan: Plan;
 };
 
-/**
- * Prices in whole dollars. packMonthly must match the Stripe Price in STRIPE_PRICE_MONTHLY_PACK.
- * packWas is the single pack's list price, shown struck through next to the discounted `pack` price (display only:
- * the charge is always `pack`).
- */
-export const PRICES = { pack: 37, packWas: 57, bundle: 97, packMonthly: 29, fourSingles: 148 } as const;
 
 const ITEMS_SINGLE: [string, string][] = [['Finished videos', '30 · 9:16 · silent'], ['Raw clips', '112'], ['Editing guides', '9 · one per tool'], ['Posting playbook', '24 pages'], ['Commercial licence', 'No expiry'], ['Money back guarantee', '30 days']];
 const ITEMS_BUNDLE: [string, string][] = [['Finished videos', '120 · 9:16 · silent'], ['Raw clips', '448'], ['Editing guides', '9 · one per tool'], ['Posting playbook', '4 months'], ['Commercial licence', 'No expiry'], ['Money back guarantee', '30 days']];
@@ -76,32 +73,15 @@ export function checkoutModel(order: Order) {
           ? [[orderName, `$${PRICES.packWas}`], discountLine]
           : [[orderName, `$${oncePrice}`]]) as [string, string][],
     total: `$${dueToday}`,
-    /** The single-pack → all-four upgrade. It's one-time, so taking it switches a monthly order to paying once. */
-    upgrade: monthly
-      ? { add: `$${PRICES.bundle} one-time`, total: `instead of $${monthlyPrice} / mo` }
-      : { add: `+$${PRICES.bundle - PRICES.pack}`, total: `$${PRICES.bundle} total` },
+    /**
+     * The single-pack → all-four upgrade, in dollars: what it adds to the order, and what the three extra packs cost
+     * at the single-pack price. It's one-time, so taking it switches a monthly order to paying once.
+     */
+    upgrade: { add: PRICES.bundle - PRICES.pack, was: 3 * PRICES.pack },
     items: isBundleOrder ? ITEMS_BUNDLE : ITEMS_SINGLE,
-    subSave: PRICES.pack - PRICES.packMonthly,
     renewNote: monthly
       ? `Renews every month on today's date at $${monthlyPrice} until you cancel — one click, any time.`
       : 'One payment. Nothing renews.',
-    plans: [
-      {
-        id: 'once' as const,
-        title: 'Pay once',
-        body: `${orderName}, one payment. Nothing renews.`,
-        price: `$${oncePrice}`,
-        was: isBundleOrder ? '' : `$${PRICES.packWas}`,
-      },
-      {
-        id: 'monthly' as const,
-        title: 'A new pack every month',
-        body: `${sel.name} today, a fresh 30-video pack every month after. $${monthlyPrice} a month, cancel any time in one click.`
-          + (bundleUp ? ' Single pack only — replaces the four-pack upgrade.' : ''),
-        price: `$${monthlyPrice} / mo`,
-        was: `$${PRICES.pack}`,
-      },
-    ],
   };
 }
 
@@ -109,8 +89,6 @@ export type CheckoutModel = ReturnType<typeof checkoutModel>;
 
 /* ---------- post-purchase upsell ---------- */
 
-/** One-click offer shown between payment and /access: the packs the buyer doesn't own yet, for one low price. */
-export const UPSELL_PRICE = 47;
 
 /** Single packs the order doesn't include, or [] when it already has all four (nothing to upsell). */
 export function upsellPacks(order: Order): Pack[] {

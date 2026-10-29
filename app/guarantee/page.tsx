@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageBar } from '@/components/PageBar';
+import { PACK_CTA } from '@/lib/prices';
 
 export const metadata: Metadata = {
   title: 'Money-back guarantee — FanpageKit',
@@ -65,7 +66,7 @@ export default function GuaranteePage() {
         </div>
 
         <div className="rules-cta">
-          <Link className="btn" href="/#packs">Get the pack — $37</Link>
+          <Link className="btn" href="/#packs">{PACK_CTA}</Link>
           <Link className="cta-note" href="/">Back to FanpageKit</Link>
         </div>
       </div>

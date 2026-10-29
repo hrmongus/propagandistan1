@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { ACCOUNTS } from '@/lib/data';
 import { CtaRow } from './Nav';
+import { PRICES } from '@/lib/prices';
 
 export function Reveal() {
   const items = [...ACCOUNTS, ...ACCOUNTS];
@@ -35,7 +36,7 @@ export function Reveal() {
           ))}
         </div>
       </div>
-      <CtaRow location="reveal" label="Run the same format — $37" note="Instant download · No face required" />
+      <CtaRow location="reveal" label={`Run the same format — $${PRICES.pack}`} note="Instant download · No face required" />
     </section>
   );
 }

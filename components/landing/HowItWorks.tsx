@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { CtaRow } from './Nav';
+import { PACK_CTA } from '@/lib/prices';
 
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 
@@ -71,7 +72,7 @@ export function HowItWorks() {
         </div>
         <TimeCard />
       </div>
-      <CtaRow location="how_it_works" label="Get the pack — $37" note="30 clips · 4 minutes a day" />
+      <CtaRow location="how_it_works" label={PACK_CTA} note="30 clips · 4 minutes a day" />
     </section>
   );
 }

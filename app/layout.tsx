@@ -3,12 +3,13 @@ import { Geist } from 'next/font/google';
 import { MediaFallback } from '@/components/MediaFallback';
 import { config } from '@/lib/config';
 import './globals.css';
+import { PRICES } from '@/lib/prices';
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-geist', display: 'swap' });
 
 const title = 'FanpageKit — Organic views that turn into streams';
 const description =
-  '30 finished, silent, colour-graded vertical videos for independent artists. Attach your own track, post daily, never show your face. $37, instant download.';
+  `30 finished, silent, colour-graded vertical videos for independent artists. Attach your own track, post daily, never show your face. $${PRICES.pack}, instant download.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(config.siteUrl),

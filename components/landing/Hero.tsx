@@ -4,6 +4,7 @@ import { HERO_VIDEOS } from '@/lib/data';
 import { posterFor } from '@/lib/media';
 import { LazyVideo } from '../LazyVideo';
 import { Compare } from './Compare';
+import { PACK_CTA } from '@/lib/prices';
 
 const SpotifyIcon = () => (
   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1ED760" strokeWidth="2.6" strokeLinecap="round">
@@ -55,7 +56,7 @@ export function Hero() {
       </div>
       <div className="hero-bottom">
         <div className="hero-cta">
-          <a href="#packs" className="btn btn-lg" {...trackClick('cta_clicked', { location: 'hero', label: 'Get the pack — $37' })}>Get the pack — $37</a>
+          <a href="#packs" className="btn btn-lg" {...trackClick('cta_clicked', { location: 'hero', label: PACK_CTA })}>{PACK_CTA}</a>
           <span className="cta-note">Instant download · Commercial licence · 30-day money back</span>
         </div>
       </div>

@@ -120,7 +120,7 @@ export function Packs() {
                   <span className="was">${PRICES.packWas}</span>
                   <span className="deal">−{Math.round(((PRICES.packWas - p.priceN) / PRICES.packWas) * 100)}% · launch price</span>
                 </span>
-                <Link className="btn btn-outline" href={`/checkout?pack=${p.slug}`} {...trackClick('pack_selected', { pack: p.slug, price: p.priceN, bundle: false, plan: 'once' })}>{p.cta}</Link>
+                <Link className="btn" href={`/checkout?pack=${p.slug}`} {...trackClick('pack_selected', { pack: p.slug, price: p.priceN, bundle: false, plan: 'once' })}>{p.cta}</Link>
               </div>
             </div>
           </div>

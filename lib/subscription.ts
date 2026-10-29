@@ -8,7 +8,7 @@ import { cents, checkoutBase, orderMetadata } from './stripe';
  */
 
 /**
- * The recurring Price: STRIPE_PRICE_MONTHLY_PACK ($29/mo). Without it (local development) an inline price is used,
+ * The recurring Price: STRIPE_PRICE_MONTHLY_PACK (PRICES.packMonthly a month). Without it (local development) an inline price is used,
  * which creates a throwaway Product per checkout.
  */
 function monthlyPrice(amount: number): Stripe.Checkout.SessionCreateParams.LineItem {

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { trackClick } from '@/lib/analytics/events';
 import { Seal } from './Seal';
+import { PACK_CTA } from '@/lib/prices';
 
 const PROMISES = ['Full refund', 'Keep the pack', 'One email'];
 
@@ -28,7 +29,7 @@ export function Final() {
       <div className="final-inner">
         <h2 className="h2">Your next release deserves more than one post and a story.</h2>
         <p>30 colour graded videos, in your hands tonight. You still never have to show your face.</p>
-        <a href="#packs" className="btn btn-lg" {...trackClick('cta_clicked', { location: 'final', label: 'Get the pack — $37' })}>Get the pack — $37</a>
+        <a href="#packs" className="btn btn-lg" {...trackClick('cta_clicked', { location: 'final', label: PACK_CTA })}>{PACK_CTA}</a>
         <span className="cta-note">Instant download · 30-day money back · Commercial licence</span>
       </div>
     </section>

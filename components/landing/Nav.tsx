@@ -1,6 +1,7 @@
 import { trackClick } from '@/lib/analytics/events';
 import type { ClientEvents } from '@/lib/analytics/events';
 import { LogoMark } from '../Logo';
+import { PACK_CTA } from '@/lib/prices';
 
 export function Nav() {
   return (
@@ -16,7 +17,7 @@ export function Nav() {
           <a href="#packs">Packs</a>
           <a href="#faq">FAQ</a>
         </div>
-        <a href="#packs" className="btn btn-sm" {...trackClick('cta_clicked', { location: 'nav', label: 'Get the pack — $37' })}>Get the pack — $37</a>
+        <a href="#packs" className="btn btn-sm" {...trackClick('cta_clicked', { location: 'nav', label: PACK_CTA })}>{PACK_CTA}</a>
       </div>
     </nav>
   );

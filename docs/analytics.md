@@ -87,7 +87,6 @@ payment form is a cross-origin iframe, so card details are never recorded.
 | --- | --- | --- |
 | `checkout_viewed` | `pack`, `plan`, `bundle_up` | The checkout page mounts (again after "Change pack") |
 | `checkout_bundle_toggled` | `pack`, `enabled` | The four-pack upgrade is switched on or off |
-| `checkout_plan_selected` | `pack`, `plan` | A different plan (pay once / monthly) is picked |
 | `checkout_change_pack_clicked` | `pack` | "Change pack" |
 | `checkout_error` | `pack`, `plan`, `bundle_up`, `error` | The embedded Stripe form can't be created |
 

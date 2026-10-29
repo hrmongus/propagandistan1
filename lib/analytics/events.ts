@@ -26,7 +26,6 @@ export type ClientEvents = {
   /* checkout */
   checkout_viewed: { pack: PackSlug; plan: Plan; bundle_up: boolean };
   checkout_bundle_toggled: { pack: PackSlug; enabled: boolean };
-  checkout_plan_selected: { pack: PackSlug; plan: Plan };
   checkout_change_pack_clicked: { pack: PackSlug };
   /** The embedded Stripe form couldn't load. */
   checkout_error: { pack: PackSlug; plan: Plan; bundle_up: boolean; error: string };
