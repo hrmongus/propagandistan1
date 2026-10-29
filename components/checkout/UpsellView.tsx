@@ -3,6 +3,7 @@
 import { EmbeddedCheckout, EmbeddedCheckoutProvider } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { acceptUpsell } from '@/app/upsell/actions';
 import { track } from '@/lib/analytics/client';
@@ -15,18 +16,23 @@ import { TrackView } from '../TrackView';
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
 
-type Props = { sessionId: string; orderName: string; packs: { slug: string; name: string; genres: string }[]; monthly: boolean };
+/** `preview` (admin preview, lib/preview.ts): the buttons just move to the matching /access preview — no charge, no events. */
+type Props = {
+  sessionId: string; orderName: string; packs: { slug: string; name: string; genres: string }[]; monthly: boolean;
+  preview?: { access: string; accepted: string };
+};
 
-export function UpsellView({ sessionId, orderName, packs, monthly }: Props) {
+export function UpsellView({ sessionId, orderName, packs, monthly, preview }: Props) {
+  const router = useRouter();
   const [pending, start] = useTransition();
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const access = `/access?session_id=${encodeURIComponent(sessionId)}`;
+  const access = preview?.access ?? `/access?session_id=${encodeURIComponent(sessionId)}`;
   const value = packs.length * PRICES.pack;
   const off = Math.round((1 - UPSELL_PRICE / value) * 100);
 
   const accept = () =>
-    start(async () => {
+    preview ? router.push(preview.accepted) : start(async () => {
       setError(null);
       track('upsell_accepted', { packs_offered: packs.length, monthly });
       // On success the action redirects to /access; otherwise it hands back a card form or an error.
@@ -42,7 +48,7 @@ export function UpsellView({ sessionId, orderName, packs, monthly }: Props) {
 
   return (
     <div className="upsell">
-      <TrackView event="upsell_viewed" props={{ order_name: orderName, packs_offered: packs.length, monthly }} />
+      {!preview && <TrackView event="upsell_viewed" props={{ order_name: orderName, packs_offered: packs.length, monthly }} />}
       <ol className="up-steps" aria-label="Order progress">
         <li className="done"><span>✓</span>Payment</li>
         <li className="on"><span>2</span>Complete the set</li>
@@ -98,7 +104,7 @@ export function UpsellView({ sessionId, orderName, packs, monthly }: Props) {
         )}
       </div>
 
-      <Link className="up-skip" href={access} {...trackClick('upsell_declined', { packs_offered: packs.length })}>No thanks — take me to my {orderName} pack</Link>
+      <Link className="up-skip" href={access} {...(preview ? {} : trackClick('upsell_declined', { packs_offered: packs.length }))}>No thanks — take me to my {orderName} pack</Link>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import { checkoutModel, deliverables } from '@/lib/checkout';
 import { config, driveLink, fanpagekitGuideLink, guidesLink, privateLinks } from '@/lib/config';
 import { PACKS } from '@/lib/data';
 import { upsellIntent } from '@/lib/payment';
+import { previewOrder } from '@/lib/preview';
 import { paidOrder, stripeConfigured } from '@/lib/stripe';
 import { openBillingPortal } from './actions';
 
@@ -27,8 +28,9 @@ async function lookup(sessionId: string) {
   }
 }
 
-export default async function AccessPage({ searchParams }: { searchParams: SearchParams }) {
-  const raw = (await searchParams).session_id;
+/** The verified paid order for `?session_id=`, or a redirect away when there isn't one. */
+async function paid(params: Awaited<SearchParams>) {
+  const raw = params.session_id;
   const sessionId = Array.isArray(raw) ? raw[0] : raw;
   if (!sessionId || !stripeConfigured()) redirect('/#packs');
 
@@ -36,11 +38,22 @@ export default async function AccessPage({ searchParams }: { searchParams: Searc
   if (!result) redirect('/#packs');
   // Came back without finishing payment → back to the same order.
   if (!result.order) redirect(`/checkout?pack=${encodeURIComponent(result.session.metadata?.pack ?? '')}`);
+  return { ...result, order: result.order, sessionId };
+}
+
+export default async function AccessPage({ searchParams }: { searchParams: SearchParams }) {
+  const params = await searchParams;
+  // admin preview (lib/preview.ts): a made-up paid order, without Stripe, Meta or view events
+  const preview = previewOrder(params);
+  const result = preview
+    ? { order: preview, upsell: params.upsell === '1', upsellPi: undefined, session: null, sessionId: 'preview' }
+    : await paid(params);
 
   const { orderName, monthly } = checkoutModel(result.order);
   const { discordUrl } = privateLinks();
-  const email = result.session.customer_details?.email;
-  // Links are read only here, after the session is verified as paid, and only for what the order unlocks.
+  const email = result.session?.customer_details?.email;
+  // Links are read only here, after the session is verified as paid (or the preview token checked), and only for
+  // what the order unlocks.
   const { shown, emailed } = deliverables(result.order, result.upsell);
   const packName = (slug: string) => PACKS.find((p) => p.slug === slug)?.name ?? slug;
   const drives = [
@@ -54,9 +67,13 @@ export default async function AccessPage({ searchParams }: { searchParams: Searc
 
   return (
     <main className="page">
-      <MetaPurchase {...metaBrowserPurchases(result.session, result.order, result.upsellPi)} />
-      <TrackView event="access_viewed" props={{ order_name: orderName, monthly, upsell: result.upsell }} email={email} />
-      <PageBar>{result.upsell ? 'All four packs' : orderName} · paid</PageBar>
+      {result.session && (
+        <>
+          <MetaPurchase {...metaBrowserPurchases(result.session, result.order, result.upsellPi)} />
+          <TrackView event="access_viewed" props={{ order_name: orderName, monthly, upsell: result.upsell }} email={email} />
+        </>
+      )}
+      <PageBar>{result.upsell ? 'All four packs' : orderName} · {preview ? 'preview' : 'paid'}</PageBar>
       <div className="access">
         <div className="access-head">
           <span className="ok"><span className="gdot" />Payment confirmed</span>
@@ -66,8 +83,8 @@ export default async function AccessPage({ searchParams }: { searchParams: Searc
         <AccessSteps discordUrl={discordUrl} drives={drives} emailedNote={emailedNote} />
         {monthly && (
           <form className="manage" action={openBillingPortal}>
-            <input type="hidden" name="session_id" value={sessionId} />
-            Monthly plan active · <button type="submit">Manage or cancel</button>
+            <input type="hidden" name="session_id" value={result.sessionId} />
+            Monthly plan active · <button type="submit" disabled={Boolean(preview)}>Manage or cancel</button>
           </form>
         )}
       </div>

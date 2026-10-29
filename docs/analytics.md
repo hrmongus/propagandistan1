@@ -58,6 +58,10 @@ every insight:
   undoes it). Use the link on every phone and laptop the team browses the site from. Those browsers also skip the
   Meta Pixel.
 
+Admin previews of `/upsell` and `/access` (`?preview=<PREVIEW_TOKEN>`, `lib/preview.ts`) send no `upsell_viewed`,
+`access_viewed`, `upsell_accepted` or `upsell_declined` and no Meta purchase. Open them with `&internal=1` so the
+step and link clicks on `/access` are filtered out too.
+
 ### Automatic (SDK)
 
 `$pageview` (including client-side navigations), `$pageleave`, `$autocapture` (clicks, form submits), `$exception`

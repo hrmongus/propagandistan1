@@ -6,6 +6,7 @@ The site serves media from `public/uploads/` at `/uploads/...`. Drop the files i
 - `pages/page1_s1.webp` … `pages/page12_s6.webp` — reel screenshots for the 12 fan-page account cards (page N = card N, six tiles each; `s1` is also the avatar).
 - `logos/capcut.png`, `logos/davinci-resolve.png`, `logos/final-cut-pro.png`, `logos/premiere-pro.png`, `logos/canva.png`, `logos/imovie.png`, `logos/edits.png`, `logos/instagram.png`, `logos/tiktok.png` — 32×32 tool logos.
 - `packs/<slug>-1.webp` … `packs/<slug>-4.webp` and `packs/<slug>.mp4` for each of `golden-hour`, `midnight-city`, `coastal-drive`, `forest-trail` — pack fan tiles (9:16); `midnight-city-2`, `golden-hour-3` and `coastal-drive-2` also preview the "What you actually download" card.
+- `compare/growth-wide.webp` (desktop, 2000×615) and `compare/growth-square.webp` (phones, 1080×1080) — the "Own the growth" listeners chart. The red and green loops are drawn over them in `Compare.tsx`, positioned in the original image pixels (2000×615 and 1440×1440), so re-place them if a chart changes.
 
 ## Encoding
 

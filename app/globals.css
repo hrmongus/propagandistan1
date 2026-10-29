@@ -326,28 +326,27 @@ a.cta-note:hover { color: var(--fg); }
 .compare { gap: 20px; }
 .compare .panel-head { flex-direction: column; align-items: flex-start; gap: 6px; }
 .compare .panel-head .sub { font-size: 15px; color: var(--muted); }
-.sfa { margin: 0; background: #fff; border-radius: 16px; padding: 28px 22px 12px 58px; color: #121212; }
-.sfa-plot { position: relative; height: 260px; }
-.sfa-plot svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.sfa-plot .area { fill: #4A7FE5; opacity: .2; }
-.sfa-plot .line { fill: none; stroke: #3E73DD; stroke-width: 1.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.sfa-grid { position: absolute; left: 0; right: 0; border-top: 1px solid #E6E8EB; }
-.sfa-grid span { position: absolute; right: 100%; margin-right: 12px; transform: translateY(-50%); font-size: 11px; color: #8A8F98; font-variant-numeric: tabular-nums; }
-.sfa-split { position: absolute; top: -18px; bottom: 0; border-left: 1.5px dashed #B9BEC6; }
-.sfa-half { position: absolute; top: -18px; width: 50%; display: flex; }
-.sfa-half.left { left: 0; justify-content: flex-start; }
-.sfa-half.right { left: 50%; justify-content: flex-start; }
-.sfa-half span { padding: 0 12px; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #6B7079; }
-.sfa-half.right span { color: #1F5FD8; }
-.sfa-half.left span { padding-left: 0; }
-.sfa-flag { position: absolute; transform: translate(-50%, -100%); padding-bottom: 26px; z-index: 1; }
-.sfa-flag span { display: block; font-size: 11px; font-weight: 500; white-space: nowrap; color: #4A4F57; background: #fff; border: 1px solid #D5D8DC; border-radius: 8px; padding: 2px 8px; }
-.sfa-flag::after { content: ""; position: absolute; left: 50%; bottom: 6px; height: 18px; border-left: 1px solid #9AA0A8; }
-.sfa-flag.own span { color: #1F5FD8; border-color: #C9D6F5; }
-.sfa-flag.own::after { border-color: #1F5FD8; opacity: .6; }
-.sfa-last { position: absolute; right: 0; width: 9px; height: 9px; border-radius: 50%; background: #1F5FD8; box-shadow: 0 0 0 2px #fff; transform: translate(50%, -50%); }
-.sfa-tip { position: absolute; top: -22px; right: -10px; background: #1F5FD8; color: #fff; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 10px; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.sfa-dates { display: flex; justify-content: space-between; font-size: 11px; color: #8A8F98; padding-top: 10px; }
+.sfa { margin: 0; background: #fff; border-radius: 16px; overflow: clip; }
+.sfa-shot { position: relative; }
+.sfa-shot img { display: block; width: 100%; height: auto; }
+.sfa-shot svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.sfa-shot.square { display: none; }
+/* felt-tip loops: filled brush shapes (red around the paid spikes, green around the climb), revealed by a mask
+   whose centre line draws itself on once the chart is in view */
+.ink { stroke: none; }
+.ink.paid { fill: #E5484D; }
+.ink.own { fill: #1DB954; }
+.ink-reveal { fill: none; stroke: #fff; stroke-linejoin: round; stroke-dasharray: 1 2; stroke-dashoffset: 0; }
+.ink-armed .ink-reveal { stroke-dashoffset: 1.02; }
+.ink-drawn .ink-reveal { transition: stroke-dashoffset .9s cubic-bezier(.45, .05, .35, 1); }
+.ink-drawn .ink-reveal.own { transition-duration: 1.1s; transition-delay: .75s; }
+/* the handwritten notes over each loop, in the same ink; they appear as their loop finishes */
+.ink-note { font-weight: 700; }
+.ink-note.paid { fill: #E5484D; }
+.ink-note.own { fill: #1DB954; }
+.ink-armed .ink-note { opacity: 0; }
+.ink-drawn .ink-note { transition: opacity .5s ease-out .6s; }
+.ink-drawn .ink-note.own { transition-delay: 1.6s; }
 .sfa-note { font-size: 12px; color: var(--dim); }
 
 /* ---------- how it works ---------- */
@@ -832,14 +831,9 @@ a.cta-note:hover { color: var(--fg); }
   .anatomy { gap: 20px; }
   .hero-compare { padding: 40px 16px 0; }
   .time-card { padding: 20px; }
-  .sfa { padding: 28px 12px 10px 40px; border-radius: 14px; }
-  .sfa-plot { height: 220px; }
-  .sfa-grid span { margin-right: 8px; font-size: 10px; }
-  .sfa-half span { font-size: 9.5px; padding: 0 8px; letter-spacing: .06em; }
-  .sfa-flag span { font-size: 10px; padding: 1px 6px; }
-  .sfa-tip { font-size: 10px; padding: 2px 8px; top: 6px; right: -4px; }
-  .sfa-dates { font-size: 10px; }
-  .sfa-dates span:nth-child(even) { display: none; }
+  .sfa { border-radius: 14px; }
+  .sfa-shot.wide { display: none; }
+  .sfa-shot.square { display: block; }
   .packs { gap: 32px; }
   .packs-grid { gap: 16px; }
   .pack { padding: 8px 8px 20px; border-radius: 24px; }

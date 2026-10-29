@@ -6,6 +6,7 @@ import { PageBar } from '@/components/PageBar';
 import { metaBrowserPurchases } from '@/lib/analytics/meta-server';
 import { checkoutModel, upsellPacks } from '@/lib/checkout';
 import { upsellPaid } from '@/lib/payment';
+import { previewHref, previewOrder } from '@/lib/preview';
 import { paidOrder, stripeConfigured } from '@/lib/stripe';
 
 export const metadata: Metadata = { title: 'One more thing — FanpageKit', robots: { index: false } };
@@ -24,7 +25,27 @@ async function lookup(sessionId: string) {
 
 /** Between payment and /access: offers the packs the buyer doesn't own yet. Never shows any Drive link. */
 export default async function UpsellPage({ searchParams }: { searchParams: SearchParams }) {
-  const raw = (await searchParams).session_id;
+  const params = await searchParams;
+  const preview = previewOrder(params);
+  if (preview) {
+    const { orderName, monthly } = checkoutModel(preview);
+    const packs = upsellPacks(preview);
+    if (!packs.length) redirect(previewHref('/access', params));
+    return (
+      <main className="page">
+        <PageBar><span className="gdot" />{orderName} · preview</PageBar>
+        <UpsellView
+          sessionId="preview"
+          orderName={orderName}
+          packs={packs.map((p) => ({ slug: p.slug, name: p.name, genres: p.genres }))}
+          monthly={monthly}
+          preview={{ access: previewHref('/access', params), accepted: previewHref('/access', params, { upsell: '1' }) }}
+        />
+      </main>
+    );
+  }
+
+  const raw = params.session_id;
   const sessionId = Array.isArray(raw) ? raw[0] : raw;
   if (!sessionId || !stripeConfigured()) redirect('/#packs');
 
