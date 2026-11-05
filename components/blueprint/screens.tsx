@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type Dispatch, type ReactNode } from 'react';
 import {
-  AESTHETICS, AGES, ARTIST_COUNT, ASSET, BLOCKERS, DAILY_TIME, EXPERIENCE, GENDERS, LABEL_LOGOS, LANDING_FAQ, LIMITS,
+  AESTHETICS, AGES, ARTIST_COUNT, ASSET, BLOCKERS, FANPAGE_EXAMPLES, DAILY_TIME, EXPERIENCE, GENDERS, LABEL_LOGOS, LANDING_FAQ, LIMITS,
   LISTENER_BRACKETS, LISTENER_SHORT, LISTENER_START, MAJOR_LABELS, MOMENTS, PROOF, RELEASES, TRIED, aestheticById, goalsFor, type Option,
 } from '@/lib/analyzer/config';
 import type { SpotifyTrack } from '@/lib/analyzer/spotify';
@@ -582,38 +582,102 @@ export function Audience({ state, dispatch, next, back }: ScreenProps) {
 
 /* ---------------------------------------------------------------- 09 several pages */
 
-const FOLLOWERS = ['184K', '92K', '231K'];
+const CARD_W = 300, CARD_H = 470;
 
-export function SeveralPages({ state, back, next }: ScreenProps) {
-  const picks = (state.answers.aesthetics ?? []).map(aestheticById).filter((x) => !!x);
-  // Always three example pages: the user's picks first, then light academia / clean girl / coquette as in the mock.
-  const pages = [...picks, ...['light-academia', 'clean-girl', 'coquette'].map(aestheticById).filter((x) => !!x && !picks.includes(x))].slice(0, 3);
-  const pool = AESTHETICS.flatMap((x) => x.images);
+const TTI = {
+  back: '<path d="m15 18-6-6 6-6"/>',
+  bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10.3 20a1.9 1.9 0 0 0 3.4 0"/>',
+  share: '<path d="M13.5 4.5 21 12l-7.5 7.5v-4c-5 0-8.3 1.4-10.5 4.8.9-5 3.7-9.6 10.5-10.5z"/>',
+  dm: '<path d="M21 3 3 10.5l7 2.5 2.5 7z"/><path d="m21 3-11 10"/>',
+  grid: '<path d="M4 4h4v4H4zM10 4h4v4h-4zM16 4h4v4h-4zM4 10h4v4H4zM10 10h4v4h-4zM16 10h4v4h-4zM4 16h4v4H4zM10 16h4v4h-4zM16 16h4v4h-4z"/>',
+  repost: '<path d="M17 2l3 3-3 3"/><path d="M4 11V9a4 4 0 0 1 4-4h12"/><path d="M7 22l-3-3 3-3"/><path d="M20 13v2a4 4 0 0 1-4 4H4"/>',
+  heartLock: '<path d="M12 20s-7-4.4-8.6-8.7C2.4 8.2 4.4 5.5 7.2 5.5c1.8 0 3.3.9 4.8 2.7 1.5-1.8 3-2.7 4.8-2.7 2.8 0 4.8 2.7 3.8 5.8"/><rect x="15" y="15" width="7" height="6" rx="1"/><path d="M16.5 15v-1.5a2 2 0 0 1 4 0V15"/>',
+};
+
+/** One fan page as a short-video app profile: top bar, avatar, stats, buttons, tabs and the real post grid. */
+function ProfileCard({ p }: { p: (typeof FANPAGE_EXAMPLES)[number] }) {
+  const ic = (d: string, size = 18, sw = 2) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" dangerouslySetInnerHTML={{ __html: d }} />;
+  const stat = (n: string, l: string) => (
+    <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, minWidth: 56 }}>
+      <b style={{ font: '700 15px/1 var(--font-sans)' }}>{n}</b>
+      <span style={{ font: '400 11px/1 var(--font-sans)', color: 'rgba(255,255,255,.6)' }}>{l}</span>
+    </span>
+  );
   return (
-    <QuizScreen id="several-pages" back={back} footer={<Footer><button type="button" className="fpb-btn primary" onClick={next}>Continue</button></Footer>}>
-      <section className="fpb-card" style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '22px 18px 18px', borderRadius: 28 }}>
-        <span className="fpb-overline">WHAT FAN PAGES LOOK LIKE</span>
-        <h2 style={{ margin: 0, font: '600 34px/1.02 var(--font-sans)', letterSpacing: '-0.04em' }}>Real pages.<br />Real followers.</h2>
-        <p className="fpb-lede sm">Fan pages are themed accounts that post short clips for one niche. <b>Each builds its own audience.</b></p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 8 }}>
-          {pages.map((p, i) => (
-            <div key={p!.id} style={{ display: 'flex', flexDirection: 'column', gap: 8, minWidth: 0, padding: 8, borderRadius: 16, background: '#000', border: '1px solid var(--border-default)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, minWidth: 0 }}>
-                <span style={{ width: 24, height: 24, borderRadius: '50%', flex: 'none', background: 'linear-gradient(45deg, #f9a03f, #e1306c, #833ab4)', padding: 2 }}><Img src={p!.images[0]} style={{ width: '100%', height: '100%', borderRadius: '50%' }} /></span>
-                <span style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 0 }}>
-                  <span className="fpb-ellipsis" style={{ font: '600 9px/1.1 var(--font-sans)' }}>{p!.handle}</span>
-                  <span style={{ fontSize: 8, lineHeight: 1.1, color: 'var(--text-tertiary)' }}>{FOLLOWERS[i]} followers</span>
-                </span>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 2 }}>
-                {Array.from({ length: 9 }, (_, k) => <Img key={k} src={k < 3 ? p!.images[k] : pool[(i * 7 + k * 5) % pool.length]} style={{ width: '100%', aspectRatio: '9 / 16' }} />)}
-              </div>
-              <span style={{ fontSize: 9, lineHeight: 1.25, color: 'var(--text-tertiary)' }}>{p!.angle}</span>
+    <div style={{ width: CARD_W, height: CARD_H, borderRadius: 22, overflow: 'hidden', background: '#000', border: '1px solid rgba(255,255,255,.12)', display: 'flex', flexDirection: 'column', color: '#fff' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 12px 6px' }}>
+        {ic(TTI.back, 20, 2.4)}
+        <span style={{ font: '700 14px/1 var(--font-sans)' }}>{p.name}</span>
+        <span style={{ display: 'flex', gap: 12 }}>{ic(TTI.bell)}{ic(TTI.share)}</span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, padding: '4px 12px 10px' }}>
+        <Img src={p.avatar} style={{ width: 64, height: 64, borderRadius: '50%' }} />
+        <span style={{ font: '600 13.5px/1 var(--font-sans)' }}>@{p.handle}</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          {stat(p.following, 'Following')}<span style={{ width: 1, height: 12, background: 'rgba(255,255,255,.18)' }} />
+          {stat(p.followers, 'Followers')}<span style={{ width: 1, height: 12, background: 'rgba(255,255,255,.18)' }} />
+          {stat(p.likes, 'Likes')}
+        </div>
+        <div style={{ display: 'flex', gap: 6, marginTop: 2 }}>
+          <span style={{ width: 128, height: 34, borderRadius: 6, background: '#FE2C55', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '600 14px/1 var(--font-sans)' }}>Follow</span>
+          <span style={{ width: 40, height: 34, borderRadius: 6, background: 'rgba(255,255,255,.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{ic(TTI.dm, 17)}</span>
+        </div>
+      </div>
+      <div style={{ display: 'flex', borderBottom: '1px solid rgba(255,255,255,.12)' }}>
+        {[TTI.grid, TTI.repost, TTI.heartLock].map((d, i) => (
+          <span key={i} style={{ flex: 1, display: 'flex', justifyContent: 'center', padding: '7px 0 8px', color: i ? 'rgba(255,255,255,.45)' : '#fff', borderBottom: i ? '2px solid transparent' : '2px solid #fff' }}>{ic(d, 18, i ? 2 : 1.6)}</span>
+        ))}
+      </div>
+      {/* the real post grid (screenshot), cropped to the top rows */}
+      <div style={{ flex: 1, minHeight: 0, backgroundImage: `url("${p.grid}")`, backgroundSize: '100% auto', backgroundPosition: 'top center', backgroundColor: '#111' }} role="img" aria-label={`Posts from @${p.handle}`} />
+    </div>
+  );
+}
+
+/** Swipeable row of profile cards, scaled so the whole card fits the space left on the screen. */
+function PageCarousel() {
+  const box = useRef<HTMLDivElement>(null);
+  const row = useRef<HTMLDivElement>(null);
+  const [k, setK] = useState(0);
+  const [at, setAt] = useState(0);
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const fit = () => setK(Math.min(1, el.clientHeight / CARD_H));
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  const w = CARD_W * k;
+  const onScroll = () => { const r = row.current; if (r && w) setAt(Math.round(r.scrollLeft / (w + 12))); };
+  const go = (i: number) => row.current?.scrollTo({ left: i * (w + 12), behavior: 'smooth' });
+  return (
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <div ref={box} style={{ flex: 1, minHeight: 0, margin: '0 -20px' }}>
+        <div ref={row} onScroll={onScroll} className="fpb-carousel" aria-label="Example fan pages" style={{ height: '100%', gap: 12, padding: `0 calc(50% - ${w / 2}px)`, opacity: k ? 1 : 0 }}>
+          {FANPAGE_EXAMPLES.map((p) => (
+            <div key={p.handle} style={{ flex: 'none', width: w, height: CARD_H * k, scrollSnapAlign: 'center' }}>
+              <div style={{ transform: `scale(${k})`, transformOrigin: 'top left', width: CARD_W, height: CARD_H }}><ProfileCard p={p} /></div>
             </div>
           ))}
         </div>
-      </section>
-      <p className="fpb-lede sm">Your strategy shows which page to start with and how each one grows your listeners.</p>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 6, flex: 'none' }}>
+        {FANPAGE_EXAMPLES.map((p, i) => (
+          <button key={p.handle} type="button" aria-label={`Show @${p.handle}`} aria-current={i === at} onClick={() => go(i)}
+            style={{ width: i === at ? 18 : 6, height: 6, padding: 0, border: 'none', borderRadius: 3, background: i === at ? 'var(--text-primary)' : 'var(--ink-400, #555)', transition: 'width 200ms', cursor: 'pointer' }} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function SeveralPages({ back, next }: ScreenProps) {
+  return (
+    <QuizScreen id="several-pages" fit back={back} footer={<Footer><button type="button" className="fpb-btn primary" onClick={next}>Continue</button></Footer>}>
+      <Titles overline="WHAT FAN PAGES LOOK LIKE" title="Real pages. Real followers." />
+      <PageCarousel />
     </QuizScreen>
   );
 }

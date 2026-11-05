@@ -79,3 +79,15 @@ export const PACK_INCLUDES: { text: string; lead?: string; signal?: boolean }[] 
   { text: 'Editing guides and a posting playbook' },
   { text: 'Fan page community' },
 ];
+
+/**
+ * Screen 09 "Real pages. Real followers.": example fan page profiles. The grids are real screenshots
+ * (assets/pages/n.jpg); the handles, names and counts are PLACEHOLDERS until the real ones are supplied.
+ */
+export const FANPAGE_EXAMPLES = [
+  { handle: 'indiepop.feels', name: 'indie pop feels', following: '12', followers: '48.2K', likes: '1.1M', grid: ASSET('pages/1.jpg'), avatar: ASSET('pages/1-avatar.jpg') },
+  { handle: 'peak.anime.ost', name: 'PEAK anime songs', following: '8', followers: '36.5K', likes: '820K', grid: ASSET('pages/2.jpg'), avatar: ASSET('pages/2-avatar.jpg') },
+  { handle: 'baby.kitten.daily', name: 'baby kittens', following: '3', followers: '412K', likes: '18.7M', grid: ASSET('pages/3.jpg'), avatar: ASSET('pages/3-avatar.jpg') },
+  { handle: 'early2000s.nights', name: 'early 2000s nights', following: '21', followers: '67.9K', likes: '2.4M', grid: ASSET('pages/4.jpg'), avatar: ASSET('pages/4-avatar.jpg') },
+  { handle: 'still.miss.you.bw', name: 'still miss you', following: '5', followers: '93.1K', likes: '3.6M', grid: ASSET('pages/5.jpg'), avatar: ASSET('pages/5-avatar.jpg') },
+];
