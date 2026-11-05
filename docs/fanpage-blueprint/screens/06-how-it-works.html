@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>06 · How it works: post anatomy · Fanpage Blueprint Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&amp;family=Geist+Mono:wght@400..600&amp;display=swap">
+<style>
+/* ---- FanpageKit design tokens (copied from the FanpageKit design system) ---- */
+:root{
+/* Neutrals — "stage" (dark) ramp */
+--ink-0:#000000;--ink-50:#0A0A0B;--ink-100:#111113;--ink-200:#18181A;--ink-300:#222225;--ink-400:#2E2E32;--ink-500:#48484D;--ink-600:#6E6E73;--ink-700:#A1A1A6;--ink-800:#D2D2D7;--ink-900:#F5F5F7;--ink-1000:#FFFFFF;
+/* Signal — the one accent. Streams, "your track", live, success. */
+--signal-300:#8CF2B0;--signal-400:#4DE58A;--signal-500:#22D46B;--signal-600:#14B358;--signal-700:#0B8A43;--signal-ink:#03210F;
+/* Supporting semantics (used sparingly) */
+--ember-500:#FF5A36;--amber-500:#FFB547;--sky-500:#5AA9FF;
+/* Glass */
+--glass-dark:rgba(20,20,22,0.62);--glass-light:rgba(255,255,255,0.72);--scrim-top:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 40%); /* @kind color */
+--scrim-bottom:linear-gradient(0deg,rgba(0,0,0,.7) 0%,rgba(0,0,0,0) 45%); /* @kind color */
+
+
+/* Semantic aliases — dark (default) */
+--bg-page:var(--ink-0);--bg-raised:var(--ink-100);--bg-sunken:var(--ink-50);
+--surface-card:var(--ink-100);--surface-card-hover:var(--ink-200);--surface-control:var(--ink-200);--surface-control-hover:var(--ink-300);--surface-inverse:var(--ink-900);
+--text-primary:var(--ink-900);--text-secondary:var(--ink-700);--text-tertiary:var(--ink-600);--text-inverse:var(--ink-0);--text-on-signal:var(--signal-ink);--text-accent:var(--signal-400);
+--border-subtle:rgba(255,255,255,0.08);--border-default:rgba(255,255,255,0.14);--border-strong:rgba(255,255,255,0.28);
+--accent:var(--signal-500);--accent-hover:var(--signal-400);--accent-press:var(--signal-600);
+--status-scarce:var(--ember-500);--status-warn:var(--amber-500);--status-success:var(--signal-500);
+--focus-ring:0 0 0 3px rgba(34,212,107,0.45);
+}
+[data-theme="light"]{
+--bg-page:#FFFFFF;--bg-raised:#F5F5F7;--bg-sunken:#FBFBFD;
+--surface-card:#F5F5F7;--surface-card-hover:#EDEDF0;--surface-control:#EDEDF0;--surface-control-hover:#E3E3E7;--surface-inverse:#111113;
+--text-primary:#111113;--text-secondary:#5E5E63;--text-tertiary:#86868B;--text-inverse:#FFFFFF;--text-accent:var(--signal-700);
+--border-subtle:rgba(0,0,0,0.06);--border-default:rgba(0,0,0,0.12);--border-strong:rgba(0,0,0,0.24);
+}
+
+:root{
+--font-sans:"Geist",-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;
+--font-display:"Geist",-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",sans-serif;
+--font-mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+/* Display scale (tight, heavy, short lines) */
+--type-hero:clamp(48px,7.2vw,112px);--type-display-1:clamp(40px,5vw,80px);--type-display-2:clamp(32px,3.6vw,56px);
+--type-title-1:32px;--type-title-2:24px;--type-title-3:20px;
+--type-body-lg:19px;--type-body:16px;--type-body-sm:14px;--type-caption:12px;--type-overline:11px;
+--weight-regular:400;--weight-medium:500;--weight-semibold:600;--weight-bold:700;
+--leading-tight:1.02;--leading-snug:1.15;--leading-normal:1.45;--leading-relaxed:1.6;
+--tracking-hero:-0.045em;--tracking-display:-0.035em;--tracking-title:-0.02em;--tracking-body:-0.005em;--tracking-overline:0.12em;
+/* Semantic */
+--text-hero:var(--weight-semibold) var(--type-hero)/var(--leading-tight) var(--font-display);
+--text-display:var(--weight-semibold) var(--type-display-1)/var(--leading-tight) var(--font-display);
+--text-title:var(--weight-semibold) var(--type-title-1)/var(--leading-snug) var(--font-display);
+--text-body-default:var(--weight-regular) var(--type-body)/var(--leading-normal) var(--font-sans);
+--text-meta:var(--weight-medium) var(--type-caption)/1.3 var(--font-mono);
+}
+
+:root{
+--space-0:0;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;--space-20:80px;--space-24:96px;--space-32:128px;--space-40:160px;
+--container-max:1200px;--container-wide:1440px;--container-text:640px;--gutter:clamp(20px,4vw,48px); /* @kind spacing */
+--section-y:clamp(96px,14vw,180px); /* @kind spacing */
+
+--nav-height:56px;
+}
+
+:root{
+--radius-xs:6px;--radius-sm:10px;--radius-md:14px;--radius-lg:20px;--radius-xl:28px;--radius-2xl:36px;--radius-reel:24px;--radius-pill:999px;
+--shadow-none:none;
+--shadow-float:0 1px 0 rgba(255,255,255,0.06) inset,0 24px 48px -12px rgba(0,0,0,0.6);
+--shadow-lift:0 2px 8px rgba(0,0,0,0.12),0 12px 32px -8px rgba(0,0,0,0.28);
+--shadow-light-card:0 1px 2px rgba(0,0,0,0.04),0 8px 24px -6px rgba(0,0,0,0.10);
+--blur-glass:saturate(180%) blur(20px); /* @kind other */
+--ease-out:cubic-bezier(0.22,1,0.36,1); /* @kind other */
+--ease-in-out:cubic-bezier(0.65,0,0.35,1); /* @kind other */
+--ease-spring:cubic-bezier(0.34,1.4,0.64,1); /* @kind other */
+--dur-fast:160ms; /* @kind other */
+--dur-base:280ms; /* @kind other */
+--dur-slow:560ms; /* @kind other */
+--dur-reveal:900ms; /* @kind other */
+--press-scale:0.97; /* @kind other */
+}
+
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+body{margin:0;background:var(--bg-page);color:var(--text-primary);font-family:var(--font-sans);font-size:var(--type-body);line-height:var(--leading-normal);letter-spacing:var(--tracking-body)}
+a{color:var(--text-primary);text-decoration:none;transition:color var(--dur-fast) var(--ease-out)}
+a:hover{color:var(--text-accent)}
+::selection{background:var(--signal-500);color:var(--signal-ink)}
+:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+
+
+/* ---- Components (plain-HTML versions of the FanpageKit design-system components) ---- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--radius-pill);border:1px solid transparent;font-family:var(--font-sans);font-weight:500;letter-spacing:-0.01em;white-space:nowrap;cursor:pointer;transition:background var(--dur-fast) var(--ease-out),transform var(--dur-fast) var(--ease-out)}
+.btn:active{transform:scale(var(--press-scale))}
+.btn-sm{height:32px;padding:0 14px;font-size:13px}
+.btn-md{height:44px;padding:0 20px;font-size:15px}
+.btn-lg{height:56px;padding:0 28px;font-size:17px}
+.btn-full{width:100%}
+.btn-primary{background:var(--surface-inverse);color:var(--text-inverse)}
+.btn-primary:hover{background:var(--ink-800)}
+.btn-signal{background:var(--accent);color:var(--text-on-signal)}
+.btn-signal:hover{background:var(--accent-hover)}
+.btn-secondary{background:var(--surface-control);color:var(--text-primary)}
+.btn-outline{background:transparent;color:var(--text-primary);border-color:var(--border-strong)}
+.btn-outline:hover,.btn-ghost:hover{background:var(--surface-control)}
+.btn-ghost{background:transparent;color:var(--text-primary)}
+.btn-glass{background:var(--glass-dark);color:#fff;border-color:var(--border-subtle);backdrop-filter:var(--blur-glass)}
+.badge{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:var(--radius-pill);font:500 12px/1 var(--font-sans);letter-spacing:-0.005em;white-space:nowrap}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.badge-neutral{background:var(--surface-control);color:var(--text-secondary)}
+.badge-signal{background:rgba(34,212,107,.14);color:var(--signal-400)}
+.badge-signal .badge-dot{background:var(--signal-500)}
+.badge-scarce{background:rgba(255,90,54,.14);color:#FF8A6E}
+.badge-scarce .badge-dot{background:var(--ember-500)}
+.badge-outline{background:transparent;color:var(--text-secondary);border:1px solid var(--border-default)}
+.badge-glass{background:var(--glass-dark);color:#fff}
+.field{display:flex;flex-direction:column;gap:8px}
+.field-label{font:500 13px/1 var(--font-sans);color:var(--text-secondary)}
+.field-box{display:flex;align-items:center;gap:10px;height:48px;padding:0 16px;border-radius:var(--radius-md);background:var(--surface-control);box-shadow:0 0 0 1px var(--border-subtle)}
+.field-box:focus-within{box-shadow:0 0 0 1.5px var(--accent),var(--focus-ring)}
+.field-box input{flex:1;min-width:0;border:none;outline:none;background:transparent;color:var(--text-primary);font:400 16px/1 var(--font-sans)}
+
+/* ---- Page frame: the design is a 390px-wide mobile screen ---- */
+html,body{margin:0;background:#000}
+body{display:flex;justify-content:center}
+</style>
+<style>
+body{margin:0;background:#000}
+a{color:#F5F5F7}a:hover{color:#4DE58A}
+</style>
+</head>
+<body>
+<!-- Static design mock-up exported from the Fanpage Blueprint Builder design canvas.
+     Screen: 06 · How it works: post anatomy. See HANDOFF.md for the flow, data and logic. -->
+<div style="width: 390px; height: 1120px; box-sizing: border-box; background: var(--bg-page); color: var(--text-primary); font-family: var(--font-sans); display: flex; flex-direction: column; overflow: hidden">
+  <header style="display: flex; flex-direction: column; gap: 10px; padding: 6px 20px 0">
+    <div style="display: flex; align-items: center; justify-content: space-between; height: 44px">
+      <button aria-label="Back" style="width: 44px; height: 44px; margin-left: -12px; border: none; background: transparent; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button>
+      <img src="assets/logo/fanpagekit-lockup-white.png" alt="FanpageKit" style="height: 15px; width: auto">
+      <span style="width: 44px"></span>
+    </div>
+    <div style="height: 3px; border-radius: 999px; background: var(--ink-300); overflow: hidden"><div style="width: 38%; height: 100%; border-radius: 999px; background: var(--ink-900)"></div></div>
+  </header>
+
+  <main style="display: flex; flex-direction: column; gap: 24px; padding: 18px 20px 0; padding-bottom: 24px">
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font: 500 11px/1 var(--font-mono); letter-spacing: 0.12em; color: var(--text-accent)">HOW IT WORKS</span>
+      <h2 style="margin: 0; font: 600 30px/1.05 var(--font-display); letter-spacing: -0.035em">Your music is the focal point of every post.</h2>
+      <p style="margin: 0; font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary)">Every layer has one job: make people stop, feel something, and <span style="color: var(--text-primary)">listen to your song</span>.</p>
+    </div>
+
+    <div style="display: flex; gap: 20px; align-items: center; flex-direction: column">
+      <div style="position: relative; width: 162px; height: 288px; border-radius: 24px; overflow: hidden; flex: none; background: #111; box-shadow: var(--shadow-float)">
+        <img src="assets/imagery/pack-golden-hour.png" alt="Silhouette at golden hour" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.55">
+        <div style="position: absolute; left: 0; right: 0; top: 0; height: 40%; background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0))"></div>
+        <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 45%; background: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0))"></div>
+        <p style="position: absolute; top: 34px; left: 14px; right: 14px; margin: 0; text-align: center; font: 500 12px/1.3 var(--font-sans); color: #fff; opacity: 0.35">pov: 2am, empty highway, this comes on</p>
+        <p style="position: absolute; top: 140px; left: 12px; right: 12px; margin: 0; padding: 6px 4px; text-align: center; font: 500 13px/1.3 var(--font-sans); color: #fff; outline: 2px solid #fff; outline-offset: 2px; border-radius: 6px">we were paper planes in july, never meant to land</p>
+        <div style="position: absolute; left: 10px; bottom: 12px; right: 10px; display: flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px; border-radius: 999px; background: var(--glass-dark); font: 500 10px/1 var(--font-sans); color: #fff; opacity: 0.35; white-space: nowrap; overflow: hidden">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#22D46B" stroke-width="2.5" stroke-linecap="round" aria-hidden="true" style="flex: none"><path d="M2 10v3"></path><path d="M6 6v11"></path><path d="M10 3v18"></path><path d="M14 8v7"></path><path d="M18 5v13"></path><path d="M22 10v3"></path></svg>
+          Paper Planes in July · Nova Reyes
+        </div>
+        <span style="position: absolute; top: 10px; left: 10px; width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.2); color: #fff; display: flex; align-items: center; justify-content: center; font: 600 10px/1 var(--font-mono)">1</span>
+        <span style="position: absolute; top: 112px; left: 10px; width: 20px; height: 20px; border-radius: 50%; background: #fff; color: #000; display: flex; align-items: center; justify-content: center; font: 600 10px/1 var(--font-mono)">2</span>
+        <span style="position: absolute; top: 210px; right: 10px; width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.2); color: #fff; display: flex; align-items: center; justify-content: center; font: 600 10px/1 var(--font-mono)">3</span>
+        <span style="position: absolute; bottom: 44px; left: 10px; width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.2); color: #fff; display: flex; align-items: center; justify-content: center; font: 600 10px/1 var(--font-mono)">4</span>
+      </div>
+
+      <ol style="list-style: none; margin: 0; padding: 0; flex: none; min-width: 0; display: flex; flex-direction: column; gap: 6px; width: 100%">
+        <li style="display: flex; gap: 10px; padding: 12px 14px; border-radius: 14px; border: 1px solid transparent; align-items: center">
+          <span style="width: 20px; height: 20px; border-radius: 50%; background: var(--ink-300); color: var(--text-secondary); display: flex; align-items: center; justify-content: center; font: 600 10px/1 var(--font-mono); flex: none">1</span>
+          <span style="display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0"><span style="font: 600 14px/1.2 var(--font-sans); color: var(--text-secondary)">Relatable hook</span><span style="font: 400 12px/1.35 var(--font-sans); color: var(--text-tertiary)">Stops the scroll in the first second</span></span>
+        </li>
+        <li style="display: flex; gap: 10px; padding: 12px 14px; border-radius: 14px; background: var(--surface-card); border: 1px solid var(--border-default); align-items: center">
+          <span style="width: 20px; height: 20px; border-radius: 50%; background: var(--ink-900); color: var(--ink-0); display: flex; align-items: center; justify-content: center; font: 600 10px/1 var(--font-mono); flex: none">2</span>
+          <span style="display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0"><span style="font: 600 14px/1.2 var(--font-sans)">Your lyrics</span><span style="font: 400 12px/1.35 var(--font-sans); color: var(--text-secondary)">Pulled from your track. Puts the focus on the song</span></span>
+        </li>
+        <li style="display: flex; gap: 10px; padding: 12px 14px; border-radius: 14px; border: 1px solid transparent; align-items: center">
+          <span style="width: 20px; height: 20px; border-radius: 50%; background: var(--ink-300); color: var(--text-secondary); display: flex; align-items: center; justify-content: center; font: 600 10px/1 var(--font-mono); flex: none">3</span>
+          <span style="display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0"><span style="font: 600 14px/1.2 var(--font-sans); color: var(--text-secondary)">Background video</span><span style="font: 400 12px/1.35 var(--font-sans); color: var(--text-tertiary)">Creates the emotion</span></span>
+        </li>
+        <li style="display: flex; gap: 10px; padding: 12px 14px; border-radius: 14px; border: 1px solid transparent; align-items: center">
+          <span style="width: 20px; height: 20px; border-radius: 50%; background: var(--ink-300); color: var(--text-secondary); display: flex; align-items: center; justify-content: center; font: 600 10px/1 var(--font-mono); flex: none">4</span>
+          <span style="display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0"><span style="font: 600 14px/1.2 var(--font-sans); color: var(--text-secondary)">Your track</span><span style="font: 400 12px/1.35 var(--font-sans); color: var(--text-tertiary)">Attached as the audio. One tap to stream</span></span>
+        </li>
+      </ol>
+    </div>
+
+    
+  </main>
+
+  <footer style="margin-top: auto; padding: 16px 20px 28px; display: flex; flex-direction: column; gap: 10px; background: var(--bg-page)">
+    <button type="button" class="btn btn-primary btn-lg btn-full">Next</button>
+  </footer>
+</div>
+</body>
+</html>

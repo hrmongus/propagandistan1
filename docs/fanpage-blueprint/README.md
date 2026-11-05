@@ -16,5 +16,10 @@ lead submit with `/s/{id}`, funnel events and checkout handoff.
 | index | `index.html` | received |
 | 00 | `00-landing.html` | received |
 | 01 | `01-track-search.html` | received |
-| 02–18b | | pending upload |
+| 02 | `02-listeners-now.html` | received |
+| 03 | `03-did-you-know.html` | received |
+| 04 | `04-six-month-goal.html` | received |
+| 05 | `05-biggest-blocker.html` | received |
+| 06 | `06-how-it-works.html` | received |
+| 07–18b | | pending upload |
 | assets | `assets/imagery`, `assets/logo`, `assets/proof` | pending upload |
