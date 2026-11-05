@@ -39,6 +39,18 @@ export type ClientEvents = {
   upsell_error: { error: string };
   upsell_declined: { packs_offered: number };
 
+  /* analyzer (lead magnet): sent by lib/analyzer/track.ts, which also stores them in Supabase `events` */
+  /** A track was picked from search or a pasted Spotify link. */
+  track_selected: { step: string | null };
+  /** An analyzer screen or quiz step was shown; `step` names it. */
+  step_viewed: { step: string | null };
+  /** The lead form was submitted successfully. */
+  email_submitted: { step: string | null };
+  /** The results page (/s/{id}) was shown. */
+  results_viewed: { step: string | null };
+  /** The results-page offer was clicked (also logged server-side by /api/checkout). */
+  offer_clicked: { step: string | null };
+
   /* access */
   access_viewed: { order_name: string; monthly: boolean; upsell: boolean };
   access_step_completed: { step: number; step_name: string; action: 'continue' | 'skip' };

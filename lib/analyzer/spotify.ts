@@ -1,16 +1,19 @@
 /*
- * Spotify Web API, client-credentials flow (no user login). Development Mode apps get a stripped track object:
- * no popularity, no preview_url; artists have no genres/followers. ISRC is present. See docs/analyzer/NOTES.md.
+ * Spotify Web API, client-credentials flow (no user login), token cached until it expires. Development Mode apps
+ * get a stripped track object: no `popularity` (we return null), no preview_url; artists come back without genres,
+ * popularity or followers. Search is capped at 10 results. Details in docs/analyzer/TECH-SETUP.md.
  */
 
 export type SpotifyTrack = {
-  spotifyId: string;
+  id: string;
   title: string;
   artists: string[];
-  artwork: string | null;
-  isrc: string | null;
+  artworkUrl: string | null;
   releaseDate: string | null;
-  durationMs: number;
+  /** Always null for a Development Mode app: Spotify removed the field (Feb 2026). Kept so the shape is stable. */
+  popularity: number | null;
+  /** open.spotify.com link, required for attribution (link back to Spotify wherever we show its data). */
+  spotifyUrl: string;
 };
 
 let token: { value: string; expires: number } | null = null;
@@ -31,33 +34,52 @@ async function accessToken() {
   return token.value;
 }
 
-async function api<T>(path: string): Promise<T> {
+export class SpotifyError extends Error {
+  constructor(public status: number, message: string) { super(message); }
+}
+
+async function api<T>(path: string, retry = true): Promise<T> {
   const res = await fetch('https://api.spotify.com/v1/' + path, { headers: { Authorization: 'Bearer ' + (await accessToken()) }, cache: 'no-store' });
-  if (!res.ok) throw new Error(`Spotify ${path.split('?')[0]} ${res.status}`);
+  if (res.status === 401 && retry) { token = null; return api(path, false); } // token revoked early
+  if (!res.ok) throw new SpotifyError(res.status, `Spotify ${path.split('?')[0]} ${res.status}`);
   return res.json() as Promise<T>;
 }
 
 type RawTrack = {
-  id: string; name: string; duration_ms: number; artists: { name: string }[];
-  external_ids?: { isrc?: string }; album: { images?: { url: string }[]; release_date?: string };
+  id: string; name: string; popularity?: number; artists: { id: string; name: string }[];
+  album: { images?: { url: string }[]; release_date?: string }; external_urls?: { spotify?: string };
 };
 
 const toTrack = (t: RawTrack): SpotifyTrack => ({
-  spotifyId: t.id,
+  id: t.id,
   title: t.name,
   artists: t.artists.map((a) => a.name),
-  artwork: t.album.images?.[0]?.url ?? null,
-  isrc: t.external_ids?.isrc?.toUpperCase() ?? null,
+  artworkUrl: t.album.images?.[0]?.url ?? null,
   releaseDate: t.album.release_date ?? null,
-  durationMs: t.duration_ms,
+  popularity: typeof t.popularity === 'number' ? t.popularity : null,
+  spotifyUrl: t.external_urls?.spotify ?? `https://open.spotify.com/track/${t.id}`,
 });
 
 /** Max 10 results: Development Mode rejects limit > 10. */
 export async function searchTracks(q: string, limit = 10) {
-  const d = await api<{ tracks: { items: RawTrack[] } }>(`search?type=track&limit=${Math.min(limit, 10)}&q=${encodeURIComponent(q)}`);
+  const d = await api<{ tracks: { items: RawTrack[] } }>(`search?type=track&limit=${Math.min(Math.max(limit, 1), 10)}&q=${encodeURIComponent(q)}`);
   return d.tracks.items.map(toTrack);
+}
+
+/** Accepts an open.spotify.com track link (any locale prefix, ?si=…), a spotify:track: URI, or a bare id. */
+export function parseTrackId(input: string): string | null {
+  const s = input.trim();
+  const m = s.match(/open\.spotify\.com\/(?:intl-[a-z]{2}(?:-[a-z]{2})?\/)?track\/([A-Za-z0-9]{22})/) ?? s.match(/^spotify:track:([A-Za-z0-9]{22})$/) ?? s.match(/^([A-Za-z0-9]{22})$/);
+  return m ? m[1] : null;
 }
 
 export async function getTrack(id: string) {
   return toTrack(await api<RawTrack>(`tracks/${encodeURIComponent(id)}`));
+}
+
+/** Artist genres, for logging: empty for Development Mode apps (verified live 2026-11-05). */
+export async function artistGenres(trackId: string) {
+  const t = await api<RawTrack>(`tracks/${encodeURIComponent(trackId)}`);
+  const a = await api<{ genres?: string[] }>(`artists/${t.artists[0].id}`);
+  return a.genres ?? null;
 }

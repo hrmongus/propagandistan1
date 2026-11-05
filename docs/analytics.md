@@ -109,6 +109,22 @@ payment form is a cross-origin iframe, so card details are never recorded.
 | `discord_join_clicked` | — | "Join Discord" |
 | `drive_opened` | `name` | A Google Drive link on /access (`name`: the pack name, `The FanpageKit Guide` or `Editing guides`) |
 
+### Analyzer (lead magnet: `/s/{id}` and the analyzer screens)
+
+Sent by `track(name, step?)` in `lib/analyzer/track.ts`, which also stores every event in the Supabase `events`
+table (drop-off SQL in `docs/analyzer/TECH-SETUP.md`). The screens don't exist yet; the helper is ready for them.
+
+| Event | Properties | Fires when |
+| --- | --- | --- |
+| `track_selected` | `step` | A track is picked from search or a pasted Spotify link |
+| `step_viewed` | `step` (screen or quiz question id) | An analyzer screen or quiz step is shown |
+| `email_submitted` | `step` | `POST /api/strategy` succeeded |
+| `results_viewed` | `step` | The results page `/s/{id}` is shown |
+| `offer_clicked` | `step` | The results-page offer is clicked. `/api/checkout` also logs it server-side to the `events` table (not PostHog) |
+
+`upsell_accepted` / `upsell_declined` are also written to the `events` table by `track()` for the analyzer
+funnel, but they go to PostHog only from the upsell page, as listed above, so they aren't counted twice.
+
 ### Server (Stripe webhook, server actions)
 
 | Event | Properties | Fires when |
