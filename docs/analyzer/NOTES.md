@@ -5,7 +5,7 @@ Spec: `docs/analyzer/tech-spike.md`. Work through it in order; results go into `
 ## Status (2026-11-05)
 - Nothing built yet. Spike was blocked on missing API keys.
 - Spotify app created by the owner: Web API only, redirect URI `http://127.0.0.1:3000/callback` (unused; we use client credentials). No users on the allowlist, on purpose: Step 1 must test whether public, non-allowlisted traffic works.
-- Env present: `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `OPENAI_API_KEY`. Still missing in the container: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPIC_API_KEY` (owner says added; may need a new session).
+- Env present: `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `OPENAI_API_KEY`. `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`. Still missing in the container: `ANTHROPIC_API_KEY` (owner says added; a new session should pick it up).
 - Decision: Claude has no audio input, so transcription (Step 4) uses OpenAI. Hooks (Step 5) can use Claude Haiku 5.5 once `ANTHROPIC_API_KEY` is present, otherwise OpenAI.
 - **Step 1 done** (live results below). Next: Step 2 needs the owner's test-set links.
 - Still needed from the owner: 20–30 Spotify test track links (see spec "Test set"), and real-device testing for Step 7 (iPhone Safari, Android Chrome).
@@ -31,6 +31,6 @@ Sources: developer.spotify.com quota-modes page, the 2025-04-15 extended-access 
   - **ISRC present on 200/200** tracks across 20 genre queries.
   - `popularity` and `preview_url`: **absent** (the keys are missing, not null).
   - Artwork (`album.images`) and `album.release_date` are present.
-- `/v1/artists/{id}` keys: `external_urls, href, id, images, name, type, uri`. **`genres`, `popularity` and `followers` are all absent.** The docs said genres stayed; live they're gone. Aesthetic matching therefore can't use Spotify genres.
-- Blocked: `audio-features` 403, `audio-analysis` 403, `artists/{id}/top-tracks` 403, `recommendations` 404. So Spotify gives us no BPM/key/energy; we do our own analysis (Step 3).
+- `/v1/artists/{id}` keys: `external_urls, href, id, images, name, type, uri`. `genres`, `popularity` and `followers` are absent.
+- **Owner decision:** popularity, followers, genres and Spotify audio features/analysis are not needed, so drop them from the product. Step 6 aesthetic matching uses audio analysis + quiz only, with no genre keywords. The owner has Spotify Premium, so the dev-mode Premium requirement is covered.
 - 30 back-to-back searches: all 200, no 429. The quota is per developer account and unpublished. Production should cache search results briefly and back off on 429 `QUOTA_EXCEEDED`.
