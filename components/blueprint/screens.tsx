@@ -714,7 +714,6 @@ export function ProofCards() {
   };
   return (
     <>
-      {/* TODO(launch): PROOF holds mock-only names and quotes (HANDOFF.md §8). */}
       <div ref={ref} className="fpb-carousel" onScroll={onScroll}>
         {PROOF.map((p, i) => (
           <article key={i} style={{ width: 'min(306px, 82vw)', flex: 'none', display: 'flex', flexDirection: 'column', gap: 12, padding: 16, borderRadius: 24, background: 'var(--surface-card)', border: '1px solid var(--border-subtle)' }}>
@@ -726,7 +725,7 @@ export function ProofCards() {
             <Stars n={p.stars} />
             <span style={{ font: '600 18px/1.2 var(--font-sans)', letterSpacing: '-0.02em' }}>{p.headline}</span>
             <p style={{ margin: 0, fontSize: 14, lineHeight: 1.45, color: 'var(--text-secondary)' }}>&ldquo;{p.quote}&rdquo;</p>
-            <Img src={p.image} label={p.imageAlt} style={{ width: '100%', height: 200, borderRadius: 14, backgroundColor: '#fff', backgroundPosition: p.position ?? 'center' }} />
+            <Img src={p.image} label={p.imageAlt} style={{ width: '100%', height: 220, borderRadius: 14, backgroundColor: '#fff', backgroundSize: 'contain, 0 0', backgroundPosition: p.position ?? 'center' }} />
             {p.caption && <span style={{ font: '400 11px/1.2 var(--font-mono)', color: 'var(--text-tertiary)' }}>{p.caption}</span>}
           </article>
         ))}
