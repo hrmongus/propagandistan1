@@ -303,10 +303,6 @@ export function Goal({ state, dispatch, next, back }: ScreenProps) {
       <Titles title="Where do you want to be in 6 months?" lede="Pick the number that would change things for you." />
       <GoalChart today={state.answers.listeners ? LISTENER_SHORT[state.answers.listeners] : '—'} goal={picked?.short ?? null} goalValue={picked?.value ?? 0} />
       <SingleList options={options} value={state.answers.goal} onPick={(id) => set(dispatch, { goal: id })} />
-      <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '14px 16px', borderRadius: 20, background: 'var(--bg-sunken)', border: '1px solid var(--border-subtle)' }}>
-        <span style={{ font: '500 10px/1.6 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-accent)', flex: 'none' }}>DID YOU KNOW</span>
-        <span style={{ fontSize: 13, lineHeight: 1.45, color: 'var(--text-secondary)' }}>Fans come from the content, not your follower count. <span style={{ color: 'var(--text-primary)' }}>Fan pages reach people who&apos;ve never heard of you.</span></span>
-      </div>
     </QuizScreen>
   );
 }
