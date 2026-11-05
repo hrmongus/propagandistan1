@@ -1,0 +1,22 @@
+[
+ {"name":"Old money","energy":[15,50],"tempo":[70,105],"mode":"major","pack":"golden"},
+ {"name":"Streetwear","energy":[65,100],"tempo":[85,150],"mode":"minor","pack":"midnight"},
+ {"name":"Dark academia","energy":[10,45],"tempo":[60,100],"mode":"minor","pack":"midnight"},
+ {"name":"Light academia","energy":[10,45],"tempo":[70,110],"mode":"major","pack":"golden"},
+ {"name":"Cottagecore","energy":[5,40],"tempo":[70,115],"mode":"major","pack":"forest"},
+ {"name":"Y2K","energy":[60,95],"tempo":[110,140],"mode":"major","pack":"golden"},
+ {"name":"Coquette","energy":[25,60],"tempo":[80,120],"mode":"major","pack":"golden"},
+ {"name":"Clean girl","energy":[35,65],"tempo":[90,120],"mode":"major","pack":"coastal"},
+ {"name":"Mob wife","energy":[55,90],"tempo":[85,125],"mode":"minor","pack":"midnight"},
+ {"name":"Grunge","energy":[60,95],"tempo":[90,140],"mode":"minor","pack":"midnight"},
+ {"name":"Vaporwave","energy":[20,55],"tempo":[60,100],"mode":"any","pack":"coastal"},
+ {"name":"Synthwave","energy":[55,85],"tempo":[95,125],"mode":"minor","pack":"midnight"},
+ {"name":"Cyberpunk","energy":[70,100],"tempo":[120,175],"mode":"minor","pack":"midnight"},
+ {"name":"Coastal","energy":[30,65],"tempo":[85,125],"mode":"major","pack":"coastal"},
+ {"name":"Gorpcore","energy":[40,75],"tempo":[90,130],"mode":"major","pack":"forest"},
+ {"name":"Balletcore","energy":[5,40],"tempo":[60,100],"mode":"any","pack":"golden"},
+ {"name":"Fairycore","energy":[5,40],"tempo":[70,115],"mode":"major","pack":"forest"},
+ {"name":"Weirdcore/dreamcore","energy":[15,55],"tempo":[60,110],"mode":"minor","pack":"coastal"},
+ {"name":"Cowboy/western","energy":[35,70],"tempo":[80,125],"mode":"major","pack":"forest"},
+ {"name":"Noir","energy":[15,55],"tempo":[60,100],"mode":"minor","pack":"midnight"}
+]

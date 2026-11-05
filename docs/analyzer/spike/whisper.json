@@ -1,0 +1,1409 @@
+[
+ {
+  "id": "4hWnpdm0As7Ruegjv2XD6W",
+  "t_w1": 4.02,
+  "w1_text": "Catching your beat My heart is key My brain is gun All I need is To be more fun I believe in Destiny The vultures show you still",
+  "w1_lang": "english",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": " Catching your beat",
+    "no_speech_prob": 0.4885862171649933,
+    "avg_logprob": -0.41488489508628845,
+    "compression_ratio": 1.1235954761505127
+   },
+   {
+    "start": 3.0,
+    "end": 5.0,
+    "text": " My heart is key",
+    "no_speech_prob": 0.4885862171649933,
+    "avg_logprob": -0.41488489508628845,
+    "compression_ratio": 1.1235954761505127
+   },
+   {
+    "start": 5.0,
+    "end": 7.0,
+    "text": " My brain is gun",
+    "no_speech_prob": 0.4885862171649933,
+    "avg_logprob": -0.41488489508628845,
+    "compression_ratio": 1.1235954761505127
+   },
+   {
+    "start": 8.0,
+    "end": 10.0,
+    "text": " All I need is",
+    "no_speech_prob": 0.4885862171649933,
+    "avg_logprob": -0.41488489508628845,
+    "compression_ratio": 1.1235954761505127
+   },
+   {
+    "start": 10.0,
+    "end": 12.0,
+    "text": " To be more fun",
+    "no_speech_prob": 0.4885862171649933,
+    "avg_logprob": -0.41488489508628845,
+    "compression_ratio": 1.1235954761505127
+   },
+   {
+    "start": 23.0,
+    "end": 25.0,
+    "text": " I believe in",
+    "no_speech_prob": 0.4885862171649933,
+    "avg_logprob": -0.41488489508628845,
+    "compression_ratio": 1.1235954761505127
+   },
+   {
+    "start": 26.0,
+    "end": 27.0,
+    "text": " Destiny",
+    "no_speech_prob": 0.4885862171649933,
+    "avg_logprob": -0.41488489508628845,
+    "compression_ratio": 1.1235954761505127
+   },
+   {
+    "start": 27.0,
+    "end": 30.0,
+    "text": " The vultures show you still",
+    "no_speech_prob": 0.11878592520952225,
+    "avg_logprob": -0.8042976260185242,
+    "compression_ratio": 0.7714285850524902
+   }
+  ],
+  "instrumental": false,
+  "why": "nsp 0.42 lp -0.49 cr 1.1 uniq 0.86",
+  "lyric_line": "My heart is key",
+  "mini_text": "I see your face, a heartache, a burning sky. All I need is your morning. I believe in destiny, the choices you",
+  "t_mini": 0.91,
+  "instrumental_v2": false,
+  "why_v2": "nsp 0.42 lp -0.49"
+ },
+ {
+  "id": "05ne02VCMleIvY0SzuPR9E",
+  "t_w1": 3.0,
+  "w1_text": "Never personal, it's always business. Crime scenes clean, leaving a witness. Scratchin' off names up on my hit list. I'm addicted, it's a sickness. I'm starin' through the eyes of a mask. Another cut, throwin's in another hundred stares. Starin' through the eyes of my motherfuckin' mask. There's problems for the dope, and we robbin' for the cash. Starin' through the eyes of my motherfuckin' mask. I always try to run, but they don't ever last.",
+  "w1_lang": "english",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 3.8399999141693115,
+    "text": " Never personal, it's always business. Crime scenes clean, leaving a witness.",
+    "no_speech_prob": 0.4882747530937195,
+    "avg_logprob": -0.3785322904586792,
+    "compression_ratio": 1.8472222089767456
+   },
+   {
+    "start": 3.8399999141693115,
+    "end": 7.920000076293945,
+    "text": " Scratchin' off names up on my hit list. I'm addicted, it's a sickness.",
+    "no_speech_prob": 0.4882747530937195,
+    "avg_logprob": -0.3785322904586792,
+    "compression_ratio": 1.8472222089767456
+   },
+   {
+    "start": 7.920000076293945,
+    "end": 14.800000190734863,
+    "text": " I'm starin' through the eyes of a mask. Another cut, throwin's in another hundred stares.",
+    "no_speech_prob": 0.4882747530937195,
+    "avg_logprob": -0.3785322904586792,
+    "compression_ratio": 1.8472222089767456
+   },
+   {
+    "start": 14.800000190734863,
+    "end": 18.639999389648438,
+    "text": " Starin' through the eyes of my motherfuckin' mask.",
+    "no_speech_prob": 0.4882747530937195,
+    "avg_logprob": -0.3785322904586792,
+    "compression_ratio": 1.8472222089767456
+   },
+   {
+    "start": 18.639999389648438,
+    "end": 22.559999465942383,
+    "text": " There's problems for the dope, and we robbin' for the cash.",
+    "no_speech_prob": 0.4882747530937195,
+    "avg_logprob": -0.3785322904586792,
+    "compression_ratio": 1.8472222089767456
+   },
+   {
+    "start": 22.559999465942383,
+    "end": 26.31999969482422,
+    "text": " Starin' through the eyes of my motherfuckin' mask.",
+    "no_speech_prob": 0.4882747530937195,
+    "avg_logprob": -0.3785322904586792,
+    "compression_ratio": 1.8472222089767456
+   },
+   {
+    "start": 26.31999969482422,
+    "end": 29.84000015258789,
+    "text": " I always try to run, but they don't ever last.",
+    "no_speech_prob": 0.04143548756837845,
+    "avg_logprob": -0.43908703327178955,
+    "compression_ratio": 0.8518518805503845
+   }
+  ],
+  "instrumental": false,
+  "why": "nsp 0.44 lp -0.39 cr 1.8 uniq 0.68",
+  "lyric_line": "I'm starin' through the eyes of a mask. Another cut, throwin's in",
+  "mini_text": "The whole personal software business is always linked with no witness, else nothing's a problem, I get this, always picky is the sickest, I'm serious, the whole mess, for no talking, let's gross, is another hundred centimeters that I warm up the fucking mess, while I'm so fed up, you we rob and roll the cash, every time, so the motherfucking mess, I always try to rock, but they don't never last.",
+  "t_mini": 1.95,
+  "instrumental_v2": false,
+  "why_v2": "nsp 0.44 lp -0.39"
+ },
+ {
+  "id": "08tsKE0fl1yaSTUPCfHxl4",
+  "t_w1": 4.1,
+  "w1_text": "Make sure to check out my other videos too!",
+  "w1_lang": "english",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 3.9000000953674316,
+    "text": " Make sure to check out my other videos too!",
+    "no_speech_prob": 0.349109947681427,
+    "avg_logprob": -1.8571765422821045,
+    "compression_ratio": 0.8600000143051147
+   }
+  ],
+  "instrumental": true,
+  "why": "logprob -1.86",
+  "lyric_line": null,
+  "mini_text": "",
+  "t_mini": 1.11,
+  "instrumental_v2": true,
+  "why_v2": "garbage phrase"
+ },
+ {
+  "id": "7cFQSJhOFNBRSV1LmhTHiu",
+  "t_w1": 3.5,
+  "w1_text": "I'm drum beatin' so fast, every stumble, every laugh Trap, trap, trap, trap I'm runnin' just to keep track You fall forward, never fall back Trap, trap, trap, trap Hey! Trap, trap Toy cars",
+  "w1_lang": "english",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 3.0999999046325684,
+    "text": " I'm drum beatin' so fast, every stumble, every laugh",
+    "no_speech_prob": 0.3613505959510803,
+    "avg_logprob": -0.40037068724632263,
+    "compression_ratio": 1.51694917678833
+   },
+   {
+    "start": 3.0999999046325684,
+    "end": 4.900000095367432,
+    "text": " Trap, trap, trap, trap",
+    "no_speech_prob": 0.3613505959510803,
+    "avg_logprob": -0.40037068724632263,
+    "compression_ratio": 1.51694917678833
+   },
+   {
+    "start": 4.900000095367432,
+    "end": 6.800000190734863,
+    "text": " I'm runnin' just to keep track",
+    "no_speech_prob": 0.3613505959510803,
+    "avg_logprob": -0.40037068724632263,
+    "compression_ratio": 1.51694917678833
+   },
+   {
+    "start": 6.800000190734863,
+    "end": 8.600000381469727,
+    "text": " You fall forward, never fall back",
+    "no_speech_prob": 0.3613505959510803,
+    "avg_logprob": -0.40037068724632263,
+    "compression_ratio": 1.51694917678833
+   },
+   {
+    "start": 8.600000381469727,
+    "end": 10.399999618530273,
+    "text": " Trap, trap, trap, trap",
+    "no_speech_prob": 0.3613505959510803,
+    "avg_logprob": -0.40037068724632263,
+    "compression_ratio": 1.51694917678833
+   },
+   {
+    "start": 10.399999618530273,
+    "end": 10.899999618530273,
+    "text": " Hey!",
+    "no_speech_prob": 0.3613505959510803,
+    "avg_logprob": -0.40037068724632263,
+    "compression_ratio": 1.51694917678833
+   },
+   {
+    "start": 26.600000381469727,
+    "end": 27.600000381469727,
+    "text": " Trap, trap",
+    "no_speech_prob": 0.3613505959510803,
+    "avg_logprob": -0.40037068724632263,
+    "compression_ratio": 1.51694917678833
+   },
+   {
+    "start": 27.600000381469727,
+    "end": 29.600000381469727,
+    "text": " Toy cars",
+    "no_speech_prob": 0.289618581533432,
+    "avg_logprob": -0.8108617663383484,
+    "compression_ratio": 0.5
+   }
+  ],
+  "instrumental": false,
+  "why": "nsp 0.35 lp -0.46 cr 1.5 uniq 0.65",
+  "lyric_line": "I'm drum beatin' so fast, every stumble, every laugh",
+  "mini_text": "Те хочу завадашаваш.",
+  "t_mini": 0.89,
+  "instrumental_v2": false,
+  "why_v2": "nsp 0.35 lp -0.46"
+ },
+ {
+  "id": "7uUmvE5TxPL0Ob5VJ5r6aI",
+  "t_w1": 11.85,
+  "w1_text": "",
+  "w1_lang": null,
+  "segs": [],
+  "instrumental": true,
+  "why": "empty",
+  "lyric_line": null,
+  "mini_text": "Wawa wawile wafana na face leguna mefua for eggs, abapa gang, abana chum, hamimtalang, wabasiang, asumbalang, hakuna cut, wame mabank, adutu miyo, chawa machad. Dele gud dir, nikumwe twins, idia ju, tizana rambu, begaifor, neberekiagani samani lora, budisana makimena ngubora, kuna majita kumbala di fight, nogoni nngena bafika di fight, afananchilo, ninge wajaji, mana mubadi, wala bangadi. Aunini repa shida, dada usantai, kiongo napata, menedukaula, kijama kula, data tafula, pini bangeni.",
+  "t_mini": 1.22,
+  "instrumental_v2": true,
+  "why_v2": "too few words"
+ },
+ {
+  "id": "5X6fSnUVm2idKlcIdTgdmo",
+  "t_w1": 3.92,
+  "w1_text": "I pay cash for I don't need a lease Go out to the money I don't even sleep If it ain't about money I don't even speak When I'm up to drugs baby I don't even eat I see codeine every time I pee Where I'm from we put switches on the heat Ryan Derry got that Draco on the seat Can't leave the streets cause I'm in too deep Catch a lackey we gon' pull him on the teeth My youngin he gon' do it for the free Ayy",
+  "w1_lang": "english",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 3.0,
+    "text": " I pay cash for I don't need a lease",
+    "no_speech_prob": 0.6178732514381409,
+    "avg_logprob": -0.34689921140670776,
+    "compression_ratio": 1.7210299968719482
+   },
+   {
+    "start": 3.0,
+    "end": 6.0,
+    "text": " Go out to the money I don't even sleep",
+    "no_speech_prob": 0.6178732514381409,
+    "avg_logprob": -0.34689921140670776,
+    "compression_ratio": 1.7210299968719482
+   },
+   {
+    "start": 6.0,
+    "end": 9.0,
+    "text": " If it ain't about money I don't even speak",
+    "no_speech_prob": 0.6178732514381409,
+    "avg_logprob": -0.34689921140670776,
+    "compression_ratio": 1.7210299968719482
+   },
+   {
+    "start": 9.0,
+    "end": 12.0,
+    "text": " When I'm up to drugs baby I don't even eat",
+    "no_speech_prob": 0.6178732514381409,
+    "avg_logprob": -0.34689921140670776,
+    "compression_ratio": 1.7210299968719482
+   },
+   {
+    "start": 12.0,
+    "end": 15.0,
+    "text": " I see codeine every time I pee",
+    "no_speech_prob": 0.6178732514381409,
+    "avg_logprob": -0.34689921140670776,
+    "compression_ratio": 1.7210299968719482
+   },
+   {
+    "start": 15.0,
+    "end": 18.0,
+    "text": " Where I'm from we put switches on the heat",
+    "no_speech_prob": 0.6178732514381409,
+    "avg_logprob": -0.34689921140670776,
+    "compression_ratio": 1.7210299968719482
+   },
+   {
+    "start": 18.0,
+    "end": 21.0,
+    "text": " Ryan Derry got that Draco on the seat",
+    "no_speech_prob": 0.6178732514381409,
+    "avg_logprob": -0.34689921140670776,
+    "compression_ratio": 1.7210299968719482
+   },
+   {
+    "start": 21.0,
+    "end": 24.0,
+    "text": " Can't leave the streets cause I'm in too deep",
+    "no_speech_prob": 0.6178732514381409,
+    "avg_logprob": -0.34689921140670776,
+    "compression_ratio": 1.7210299968719482
+   },
+   {
+    "start": 24.0,
+    "end": 27.0,
+    "text": " Catch a lackey we gon' pull him on the teeth",
+    "no_speech_prob": 0.6178732514381409,
+    "avg_logprob": -0.34689921140670776,
+    "compression_ratio": 1.7210299968719482
+   },
+   {
+    "start": 27.0,
+    "end": 29.0,
+    "text": " My youngin he gon' do it for the free",
+    "no_speech_prob": 0.6178732514381409,
+    "avg_logprob": -0.34689921140670776,
+    "compression_ratio": 1.7210299968719482
+   },
+   {
+    "start": 29.0,
+    "end": 30.0,
+    "text": " Ayy",
+    "no_speech_prob": 0.9391085505485535,
+    "avg_logprob": -0.8841150403022766,
+    "compression_ratio": 0.27272728085517883
+   }
+  ],
+  "instrumental": true,
+  "why": "no_speech 0.63",
+  "lyric_line": null,
+  "mini_text": "I pay cash for a car, I don't need a lease Go out to the money, I don't even sleep If it ain't about money, I don't even speak When I'm off these drugs, baby, I don't even eat I see codeine every time I pee One-four, we put switches on the heat Ridin' dirty, got the Draco on the seat Can't leave the streets 'cause I'm in too deep Catch a lackin', we gon' pull him on his teeth My youngin', he gon' do it for the free",
+  "t_mini": 1.5,
+  "instrumental_v2": false,
+  "why_v2": "nsp 0.63 lp -0.36"
+ },
+ {
+  "id": "6fsTr16sy4ahcPHaZy9nxl",
+  "t_w1": 2.13,
+  "w1_text": "El medio tatuario en los posties A mi brother le explotó una guerra y los polos costié Me está llamando el que nunca me contestó Compré un peterlón de talla que ni sé cuánto costó Dime un okre y a la tabru y brincamos punelo No hay tarjeta pa' clonear la dragostique conmigo Llorando pa' lograr lo que pedí, jurado que no fue easy Yo sin mandarlo un cual te mueres saliendo de Easy Haciendo dinero a mi manera como de la Yeezy Puta no creen amor, solo chinga por gente easy Favorito de los tíos, se lo he cogido",
+  "w1_lang": "spanish",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 4.119999885559082,
+    "text": " El medio tatuario en los posties A mi brother le explotó una guerra y los polos",
+    "no_speech_prob": 0.2663527727127075,
+    "avg_logprob": -0.5054313540458679,
+    "compression_ratio": 1.5580644607543945
+   },
+   {
+    "start": 4.119999885559082,
+    "end": 7.480000019073486,
+    "text": " costié Me está llamando el que nunca me contestó",
+    "no_speech_prob": 0.2663527727127075,
+    "avg_logprob": -0.5054313540458679,
+    "compression_ratio": 1.5580644607543945
+   },
+   {
+    "start": 7.480000019073486,
+    "end": 10.319999694824219,
+    "text": " Compré un peterlón de talla que ni sé cuánto costó",
+    "no_speech_prob": 0.2663527727127075,
+    "avg_logprob": -0.5054313540458679,
+    "compression_ratio": 1.5580644607543945
+   },
+   {
+    "start": 10.319999694824219,
+    "end": 15.199999809265137,
+    "text": " Dime un okre y a la tabru y brincamos punelo No hay tarjeta pa' clonear la dragostique",
+    "no_speech_prob": 0.2663527727127075,
+    "avg_logprob": -0.5054313540458679,
+    "compression_ratio": 1.5580644607543945
+   },
+   {
+    "start": 15.199999809265137,
+    "end": 18.68000030517578,
+    "text": " conmigo Llorando pa' lograr lo que pedí, jurado que",
+    "no_speech_prob": 0.2663527727127075,
+    "avg_logprob": -0.5054313540458679,
+    "compression_ratio": 1.5580644607543945
+   },
+   {
+    "start": 18.68000030517578,
+    "end": 21.68000030517578,
+    "text": " no fue easy Yo sin mandarlo un cual te mueres saliendo",
+    "no_speech_prob": 0.2663527727127075,
+    "avg_logprob": -0.5054313540458679,
+    "compression_ratio": 1.5580644607543945
+   },
+   {
+    "start": 21.68000030517578,
+    "end": 25.280000686645508,
+    "text": " de Easy Haciendo dinero a mi manera como de la Yeezy",
+    "no_speech_prob": 0.2663527727127075,
+    "avg_logprob": -0.5054313540458679,
+    "compression_ratio": 1.5580644607543945
+   },
+   {
+    "start": 25.280000686645508,
+    "end": 27.920000076293945,
+    "text": " Puta no creen amor, solo chinga por gente easy",
+    "no_speech_prob": 0.2663527727127075,
+    "avg_logprob": -0.5054313540458679,
+    "compression_ratio": 1.5580644607543945
+   },
+   {
+    "start": 27.920000076293945,
+    "end": 29.920000076293945,
+    "text": " Favorito de los tíos, se lo he cogido",
+    "no_speech_prob": 0.9848172068595886,
+    "avg_logprob": -0.5664389133453369,
+    "compression_ratio": 0.8636363744735718
+   }
+  ],
+  "instrumental": false,
+  "why": "nsp 0.31 lp -0.51 cr 1.6 uniq 0.75",
+  "lyric_line": "Dime un okre y a la tabru y brincamos punelo No hay",
+  "mini_text": "Me llamó el que nunca me contestó, compró un Peterlón de talla que ni sé cuánto costó, dimos un gofrey a la tábru y brincamos punalón, hay talento pa' clonar la reggaetón y que conmigo. Llorando pa' lograr lo que pedí, jurado que no fallé y si yo soy mandarle un corte, muere saliendo de Easy. Haciendo dinero a mi manera como Dallas Yeezy, puta no creen en amor, solo chinga por dientito. El favorito de los tíos se le escogió.",
+  "t_mini": 1.1,
+  "instrumental_v2": false,
+  "why_v2": "nsp 0.31 lp -0.51"
+ },
+ {
+  "id": "4gCETQRNP6RoEd6sGkxpSh",
+  "t_w1": 5.67,
+  "w1_text": "Y'all be tryna bump, boy, you ain't weak Feelin' like C-Y-B, a clear blockin' Let off the O-60 X-R came with a stitch, watch how I bump Fight until it's empty, free my rapper Know he get happy, catch the Halloween jiver Put belts to edge to them boys so much They start callin' us mousers And try to rub up on the guys We leave one foot in the ground, take a lil' faker Ain't swap that color, what happened to that baby? Boy, you tore up, on the ground, you stare to flex And we created This shit get brazy Red down and whoop his ass like William Slavey Copied before I left the school He ain't wanna protest, he was fakin' Lil' cap would be my rest, we clenched the rifles from the Navy Red down and whoop his ass like William Slavey ",
+  "w1_lang": "english",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 1.600000023841858,
+    "text": " Y'all be tryna bump, boy, you ain't weak",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 1.600000023841858,
+    "end": 3.359999895095825,
+    "text": " Feelin' like C-Y-B, a clear blockin'",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 3.359999895095825,
+    "end": 4.559999942779541,
+    "text": " Let off the O-60",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 4.559999942779541,
+    "end": 6.360000133514404,
+    "text": " X-R came with a stitch, watch how I bump",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 6.360000133514404,
+    "end": 7.960000038146973,
+    "text": " Fight until it's empty, free my rapper",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 7.960000038146973,
+    "end": 9.960000038146973,
+    "text": " Know he get happy, catch the Halloween jiver",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 9.960000038146973,
+    "end": 11.460000038146973,
+    "text": " Put belts to edge to them boys so much",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 11.460000038146973,
+    "end": 12.760000228881836,
+    "text": " They start callin' us mousers",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 12.760000228881836,
+    "end": 14.15999984741211,
+    "text": " And try to rub up on the guys",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 14.15999984741211,
+    "end": 16.15999984741211,
+    "text": " We leave one foot in the ground, take a lil' faker",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 16.15999984741211,
+    "end": 18.15999984741211,
+    "text": " Ain't swap that color, what happened to that baby?",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 18.15999984741211,
+    "end": 20.15999984741211,
+    "text": " Boy, you tore up, on the ground, you stare to flex",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 20.15999984741211,
+    "end": 20.65999984741211,
+    "text": " And we created",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 20.65999984741211,
+    "end": 21.65999984741211,
+    "text": " This shit get brazy",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 21.65999984741211,
+    "end": 23.65999984741211,
+    "text": " Red down and whoop his ass like William Slavey",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 23.65999984741211,
+    "end": 24.860000610351562,
+    "text": " Copied before I left the school",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 24.860000610351562,
+    "end": 26.559999465942383,
+    "text": " He ain't wanna protest, he was fakin'",
+    "no_speech_prob": 0.5717677474021912,
+    "avg_logprob": -0.617222249507904,
+    "compression_ratio": 1.6122931241989136
+   },
+   {
+    "start": 26.559999465942383,
+    "end": 29.520000457763672,
+    "text": " Lil' cap would be my rest, we clenched the rifles from the Navy",
+    "no_speech_prob": 0.9353889226913452,
+    "avg_logprob": -0.6131210327148438,
+    "compression_ratio": 1.193277359008789
+   },
+   {
+    "start": 29.520000457763672,
+    "end": 30.520000457763672,
+    "text": " Red down and whoop his ass like William Slavey",
+    "no_speech_prob": 0.9353889226913452,
+    "avg_logprob": -0.6131210327148438,
+    "compression_ratio": 1.193277359008789
+   },
+   {
+    "start": 30.520000457763672,
+    "end": 30.520000457763672,
+    "text": "",
+    "no_speech_prob": 0.9353889226913452,
+    "avg_logprob": -0.6131210327148438,
+    "compression_ratio": 1.193277359008789
+   }
+  ],
+  "instrumental": true,
+  "why": "no_speech 0.62",
+  "lyric_line": null,
+  "mini_text": "Беги по больной линии, Лайфхаки, трип, дрог. Качество разогнала, Круиз. Одиночка, редко, Наоборот. Пойдет",
+  "t_mini": 0.76,
+  "instrumental_v2": false,
+  "why_v2": "nsp 0.62 lp -0.62"
+ },
+ {
+  "id": "3wVfVAT9OhYJxuj7F88HHQ",
+  "t_w1": 2.43,
+  "w1_text": "Soy presa de su capricho, su juego de amor me atrapa Conquista mi alma sin tener compasión Sube, sube, sube, sube No hay caula que las no tengas, pájaro libre al viento Solito y sin dueños",
+  "w1_lang": "spanish",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 10.0,
+    "text": " Soy presa de su capricho, su juego de amor me atrapa",
+    "no_speech_prob": 0.3771970868110657,
+    "avg_logprob": -0.36697298288345337,
+    "compression_ratio": 1.2977099418640137
+   },
+   {
+    "start": 10.0,
+    "end": 15.0,
+    "text": " Conquista mi alma sin tener compasión",
+    "no_speech_prob": 0.3771970868110657,
+    "avg_logprob": -0.36697298288345337,
+    "compression_ratio": 1.2977099418640137
+   },
+   {
+    "start": 17.0,
+    "end": 20.0,
+    "text": " Sube, sube, sube, sube",
+    "no_speech_prob": 0.3771970868110657,
+    "avg_logprob": -0.36697298288345337,
+    "compression_ratio": 1.2977099418640137
+   },
+   {
+    "start": 23.0,
+    "end": 28.0,
+    "text": " No hay caula que las no tengas, pájaro libre al viento",
+    "no_speech_prob": 0.3771970868110657,
+    "avg_logprob": -0.36697298288345337,
+    "compression_ratio": 1.2977099418640137
+   },
+   {
+    "start": 28.0,
+    "end": 30.0,
+    "text": " Solito y sin dueños",
+    "no_speech_prob": 0.02146931178867817,
+    "avg_logprob": -0.31966230273246765,
+    "compression_ratio": 0.7142857313156128
+   }
+  ],
+  "instrumental": false,
+  "why": "nsp 0.35 lp -0.36 cr 1.3 uniq 0.81",
+  "lyric_line": "Conquista mi alma sin tener compasión",
+  "mini_text": "Soy presa de su capricho, su juego de amor me atrapa, conquista mi alma sin tener compasión. Sube, sube, sube, sube. No hay jaula que la retenga, es pájaro libre al viento, solita y sin dueño.",
+  "t_mini": 1.29,
+  "instrumental_v2": false,
+  "why_v2": "nsp 0.35 lp -0.36"
+ },
+ {
+  "id": "2Jkq0j7MtxStajP7AW4pTO",
+  "t_w1": 4.16,
+  "w1_text": "【russian music】 Русские субтитры добавляют субтитры по-русски",
+  "w1_lang": "english",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 29.899999618530273,
+    "text": " 【russian music】",
+    "no_speech_prob": 0.5087689161300659,
+    "avg_logprob": -2.246899127960205,
+    "compression_ratio": 0.7037037014961243
+   },
+   {
+    "start": 29.899999618530273,
+    "end": 31.899999618530273,
+    "text": " Русские субтитры добавляют субтитры по-русски",
+    "no_speech_prob": 0.989288330078125,
+    "avg_logprob": -0.7668600678443909,
+    "compression_ratio": 1.1971831321716309
+   }
+  ],
+  "instrumental": true,
+  "why": "logprob -2.15",
+  "lyric_line": null,
+  "mini_text": "",
+  "t_mini": 0.79,
+  "instrumental_v2": true,
+  "why_v2": "garbage phrase"
+ },
+ {
+  "id": "4wUsr3D2mIQODzPTSYsWCr",
+  "t_w1": 1.07,
+  "w1_text": "♪ ♪ ♪ ♪ ♪ ♪",
+  "w1_lang": "english",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 5.0,
+    "text": " ♪",
+    "no_speech_prob": 0.43643489480018616,
+    "avg_logprob": -0.406005859375,
+    "compression_ratio": 1.2666666507720947
+   },
+   {
+    "start": 5.0,
+    "end": 10.0,
+    "text": " ♪",
+    "no_speech_prob": 0.43643489480018616,
+    "avg_logprob": -0.406005859375,
+    "compression_ratio": 1.2666666507720947
+   },
+   {
+    "start": 10.0,
+    "end": 15.020000457763672,
+    "text": " ♪",
+    "no_speech_prob": 0.43643489480018616,
+    "avg_logprob": -0.406005859375,
+    "compression_ratio": 1.2666666507720947
+   },
+   {
+    "start": 15.020000457763672,
+    "end": 20.020000457763672,
+    "text": " ♪",
+    "no_speech_prob": 0.43643489480018616,
+    "avg_logprob": -0.406005859375,
+    "compression_ratio": 1.2666666507720947
+   },
+   {
+    "start": 20.020000457763672,
+    "end": 25.020000457763672,
+    "text": " ♪",
+    "no_speech_prob": 0.43643489480018616,
+    "avg_logprob": -0.406005859375,
+    "compression_ratio": 1.2666666507720947
+   },
+   {
+    "start": 25.020000457763672,
+    "end": 30.020000457763672,
+    "text": " ♪",
+    "no_speech_prob": 0.06445743888616562,
+    "avg_logprob": -0.3279602825641632,
+    "compression_ratio": 0.27272728085517883
+   }
+  ],
+  "instrumental": true,
+  "why": "garbage phrase",
+  "lyric_line": null,
+  "mini_text": "",
+  "t_mini": 0.51,
+  "instrumental_v2": true,
+  "why_v2": "too few words"
+ },
+ {
+  "id": "6PuhGrzKFVUEFpBtg1XcfE",
+  "t_w1": 1.0,
+  "w1_text": "Виктор Королёв",
+  "w1_lang": "russian",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 5.0,
+    "text": " Виктор Королёв",
+    "no_speech_prob": 0.09709493815898895,
+    "avg_logprob": -0.6411664485931396,
+    "compression_ratio": 0.7714285850524902
+   }
+  ],
+  "instrumental": true,
+  "why": "too few words",
+  "lyric_line": null,
+  "mini_text": "",
+  "t_mini": 0.79,
+  "instrumental_v2": true,
+  "why_v2": "too few words"
+ },
+ {
+  "id": "3xPY4J5ADqDDFNwn75GF7p",
+  "t_w1": 2.93,
+  "w1_text": "with musical interlude",
+  "w1_lang": "english",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 29.799999237060547,
+    "text": " with musical interlude",
+    "no_speech_prob": 0.3211677074432373,
+    "avg_logprob": -2.5712432861328125,
+    "compression_ratio": 0.7333333492279053
+   }
+  ],
+  "instrumental": true,
+  "why": "logprob -2.57",
+  "lyric_line": null,
+  "mini_text": "",
+  "t_mini": 1.28,
+  "instrumental_v2": true,
+  "why_v2": "too few words"
+ },
+ {
+  "id": "6wPIU4PYgAkuNkpWbcEA5s",
+  "t_w1": 11.23,
+  "w1_text": "",
+  "w1_lang": null,
+  "segs": [],
+  "instrumental": true,
+  "why": "empty",
+  "lyric_line": null,
+  "mini_text": "",
+  "t_mini": 0.52,
+  "instrumental_v2": true,
+  "why_v2": "too few words"
+ },
+ {
+  "id": "08tkOMHVdI1Ev4paZAJVx9",
+  "t_w1": 1.98,
+  "w1_text": "My name is Chiaku, and I am from Berlin I come to the club and I have Tyler in my jeans My body is twitching as if I would be on stream In my city, everyone knows I'm a freak Freak it to me because the dealer is my G That's how it goes, that's how it be Tonight gonna be good, I got a feeling She said I am like Roy Clay because I am appealing No, I am not okay But screw it, I am getting hammered like a machine",
+  "w1_lang": "english",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 2.799999952316284,
+    "text": " My name is Chiaku, and I am from Berlin",
+    "no_speech_prob": 0.5054314732551575,
+    "avg_logprob": -0.3517879247665405,
+    "compression_ratio": 1.54935622215271
+   },
+   {
+    "start": 2.799999952316284,
+    "end": 6.0,
+    "text": " I come to the club and I have Tyler in my jeans",
+    "no_speech_prob": 0.5054314732551575,
+    "avg_logprob": -0.3517879247665405,
+    "compression_ratio": 1.54935622215271
+   },
+   {
+    "start": 6.0,
+    "end": 9.0,
+    "text": " My body is twitching as if I would be on stream",
+    "no_speech_prob": 0.5054314732551575,
+    "avg_logprob": -0.3517879247665405,
+    "compression_ratio": 1.54935622215271
+   },
+   {
+    "start": 9.0,
+    "end": 12.0,
+    "text": " In my city, everyone knows I'm a freak",
+    "no_speech_prob": 0.5054314732551575,
+    "avg_logprob": -0.3517879247665405,
+    "compression_ratio": 1.54935622215271
+   },
+   {
+    "start": 12.0,
+    "end": 15.0,
+    "text": " Freak it to me because the dealer is my G",
+    "no_speech_prob": 0.5054314732551575,
+    "avg_logprob": -0.3517879247665405,
+    "compression_ratio": 1.54935622215271
+   },
+   {
+    "start": 15.0,
+    "end": 18.0,
+    "text": " That's how it goes, that's how it be",
+    "no_speech_prob": 0.5054314732551575,
+    "avg_logprob": -0.3517879247665405,
+    "compression_ratio": 1.54935622215271
+   },
+   {
+    "start": 18.0,
+    "end": 21.0,
+    "text": " Tonight gonna be good, I got a feeling",
+    "no_speech_prob": 0.5054314732551575,
+    "avg_logprob": -0.3517879247665405,
+    "compression_ratio": 1.54935622215271
+   },
+   {
+    "start": 21.0,
+    "end": 24.0,
+    "text": " She said I am like Roy Clay because I am appealing",
+    "no_speech_prob": 0.5054314732551575,
+    "avg_logprob": -0.3517879247665405,
+    "compression_ratio": 1.54935622215271
+   },
+   {
+    "start": 24.0,
+    "end": 27.0,
+    "text": " No, I am not okay",
+    "no_speech_prob": 0.5054314732551575,
+    "avg_logprob": -0.3517879247665405,
+    "compression_ratio": 1.54935622215271
+   },
+   {
+    "start": 27.0,
+    "end": 30.0,
+    "text": " But screw it, I am getting hammered like a machine",
+    "no_speech_prob": 0.8603217005729675,
+    "avg_logprob": -0.49313169717788696,
+    "compression_ratio": 0.8620689511299133
+   }
+  ],
+  "instrumental": false,
+  "why": "nsp 0.54 lp -0.37 cr 1.5 uniq 0.63",
+  "lyric_line": "That's how it goes, that's how it be",
+  "mini_text": "My name is Yago, I am from Berlin. I can do this level, I am tighter than my jeans. My body is a chick, I will be okay. But that it is my city, everyone on summer street. Because the dealer is my G, that's how it goes. That's how it be, tonight gonna be good. I got a feeling, she said I am like royalty. Because I am appealing. No, I am not okay, not okay. True, that one get in my fucking.",
+  "t_mini": 1.06,
+  "instrumental_v2": false,
+  "why_v2": "nsp 0.54 lp -0.37"
+ },
+ {
+  "id": "007suf12P0lxOyBHNqjxOZ",
+  "t_w1": 2.83,
+  "w1_text": "Sa-i te pucea tu, cum esti, cum esti O, la chiquita, ai bonita Sa-i te pucea tu, cum esti, cum esti Poru' favore, azi, azi te dica tu, azi Azi, cobor te dica, tu n-as sti te ceai lor",
+  "w1_lang": "romanian",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 4.0,
+    "text": " Sa-i te pucea tu, cum esti, cum esti",
+    "no_speech_prob": 0.6753978729248047,
+    "avg_logprob": -0.4927634000778198,
+    "compression_ratio": 1.550561785697937
+   },
+   {
+    "start": 4.0,
+    "end": 7.0,
+    "text": " O, la chiquita, ai bonita",
+    "no_speech_prob": 0.6753978729248047,
+    "avg_logprob": -0.4927634000778198,
+    "compression_ratio": 1.550561785697937
+   },
+   {
+    "start": 7.0,
+    "end": 11.0,
+    "text": " Sa-i te pucea tu, cum esti, cum esti",
+    "no_speech_prob": 0.6753978729248047,
+    "avg_logprob": -0.4927634000778198,
+    "compression_ratio": 1.550561785697937
+   },
+   {
+    "start": 24.0,
+    "end": 27.0,
+    "text": " Poru' favore, azi, azi te dica tu, azi",
+    "no_speech_prob": 0.6753978729248047,
+    "avg_logprob": -0.4927634000778198,
+    "compression_ratio": 1.550561785697937
+   },
+   {
+    "start": 27.0,
+    "end": 30.0,
+    "text": " Azi, cobor te dica, tu n-as sti te ceai lor",
+    "no_speech_prob": 0.2828311622142792,
+    "avg_logprob": -0.6313514709472656,
+    "compression_ratio": 0.8775510191917419
+   }
+  ],
+  "instrumental": true,
+  "why": "no_speech 0.61",
+  "lyric_line": null,
+  "mini_text": "Por favore, aj, aste dikaptu aj, komorte dikaptu naski.",
+  "t_mini": 0.58,
+  "instrumental_v2": false,
+  "why_v2": "nsp 0.61 lp -0.52"
+ },
+ {
+  "id": "5Ewa4PaQc7Xt4YXaq9mhRw",
+  "t_w1": 1.79,
+  "w1_text": "♪♪♪ ♪♪♪ ♪♪♪",
+  "w1_lang": "english",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 10.4399995803833,
+    "text": " ♪♪♪",
+    "no_speech_prob": 0.7286657094955444,
+    "avg_logprob": -0.8451595902442932,
+    "compression_ratio": 1.0555555820465088
+   },
+   {
+    "start": 10.4399995803833,
+    "end": 20.459999084472656,
+    "text": " ♪♪♪",
+    "no_speech_prob": 0.7286657094955444,
+    "avg_logprob": -0.8451595902442932,
+    "compression_ratio": 1.0555555820465088
+   },
+   {
+    "start": 20.459999084472656,
+    "end": 29.959999084472656,
+    "text": " ♪♪♪",
+    "no_speech_prob": 0.3002638816833496,
+    "avg_logprob": -0.28632548451423645,
+    "compression_ratio": 0.6428571343421936
+   }
+  ],
+  "instrumental": true,
+  "why": "garbage phrase",
+  "lyric_line": null,
+  "mini_text": "",
+  "t_mini": 1.23,
+  "instrumental_v2": true,
+  "why_v2": "too few words"
+ },
+ {
+  "id": "23Ol4DTOrp1wycb19K3Oij",
+  "t_w1": 3.06,
+  "w1_text": "so",
+  "w1_lang": "english",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 11.84000015258789,
+    "text": " so",
+    "no_speech_prob": 0.5449114441871643,
+    "avg_logprob": -2.2462310791015625,
+    "compression_ratio": 0.20000000298023224
+   }
+  ],
+  "instrumental": true,
+  "why": "logprob -2.25",
+  "lyric_line": null,
+  "mini_text": "",
+  "t_mini": 1.19,
+  "instrumental_v2": true,
+  "why_v2": "too few words"
+ },
+ {
+  "id": "3JY2j2Z8Wxw8IEI5mV1AcT",
+  "t_w1": 5.58,
+  "w1_text": "Lookin' at you all night long, nobody to blame You got it, you got it bad, when you're on the phone Hang up and you call right back Now one, two, now three, now to the phone Now soon, now you're done, and I'm the dreads at the door Rain, busting through",
+  "w1_lang": "english",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 14.0,
+    "text": " Lookin' at you all night long, nobody to blame",
+    "no_speech_prob": 0.43672940135002136,
+    "avg_logprob": -0.6328334212303162,
+    "compression_ratio": 1.5503355264663696
+   },
+   {
+    "start": 14.0,
+    "end": 18.0,
+    "text": " You got it, you got it bad, when you're on the phone",
+    "no_speech_prob": 0.43672940135002136,
+    "avg_logprob": -0.6328334212303162,
+    "compression_ratio": 1.5503355264663696
+   },
+   {
+    "start": 18.0,
+    "end": 21.0,
+    "text": " Hang up and you call right back",
+    "no_speech_prob": 0.43672940135002136,
+    "avg_logprob": -0.6328334212303162,
+    "compression_ratio": 1.5503355264663696
+   },
+   {
+    "start": 21.0,
+    "end": 24.0,
+    "text": " Now one, two, now three, now to the phone",
+    "no_speech_prob": 0.43672940135002136,
+    "avg_logprob": -0.6328334212303162,
+    "compression_ratio": 1.5503355264663696
+   },
+   {
+    "start": 24.0,
+    "end": 28.0,
+    "text": " Now soon, now you're done, and I'm the dreads at the door",
+    "no_speech_prob": 0.43672940135002136,
+    "avg_logprob": -0.6328334212303162,
+    "compression_ratio": 1.5503355264663696
+   },
+   {
+    "start": 28.0,
+    "end": 30.0,
+    "text": " Rain, busting through",
+    "no_speech_prob": 0.9838218092918396,
+    "avg_logprob": -0.8989412188529968,
+    "compression_ratio": 0.7241379022598267
+   }
+  ],
+  "instrumental": false,
+  "why": "nsp 0.47 lp -0.65 cr 1.6 uniq 0.67",
+  "lyric_line": "Lookin' at you all night long, nobody to blame",
+  "mini_text": "Talking to you all night long, nobody but you. You got it, you got it bad when you're on the phone. Hang up and you call right back. Now one, two, nine, three, nine, two, four, now two. Darling, darling, I pray I set the door and bust down the door.",
+  "t_mini": 1.25,
+  "instrumental_v2": false,
+  "why_v2": "nsp 0.47 lp -0.65"
+ },
+ {
+  "id": "2cppegIhKCpeJ6wYxTLd4A",
+  "t_w1": 1.94,
+  "w1_text": "That's the end of this video, thank you for watching",
+  "w1_lang": "english",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 3.9800000190734863,
+    "text": " That's the end of this video, thank you for watching",
+    "no_speech_prob": 0.4242100715637207,
+    "avg_logprob": -1.8717023134231567,
+    "compression_ratio": 0.9122806787490845
+   }
+  ],
+  "instrumental": true,
+  "why": "garbage phrase",
+  "lyric_line": null,
+  "mini_text": "",
+  "t_mini": 0.5,
+  "instrumental_v2": true,
+  "why_v2": "garbage phrase"
+ },
+ {
+  "id": "4TBalbUBmIfSKFjk8nHkPR",
+  "t_w1": 1.19,
+  "w1_text": "They listen to my music Popular sing girl, yeah I really need her The end of my neck, I don't know if I need her But yeah she's so divine, I just wanna see her Popular sing girl, popular sing girl",
+  "w1_lang": "english",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 1.7599999904632568,
+    "text": " They listen to my music",
+    "no_speech_prob": 0.3707936108112335,
+    "avg_logprob": -0.5160982608795166,
+    "compression_ratio": 1.496183156967163
+   },
+   {
+    "start": 1.7599999904632568,
+    "end": 4.960000038146973,
+    "text": " Popular sing girl, yeah I really need her",
+    "no_speech_prob": 0.3707936108112335,
+    "avg_logprob": -0.5160982608795166,
+    "compression_ratio": 1.496183156967163
+   },
+   {
+    "start": 4.960000038146973,
+    "end": 8.0,
+    "text": " The end of my neck, I don't know if I need her",
+    "no_speech_prob": 0.3707936108112335,
+    "avg_logprob": -0.5160982608795166,
+    "compression_ratio": 1.496183156967163
+   },
+   {
+    "start": 8.0,
+    "end": 11.199999809265137,
+    "text": " But yeah she's so divine, I just wanna see her",
+    "no_speech_prob": 0.3707936108112335,
+    "avg_logprob": -0.5160982608795166,
+    "compression_ratio": 1.496183156967163
+   },
+   {
+    "start": 11.199999809265137,
+    "end": 14.399999618530273,
+    "text": " Popular sing girl, popular sing girl",
+    "no_speech_prob": 0.3707936108112335,
+    "avg_logprob": -0.5160982608795166,
+    "compression_ratio": 1.496183156967163
+   }
+  ],
+  "instrumental": false,
+  "why": "nsp 0.37 lp -0.52 cr 1.5 uniq 0.66",
+  "lyric_line": "But yeah she's so divine, I just wanna see her",
+  "mini_text": "Hello, is this the bar? Hello, is this the bar?",
+  "t_mini": 0.81,
+  "instrumental_v2": false,
+  "why_v2": "nsp 0.37 lp -0.52"
+ },
+ {
+  "id": "6CAHNDfFgE9a9S6eFudKt6",
+  "t_w1": 2.59,
+  "w1_text": "Dodajesz mi nowych sił Poprowadź mnie tam, gdzie chcesz Twoją drogą iść już chcę Choćby wiatr zawrócić chciał Będę szedł Nie będę sam Poprowadź mnie przez ten świat Daj mi siłę, dodaj wiatr Kiedy słyszę głos twój znów Wiem, że znajdę Właściwy szlak Każdy dzień to nowy dar Każdy krok to twoja droga",
+  "w1_lang": "polish",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 3.0,
+    "text": " Dodajesz mi nowych sił",
+    "no_speech_prob": 0.5629539489746094,
+    "avg_logprob": -0.1687059849500656,
+    "compression_ratio": 1.363228678703308
+   },
+   {
+    "start": 3.0,
+    "end": 6.0,
+    "text": " Poprowadź mnie tam, gdzie chcesz",
+    "no_speech_prob": 0.5629539489746094,
+    "avg_logprob": -0.1687059849500656,
+    "compression_ratio": 1.363228678703308
+   },
+   {
+    "start": 6.0,
+    "end": 9.0,
+    "text": " Twoją drogą iść już chcę",
+    "no_speech_prob": 0.5629539489746094,
+    "avg_logprob": -0.1687059849500656,
+    "compression_ratio": 1.363228678703308
+   },
+   {
+    "start": 9.0,
+    "end": 11.0,
+    "text": " Choćby wiatr zawrócić chciał",
+    "no_speech_prob": 0.5629539489746094,
+    "avg_logprob": -0.1687059849500656,
+    "compression_ratio": 1.363228678703308
+   },
+   {
+    "start": 11.0,
+    "end": 12.0,
+    "text": " Będę szedł",
+    "no_speech_prob": 0.5629539489746094,
+    "avg_logprob": -0.1687059849500656,
+    "compression_ratio": 1.363228678703308
+   },
+   {
+    "start": 12.0,
+    "end": 14.0,
+    "text": " Nie będę sam",
+    "no_speech_prob": 0.5629539489746094,
+    "avg_logprob": -0.1687059849500656,
+    "compression_ratio": 1.363228678703308
+   },
+   {
+    "start": 14.0,
+    "end": 17.0,
+    "text": " Poprowadź mnie przez ten świat",
+    "no_speech_prob": 0.5629539489746094,
+    "avg_logprob": -0.1687059849500656,
+    "compression_ratio": 1.363228678703308
+   },
+   {
+    "start": 17.0,
+    "end": 19.0,
+    "text": " Daj mi siłę, dodaj wiatr",
+    "no_speech_prob": 0.5629539489746094,
+    "avg_logprob": -0.1687059849500656,
+    "compression_ratio": 1.363228678703308
+   },
+   {
+    "start": 19.0,
+    "end": 22.0,
+    "text": " Kiedy słyszę głos twój znów",
+    "no_speech_prob": 0.5629539489746094,
+    "avg_logprob": -0.1687059849500656,
+    "compression_ratio": 1.363228678703308
+   },
+   {
+    "start": 22.0,
+    "end": 23.0,
+    "text": " Wiem, że znajdę",
+    "no_speech_prob": 0.5629539489746094,
+    "avg_logprob": -0.1687059849500656,
+    "compression_ratio": 1.363228678703308
+   },
+   {
+    "start": 23.0,
+    "end": 26.0,
+    "text": " Właściwy szlak",
+    "no_speech_prob": 0.5629539489746094,
+    "avg_logprob": -0.1687059849500656,
+    "compression_ratio": 1.363228678703308
+   },
+   {
+    "start": 26.0,
+    "end": 28.0,
+    "text": " Każdy dzień to nowy dar",
+    "no_speech_prob": 0.5629539489746094,
+    "avg_logprob": -0.1687059849500656,
+    "compression_ratio": 1.363228678703308
+   },
+   {
+    "start": 28.0,
+    "end": 30.0,
+    "text": " Każdy krok to twoja droga",
+    "no_speech_prob": 0.8456288576126099,
+    "avg_logprob": -0.17461954057216644,
+    "compression_ratio": 0.7647058963775635
+   }
+  ],
+  "instrumental": false,
+  "why": "nsp 0.58 lp -0.17 cr 1.4 uniq 0.87",
+  "lyric_line": "Kiedy słyszę głos twój znów",
+  "mini_text": "Dodaj jasny nowy sił, poprowadź mnie tam, gdzie chcę, swoją drogą iść chcę. Odpowiedzialność za wróci sił, nie będę sam. Poprowadź mnie przez ten świat, daj mi siłę, dodaj wiar, kiedy słyszę głos twój znów. Wiem, że znajdę właściwy szlak. Każdy dzień to nowy dar, każdy krok to twoja droga.",
+  "t_mini": 1.3,
+  "instrumental_v2": false,
+  "why_v2": "nsp 0.58 lp -0.17"
+ },
+ {
+  "id": "5iHppCeLStxIG5Ml0HKDWN",
+  "t_w1": 2.49,
+  "w1_text": "Si extrañas los momentos en tu guagua Si quisieras que por allá yo pasara Si extrañas mi visita de madrugada Sin avisarte nada Sin tu saber que yo me iba a aparecer Pero te gustaba lo bello en tu mirada Yo lo sé Y ahora en Insta veo tu nombre I have a cuestióncito bien contigo Si cuando ves un girasol te escondes",
+  "w1_lang": "spanish",
+  "segs": [
+   {
+    "start": 0.0,
+    "end": 2.759999990463257,
+    "text": " Si extrañas los momentos en tu guagua",
+    "no_speech_prob": 0.4201628863811493,
+    "avg_logprob": -0.3670172393321991,
+    "compression_ratio": 1.46875
+   },
+   {
+    "start": 2.759999990463257,
+    "end": 6.760000228881836,
+    "text": " Si quisieras que por allá yo pasara",
+    "no_speech_prob": 0.4201628863811493,
+    "avg_logprob": -0.3670172393321991,
+    "compression_ratio": 1.46875
+   },
+   {
+    "start": 6.760000228881836,
+    "end": 9.760000228881836,
+    "text": " Si extrañas mi visita de madrugada",
+    "no_speech_prob": 0.4201628863811493,
+    "avg_logprob": -0.3670172393321991,
+    "compression_ratio": 1.46875
+   },
+   {
+    "start": 9.760000228881836,
+    "end": 12.260000228881836,
+    "text": " Sin avisarte nada",
+    "no_speech_prob": 0.4201628863811493,
+    "avg_logprob": -0.3670172393321991,
+    "compression_ratio": 1.46875
+   },
+   {
+    "start": 12.260000228881836,
+    "end": 15.760000228881836,
+    "text": " Sin tu saber que yo me iba a aparecer",
+    "no_speech_prob": 0.4201628863811493,
+    "avg_logprob": -0.3670172393321991,
+    "compression_ratio": 1.46875
+   },
+   {
+    "start": 15.760000228881836,
+    "end": 18.760000228881836,
+    "text": " Pero te gustaba lo bello en tu mirada",
+    "no_speech_prob": 0.4201628863811493,
+    "avg_logprob": -0.3670172393321991,
+    "compression_ratio": 1.46875
+   },
+   {
+    "start": 18.760000228881836,
+    "end": 20.760000228881836,
+    "text": " Yo lo sé",
+    "no_speech_prob": 0.4201628863811493,
+    "avg_logprob": -0.3670172393321991,
+    "compression_ratio": 1.46875
+   },
+   {
+    "start": 20.760000228881836,
+    "end": 23.760000228881836,
+    "text": " Y ahora en Insta veo tu nombre",
+    "no_speech_prob": 0.4201628863811493,
+    "avg_logprob": -0.3670172393321991,
+    "compression_ratio": 1.46875
+   },
+   {
+    "start": 23.760000228881836,
+    "end": 27.260000228881836,
+    "text": " I have a cuestióncito bien contigo",
+    "no_speech_prob": 0.4201628863811493,
+    "avg_logprob": -0.3670172393321991,
+    "compression_ratio": 1.46875
+   },
+   {
+    "start": 27.260000228881836,
+    "end": 30.260000228881836,
+    "text": " Si cuando ves un girasol te escondes",
+    "no_speech_prob": 0.945281982421875,
+    "avg_logprob": -0.26425331830978394,
+    "compression_ratio": 0.8181818127632141
+   }
+  ],
+  "instrumental": false,
+  "why": "nsp 0.47 lp -0.36 cr 1.5 uniq 0.75",
+  "lyric_line": "Si quisieras que por allá yo pasara",
+  "mini_text": "Tan el momento es en tu voz, chiquita, que podría ayudar. Si están muy vidas y tanos, si no es de pensar. No es que yo haga eso, pero no. I have a question for you.",
+  "t_mini": 0.82,
+  "instrumental_v2": false,
+  "why_v2": "nsp 0.47 lp -0.36"
+ }
+]
