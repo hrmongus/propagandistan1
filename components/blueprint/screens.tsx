@@ -318,7 +318,6 @@ export function Blocker({ state, dispatch, next, back }: ScreenProps) {
         {BLOCKERS.map((o) => (
           <div key={o.id} className={v === o.id ? 'fpb-opt-wrap on' : 'fpb-opt-wrap'}>
             <OptionCard label={o.label} sub={o.sub} icon={o.icon} selected={v === o.id} onClick={() => set(dispatch, { blocker: o.id })} />
-            {v === o.id && <p className="fpb-fix fpb-anim-step"><b>The fix:</b> {o.fix}</p>}
           </div>
         ))}
       </div>
