@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type Dispatch, type ReactNode } from 'react';
 import {
-  AESTHETICS, AGES, ARTIST_COUNT, ASSET, BLOCKERS, FANPAGE_EXAMPLES, DAILY_TIME, EXPERIENCE, GENDERS, LABEL_LOGOS, LANDING_FAQ, LIMITS,
+  AESTHETICS, AGES, ARTIST_COUNT, ASSET, BLOCKERS, FANPAGE_EXAMPLES, LANDING_AVATARS, DAILY_TIME, EXPERIENCE, GENDERS, LABEL_LOGOS, LANDING_FAQ, LIMITS,
   LISTENER_BRACKETS, LISTENER_SHORT, LISTENER_START, MAJOR_LABELS, MOMENTS, PROOF, RELEASES, TRIED, aestheticById, goalsFor, type Option,
 } from '@/lib/analyzer/config';
 import type { SpotifyTrack } from '@/lib/analyzer/spotify';
@@ -65,8 +65,8 @@ export function Landing({ state, dispatch, next }: ScreenProps) {
         <section style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 22, textAlign: 'center' }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
             <div style={{ display: 'flex' }}>
-              {['06', '07', '14', '08', '11', '02'].map((t, i) => (
-                <Img key={t} src={`/fanpage-blueprint/assets/imagery/tile-${t}.png`} style={{ width: 34, height: 34, borderRadius: '50%', border: '2px solid #000', marginLeft: i ? -10 : 0 }} />
+              {LANDING_AVATARS.map((src, i) => (
+                <Img key={src} src={src} style={{ width: 34, height: 34, borderRadius: '50%', border: '2px solid #000', marginLeft: i ? -10 : 0 }} />
               ))}
             </div>
             <span style={{ fontSize: 13, lineHeight: 1.3, color: 'var(--text-secondary)' }}>
@@ -718,7 +718,7 @@ export function ProofCards() {
         {PROOF.map((p, i) => (
           <article key={i} style={{ width: 'min(306px, 82vw)', flex: 'none', display: 'flex', flexDirection: 'column', gap: 12, padding: 16, borderRadius: 24, background: 'var(--surface-card)', border: '1px solid var(--border-subtle)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--ink-300)', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '600 14px/1 var(--font-sans)', flex: 'none' }}>{p.initial}</span>
+              {p.avatar ? <Img src={p.avatar} style={{ width: 36, height: 36, borderRadius: '50%', flex: 'none' }} /> : <span style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--ink-300)', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '600 14px/1 var(--font-sans)', flex: 'none' }}>{p.initial}</span>}
               <span style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 3 }}><span style={{ font: '600 14px/1.2 var(--font-sans)' }}>{p.name}</span><span style={{ fontSize: 11, lineHeight: 1.2, color: 'var(--text-tertiary)' }}>{p.meta}</span></span>
               {p.verified && <span style={{ display: 'flex', alignItems: 'center', gap: 4, font: '500 10px/1 var(--font-mono)', letterSpacing: '.06em', color: 'var(--signal-400)' }}><Icon d={ICONS.check} size={12} stroke={2.6} />VERIFIED</span>}
             </div>
