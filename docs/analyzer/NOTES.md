@@ -68,4 +68,7 @@ Sources: developer.spotify.com quota-modes page, the 2025-04-15 extended-access 
 - `/analyzer/video-test`. Headless Chromium: autoplay-policy=user-gesture-required, one tap → both play, audio seeks to the hook window, drift −0.07s, single-playback enforced. iOS Safari / Android Chrome not tested yet.
 
 ## Apple preview fallback (owner asked)
-- iTunes Search API: `lookup?isrc=` returns 0 results (unsupported); search by artist+title works, but from this container it returns 403 after ~1 call per minute. Partial coverage in `spike/apple.json`.
+- iTunes Search API: `lookup?isrc=` returns 0 results (unsupported); search by artist+title works, but from this container it returns 403 after ~1 call per minute. Partial run: Apple stopped answering after 15 of 28 tracks (17 rate-limit backoffs, then 4 consecutive 403s).
+  - Of those 15: Apple found 10 (67%), Deezer 14. Apple filled the one Deezer gap in this subset (`Pure Acoustic – Hey Jude`, which has no Deezer preview).
+  - Apple missed 4 of 5 rap/trap tracks that Deezer has. These may be search-matching misses rather than catalogue gaps, since only US/DE storefronts and exact artist-name matching were tried.
+  - Verdict: possibly useful as a fallback through the Apple Music API (ISRC lookup, real rate limits, $99/yr developer account); not usable through the free iTunes API from a server.
