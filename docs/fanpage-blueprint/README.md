@@ -68,7 +68,7 @@ Every image slot renders a grey placeholder at the final size until its file exi
    describe what actually happens (`ANALYZING_STEPS`). The "Upload an MP3" link on 01 is hidden.
 2. **Moments:** the mock's 12 (max 3). New default hooks for chill, romance, rebellion, dreamy, feel-good.
 3. **Results link:** `/s/{id}` (backend), not `/b/{id}`.
-4. **10-minute expiry bar:** left out of 17 and 18 (results don't expire; fake urgency, HANDOFF.md §8).
+4. **10-minute expiry bar:** on 17 (added at the owner's request), counting down from the strategy's `created_at` so a reload doesn't reset it. Nothing changes at zero yet: per HANDOFF.md §8 the offer should genuinely end (e.g. the $37 price) before this runs on paid traffic.
 5. **Bundle toggle on 18b:** off by default (pre-ticked paid add-ons aren't allowed in the EU).
 6. **"Ready to build" summary on 14:** not added (follows the mock).
 7. **Kits:** the 3 pages never share a kit; fallback order in `KIT_FALLBACK` reproduces the mock's example.

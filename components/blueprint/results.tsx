@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { createCheckoutSession } from '@/app/checkout/actions';
 import { distinctId, track as phTrack } from '@/lib/analytics/client';
 import {
-  GENDERS, GOALS, OFFER_BULLETS, PACK_INCLUDES, RELEASES, RESULTS_FAQ, aestheticById, momentById, packById, type PackId, type QuizAnswers,
+  GENDERS, GOALS, OFFER_BULLETS, PACK_INCLUDES, RESULTS_FAQ, aestheticById, momentById, packById, type PackId, type QuizAnswers,
 } from '@/lib/analyzer/config';
 import type { Metrics } from '@/lib/analyzer/metrics';
 import type { SpotifyTrack } from '@/lib/analyzer/spotify';
@@ -22,6 +22,7 @@ import { hash } from '@/lib/analyzer/metrics';
 
 export type StrategyRow = {
   id: string;
+  created_at?: string;
   first_name: string | null;
   track: SpotifyTrack;
   answers: QuizAnswers;
@@ -87,10 +88,37 @@ const Guarantee = () => (
   </div>
 );
 
+const WINDOW_MS = 10 * 60 * 1000;
+
+/**
+ * 10-minute countdown from when the Blueprint was created (the saved row's created_at, else the first time this
+ * browser saw it), so a reload doesn't restart it. HANDOFF.md §8: the offer should really end when it hits zero.
+ */
+function ExpiryBar({ id, createdAt }: { id: string; createdAt?: string }) {
+  const [left, setLeft] = useState<number | null>(null);
+  useEffect(() => {
+    let start = createdAt ? Date.parse(createdAt) : NaN;
+    if (Number.isNaN(start)) {
+      const key = `fpb_seen_${id}`;
+      try { start = Number(localStorage.getItem(key)) || Date.now(); localStorage.setItem(key, String(start)); } catch { start = Date.now(); }
+    }
+    const tick = () => setLeft(Math.max(0, start + WINDOW_MS - Date.now()));
+    tick();
+    const t = setInterval(tick, 1000);
+    return () => clearInterval(t);
+  }, [id, createdAt]);
+  if (left === null) return <div style={{ height: 38 }} />;
+  const mm = String(Math.floor(left / 60000)).padStart(2, '0'), ss = String(Math.floor((left % 60000) / 1000)).padStart(2, '0');
+  return (
+    <div role="timer" aria-live="off" style={{ position: 'sticky', top: 0, zIndex: 30, height: 38, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: 'var(--ember-500)', color: '#fff', font: '600 13.5px/1 var(--font-sans)' }}>
+      {left > 0 ? <>Your analysis expires in <span style={{ font: '700 14px/1 var(--font-mono)', fontVariantNumeric: 'tabular-nums' }}>{mm}:{ss}</span></> : 'Your analysis has expired'}
+    </div>
+  );
+}
+
 export function Results({ row }: { row: StrategyRow }) {
   const { track: t, answers: a, metrics: m } = row;
   const goal = GOALS.find((g) => g.id === a.goal);
-  const release = RELEASES.find((r) => r.id === a.release);
   const pages = m.pages.map((p, i) => ({ ...p, info: aestheticById(p.aesthetic)!, hook: row.hooks.pages.find((h) => h.aesthetic === p.aesthetic)?.hooks[0] ?? momentById(a.moments?.[i % (a.moments.length || 1)] ?? 'night-drive')?.defaultHook ?? '', moment: a.moments?.[i % (a.moments?.length || 1)] }));
   const [kit, setKit] = useState<PackId>(m.offerPack);
   const [sheet, setSheet] = useState<null | 'offer' | 'pay'>(null);
@@ -113,7 +141,7 @@ export function Results({ row }: { row: StrategyRow }) {
 
   return (
     <div className="fpb-screen">
-      {/* The mock's 10-minute expiry bar is left out on purpose: the results don't expire (HANDOFF.md §8). */}
+      <ExpiryBar id={row.id} createdAt={row.created_at} />
       <header className="fpb-top"><Logo /><span className="fpb-meta">SENT TO YOUR EMAIL</span></header>
       <main className="fpb-main" style={{ gap: 36, paddingBottom: 32 }}>
         {/* hero */}
@@ -127,9 +155,11 @@ export function Results({ row }: { row: StrategyRow }) {
             </span>
             <span className="fpb-badge signal"><span className="dot" />Analyzed</span>
           </div>
-          <h1 style={{ margin: 0, font: '600 34px/1.04 var(--font-sans)', letterSpacing: '-0.04em' }}>Fanpage Blueprint: Your path to {goal ? goal.short.toLowerCase() : 'more'} listeners</h1>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <span style={{ font: '500 13px/1 var(--font-mono)', letterSpacing: '.14em', color: 'var(--signal-400)' }}>FANPAGE BLUEPRINT</span>
+            <h1 style={{ margin: 0, font: '600 36px/1.02 var(--font-sans)', letterSpacing: '-0.045em' }}>Your path to {goal ? goal.short : 'more'} listeners</h1>
+          </div>
           <p className="fpb-lede">{row.first_name ? `${row.first_name}, your` : 'Your'} track is built for short-form. <b>The only thing missing is distribution.</b></p>
-          {release && <p className="fpb-hint" style={{ margin: 0 }}>{release.urgency}</p>}
         </section>
 
         {/* scores */}
