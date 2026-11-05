@@ -31,6 +31,12 @@ export function Flow() {
     if (!hydrated || seeded.current) return;
     seeded.current = true;
     history.replaceState({ fpb: screen }, '');
+  }, [hydrated, screen]);
+
+  // Browser back/forward (and the on-screen back button, which calls history.back()) land here. Registered once
+  // with stable deps: tying it to `screen` used to drop the listener after the first step, so back left the site.
+  useEffect(() => {
+    if (!hydrated) return;
     const onPop = (e: PopStateEvent) => {
       const s = (e.state as { fpb?: ScreenId } | null)?.fpb;
       if (depth.current > 0) depth.current--;
@@ -39,7 +45,7 @@ export function Flow() {
     };
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
-  }, [hydrated, screen, dispatch]);
+  }, [hydrated, dispatch]);
 
   // One step_viewed per screen shown, and a fresh scroll position.
   useEffect(() => {
