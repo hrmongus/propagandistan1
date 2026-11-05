@@ -4,6 +4,7 @@ import { EmbeddedCheckout, EmbeddedCheckoutProvider } from '@stripe/react-stripe
 import { loadStripe } from '@stripe/stripe-js';
 import { useEffect, useMemo, useState } from 'react';
 import { createCheckoutSession } from '@/app/checkout/actions';
+import { Fan } from '@/components/Fan';
 import { distinctId, track as phTrack } from '@/lib/analytics/client';
 import {
   GENDERS, GOALS, OFFER_BULLETS, PACK_INCLUDES, PACKS, RESULTS_FAQ, aestheticById, momentById, packById, type PackId, type QuizAnswers,
@@ -11,7 +12,7 @@ import {
 import type { Metrics } from '@/lib/analyzer/metrics';
 import type { SpotifyTrack } from '@/lib/analyzer/spotify';
 import { setStrategyId, track } from '@/lib/analyzer/track';
-import { PACKS as SITE_PACKS } from '@/lib/data';
+import { PACK_SLUGS, PACKS as SITE_PACKS } from '@/lib/data';
 import { BUNDLE_SAVE, FOUR_SINGLES, PRICES } from '@/lib/prices';
 import { GrowthChart, Radar } from './charts';
 import { ProofCards } from './screens';
@@ -85,6 +86,9 @@ const Guarantee = () => (
     <span style={{ fontSize: 13, lineHeight: 1.35, color: 'var(--text-secondary)' }}><span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>30-day money-back guarantee.</span> If it doesn&apos;t work for you, you get your money back.</span>
   </div>
 );
+
+/** Index into the main site's pack fans (components/Fan.tsx), same stacks as the shop and the upsell. */
+const fanIndex = (k: PackId) => PACK_SLUGS.indexOf(packById(k).checkoutSlug);
 
 const WINDOW_MS = 10 * 60 * 1000;
 
@@ -254,7 +258,7 @@ export function Results({ row }: { row: StrategyRow }) {
               const on = kit === p.kit;
               return (
                 <button key={p.kit} type="button" role="radio" aria-checked={on} onClick={() => pickKit(p.kit)} className="fpb-result" style={{ padding: '8px 14px 8px 8px' }}>
-                  <Img src={packById(p.kit).cover} style={{ width: 44, height: 44, borderRadius: 10, flex: 'none' }} />
+                  <span style={{ flex: 'none' }}><Fan gi={fanIndex(p.kit)} size="tiny" /></span>
                   <span style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
                     <span style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}><span style={{ font: '600 15px/1.2 var(--font-sans)' }}>{packById(p.kit).name}</span>{i === 0 && <span className="fpb-badge signal">#1 Best fit</span>}</span>
                     <span className="fpb-ellipsis" style={{ fontSize: 12, color: 'var(--text-tertiary)' }}>@{p.info.handle} · {p.info.name}</span>
@@ -330,10 +334,7 @@ function OfferSheet({ row, kit, handle, aesthetic, onClose, onNext }: { row: Str
       </div>
       <article style={{ display: 'flex', flexDirection: 'column', borderRadius: 24, background: 'var(--surface-card)', border: '1.5px solid var(--ink-900)', overflow: 'hidden', flex: 'none' }}>
         <div style={{ display: 'flex', gap: 14, padding: 16 }}>
-          <span style={{ position: 'relative', width: 72, height: 128, borderRadius: 14, overflow: 'hidden', flex: 'none' }}>
-            <Img src={pack.cover} label={`${pack.name} pack`} style={{ position: 'absolute', inset: 0 }} />
-            <video key={pack.id} src={pack.previewClipUrl} poster={pack.cover} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-          </span>
+          <span role="img" aria-label={`${pack.name} pack preview`} style={{ flex: 'none' }}><Fan key={pack.id} gi={fanIndex(pack.id)} size="small" /></span>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0 }}>
             <span style={{ font: '600 18px/1.2 var(--font-sans)', letterSpacing: '-0.01em' }}>{pack.name} pack</span>
             <span style={{ fontSize: 13, lineHeight: 1.35, color: 'var(--text-secondary)' }}>Built for your @{handle} page · {aesthetic}</span>
@@ -427,7 +428,7 @@ function PaySheet({ kit, onClose, onBack }: { kit: PackId; onClose: () => void; 
         <div style={{ display: 'flex', gap: 6 }}>
           {others.map((p) => {
             const k = (['golden', 'midnight', 'coastal', 'forest'] as const).find((id) => packById(id).checkoutSlug === p.slug)!;
-            return <Img key={p.slug} src={packById(k).cover} label={`${p.name} pack`} style={{ width: 44, height: 58, borderRadius: 8 }} />;
+            return <span key={p.slug} role="img" aria-label={`${p.name} pack`}><Fan gi={fanIndex(k)} size="tiny" /></span>;
           })}
         </div>
         <ul className="fpb-ticks" style={{ gap: 8 }}>
