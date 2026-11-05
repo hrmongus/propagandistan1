@@ -11,7 +11,7 @@ import '@/components/blueprint/blueprint.css';
  */
 const answers: QuizAnswers = {
   listeners: '1k-10k', goal: '100k', blocker: 'reach', aesthetics: ['light-academia', 'clean-girl', 'coquette'],
-  age: ['18-24'], gender: 'women', moments: ['heartbreak', 'night-drive'], tried: ['playlists', 'meta-ads'],
+  age: ['18-24'], gender: 'women', moments: ['heartbreak', 'night-drive'], tried: ['playlists', 'ads'],
   dailyTime: '15', release: 'month', experience: 'never',
 };
 

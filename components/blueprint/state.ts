@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useReducer } from 'react';
-import { BLOCKERS, goalsFor, type QuizAnswers } from '@/lib/analyzer/config';
+import { BLOCKERS, TRIED, goalsFor, type QuizAnswers } from '@/lib/analyzer/config';
 import type { SpotifyTrack } from '@/lib/analyzer/spotify';
 
 /* Quiz state machine (HANDOFF.md §4): one reducer, persisted to localStorage so a refresh keeps the answers. */
@@ -61,7 +61,7 @@ export function canContinue(s: State, screen: ScreenId = s.screen): boolean {
     case 'blocker': return BLOCKERS.some((b) => b.id === a.blocker); // old saved ids no longer count
     case 'aesthetics': return (a.aesthetics?.length ?? 0) > 0;
     case 'audience': return (a.age?.length ?? 0) > 0 && !!a.gender && (a.moments?.length ?? 0) > 0;
-    case 'tried': return (a.tried?.length ?? 0) > 0;
+    case 'tried': return !!a.tried?.some((t) => TRIED.some((o) => o.id === t)); // ignore old saved ids
     case 'daily-time': return !!a.dailyTime;
     case 'release': return !!a.release;
     case 'experience': return !!a.experience;
