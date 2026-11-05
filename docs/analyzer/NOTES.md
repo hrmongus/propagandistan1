@@ -7,7 +7,8 @@ Spec: `docs/analyzer/tech-spike.md`. Work through it in order; results go into `
 - Spotify app created by the owner: Web API only, redirect URI `http://127.0.0.1:3000/callback` (unused; we use client credentials). No users on the allowlist, on purpose: Step 1 must test whether public, non-allowlisted traffic works.
 - Env present: `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `OPENAI_API_KEY`. `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`. Still missing in the container: `ANTHROPIC_API_KEY` (owner says added; a new session should pick it up).
 - Decision: Claude has no audio input, so transcription (Step 4) uses OpenAI. Hooks (Step 5) can use Claude Haiku 5.5 once `ANTHROPIC_API_KEY` is present, otherwise OpenAI.
-- Steps 1–3 run (results below). **Paused on the Deezer terms question.**
+- Owner: Deezer terms are fine for the prototype; no artist uploads; listener count comes from the quiz.
+- Steps 1–7 tested; 8–10 built but blocked on the Supabase secret key (env has the publishable key).
 - Still needed from the owner: 20–30 Spotify test track links (see spec "Test set"), and real-device testing for Step 7 (iPhone Safari, Android Chrome).
 - Network: Deezer, Spotify, OpenAI and Anthropic are all reachable from the cloud container.
 
@@ -52,3 +53,19 @@ Sources: developer.spotify.com quota-modes page, the 2025-04-15 extended-access 
 - Essentia.js 0.1.3 (`RhythmExtractor2013` multifeature, `KeyExtractor` bgate profile) + `mpg123-decoder` (WASM). ~2.7s per track, 179MB RSS. Needs one decoder instance per file (reusing after `reset()` throws `MPG123_ERR`).
 - Energy = RMS dBFS mapped −30→0, −8→100. Skews high on loud masters (a "Lullaby Version" scored 88). Needs recalibration or a mix with onset density.
 - BPM accuracy can't be checked against Tunebat: these tracks aren't listed there. It needs hand tap-tempo or a separate set of known tracks.
+
+## Step 4 live results (whisper-1 vs gpt-4o-mini-transcribe, 23 previews)
+- whisper-1 wins clearly. gpt-4o-mini-transcribe hallucinated on music: Russian text for English trap, invented lyrics where whisper heard none, empty output on half the tracks. It also has no `verbose_json`, so no segments or `no_speech_prob`.
+- Instrumental filter (final, `lib/analyzer/transcribe.ts`): <4 words, garbage phrase, mean logprob < −1, or (no_speech > 0.6 AND logprob < −0.7), or heavy repetition. The first version (no_speech > 0.6 alone) dropped 3 real vocal tracks (no_speech 0.61–0.63, logprob −0.36 to −0.62).
+- Whisper garbage seen: "Make sure to check out my other videos too!", "That's the end of this video, thank you for watching", "♪ ♪ ♪", "【russian music】 Русские субтитры…", "with musical interlude", "Виктор Королёв" (a name on a piano instrumental).
+- Outputs side by side are in `spike/whisper.json`. There are no reference lyrics: these artists aren't on lyric sites.
+
+## Step 5/6 live results
+- 69 hook sets on gpt-4.1-mini (`spike/hooks.json`), all valid JSON, p50 0.68s. The first prompt produced clichés ("when the beat drops") and named the aesthetic outright; the second prompt bans both.
+- Aesthetic config in `lib/analyzer/aesthetics.json` (no genre keywords; Spotify gives none). Centre-distance scoring; tempo accepts half/double time.
+
+## Step 7
+- `/analyzer/video-test`. Headless Chromium: autoplay-policy=user-gesture-required, one tap → both play, audio seeks to the hook window, drift −0.07s, single-playback enforced. iOS Safari / Android Chrome not tested yet.
+
+## Apple preview fallback (owner asked)
+- iTunes Search API: `lookup?isrc=` returns 0 results (unsupported); search by artist+title works, but from this container it returns 403 after ~1 call per minute. Partial coverage in `spike/apple.json`.
