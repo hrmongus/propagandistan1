@@ -13,7 +13,7 @@ export async function GET(req: Request) {
       console.error('[spotify] SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET missing in this deployment');
       return Response.json({ error: 'spotify_not_configured' }, { status: 503 });
     }
-    console.error('[spotify/search]', e);
+    console.error('[spotify/search] failed:', e instanceof Error ? e.message : e);
     return Response.json({ error: 'search_failed' }, { status: 502 });
   }
 }

@@ -20,7 +20,8 @@ let token: { value: string; expires: number } | null = null;
 
 async function accessToken() {
   if (token && token.expires > Date.now() + 60_000) return token.value;
-  const id = process.env.SPOTIFY_CLIENT_ID, secret = process.env.SPOTIFY_CLIENT_SECRET;
+  // Trim: keys pasted into a dashboard often carry a trailing space or newline, which Spotify rejects as invalid_client.
+  const id = process.env.SPOTIFY_CLIENT_ID?.trim(), secret = process.env.SPOTIFY_CLIENT_SECRET?.trim();
   if (!id || !secret) throw new Error('SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET not set');
   const res = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',
@@ -28,7 +29,10 @@ async function accessToken() {
     body: 'grant_type=client_credentials',
     cache: 'no-store',
   });
-  if (!res.ok) throw new Error(`Spotify token ${res.status}`);
+  if (!res.ok) {
+    const body = (await res.text().catch(() => '')).slice(0, 200);
+    throw new Error(`Spotify token ${res.status}: ${body}`);
+  }
   const d = (await res.json()) as { access_token: string; expires_in: number };
   token = { value: d.access_token, expires: Date.now() + d.expires_in * 1000 };
   return token.value;
@@ -41,7 +45,7 @@ export class SpotifyError extends Error {
 async function api<T>(path: string, retry = true): Promise<T> {
   const res = await fetch('https://api.spotify.com/v1/' + path, { headers: { Authorization: 'Bearer ' + (await accessToken()) }, cache: 'no-store' });
   if (res.status === 401 && retry) { token = null; return api(path, false); } // token revoked early
-  if (!res.ok) throw new SpotifyError(res.status, `Spotify ${path.split('?')[0]} ${res.status}`);
+  if (!res.ok) throw new SpotifyError(res.status, `Spotify ${path.split('?')[0]} ${res.status}: ${(await res.text().catch(() => '')).slice(0, 200)}`);
   return res.json() as Promise<T>;
 }
 

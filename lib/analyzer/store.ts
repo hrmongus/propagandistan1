@@ -9,8 +9,8 @@ import { randomBytes } from 'node:crypto';
 let client: SupabaseClient | null = null;
 
 export function sb() {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const url = process.env.SUPABASE_URL?.trim();
+  const key = (process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY)?.trim();
   if (!url || !key) throw new Error('SUPABASE_URL / SUPABASE_SECRET_KEY not set');
   if (key.startsWith('sb_publishable_')) throw new Error('Supabase key is the publishable key; the server needs the secret key (sb_secret_…)');
   client ??= createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });

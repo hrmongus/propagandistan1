@@ -21,7 +21,7 @@ export async function GET(req: Request) {
       return Response.json({ error: 'spotify_not_configured' }, { status: 503 });
     }
     if (e instanceof SpotifyError && (e.status === 404 || e.status === 400)) return Response.json({ error: 'not_found' }, { status: 404 });
-    console.error('[spotify/track]', e);
+    console.error('[spotify/track] failed:', e instanceof Error ? e.message : e);
     return Response.json({ error: 'lookup_failed' }, { status: 502 });
   }
 }
