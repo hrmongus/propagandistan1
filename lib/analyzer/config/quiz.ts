@@ -22,6 +22,8 @@ export const LISTENER_BRACKETS: Option<ListenerBracket>[] = [
 
 /** Short label for the chart's "Today" value. */
 export const LISTENER_SHORT: Record<ListenerBracket, string> = { lt1k: '<1K', '1k-10k': '1–10K', '10k-50k': '10–50K', '50k-100k': '50–100K', '100k+': '100K+' };
+/** A representative "today" value per bracket: where the goal chart's lines start. */
+export const LISTENER_START: Record<ListenerBracket, number> = { lt1k: 500, '1k-10k': 5_000, '10k-50k': 25_000, '50k-100k': 75_000, '100k+': 150_000 };
 /** Upper bound of each bracket, used to hide goals that aren't above it. */
 export const LISTENER_CEIL: Record<ListenerBracket, number> = { lt1k: 1_000, '1k-10k': 10_000, '10k-50k': 50_000, '50k-100k': 100_000, '100k+': 500_000 };
 

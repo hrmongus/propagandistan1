@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type Dispatch, type ReactNode } from 'react';
 import {
   AESTHETICS, AGES, ARTIST_COUNT, BLOCKERS, DAILY_TIME, EXPERIENCE, GENDERS, LABEL_LOGOS, LANDING_FAQ, LIMITS,
-  LISTENER_BRACKETS, LISTENER_SHORT, MAJOR_LABELS, MOMENTS, PROOF, RELEASES, TRIED, aestheticById, goalsFor, momentById, type Option,
+  LISTENER_BRACKETS, LISTENER_SHORT, LISTENER_START, MAJOR_LABELS, MOMENTS, PROOF, RELEASES, TRIED, aestheticById, goalsFor, momentById, type Option,
 } from '@/lib/analyzer/config';
 import type { SpotifyTrack } from '@/lib/analyzer/spotify';
 import { GoalChart } from './charts';
@@ -301,7 +301,7 @@ export function Goal({ state, dispatch, next, back }: ScreenProps) {
   return (
     <QuizScreen id="goal" back={back} footer={<NextBtn s={state} next={next} />}>
       <Titles title="Where do you want to be in 6 months?" lede="Pick the number that would change things for you." />
-      <GoalChart today={state.answers.listeners ? LISTENER_SHORT[state.answers.listeners] : '—'} goal={picked?.short ?? null} goalValue={picked?.value ?? 0} />
+      <GoalChart start={LISTENER_START[state.answers.listeners ?? 'lt1k']} today={state.answers.listeners ? LISTENER_SHORT[state.answers.listeners] : '—'} goal={picked?.short ?? null} goalValue={picked?.value ?? 0} />
       <SingleList options={options} value={state.answers.goal} onPick={(id) => set(dispatch, { goal: id })} />
     </QuizScreen>
   );
