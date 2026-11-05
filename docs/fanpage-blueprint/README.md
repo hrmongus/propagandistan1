@@ -26,5 +26,10 @@ lead submit with `/s/{id}`, funnel events and checkout handoff.
 | 09 | `09-several-pages.html` | received |
 | 10 | `10-what-you-tried.html` | received |
 | 11 | `11-proof.html` | received |
-| 12–18b | | pending upload |
+| 12 | `12-daily-time.html` | received |
+| 13 | `13-next-release.html` | received |
+| 14 | `14-experience.html` | received |
+| 15 | `15-analyzing.html` | received |
+| 16 | `16-email-gate.html` | received |
+| 17–18b | | pending upload |
 | assets | `assets/imagery`, `assets/logo`, `assets/proof` | pending upload |
