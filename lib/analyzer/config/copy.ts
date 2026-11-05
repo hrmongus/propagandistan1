@@ -8,7 +8,8 @@ import { ASSET } from './packs';
 /** TODO(launch): real customer count. While null, the landing shows "Loved by independent artists" without a number. */
 export const ARTIST_COUNT: string | null = null;
 
-export const DISTRIBUTORS = ['DistroKid', 'TuneCore', 'CD Baby', 'Amuse', 'Ditto', 'AWAL'];
+/** Landing strip "Used by all major labels". Names as text, no logos (logos imply endorsement, HANDOFF.md §8). */
+export const MAJOR_LABELS = ['Universal Music', 'Sony Music', 'Warner Music'];
 
 /** Landing FAQ (HANDOFF.md §6 says these answers still needed writing; drafted here, review before launch). */
 export const LANDING_FAQ: { q: string; a: string }[] = [

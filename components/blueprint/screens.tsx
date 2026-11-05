@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState, type Dispatch, type ReactNode } from 'react';
 import {
-  AESTHETICS, AGES, ARTIST_COUNT, BLOCKERS, DAILY_TIME, DISTRIBUTORS, EXPERIENCE, GENDERS, LABEL_LOGOS, LANDING_FAQ, LIMITS,
-  LISTENER_BRACKETS, LISTENER_SHORT, MOMENTS, PROOF, RELEASES, TRIED, aestheticById, goalsFor, momentById, type Option,
+  AESTHETICS, AGES, ARTIST_COUNT, BLOCKERS, DAILY_TIME, EXPERIENCE, GENDERS, LABEL_LOGOS, LANDING_FAQ, LIMITS,
+  LISTENER_BRACKETS, LISTENER_SHORT, MAJOR_LABELS, MOMENTS, PROOF, RELEASES, TRIED, aestheticById, goalsFor, momentById, type Option,
 } from '@/lib/analyzer/config';
 import type { SpotifyTrack } from '@/lib/analyzer/spotify';
 import { GoalChart } from './charts';
@@ -100,9 +100,9 @@ export function Landing({ state, dispatch, next }: ScreenProps) {
         </section>
 
         <section style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
-          <span style={{ fontSize: 13, color: 'var(--text-tertiary)' }}>Works with every major distributor</span>
-          <div style={{ width: '100%', display: 'flex', gap: 32, overflowX: 'auto', scrollbarWidth: 'none', padding: '4px 20px', WebkitMaskImage: 'linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%)', maskImage: 'linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%)' }}>
-            {DISTRIBUTORS.map((n) => <span key={n} style={{ font: '700 15px/1 var(--font-sans)', letterSpacing: '-0.02em', color: 'var(--ink-600)', flex: 'none', whiteSpace: 'nowrap' }}>{n}</span>)}
+          <span style={{ fontSize: 13, color: 'var(--text-tertiary)' }}>Used by all major labels</span>
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '10px 28px', padding: '4px 0' }}>
+            {MAJOR_LABELS.map((n) => <span key={n} style={{ font: '700 15px/1 var(--font-sans)', letterSpacing: '-0.02em', color: 'var(--ink-600)', whiteSpace: 'nowrap' }}>{n}</span>)}
           </div>
         </section>
 
