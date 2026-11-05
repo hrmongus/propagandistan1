@@ -410,13 +410,13 @@ export function Aesthetics({ state, dispatch, next, back }: ScreenProps) {
           return (
             <button key={a.id} type="button" role="checkbox" aria-checked={on} aria-disabled={full} aria-label={`${a.name}${on ? `, pick ${order + 1}` : ''}`}
               onClick={() => !full && set(dispatch, { aesthetics: toggle(picks, a.id, LIMITS.aesthetics) })}
-              style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: 8, borderRadius: 20, border: on ? '1.5px solid var(--ink-900)' : '1px solid var(--border-subtle)', background: on ? 'var(--surface-card-hover)' : 'var(--surface-card)', textAlign: 'left', cursor: full ? 'not-allowed' : 'pointer', minWidth: 0, transition: 'background 280ms' }}>
+              style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: 8, borderRadius: 20, border: on ? '1.5px solid var(--signal-500)' : '1px solid var(--border-subtle)', background: on ? 'rgba(34,212,107,.10)' : 'var(--surface-card)', textAlign: 'left', cursor: full ? 'not-allowed' : 'pointer', minWidth: 0, transition: 'background 280ms' }}>
               <span style={{ position: 'relative', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gridTemplateRows: 'repeat(2, minmax(0, 1fr))', gap: 3, height: 150, borderRadius: 14, overflow: 'hidden', width: '100%' }}>
                 <Img src={a.images[0]} style={{ gridRow: '1 / 3', width: '100%', height: '100%' }} />
                 <Img src={a.images[1]} style={{ width: '100%', height: '100%' }} />
                 <Img src={a.images[2]} style={{ width: '100%', height: '100%' }} />
                 {on ? (
-                  <span style={{ position: 'absolute', top: 8, right: 8, width: 22, height: 22, borderRadius: '50%', background: '#fff', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '600 11px/1 var(--font-mono)' }}>{order + 1}</span>
+                  <span style={{ position: 'absolute', top: 8, right: 8, width: 22, height: 22, borderRadius: '50%', background: 'var(--signal-500)', color: 'var(--signal-ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '700 11px/1 var(--font-mono)' }}>{order + 1}</span>
                 ) : (
                   <span style={{ position: 'absolute', top: 8, right: 8, width: 22, height: 22, borderRadius: '50%', border: '1.5px solid #fff', background: 'rgba(0,0,0,0.3)' }} />
                 )}

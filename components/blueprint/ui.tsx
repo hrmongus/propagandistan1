@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
-import { ASSET } from '@/lib/analyzer/config';
+import { useEffect, type CSSProperties, type ReactNode } from 'react';
+import { LogoMark } from '../Logo';
 
 /* Shared building blocks for the Fanpage Blueprint screens. Styles live in blueprint.css (scoped under .fpb). */
 
@@ -35,23 +35,12 @@ export const ICONS = {
   grid: '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>',
 };
 
-/** FanpageKit lockup: the uploaded PNG/SVG when it exists, the wordmark until then (same height, so layout holds). */
+/** FanpageKit logo: the site's corner mark plus the wordmark (same as the main site's nav). */
 export function Logo({ small }: { small?: boolean }) {
-  const [failed, setFailed] = useState(false);
-  const ref = useRef<HTMLImageElement>(null);
-  // On server-rendered pages the image can 404 before React attaches onError: check once mounted.
-  useEffect(() => {
-    const img = ref.current;
-    if (img && img.complete && img.naturalWidth === 0) setFailed(true);
-  }, []);
   return (
-    <span className={small ? 'fpb-logo sm' : 'fpb-logo'}>
-      {failed ? (
-        <span className="word" aria-label="FanpageKit">FanpageKit</span>
-      ) : (
-        // eslint-disable-next-line @next/next/no-img-element -- static asset, swapped in later
-        <img ref={ref} src={ASSET('logo/fanpagekit-lockup-white.png')} alt="FanpageKit" onError={() => setFailed(true)} />
-      )}
+    <span className={small ? 'fpb-logo sm' : 'fpb-logo'} aria-label="FanpageKit">
+      <LogoMark />
+      <span className="word" aria-hidden="true">FanpageKit</span>
     </span>
   );
 }
