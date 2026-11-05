@@ -317,7 +317,7 @@ export function Blocker({ state, dispatch, next, back }: ScreenProps) {
       <div className="fpb-options" role="radiogroup">
         {BLOCKERS.map((o) => (
           <div key={o.id} className={v === o.id ? 'fpb-opt-wrap on' : 'fpb-opt-wrap'}>
-            <OptionCard label={o.label} sub={o.sub} icon={o.icon} selected={v === o.id} onClick={() => set(dispatch, { blocker: o.id })} />
+            <OptionCard label={o.label} icon={o.icon} selected={v === o.id} onClick={() => set(dispatch, { blocker: o.id })} />
           </div>
         ))}
       </div>

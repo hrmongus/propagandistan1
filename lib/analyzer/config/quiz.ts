@@ -37,12 +37,12 @@ export const GOALS: (Option<GoalId> & { value: number; short: string })[] = [
 /** Goals strictly above the current bracket (HANDOFF.md: "only show goals above the current bucket"). */
 export const goalsFor = (listeners: ListenerBracket | undefined) => GOALS.filter((g) => !listeners || g.value >= LISTENER_CEIL[listeners]);
 
-export const BLOCKERS: (Option<BlockerId> & { fix: string })[] = [
-  { id: 'reach', label: 'Nobody hears my music', sub: 'I release songs and they disappear', icon: '<path d="M11 5 6 9H2v6h4l5 4z"/><path d="m22 9-6 6M16 9l6 6"/>', fix: 'Fan pages put your song in front of new listeners every day.' },
-  { id: 'time', label: 'No time to make content', sub: "I'd rather be making music", icon: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', fix: 'The content is ready-made. You only post.' },
-  { id: 'money', label: 'Promo is too expensive', sub: 'Playlists and ads eat my budget', icon: '<circle cx="12" cy="12" r="9"/><path d="M14.5 9.5C14 8.6 13.1 8 12 8c-1.4 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1.1 2-2.5 2c-1.1 0-2-.6-2.5-1.5M12 6.5V8M12 16v1.5"/>', fix: 'One-time cost, no ad budget, and it keeps working.' },
-  { id: 'unknown', label: "I don't know what works", sub: 'Too much conflicting advice', icon: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17v.01"/>', fix: 'A proven format with a step-by-step playbook.' },
-  { id: 'face', label: "I don't want to show my face", sub: 'Not comfortable on camera', icon: '<path d="M3 3l18 18"/><path d="M10.6 6.1A9.5 9.5 0 0 1 12 6c5 0 8.5 4 9.5 6-.4.8-1.1 1.8-2.1 2.8M6.4 7.4C4.5 8.8 3.3 10.6 2.5 12c1 2 4.5 6 9.5 6 1.6 0 3-.4 4.2-1M10 10a3 3 0 0 0 4 4"/>', fix: "100% faceless. You're never on camera." },
+export const BLOCKERS: Option<BlockerId>[] = [
+  { id: 'reach', label: 'Nobody hears my music', icon: '<path d="M11 5 6 9H2v6h4l5 4z"/><path d="m22 9-6 6M16 9l6 6"/>' },
+  { id: 'money', label: 'Promo is too expensive', icon: '<circle cx="12" cy="12" r="9"/><path d="M14.5 9.5C14 8.6 13.1 8 12 8c-1.4 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1.1 2-2.5 2c-1.1 0-2-.6-2.5-1.5M12 6.5V8M12 16v1.5"/>' },
+  { id: 'content', label: 'Making content is hard', icon: '<rect x="2" y="6" width="14" height="12" rx="3"/><path d="m16 10 6-3v10l-6-3"/>' },
+  { id: 'effort', label: "It's too much work", icon: '<rect x="2" y="7" width="17" height="10" rx="2"/><path d="M22 11v2M6 10v4"/>' },
+  { id: 'network', label: "I don't have the network", icon: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5c2 .8 3.5 2.7 3.5 5.5"/>' },
 ];
 
 export const AGES: Option<AgeId>[] = [
