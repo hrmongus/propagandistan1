@@ -203,7 +203,6 @@ export function Search({ state, dispatch, next, back }: ScreenProps) {
                   <span style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
                     <span className="fpb-ellipsis" style={{ font: '600 16px/1.2 var(--font-sans)', letterSpacing: '-0.01em' }}>{t.title}</span>
                     <span className="fpb-ellipsis" style={{ fontSize: 13, lineHeight: 1.2, color: 'var(--text-secondary)' }}>{t.artists.join(', ')}{year(t.releaseDate) && ` · ${year(t.releaseDate)}`}</span>
-                    <span className="fpb-live">ON SPOTIFY</span>
                   </span>
                   {on && <Check on />}
                 </button>
