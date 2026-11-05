@@ -66,10 +66,10 @@ export const TRIED: Option<TriedId>[] = [
 ];
 
 export const DAILY_TIME: Option<DailyTimeId>[] = [
-  { id: '5', label: '5 minutes', sub: 'Just the basics' },
-  { id: '15', label: '15 minutes', sub: 'A quick daily routine' },
-  { id: '30', label: '30 minutes', sub: 'I can commit some time' },
-  { id: '60', label: 'An hour or more', sub: "I'm all in" },
+  { id: '5', label: '5 minutes', sub: 'Just the basics', icon: '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>' },
+  { id: '15', label: '15 minutes', sub: 'A quick daily routine', icon: '<path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3v3M12 3v3"/>' },
+  { id: '30', label: '30 minutes', sub: 'I can commit some time', icon: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M10 2h4"/>' },
+  { id: '60', label: 'An hour or more', sub: "I'm all in", icon: '<path d="M12 3c1 4 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 .3 1.5 1 2 2 2 0-3-1-5 1-8z"/>' },
 ];
 
 export const RELEASES: (Option<ReleaseId> & { urgency: string })[] = [

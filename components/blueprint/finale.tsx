@@ -160,7 +160,7 @@ export function EmailGate({ state, dispatch, back }: ScreenProps) {
   const pages = metrics?.pages.map((p) => aestheticById(p.aesthetic)) ?? [];
   return (
     <div className="fpb-screen" style={{ position: 'relative', overflow: 'hidden' }}>
-      <div aria-hidden="true" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', gap: 20, padding: '70px 20px 0', filter: 'blur(9px)', opacity: 0.8, pointerEvents: 'none' }}>
+      <div aria-hidden="true" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', gap: 20, padding: '70px 20px 0', filter: 'blur(4px)', opacity: 0.85, pointerEvents: 'none' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 12, borderRadius: 20, background: 'var(--surface-card)' }}>
           <Img src={state.track?.artworkUrl} style={{ width: 48, height: 48, borderRadius: 10 }} />
           <span style={{ font: '600 15px/1.2 var(--font-sans)' }}>{state.track?.title}</span>
@@ -200,7 +200,7 @@ export function EmailGate({ state, dispatch, back }: ScreenProps) {
               { v: goal?.short ?? '', l: 'Your Blueprint' },
             ].map((x) => (
               <div key={x.l} style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '12px 10px', borderRadius: 16, background: 'var(--ink-200)', textAlign: 'center' }}>
-                <span aria-hidden="true" style={{ font: '600 22px/1 var(--font-mono)', letterSpacing: '-0.02em', color: x.c ?? 'var(--text-primary)', filter: 'blur(6px)', userSelect: 'none' }}>{x.v}</span>
+                <span aria-hidden="true" style={{ font: '600 22px/1 var(--font-mono)', letterSpacing: '-0.02em', color: x.c ?? 'var(--text-primary)', filter: 'blur(3.5px)', userSelect: 'none' }}>{x.v}</span>
                 <span style={{ fontSize: 11, lineHeight: 1.25, color: 'var(--text-secondary)' }}>{x.l}</span>
               </div>
             ))}
@@ -210,7 +210,7 @@ export function EmailGate({ state, dispatch, back }: ScreenProps) {
             <label className="fpb-field light"><input type={TEST_MODE ? 'text' : 'email'} required={!TEST_MODE} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" autoComplete="email" aria-label="Email" inputMode="email" maxLength={254} /></label>
           </div>
           {error && <p role="alert" style={{ margin: 0, fontSize: 13, lineHeight: 1.4, color: '#FF8A6E' }}>{error}</p>}
-          <button type="submit" className="fpb-btn primary" disabled={busy || (!TEST_MODE && !email)}>{busy ? 'Saving your Blueprint…' : 'Show my blueprint'}</button>
+          <button type="submit" className="fpb-btn signal" disabled={busy || (!TEST_MODE && !email)}>{busy ? 'Saving your Blueprint…' : 'Show my blueprint'}</button>
           <p className="fpb-fine">We also email you a link to your results. No spam.</p>
         </form>
       </div>
