@@ -3,7 +3,7 @@ import { config } from '@/lib/config';
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: '*', allow: '/', disallow: ['/checkout', '/access', '/analyzer', '/s/', '/dev'] },
+    rules: { userAgent: '*', allow: '/', disallow: ['/checkout', '/access', '/analyzer', '/s/', '/dev', '/fanpage-blueprint'] },
     sitemap: `${config.siteUrl}/sitemap.xml`,
   };
 }
