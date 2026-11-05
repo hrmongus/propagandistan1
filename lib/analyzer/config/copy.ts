@@ -45,9 +45,13 @@ export const PROOF: Proof[] = [
 ];
 
 /** TODO(launch): label logos need permission (HANDOFF.md §8); empty slots keep the space until then. */
-export const LABEL_LOGOS: { name: string; src: string | null }[] = [
-  { name: 'Label', src: null }, { name: 'Label', src: null }, { name: 'Label', src: null }, { name: 'Label', src: null },
-];
+export const LABEL_LOGOS: { name: string; src: string; h: number }[] = [
+  { name: 'Universal Music Group', src: ASSET('logo/labels/umg.png'), h: 8.5 },
+  { name: 'Sony Music', src: ASSET('logo/labels/sony.png'), h: 34 },
+  { name: 'Warner Music Group', src: ASSET('logo/labels/wmg.png'), h: 26 },
+  { name: 'Atlantic Records', src: ASSET('logo/labels/atlantic.png'), h: 34 },
+  { name: 'Columbia Records', src: ASSET('logo/labels/columbia.png'), h: 20 },
+]
 
 /**
  * Analyzing screen status lines (one every ~1.6s). v1 has no audio analysis, so the mock's "reading the audio /

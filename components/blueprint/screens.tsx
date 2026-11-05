@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type Dispatch, type ReactNode } from 'react';
 import {
   AESTHETICS, AGES, ARTIST_COUNT, ASSET, BLOCKERS, FANPAGE_EXAMPLES, LANDING_AVATARS, DAILY_TIME, EXPERIENCE, GENDERS, LABEL_LOGOS, LANDING_FAQ, LIMITS,
-  LISTENER_BRACKETS, LISTENER_SHORT, LISTENER_START, MAJOR_LABELS, MOMENTS, PROOF, RELEASES, TRIED, aestheticById, goalsFor, type Option,
+  LISTENER_BRACKETS, LISTENER_SHORT, LISTENER_START, MOMENTS, PROOF, RELEASES, TRIED, aestheticById, goalsFor, type Option,
 } from '@/lib/analyzer/config';
 import type { SpotifyTrack } from '@/lib/analyzer/spotify';
 import { GoalChart } from './charts';
@@ -49,6 +49,18 @@ function SingleList<T extends string>({ options, value, onPick, smallIcon }: { o
   return (
     <div className="fpb-options" role="radiogroup">
       {options.map((o) => <OptionCard key={o.id} label={o.label} sub={o.sub} icon={o.icon} smallIcon={smallIcon} selected={value === o.id} onClick={() => onPick(o.id)} />)}
+    </div>
+  );
+}
+
+/** Major-label logos (white on transparent), sized per mark so they read at a similar weight. */
+function LabelLogos() {
+  return (
+    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', gap: '16px 26px', padding: '4px 0', opacity: 0.72 }}>
+      {LABEL_LOGOS.map((l) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img key={l.name} src={l.src} alt={l.name} style={{ height: l.h, width: 'auto', display: 'block' }} />
+      ))}
     </div>
   );
 }
@@ -101,9 +113,7 @@ export function Landing({ state, dispatch, next }: ScreenProps) {
 
         <section style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
           <span style={{ fontSize: 13, color: 'var(--text-tertiary)' }}>Used by all major labels</span>
-          <div style={{ width: '100%', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '10px 28px', padding: '4px 0' }}>
-            {MAJOR_LABELS.map((n) => <span key={n} style={{ font: '700 15px/1 var(--font-sans)', letterSpacing: '-0.02em', color: 'var(--ink-600)', whiteSpace: 'nowrap' }}>{n}</span>)}
-          </div>
+          <LabelLogos />
         </section>
 
         <section style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
@@ -282,12 +292,7 @@ export function DidYouKnow({ back, next }: ScreenProps) {
         Major labels run fan page networks for their biggest releases. <span style={{ color: 'var(--text-primary)', fontWeight: 500 }}>New audiences, every day.</span>
       </p>
       <span className="fpb-meta" style={{ alignSelf: 'center' }}>USED BY</span>
-      {/* TODO(launch): label logos need permission; the slots keep the space. */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 8, marginTop: -4 }}>
-        {LABEL_LOGOS.map((l, i) => (
-          <Img key={i} src={l.src} label={l.src ? l.name : undefined} style={{ height: 40, borderRadius: 14, border: '1px solid var(--border-default)', backgroundColor: 'transparent', backgroundImage: l.src ? undefined : 'none', backgroundSize: 'contain' }} />
-        ))}
-      </div>
+      <LabelLogos />
       <p className="fpb-lede sm">Keep going. A few more questions and your strategy is ready.</p>
     </QuizScreen>
   );

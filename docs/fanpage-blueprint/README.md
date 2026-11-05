@@ -78,6 +78,6 @@ Every image slot renders a grey placeholder at the final size until its file exi
 ### Still placeholder (HANDOFF.md §8, must change before launch)
 - `FANPAGE_EXAMPLES` (screen 09 carousel): the post grids are real screenshots, but the handles, names, avatars and Following/Followers/Likes counts are placeholders. Replace them with the real pages' details.
 
-`ARTIST_COUNT`, `LABEL_LOGOS`, the "#1 organic method" claim on 03, the $57
+`ARTIST_COUNT`, the "#1 organic method" claim on 03, the $57
 anchor (`PRICES.packWas`), kit stock (comes from `lib/data.ts`, same as the live site), example follower counts on 09.
 Spotify attribution: the results track card links to Spotify ("Open Spotify"); the Spotify logo isn't placed yet.
