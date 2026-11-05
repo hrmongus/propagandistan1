@@ -53,14 +53,16 @@ function SingleList<T extends string>({ options, value, onPick, smallIcon }: { o
   );
 }
 
-/** Major-label logos (white on transparent), sized per mark so they read at a similar weight. */
+/** Major-label logos (white on transparent) as an endless carousel; the list is doubled so the loop is seamless. */
 function LabelLogos() {
   return (
-    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', gap: '16px 26px', padding: '4px 0', opacity: 0.72 }}>
-      {LABEL_LOGOS.map((l) => (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img key={l.name} src={l.src} alt={l.name} style={{ height: l.h, width: 'auto', display: 'block' }} />
-      ))}
+    <div className="fpb-marquee" role="list" aria-label="Major labels">
+      <div className="fpb-marquee-track">
+        {[...LABEL_LOGOS, ...LABEL_LOGOS].map((l, i) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img key={i} role="listitem" src={l.src} alt={i < LABEL_LOGOS.length ? l.name : ''} aria-hidden={i >= LABEL_LOGOS.length || undefined} style={{ height: l.h, width: 'auto', display: 'block', flex: 'none' }} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -46,11 +46,16 @@ export const PROOF: Proof[] = [
 
 /** TODO(launch): label logos need permission (HANDOFF.md §8); empty slots keep the space until then. */
 export const LABEL_LOGOS: { name: string; src: string; h: number }[] = [
-  { name: 'Universal Music Group', src: ASSET('logo/labels/umg.png'), h: 8.5 },
+  { name: 'Universal Music Group', src: ASSET('logo/labels/umg.png'), h: 8 },
   { name: 'Sony Music', src: ASSET('logo/labels/sony.png'), h: 34 },
   { name: 'Warner Music Group', src: ASSET('logo/labels/wmg.png'), h: 26 },
   { name: 'Atlantic Records', src: ASSET('logo/labels/atlantic.png'), h: 34 },
   { name: 'Columbia Records', src: ASSET('logo/labels/columbia.png'), h: 20 },
+  { name: 'Interscope Records', src: ASSET('logo/labels/interscope.png'), h: 36 },
+  { name: 'Def Jam Recordings', src: ASSET('logo/labels/defjam.png'), h: 30 },
+  { name: 'Republic Records', src: ASSET('logo/labels/republic.png'), h: 30 },
+  { name: 'Island Records', src: ASSET('logo/labels/island.png'), h: 18 },
+  { name: 'Epic Records', src: ASSET('logo/labels/epic.png'), h: 22 },
 ]
 
 /**
