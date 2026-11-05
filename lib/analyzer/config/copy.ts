@@ -30,7 +30,7 @@ export const RESULTS_FAQ: { q: string; a: string }[] = [
   { q: "What if it doesn't work for me?", a: "You're covered by our 30-day money-back guarantee." },
 ];
 
-export type Proof = { initial: string; name: string; meta: string; verified: boolean; stars: number; quote: string; image: string; imageAlt: string; caption?: string; position?: string };
+export type Proof = { initial: string; name: string; meta: string; verified: boolean; stars: number; quote: string; image: string | null; imageAlt: string; caption?: string; position?: string };
 
 /** Artist reviews with their Spotify for Artists screenshots (assets/proof/n.jpg). */
 export const PROOF: Proof[] = [
@@ -38,8 +38,8 @@ export const PROOF: Proof[] = [
   { initial: 'M', name: '@miraellison', meta: 'Portland, Oregon', verified: true, stars: 5, quote: 'my streams grow crazy!', image: ASSET('proof/2.jpg'), imageAlt: 'Spotify for Artists: 6,502,946 streams and 1,467,028 listeners, March to August' },
   { initial: 'C', name: '@cassidyrowe', meta: 'Nashville, Tennessee', verified: true, stars: 5, quote: 'faceless is the way to go. saved me for sure', image: ASSET('proof/3.jpg'), imageAlt: 'Spotify for Artists chart rising from near zero to over 2,000 per day, April to July' },
   { initial: 'J', name: '@juniperkade', meta: 'Denver, Colorado', verified: true, stars: 5, quote: 'ditched all paid promo. fanpages are better than all the rest combined', image: ASSET('proof/4.jpg'), imageAlt: 'Spotify for Artists chart rising from under 1,000 to over 40,000 per day, Apr 20 to Sep 17, 2026' },
-  { initial: 'T', name: '@theoashford', meta: 'Brooklyn, New York', verified: true, stars: 5, quote: 'my monthly listeners almost doubled 2nd month in a row', image: ASSET('proof/5.jpg'), imageAlt: 'Spotify for Artists: 1,904,255 listeners and 8,048,093 streams, April to August' },
-  { initial: 'S', name: '@sablequin', meta: 'Chicago, Illinois', verified: true, stars: 5, quote: 'never thought i will reach this number this fast', image: ASSET('proof/6.jpg'), imageAlt: 'Spotify for Artists chart rising from near zero to over 3,000 per day, December to July' },
+  { initial: 'T', name: '@theoashford', meta: 'Brooklyn, New York', verified: true, stars: 5, quote: 'my monthly listeners almost doubled 2nd month in a row', image: null /* TODO: proof/5.jpg once the screenshot is resent */, imageAlt: 'Spotify for Artists: 1,904,255 listeners and 8,048,093 streams, April to August' },
+  { initial: 'S', name: '@sablequin', meta: 'Chicago, Illinois', verified: true, stars: 5, quote: 'never thought i will reach this number this fast', image: null /* TODO: proof/6.jpg once the screenshot is resent */, imageAlt: 'Spotify for Artists chart rising from near zero to over 3,000 per day, December to July' },
 ];
 
 /** TODO(launch): label logos need permission (HANDOFF.md §8); empty slots keep the space until then. */

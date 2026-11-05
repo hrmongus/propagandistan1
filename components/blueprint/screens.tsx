@@ -724,7 +724,7 @@ export function ProofCards() {
             </div>
             <Stars n={p.stars} />
             <p style={{ margin: 0, font: '600 19px/1.25 var(--font-sans)', letterSpacing: '-0.02em' }}>&ldquo;{p.quote}&rdquo;</p>
-            <Img src={p.image} label={p.imageAlt} style={{ width: '100%', height: 220, borderRadius: 14, backgroundColor: '#fff', backgroundSize: 'contain, 0 0', backgroundPosition: p.position ?? 'center' }} />
+            {p.image && <Img src={p.image} label={p.imageAlt} style={{ width: '100%', height: 220, borderRadius: 14, backgroundColor: '#fff', backgroundSize: 'contain, 0 0', backgroundPosition: p.position ?? 'center' }} />}
             {p.caption && <span style={{ font: '400 11px/1.2 var(--font-mono)', color: 'var(--text-tertiary)' }}>{p.caption}</span>}
           </article>
         ))}
