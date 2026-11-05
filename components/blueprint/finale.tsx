@@ -8,6 +8,11 @@ import { setStrategyId, track } from '@/lib/analyzer/track';
 import { ICONS, Icon, Img, Logo } from './ui';
 import type { ScreenProps } from './screens';
 
+/** sessionStorage key for an unsaved test result (see /fanpage-blueprint/results). */
+export const PREVIEW_KEY = 'fpb_unsaved_result';
+/** The email check is off on non-production builds (testing). */
+const TEST_MODE = process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production';
+
 const audienceLabel = (a: Partial<QuizAnswers>) => [a.age?.join(', '), GENDERS.find((g) => g.id === a.gender)?.label.replace('Mostly ', '')].filter(Boolean).join(' · ');
 
 function useMetrics(s: ScreenProps['state']) {
@@ -135,6 +140,12 @@ export function EmailGate({ state }: ScreenProps) {
         body: JSON.stringify({ track: state.track, answers: state.answers, firstName, email }),
       });
       const data = await res.json().catch(() => ({}));
+      // Test builds only: the database rejected the save, so show the results unsaved.
+      if (res.ok && data.saved === false && data.preview) {
+        try { sessionStorage.setItem(PREVIEW_KEY, JSON.stringify({ ...data.preview, reason: data.reason })); } catch { /* ignore */ }
+        router.push('/fanpage-blueprint/results');
+        return;
+      }
       if (!res.ok || !data.id) throw new Error(data.error ?? 'save_failed');
       setStrategyId(data.id);
       track('email_submitted', 'email-gate', data.id);
@@ -186,10 +197,10 @@ export function EmailGate({ state }: ScreenProps) {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             <label className="fpb-field light"><input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="First name" autoComplete="given-name" aria-label="First name" maxLength={80} /></label>
-            <label className="fpb-field light"><input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" autoComplete="email" aria-label="Email" inputMode="email" maxLength={254} /></label>
+            <label className="fpb-field light"><input type={TEST_MODE ? 'text' : 'email'} required={!TEST_MODE} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" autoComplete="email" aria-label="Email" inputMode="email" maxLength={254} /></label>
           </div>
           {error && <p role="alert" style={{ margin: 0, fontSize: 13, lineHeight: 1.4, color: '#FF8A6E' }}>{error}</p>}
-          <button type="submit" className="fpb-btn primary" disabled={busy || !email}>{busy ? 'Saving your Blueprint…' : 'Show my blueprint'}</button>
+          <button type="submit" className="fpb-btn primary" disabled={busy || (!TEST_MODE && !email)}>{busy ? 'Saving your Blueprint…' : 'Show my blueprint'}</button>
           <p className="fpb-fine">We also email you a link to your results. No spam.</p>
         </form>
       </div>

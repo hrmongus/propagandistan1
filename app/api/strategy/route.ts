@@ -10,6 +10,9 @@ import { config } from '@/lib/config';
 
 export const maxDuration = 15;
 
+/** Preview and local builds: email check off, unsaved results allowed. Never on the production deployment. */
+const TEST_MODE = process.env.VERCEL_ENV !== 'production';
+
 type Track = { id: string; title: string; artists: string[]; artworkUrl?: string | null; releaseDate?: string | null; spotifyUrl?: string };
 
 const s = (v: unknown, max: number) => (typeof v === 'string' && v.trim() ? v.trim().slice(0, max) : undefined);
@@ -54,7 +57,8 @@ function parseAnswers(v: unknown): QuizAnswers | null {
 export async function POST(req: Request) {
   const t0 = performance.now();
   const b = ((await req.json().catch(() => null)) ?? {}) as Record<string, unknown>;
-  const email = checkEmail(b.email);
+  // TESTING: outside production the email check is off (any value is accepted). Production keeps it.
+  const email = TEST_MODE ? { ok: true as const, email: String(b.email ?? '').trim().slice(0, 254) || 'test@example.com' } : checkEmail(b.email);
   if (!email.ok) return Response.json({ error: email.error }, { status: 400 });
   const track = parseTrack(b.track), answers = parseAnswers(b.answers);
   if (!track) return Response.json({ error: 'invalid_track' }, { status: 400 });
@@ -77,6 +81,11 @@ export async function POST(req: Request) {
     if (!error) break;
     if (error.code !== '23505' || attempt === 2) {
       console.error('[strategy] insert failed', error);
+      // TESTING: outside production, hand the results back unsaved so the flow can be tested without the database.
+      if (TEST_MODE) {
+        const { email: _omit, ...publicRow } = row; // eslint-disable-line @typescript-eslint/no-unused-vars -- never send the email back
+        return Response.json({ id: null, saved: false, reason: error.message, preview: { id: 'Unsaved1', ...publicRow } });
+      }
       return Response.json({ error: 'save_failed' }, { status: 500 });
     }
   }
