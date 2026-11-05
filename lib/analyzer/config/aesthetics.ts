@@ -6,9 +6,15 @@ import { ASSET } from './packs';
  * pack mapping from HANDOFF.md §4. Handles for light academia / clean girl / coquette come from the mock-ups; the
  * rest are example handles in the same style.
  */
-const tiles = (...n: string[]) => n.map((x) => ASSET(`imagery/tile-${x}.png`));
+/**
+ * Mood-board images live in public/fanpage-blueprint/assets/aesthetics/<id>/1.jpg, 2.jpg, 3.jpg
+ * (1 = the tall left slot). Aesthetics without files yet show placeholders until they're added.
+ */
+const board = (id: string) => [1, 2, 3].map((n) => ASSET(`aesthetics/${id}/${n}.jpg`));
 
-const a = (id: string, name: string, pack: PackId, genres: string, t: string[], handle: string, angle: string): Aesthetic => ({ id, name, pack, genres, images: t, handle, angle });
+const a = (id: string, name: string, pack: PackId, genres: string, _tiles: string[], handle: string, angle: string): Aesthetic => ({ id, name, pack, genres, images: board(id), handle, angle });
+// The mock's tile numbers (kept below as the 5th argument) were placeholders; they're no longer used.
+const tiles = (...n: string[]) => n;
 
 export const AESTHETICS: Aesthetic[] = [
   a('old-money', 'Old money', 'golden', 'Jazz · soft piano · restrained pop', tiles('12', '20', '04'), 'quiet.luxury.sounds', 'Quiet luxury, slow pans, timeless rooms'),
