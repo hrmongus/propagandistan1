@@ -30,16 +30,16 @@ export const RESULTS_FAQ: { q: string; a: string }[] = [
   { q: "What if it doesn't work for me?", a: "You're covered by our 30-day money-back guarantee." },
 ];
 
-export type Proof = { initial: string; name: string; meta: string; verified: boolean; stars: number; headline: string; quote: string; image: string; imageAlt: string; caption?: string; position?: string };
+export type Proof = { initial: string; name: string; meta: string; verified: boolean; stars: number; quote: string; image: string; imageAlt: string; caption?: string; position?: string };
 
 /** Artist reviews with their Spotify for Artists screenshots (assets/proof/n.jpg). */
 export const PROOF: Proof[] = [
-  { initial: 'L', name: '@lennoxvale', meta: 'Austin, Texas', verified: true, stars: 5, headline: '1.85M listeners in 8 months.', quote: 'consistency pays big in listeners', image: ASSET('proof/1.jpg'), imageAlt: 'Spotify for Artists: 1,853,687 listeners and 7,987,904 streams, Jan 25 to Sep 22, 2026' },
-  { initial: 'M', name: '@miraellison', meta: 'Portland, Oregon', verified: true, stars: 5, headline: '6.5M streams in 5 months.', quote: 'my streams grow crazy!', image: ASSET('proof/2.jpg'), imageAlt: 'Spotify for Artists: 6,502,946 streams and 1,467,028 listeners, March to August' },
-  { initial: 'C', name: '@cassidyrowe', meta: 'Nashville, Tennessee', verified: true, stars: 5, headline: '0 → 2,000+ a day in 4 months.', quote: 'faceless is the way to go. saved me for sure', image: ASSET('proof/3.jpg'), imageAlt: 'Spotify for Artists chart rising from near zero to over 2,000 per day, April to July' },
-  { initial: 'J', name: '@juniperkade', meta: 'Denver, Colorado', verified: true, stars: 5, headline: 'Under 1K → 40K+ a day in 5 months.', quote: 'ditched all paid promo. fanpages are better than all the rest combined', image: ASSET('proof/4.jpg'), imageAlt: 'Spotify for Artists chart rising from under 1,000 to over 40,000 per day, Apr 20 to Sep 17, 2026' },
-  { initial: 'T', name: '@theoashford', meta: 'Brooklyn, New York', verified: true, stars: 5, headline: '1.9M listeners in 4 months.', quote: 'my monthly listeners almost doubled 2nd month in a row', image: ASSET('proof/5.jpg'), imageAlt: 'Spotify for Artists: 1,904,255 listeners and 8,048,093 streams, April to August' },
-  { initial: 'S', name: '@sablequin', meta: 'Chicago, Illinois', verified: true, stars: 5, headline: '0 → 3,000+ a day in 7 months.', quote: 'never thought i will reach this number this fast', image: ASSET('proof/6.jpg'), imageAlt: 'Spotify for Artists chart rising from near zero to over 3,000 per day, December to July' },
+  { initial: 'L', name: '@lennoxvale', meta: 'Austin, Texas', verified: true, stars: 5, quote: 'consistency pays big in listeners', image: ASSET('proof/1.jpg'), imageAlt: 'Spotify for Artists: 1,853,687 listeners and 7,987,904 streams, Jan 25 to Sep 22, 2026' },
+  { initial: 'M', name: '@miraellison', meta: 'Portland, Oregon', verified: true, stars: 5, quote: 'my streams grow crazy!', image: ASSET('proof/2.jpg'), imageAlt: 'Spotify for Artists: 6,502,946 streams and 1,467,028 listeners, March to August' },
+  { initial: 'C', name: '@cassidyrowe', meta: 'Nashville, Tennessee', verified: true, stars: 5, quote: 'faceless is the way to go. saved me for sure', image: ASSET('proof/3.jpg'), imageAlt: 'Spotify for Artists chart rising from near zero to over 2,000 per day, April to July' },
+  { initial: 'J', name: '@juniperkade', meta: 'Denver, Colorado', verified: true, stars: 5, quote: 'ditched all paid promo. fanpages are better than all the rest combined', image: ASSET('proof/4.jpg'), imageAlt: 'Spotify for Artists chart rising from under 1,000 to over 40,000 per day, Apr 20 to Sep 17, 2026' },
+  { initial: 'T', name: '@theoashford', meta: 'Brooklyn, New York', verified: true, stars: 5, quote: 'my monthly listeners almost doubled 2nd month in a row', image: ASSET('proof/5.jpg'), imageAlt: 'Spotify for Artists: 1,904,255 listeners and 8,048,093 streams, April to August' },
+  { initial: 'S', name: '@sablequin', meta: 'Chicago, Illinois', verified: true, stars: 5, quote: 'never thought i will reach this number this fast', image: ASSET('proof/6.jpg'), imageAlt: 'Spotify for Artists chart rising from near zero to over 3,000 per day, December to July' },
 ];
 
 /** TODO(launch): label logos need permission (HANDOFF.md §8); empty slots keep the space until then. */

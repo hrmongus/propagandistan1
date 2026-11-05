@@ -723,8 +723,7 @@ export function ProofCards() {
               {p.verified && <span style={{ display: 'flex', alignItems: 'center', gap: 4, font: '500 10px/1 var(--font-mono)', letterSpacing: '.06em', color: 'var(--signal-400)' }}><Icon d={ICONS.check} size={12} stroke={2.6} />VERIFIED</span>}
             </div>
             <Stars n={p.stars} />
-            <span style={{ font: '600 18px/1.2 var(--font-sans)', letterSpacing: '-0.02em' }}>{p.headline}</span>
-            <p style={{ margin: 0, fontSize: 14, lineHeight: 1.45, color: 'var(--text-secondary)' }}>&ldquo;{p.quote}&rdquo;</p>
+            <p style={{ margin: 0, font: '600 19px/1.25 var(--font-sans)', letterSpacing: '-0.02em' }}>&ldquo;{p.quote}&rdquo;</p>
             <Img src={p.image} label={p.imageAlt} style={{ width: '100%', height: 220, borderRadius: 14, backgroundColor: '#fff', backgroundSize: 'contain, 0 0', backgroundPosition: p.position ?? 'center' }} />
             {p.caption && <span style={{ font: '400 11px/1.2 var(--font-mono)', color: 'var(--text-tertiary)' }}>{p.caption}</span>}
           </article>
