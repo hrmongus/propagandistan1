@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { createCheckoutSession } from '@/app/checkout/actions';
 import { distinctId, track as phTrack } from '@/lib/analytics/client';
 import {
-  GENDERS, GOALS, OFFER_BULLETS, PACK_INCLUDES, RESULTS_FAQ, aestheticById, momentById, packById, type PackId, type QuizAnswers,
+  GENDERS, GOALS, OFFER_BULLETS, PACK_INCLUDES, PACKS, RESULTS_FAQ, aestheticById, momentById, packById, type PackId, type QuizAnswers,
 } from '@/lib/analyzer/config';
 import type { Metrics } from '@/lib/analyzer/metrics';
 import type { SpotifyTrack } from '@/lib/analyzer/spotify';
@@ -43,18 +43,16 @@ function audienceLine(a: QuizAnswers, momentId?: string) {
   return [a.age?.join(', '), gender, moment].filter(Boolean).join(' · ');
 }
 
-/** Reel mock: kit image, hook on top, optional lyric line, audio pill. Tap-to-play arrives with the real pack clips. */
+/** Reel mock: the kit's example clip (muted, looping), hook on top, optional lyric line, audio pill. */
 function ReelMock({ kit, hook, lyric, title }: { kit: PackId; hook: string; lyric: string | null; title: string }) {
   const pack = packById(kit);
   return (
     <div className="fpb-reel" style={{ height: 235, borderRadius: 20 }}>
       <Img src={pack.cover} label={`Example post from the ${pack.name} kit`} style={{ position: 'absolute', inset: 0 }} />
+      <video key={pack.id} src={pack.previewClipUrl} poster={pack.cover} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
       <div className="scrim-t" /><div className="scrim-b" />
       <p style={{ position: 'absolute', top: 18, left: 10, right: 10, margin: 0, textAlign: 'center', font: '500 10.5px/1.3 var(--font-sans)', color: '#fff' }}>{hook}</p>
       {lyric && <p style={{ position: 'absolute', top: 118, left: 10, right: 10, margin: 0, textAlign: 'center', font: '500 11px/1.3 var(--font-sans)', color: '#fff' }}>{lyric}</p>}
-      <span style={{ position: 'absolute', top: 74, left: '50%', marginLeft: -20, width: 40, height: 40, borderRadius: '50%', background: 'var(--glass-dark)', border: '1px solid rgba(255,255,255,0.28)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff" aria-hidden="true" dangerouslySetInnerHTML={{ __html: ICONS.play }} />
-      </span>
       <div className="audio-pill" style={{ left: 8, right: 8, bottom: 8, height: 20, font: '500 9px/1 var(--font-sans)' }}>
         <Icon d={ICONS.wave} size={9} stroke={3} color="#22D46B" /><span className="fpb-ellipsis">{title}</span>
       </div>
@@ -236,6 +234,20 @@ export function Results({ row }: { row: StrategyRow }) {
             <span className="fpb-overline">YOUR STARTER FAN PAGE</span>
             <h2 className="fpb-h3">Start your faceless fan page now.</h2>
           </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <span style={{ font: '500 10px/1 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-tertiary)' }}>EXAMPLE CONTENT</span>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 6 }}>
+              {PACKS.map((pk) => (
+                <figure key={pk.id} style={{ margin: 0, display: 'flex', flexDirection: 'column', gap: 5 }}>
+                  <span style={{ position: 'relative', aspectRatio: '9 / 16', borderRadius: 10, overflow: 'hidden', outline: pk.id === kit ? '2px solid var(--signal-500)' : 'none', outlineOffset: 1 }}>
+                    <Img src={pk.cover} style={{ position: 'absolute', inset: 0 }} />
+                    <video src={pk.previewClipUrl} poster={pk.cover} autoPlay muted loop playsInline preload="metadata" aria-label={`Example clip from the ${pk.name} kit`} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </span>
+                  <figcaption className="fpb-ellipsis" style={{ fontSize: 10.5, textAlign: 'center', color: pk.id === kit ? 'var(--text-primary)' : 'var(--text-tertiary)' }}>{pk.name}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
           <div role="radiogroup" aria-label="Choose your fan page kit" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <span style={{ font: '500 10px/1 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-tertiary)' }}>CHOOSE YOUR KIT</span>
             {pages.map((p, i) => {
@@ -318,7 +330,10 @@ function OfferSheet({ row, kit, handle, aesthetic, onClose, onNext }: { row: Str
       </div>
       <article style={{ display: 'flex', flexDirection: 'column', borderRadius: 24, background: 'var(--surface-card)', border: '1.5px solid var(--ink-900)', overflow: 'hidden', flex: 'none' }}>
         <div style={{ display: 'flex', gap: 14, padding: 16 }}>
-          <Img src={pack.cover} label={`${pack.name} pack`} style={{ width: 72, height: 96, borderRadius: 14, flex: 'none' }} />
+          <span style={{ position: 'relative', width: 72, height: 128, borderRadius: 14, overflow: 'hidden', flex: 'none' }}>
+            <Img src={pack.cover} label={`${pack.name} pack`} style={{ position: 'absolute', inset: 0 }} />
+            <video key={pack.id} src={pack.previewClipUrl} poster={pack.cover} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+          </span>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0 }}>
             <span style={{ font: '600 18px/1.2 var(--font-sans)', letterSpacing: '-0.01em' }}>{pack.name} pack</span>
             <span style={{ fontSize: 13, lineHeight: 1.35, color: 'var(--text-secondary)' }}>Built for your @{handle} page · {aesthetic}</span>

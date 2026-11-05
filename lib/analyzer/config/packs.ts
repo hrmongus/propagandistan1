@@ -4,10 +4,10 @@ import type { Pack, PackId } from './types';
 export const ASSET = (path: string) => `/fanpage-blueprint/assets/${path}`;
 
 export const PACKS: Pack[] = [
-  { id: 'golden', name: 'Golden Hour', checkoutSlug: 'golden-hour', cover: ASSET('imagery/pack-golden-hour.png'), previewClipUrl: '/analyzer/pack-golden.mp4' },
-  { id: 'midnight', name: 'Midnight City', checkoutSlug: 'midnight-city', cover: ASSET('imagery/pack-midnight-city.png'), previewClipUrl: '/analyzer/pack-midnight.mp4' },
-  { id: 'coastal', name: 'Coastal Drive', checkoutSlug: 'coastal-drive', cover: ASSET('imagery/pack-coastal-drive.png'), previewClipUrl: '/analyzer/pack-coastal.mp4' },
-  { id: 'forest', name: 'Forest Trail', checkoutSlug: 'forest-trail', cover: ASSET('imagery/pack-forest-trail.png'), previewClipUrl: '/analyzer/pack-forest.mp4' },
+  { id: 'golden', name: 'Golden Hour', checkoutSlug: 'golden-hour', cover: ASSET('video/pack-golden.jpg'), previewClipUrl: ASSET('video/pack-golden.mp4') },
+  { id: 'midnight', name: 'Midnight City', checkoutSlug: 'midnight-city', cover: ASSET('video/pack-midnight.jpg'), previewClipUrl: ASSET('video/pack-midnight.mp4') },
+  { id: 'coastal', name: 'Coastal Drive', checkoutSlug: 'coastal-drive', cover: ASSET('video/pack-coastal.jpg'), previewClipUrl: ASSET('video/pack-coastal.mp4') },
+  { id: 'forest', name: 'Forest Trail', checkoutSlug: 'forest-trail', cover: ASSET('video/pack-forest.jpg'), previewClipUrl: ASSET('video/pack-forest.mp4') },
 ];
 
 export const packById = (id: PackId) => PACKS.find((p) => p.id === id)!;
