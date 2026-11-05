@@ -16,6 +16,10 @@ export async function GET(req: Request) {
     }
     return Response.json({ track, ms });
   } catch (e) {
+    if (e instanceof Error && e.message.includes('not set')) {
+      console.error('[spotify] SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET missing in this deployment');
+      return Response.json({ error: 'spotify_not_configured' }, { status: 503 });
+    }
     if (e instanceof SpotifyError && (e.status === 404 || e.status === 400)) return Response.json({ error: 'not_found' }, { status: 404 });
     console.error('[spotify/track]', e);
     return Response.json({ error: 'lookup_failed' }, { status: 502 });

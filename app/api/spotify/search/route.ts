@@ -9,6 +9,10 @@ export async function GET(req: Request) {
     const tracks = await searchTracks(q);
     return Response.json({ tracks, ms: Math.round(performance.now() - t0) });
   } catch (e) {
+    if (e instanceof Error && e.message.includes('not set')) {
+      console.error('[spotify] SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET missing in this deployment');
+      return Response.json({ error: 'spotify_not_configured' }, { status: 503 });
+    }
     console.error('[spotify/search]', e);
     return Response.json({ error: 'search_failed' }, { status: 502 });
   }

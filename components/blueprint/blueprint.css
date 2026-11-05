@@ -99,6 +99,8 @@
 .fpb-field:focus-within { box-shadow: 0 0 0 1.5px var(--signal-500), var(--focus-ring); }
 .fpb-field input { flex: 1; min-width: 0; border: none; outline: none; background: transparent; color: var(--text-primary); font: 400 16px/1 var(--font-sans); }
 .fpb-field input::placeholder { color: var(--text-tertiary); }
+/* the field itself shows focus; no second ring on the input inside it */
+.fpb-field input:focus, .fpb-field input:focus-visible { box-shadow: none; outline: none; }
 .fpb-field.light { background: #fff; box-shadow: 0 0 0 2px #fff, 0 8px 24px rgba(0,0,0,.6); height: 48px; }
 .fpb-field.light input { color: #0A0A0B; }
 .fpb-field.light input::placeholder { color: #86868B; }
