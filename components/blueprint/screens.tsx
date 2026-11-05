@@ -22,10 +22,10 @@ function toggle<T extends string>(list: T[] | undefined, id: T, max: number): T[
 }
 
 /** Frame shared by the quiz screens: header with progress, content, sticky CTA. */
-function QuizScreen({ id, back, children, footer }: { id: ScreenId; back: () => void; children: ReactNode; footer: ReactNode }) {
+function QuizScreen({ id, back, children, footer, fit }: { id: ScreenId; back: () => void; children: ReactNode; footer: ReactNode; /** lock to one viewport, no scrolling */ fit?: boolean }) {
   const p = PROGRESS[id] ?? { pct: 0 };
   return (
-    <div className="fpb-screen">
+    <div className={fit ? 'fpb-screen fit' : 'fpb-screen'}>
       <QHeader onBack={back} step={p.step} progress={p.pct} />
       <main className="fpb-main fpb-enter">{children}</main>
       {footer}
@@ -355,6 +355,8 @@ const TT = {
   note: '<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
 };
 
+const PHONE_W = 276, PHONE_H = 566;
+
 /** A short-form app "For You" screen: example post video with the familiar overlay (no app logos). */
 function PhoneMock({ handle, sound, revealed, active }: { handle: string; sound: string; revealed: number; active: number }) {
   const rail = (d: string, label: string, filled = true) => (
@@ -370,7 +372,7 @@ function PhoneMock({ handle, sound, revealed, active }: { handle: string; sound:
     </span>
   );
   return (
-    <div style={{ position: 'relative', width: 'min(276px, 74vw)', aspectRatio: '276 / 566', borderRadius: 38, padding: 7, background: '#1C1C1F', boxShadow: 'var(--shadow-float), 0 0 0 1px rgba(255,255,255,.08)', flex: 'none' }}>
+    <div style={{ position: 'relative', width: PHONE_W, height: PHONE_H, borderRadius: 38, padding: 7, background: '#1C1C1F', boxShadow: 'var(--shadow-float), 0 0 0 1px rgba(255,255,255,.08)', flex: 'none' }}>
       <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: 31, overflow: 'hidden', background: '#000', display: 'flex', flexDirection: 'column' }}>
         {/* video area: the example post, 9:16 */}
         <div style={{ position: 'relative', flex: 1, overflow: 'hidden' }}>
@@ -441,42 +443,56 @@ function PhoneMock({ handle, sound, revealed, active }: { handle: string; sound:
   );
 }
 
+/** Scales the phone mock down to whatever height is left between the headline, the bubble and the Next button. */
+function FitPhone({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [k, setK] = useState(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const fit = () => setK(Math.min(1, el.clientHeight / PHONE_H, el.clientWidth / PHONE_W));
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return (
+    <div ref={ref} style={{ flex: 1, minHeight: 0, display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
+      <div style={{ width: PHONE_W * k, height: PHONE_H * k, opacity: k ? 1 : 0 }}>
+        <div style={{ transform: `scale(${k})`, transformOrigin: 'top left', width: PHONE_W, height: PHONE_H }}>{children}</div>
+      </div>
+    </div>
+  );
+}
+
 export function HowItWorks({ state, back, next }: ScreenProps) {
-  // Markers and explanations appear one by one (1.8s apart); once all four are in, the highlight keeps cycling.
+  // Markers appear one by one; a single explanation bubble shows the current one and is replaced by the next.
   const [tick, setTick] = useState(0);
   useEffect(() => {
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    const t = setInterval(() => setTick((n) => n + 1), reduce ? 2400 : 1800);
+    const t = setInterval(() => setTick((n) => n + 1), reduce ? 3000 : 2400);
     return () => clearInterval(t);
   }, []);
   const revealed = Math.min(4, tick + 1);
   const active = tick % 4;
+  const l = LAYERS[active];
   const first = aestheticById(state.answers.aesthetics?.[0] ?? '');
   const sound = state.track ? `${state.track.title} - ${state.track.artists[0]}` : 'Your track - You';
   return (
-    <QuizScreen id="how-it-works" back={back} footer={<Footer><button type="button" className="fpb-btn primary" onClick={next}>Next</button></Footer>}>
-      <Titles overline="HOW IT WORKS" title="Your music is the focal point of every post." lede={<>Every layer has one job: make people stop, feel something, and <b>listen to your song</b>.</>} />
-      <div style={{ display: 'flex', gap: 20, alignItems: 'center', flexDirection: 'column' }}>
-        <PhoneMock handle={first?.handle ?? 'goldenhour.library'} sound={sound} revealed={revealed} active={active} />
-        <ol style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 6, width: '100%' }}>
-          {LAYERS.map((l, i) => {
-            const shown = i < revealed, on = active === i;
-            return (
-              <li key={l.t} style={{
-                display: 'flex', gap: 10, padding: '12px 14px', borderRadius: 14, alignItems: 'center',
-                border: `1px solid ${on ? 'rgba(34,212,107,.45)' : 'var(--border-subtle)'}`, background: on ? 'rgba(34,212,107,.08)' : 'var(--surface-card)',
-                opacity: shown ? 1 : 0, transform: shown ? 'translateY(0)' : 'translateY(10px)',
-                transition: 'opacity 420ms var(--ease-out), transform 420ms var(--ease-out), background 280ms, border-color 280ms',
-              }}>
-                <span style={{ width: 22, height: 22, borderRadius: '50%', background: 'var(--signal-500)', color: 'var(--signal-ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '700 11px/1 var(--font-mono)', flex: 'none' }}>{i + 1}</span>
-                <span style={{ display: 'flex', flexDirection: 'column', gap: 3, flex: 1, minWidth: 0 }}>
-                  <span style={{ font: '600 14px/1.2 var(--font-sans)' }}>{l.t}</span>
-                  <span style={{ fontSize: 12, lineHeight: 1.35, color: 'var(--text-secondary)' }}>{l.s}</span>
-                </span>
-              </li>
-            );
-          })}
-        </ol>
+    <QuizScreen id="how-it-works" fit back={back} footer={<Footer><button type="button" className="fpb-btn primary" onClick={next}>Next</button></Footer>}>
+      <Titles title="Faceless content puts music first" />
+      <FitPhone><PhoneMock handle={first?.handle ?? 'goldenhour.library'} sound={sound} revealed={revealed} active={active} /></FitPhone>
+      <div aria-live="polite" style={{ flex: 'none' }}>
+        <div key={active} className="fpb-enter" style={{
+          display: 'flex', gap: 10, padding: '11px 14px', borderRadius: 14, alignItems: 'center',
+          border: '1px solid rgba(34,212,107,.45)', background: 'rgba(34,212,107,.08)',
+        }}>
+          <span style={{ width: 22, height: 22, borderRadius: '50%', background: 'var(--signal-500)', color: 'var(--signal-ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '700 11px/1 var(--font-mono)', flex: 'none' }}>{active + 1}</span>
+          <span style={{ display: 'flex', flexDirection: 'column', gap: 3, flex: 1, minWidth: 0 }}>
+            <span style={{ font: '600 14px/1.2 var(--font-sans)' }}>{l.t}</span>
+            <span style={{ fontSize: 12, lineHeight: 1.35, color: 'var(--text-secondary)' }}>{l.s}</span>
+          </span>
+        </div>
       </div>
     </QuizScreen>
   );
