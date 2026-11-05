@@ -31,5 +31,7 @@ lead submit with `/s/{id}`, funnel events and checkout handoff.
 | 14 | `14-experience.html` | received |
 | 15 | `15-analyzing.html` | received |
 | 16 | `16-email-gate.html` | received |
-| 17–18b | | pending upload |
+| 17 | `17-results-blueprint.html` | received |
+| 18 | `18-checkout-1-offer.html` | received |
+| 18b | `18b-checkout-2-payment.html` | received |
 | assets | `assets/imagery`, `assets/logo`, `assets/proof` | pending upload |

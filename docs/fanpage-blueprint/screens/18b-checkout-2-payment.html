@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>18b · Checkout 2/2: bundle + payment · Fanpage Blueprint Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&amp;family=Geist+Mono:wght@400..600&amp;display=swap">
+<style>
+/* ---- FanpageKit design tokens (copied from the FanpageKit design system) ---- */
+:root{
+/* Neutrals — "stage" (dark) ramp */
+--ink-0:#000000;--ink-50:#0A0A0B;--ink-100:#111113;--ink-200:#18181A;--ink-300:#222225;--ink-400:#2E2E32;--ink-500:#48484D;--ink-600:#6E6E73;--ink-700:#A1A1A6;--ink-800:#D2D2D7;--ink-900:#F5F5F7;--ink-1000:#FFFFFF;
+/* Signal — the one accent. Streams, "your track", live, success. */
+--signal-300:#8CF2B0;--signal-400:#4DE58A;--signal-500:#22D46B;--signal-600:#14B358;--signal-700:#0B8A43;--signal-ink:#03210F;
+/* Supporting semantics (used sparingly) */
+--ember-500:#FF5A36;--amber-500:#FFB547;--sky-500:#5AA9FF;
+/* Glass */
+--glass-dark:rgba(20,20,22,0.62);--glass-light:rgba(255,255,255,0.72);--scrim-top:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 40%); /* @kind color */
+--scrim-bottom:linear-gradient(0deg,rgba(0,0,0,.7) 0%,rgba(0,0,0,0) 45%); /* @kind color */
+
+
+/* Semantic aliases — dark (default) */
+--bg-page:var(--ink-0);--bg-raised:var(--ink-100);--bg-sunken:var(--ink-50);
+--surface-card:var(--ink-100);--surface-card-hover:var(--ink-200);--surface-control:var(--ink-200);--surface-control-hover:var(--ink-300);--surface-inverse:var(--ink-900);
+--text-primary:var(--ink-900);--text-secondary:var(--ink-700);--text-tertiary:var(--ink-600);--text-inverse:var(--ink-0);--text-on-signal:var(--signal-ink);--text-accent:var(--signal-400);
+--border-subtle:rgba(255,255,255,0.08);--border-default:rgba(255,255,255,0.14);--border-strong:rgba(255,255,255,0.28);
+--accent:var(--signal-500);--accent-hover:var(--signal-400);--accent-press:var(--signal-600);
+--status-scarce:var(--ember-500);--status-warn:var(--amber-500);--status-success:var(--signal-500);
+--focus-ring:0 0 0 3px rgba(34,212,107,0.45);
+}
+[data-theme="light"]{
+--bg-page:#FFFFFF;--bg-raised:#F5F5F7;--bg-sunken:#FBFBFD;
+--surface-card:#F5F5F7;--surface-card-hover:#EDEDF0;--surface-control:#EDEDF0;--surface-control-hover:#E3E3E7;--surface-inverse:#111113;
+--text-primary:#111113;--text-secondary:#5E5E63;--text-tertiary:#86868B;--text-inverse:#FFFFFF;--text-accent:var(--signal-700);
+--border-subtle:rgba(0,0,0,0.06);--border-default:rgba(0,0,0,0.12);--border-strong:rgba(0,0,0,0.24);
+}
+
+:root{
+--font-sans:"Geist",-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;
+--font-display:"Geist",-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",sans-serif;
+--font-mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+/* Display scale (tight, heavy, short lines) */
+--type-hero:clamp(48px,7.2vw,112px);--type-display-1:clamp(40px,5vw,80px);--type-display-2:clamp(32px,3.6vw,56px);
+--type-title-1:32px;--type-title-2:24px;--type-title-3:20px;
+--type-body-lg:19px;--type-body:16px;--type-body-sm:14px;--type-caption:12px;--type-overline:11px;
+--weight-regular:400;--weight-medium:500;--weight-semibold:600;--weight-bold:700;
+--leading-tight:1.02;--leading-snug:1.15;--leading-normal:1.45;--leading-relaxed:1.6;
+--tracking-hero:-0.045em;--tracking-display:-0.035em;--tracking-title:-0.02em;--tracking-body:-0.005em;--tracking-overline:0.12em;
+/* Semantic */
+--text-hero:var(--weight-semibold) var(--type-hero)/var(--leading-tight) var(--font-display);
+--text-display:var(--weight-semibold) var(--type-display-1)/var(--leading-tight) var(--font-display);
+--text-title:var(--weight-semibold) var(--type-title-1)/var(--leading-snug) var(--font-display);
+--text-body-default:var(--weight-regular) var(--type-body)/var(--leading-normal) var(--font-sans);
+--text-meta:var(--weight-medium) var(--type-caption)/1.3 var(--font-mono);
+}
+
+:root{
+--space-0:0;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;--space-20:80px;--space-24:96px;--space-32:128px;--space-40:160px;
+--container-max:1200px;--container-wide:1440px;--container-text:640px;--gutter:clamp(20px,4vw,48px); /* @kind spacing */
+--section-y:clamp(96px,14vw,180px); /* @kind spacing */
+
+--nav-height:56px;
+}
+
+:root{
+--radius-xs:6px;--radius-sm:10px;--radius-md:14px;--radius-lg:20px;--radius-xl:28px;--radius-2xl:36px;--radius-reel:24px;--radius-pill:999px;
+--shadow-none:none;
+--shadow-float:0 1px 0 rgba(255,255,255,0.06) inset,0 24px 48px -12px rgba(0,0,0,0.6);
+--shadow-lift:0 2px 8px rgba(0,0,0,0.12),0 12px 32px -8px rgba(0,0,0,0.28);
+--shadow-light-card:0 1px 2px rgba(0,0,0,0.04),0 8px 24px -6px rgba(0,0,0,0.10);
+--blur-glass:saturate(180%) blur(20px); /* @kind other */
+--ease-out:cubic-bezier(0.22,1,0.36,1); /* @kind other */
+--ease-in-out:cubic-bezier(0.65,0,0.35,1); /* @kind other */
+--ease-spring:cubic-bezier(0.34,1.4,0.64,1); /* @kind other */
+--dur-fast:160ms; /* @kind other */
+--dur-base:280ms; /* @kind other */
+--dur-slow:560ms; /* @kind other */
+--dur-reveal:900ms; /* @kind other */
+--press-scale:0.97; /* @kind other */
+}
+
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+body{margin:0;background:var(--bg-page);color:var(--text-primary);font-family:var(--font-sans);font-size:var(--type-body);line-height:var(--leading-normal);letter-spacing:var(--tracking-body)}
+a{color:var(--text-primary);text-decoration:none;transition:color var(--dur-fast) var(--ease-out)}
+a:hover{color:var(--text-accent)}
+::selection{background:var(--signal-500);color:var(--signal-ink)}
+:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+
+
+/* ---- Components (plain-HTML versions of the FanpageKit design-system components) ---- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--radius-pill);border:1px solid transparent;font-family:var(--font-sans);font-weight:500;letter-spacing:-0.01em;white-space:nowrap;cursor:pointer;transition:background var(--dur-fast) var(--ease-out),transform var(--dur-fast) var(--ease-out)}
+.btn:active{transform:scale(var(--press-scale))}
+.btn-sm{height:32px;padding:0 14px;font-size:13px}
+.btn-md{height:44px;padding:0 20px;font-size:15px}
+.btn-lg{height:56px;padding:0 28px;font-size:17px}
+.btn-full{width:100%}
+.btn-primary{background:var(--surface-inverse);color:var(--text-inverse)}
+.btn-primary:hover{background:var(--ink-800)}
+.btn-signal{background:var(--accent);color:var(--text-on-signal)}
+.btn-signal:hover{background:var(--accent-hover)}
+.btn-secondary{background:var(--surface-control);color:var(--text-primary)}
+.btn-outline{background:transparent;color:var(--text-primary);border-color:var(--border-strong)}
+.btn-outline:hover,.btn-ghost:hover{background:var(--surface-control)}
+.btn-ghost{background:transparent;color:var(--text-primary)}
+.btn-glass{background:var(--glass-dark);color:#fff;border-color:var(--border-subtle);backdrop-filter:var(--blur-glass)}
+.badge{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:var(--radius-pill);font:500 12px/1 var(--font-sans);letter-spacing:-0.005em;white-space:nowrap}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.badge-neutral{background:var(--surface-control);color:var(--text-secondary)}
+.badge-signal{background:rgba(34,212,107,.14);color:var(--signal-400)}
+.badge-signal .badge-dot{background:var(--signal-500)}
+.badge-scarce{background:rgba(255,90,54,.14);color:#FF8A6E}
+.badge-scarce .badge-dot{background:var(--ember-500)}
+.badge-outline{background:transparent;color:var(--text-secondary);border:1px solid var(--border-default)}
+.badge-glass{background:var(--glass-dark);color:#fff}
+.field{display:flex;flex-direction:column;gap:8px}
+.field-label{font:500 13px/1 var(--font-sans);color:var(--text-secondary)}
+.field-box{display:flex;align-items:center;gap:10px;height:48px;padding:0 16px;border-radius:var(--radius-md);background:var(--surface-control);box-shadow:0 0 0 1px var(--border-subtle)}
+.field-box:focus-within{box-shadow:0 0 0 1.5px var(--accent),var(--focus-ring)}
+.field-box input{flex:1;min-width:0;border:none;outline:none;background:transparent;color:var(--text-primary);font:400 16px/1 var(--font-sans)}
+
+/* ---- Page frame: the design is a 390px-wide mobile screen ---- */
+html,body{margin:0;background:#000}
+body{display:flex;justify-content:center}
+</style>
+<style>
+body{margin:0;background:#000}
+a{color:#F5F5F7}a:hover{color:#4DE58A}
+</style>
+</head>
+<body>
+<!-- Static design mock-up exported from the Fanpage Blueprint Builder design canvas.
+     Screen: 18b · Checkout 2/2: bundle + payment. See HANDOFF.md for the flow, data and logic. -->
+<div style="position: relative; width: 390px; height: 1560px; box-sizing: border-box; background: #000; color: var(--text-primary); font-family: var(--font-sans); overflow: hidden">
+  <section role="dialog" aria-label="Checkout, step 2 of 2" style="position: absolute; left: 0; right: 0; bottom: 0; top: 44px; display: flex; flex-direction: column; gap: 20px; padding: 10px 20px 28px; border-radius: 36px 36px 0 0; background: var(--ink-100); border-top: 1px solid var(--border-default); box-sizing: border-box">
+    <span style="align-self: center; width: 36px; height: 5px; border-radius: 999px; background: var(--ink-400)"></span>
+    <div style="display: flex; align-items: center; justify-content: space-between">
+      <span style="font: 500 11px/1 var(--font-mono); letter-spacing: 0.12em; color: var(--text-tertiary)">STEP 2 OF 2 · CHECKOUT</span>
+      <button aria-label="Close" style="width: 36px; height: 36px; margin-right: -8px; border: none; border-radius: 50%; background: var(--ink-200); color: var(--text-secondary); display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px; margin-top: -6px">
+      <h2 style="margin: 0; display: flex; align-items: center; gap: 10px; font: 600 28px/1.06 var(--font-display); letter-spacing: -0.035em"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Complete your order.</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px 14px; font: 400 12px/1.3 var(--font-sans); color: var(--text-tertiary)">
+        <span style="display: flex; align-items: center; gap: 5px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"></path></svg>Instant download</span>
+        <span style="display: flex; align-items: center; gap: 5px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>30-day money-back</span>
+        <span style="display: flex; align-items: center; gap: 5px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"></path><rect x="2" y="14" width="5" height="7" rx="2"></rect><rect x="17" y="14" width="5" height="7" rx="2"></rect></svg>Human support</span>
+      </div>
+    </div>
+
+    <!-- Order summary -->
+    <section aria-label="Order summary" style="display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 22px; background: var(--ink-200)">
+      <span style="font: 500 11px/1 var(--font-mono); letter-spacing: 0.12em; color: var(--text-tertiary)">ORDER SUMMARY</span>
+      <div style="display: flex; justify-content: space-between; gap: 12px; font: 400 14px/1.3 var(--font-sans)"><span>Golden Hour pack <span style="font-size: 11px; color: var(--signal-400)">· launch price</span></span><span style="font-family: var(--font-mono); white-space: nowrap"><s style="color: var(--text-tertiary); margin-right: 6px">$57</s>$37</span></div>
+      <div style="display: flex; justify-content: space-between; gap: 12px; font: 400 14px/1.3 var(--font-sans)"><span>Bundle upgrade: 3 more packs + strategy call</span><span style="font-family: var(--font-mono); white-space: nowrap">+$60</span></div>
+      <div style="display: flex; justify-content: space-between; gap: 12px; font: 400 14px/1.3 var(--font-sans); color: var(--signal-400)"><span>You save vs. 4 packs separately</span><span style="font-family: var(--font-mono)">$51</span></div>
+      <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-top: 12px; border-top: 1px solid var(--border-default)"><span style="font: 600 16px/1 var(--font-sans)">Total</span><span style="font: 600 24px/1 var(--font-mono); letter-spacing: -0.02em">$97</span></div>
+    </section>
+
+    <!-- Bundle toggle -->
+    <section aria-label="Bundle upgrade" style="display: flex; flex-direction: column; gap: 14px; padding: 16px; border-radius: 22px; background: rgba(34,212,107,0.07); border: 1.5px solid rgba(34,212,107,0.5)">
+      <div style="display: flex; align-items: flex-start; gap: 12px">
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 6px">
+          <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap"><span style="font: 600 17px/1.2 var(--font-sans)">Full Fanpage Bundle</span><span class="badge badge-signal">Save $51</span></span>
+          <span style="display: flex; align-items: baseline; gap: 8px"><span style="font: 600 22px/1 var(--font-display); letter-spacing: -0.03em; color: var(--text-primary)">$97</span><span style="font: 400 14px/1 var(--font-sans); color: var(--text-tertiary); text-decoration: line-through">$148</span><span style="font: 400 12px/1 var(--font-sans); color: var(--text-secondary)">total · +$60 today</span></span>
+        </div>
+        <button role="switch" aria-checked="true" aria-label="Add the Full Fanpage Bundle" style="width: 52px; height: 32px; padding: 3px; border: none; border-radius: 999px; background: var(--signal-500); display: flex; justify-content: flex-end; cursor: pointer; flex: none"><span style="width: 26px; height: 26px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.3)"></span></button>
+      </div>
+      <p style="margin: 0; font: 400 14px/1.45 var(--font-sans); color: var(--text-secondary)">Run all 3 recommended fan pages. That's the line on your chart that hits 100,000.</p>
+      <div style="display: flex; gap: 6px">
+        <img src="assets/imagery/pack-midnight-city.png" alt="Midnight City pack" style="width: 44px; height: 58px; border-radius: 8px; object-fit: cover">
+        <img src="assets/imagery/pack-coastal-drive.png" alt="Coastal Drive pack" style="width: 44px; height: 58px; border-radius: 8px; object-fit: cover">
+        <img src="assets/imagery/pack-forest-trail.png" alt="Forest Trail pack" style="width: 44px; height: 58px; border-radius: 8px; object-fit: cover">
+      </div>
+      <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+        <li style="display: flex; gap: 10px; font: 400 14px/1.4 var(--font-sans); color: var(--text-secondary)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22D46B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px"><path d="M20 6 9 17l-5-5"></path></svg>3 more packs: run up to 4 fan pages</li>
+        <li style="display: flex; gap: 10px; font: 400 14px/1.4 var(--font-sans); color: var(--text-secondary)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22D46B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px"><path d="M20 6 9 17l-5-5"></path></svg>1:1 onboarding call with a fan page strategist</li>
+      </ul>
+    </section>
+
+    <!-- Payment -->
+    <section aria-label="Payment" style="display: flex; flex-direction: column; gap: 14px; padding-top: 4px; border-top: 1px solid var(--border-subtle)">
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 16px">
+        <button aria-pressed="true" style="height: 48px; border-radius: 14px; border: 1.5px solid var(--ink-900); background: var(--ink-200); color: var(--text-primary); display: flex; align-items: center; justify-content: center; gap: 8px; font: 600 14px/1 var(--font-sans); cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"></rect><path d="M2 10h20"></path></svg>Card</button>
+        <button aria-pressed="false" style="height: 48px; border-radius: 14px; border: 1px solid var(--border-default); background: transparent; color: var(--text-primary); display: flex; align-items: center; justify-content: center; gap: 6px; font: 600 14px/1 var(--font-sans); cursor: pointer">Apple Pay / Google Pay</button>
+      </div>
+      <label class="field"><span class="field-label">Name on card</span><span class="field-box"><input type="text" placeholder="Your name" autocomplete="cc-name"></span></label>
+      <label class="field"><span class="field-label">Card number</span><span class="field-box"><input type="text" placeholder="1234 1234 1234 1234" autocomplete="cc-number" inputmode="numeric"></span></label>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+        <label class="field"><span class="field-label">Expiry</span><span class="field-box"><input type="text" placeholder="MM / YY" autocomplete="cc-exp"></span></label>
+        <label class="field"><span class="field-label">CVC</span><span class="field-box"><input type="text" placeholder="CVC" autocomplete="cc-csc" inputmode="numeric"></span></label>
+      </div>
+      <p style="margin: 0; font: 400 12px/1.45 var(--font-sans); color: var(--text-tertiary)">By completing this purchase you agree to our <a href="#terms" style="color: var(--text-secondary); text-decoration: underline">Terms</a> and <a href="#privacy" style="color: var(--text-secondary); text-decoration: underline">Privacy Policy</a>.</p>
+      <button type="button" class="btn btn-signal btn-lg btn-full">Pay $97 — get my packs</button>
+      <span style="display: flex; align-items: center; justify-content: center; gap: 6px; font: 400 12px/1 var(--font-sans); color: var(--text-tertiary)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Secure payment processed by Stripe</span>
+      <button type="button" class="btn btn-outline btn-lg btn-full">Back to offer</button>
+    </section>
+  </section>
+</div>
+</body>
+</html>

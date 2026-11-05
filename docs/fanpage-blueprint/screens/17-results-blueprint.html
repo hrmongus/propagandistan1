@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>17 · Results: Your Fanpage Blueprint · Fanpage Blueprint Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&amp;family=Geist+Mono:wght@400..600&amp;display=swap">
+<style>
+/* ---- FanpageKit design tokens (copied from the FanpageKit design system) ---- */
+:root{
+/* Neutrals — "stage" (dark) ramp */
+--ink-0:#000000;--ink-50:#0A0A0B;--ink-100:#111113;--ink-200:#18181A;--ink-300:#222225;--ink-400:#2E2E32;--ink-500:#48484D;--ink-600:#6E6E73;--ink-700:#A1A1A6;--ink-800:#D2D2D7;--ink-900:#F5F5F7;--ink-1000:#FFFFFF;
+/* Signal — the one accent. Streams, "your track", live, success. */
+--signal-300:#8CF2B0;--signal-400:#4DE58A;--signal-500:#22D46B;--signal-600:#14B358;--signal-700:#0B8A43;--signal-ink:#03210F;
+/* Supporting semantics (used sparingly) */
+--ember-500:#FF5A36;--amber-500:#FFB547;--sky-500:#5AA9FF;
+/* Glass */
+--glass-dark:rgba(20,20,22,0.62);--glass-light:rgba(255,255,255,0.72);--scrim-top:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 40%); /* @kind color */
+--scrim-bottom:linear-gradient(0deg,rgba(0,0,0,.7) 0%,rgba(0,0,0,0) 45%); /* @kind color */
+
+
+/* Semantic aliases — dark (default) */
+--bg-page:var(--ink-0);--bg-raised:var(--ink-100);--bg-sunken:var(--ink-50);
+--surface-card:var(--ink-100);--surface-card-hover:var(--ink-200);--surface-control:var(--ink-200);--surface-control-hover:var(--ink-300);--surface-inverse:var(--ink-900);
+--text-primary:var(--ink-900);--text-secondary:var(--ink-700);--text-tertiary:var(--ink-600);--text-inverse:var(--ink-0);--text-on-signal:var(--signal-ink);--text-accent:var(--signal-400);
+--border-subtle:rgba(255,255,255,0.08);--border-default:rgba(255,255,255,0.14);--border-strong:rgba(255,255,255,0.28);
+--accent:var(--signal-500);--accent-hover:var(--signal-400);--accent-press:var(--signal-600);
+--status-scarce:var(--ember-500);--status-warn:var(--amber-500);--status-success:var(--signal-500);
+--focus-ring:0 0 0 3px rgba(34,212,107,0.45);
+}
+[data-theme="light"]{
+--bg-page:#FFFFFF;--bg-raised:#F5F5F7;--bg-sunken:#FBFBFD;
+--surface-card:#F5F5F7;--surface-card-hover:#EDEDF0;--surface-control:#EDEDF0;--surface-control-hover:#E3E3E7;--surface-inverse:#111113;
+--text-primary:#111113;--text-secondary:#5E5E63;--text-tertiary:#86868B;--text-inverse:#FFFFFF;--text-accent:var(--signal-700);
+--border-subtle:rgba(0,0,0,0.06);--border-default:rgba(0,0,0,0.12);--border-strong:rgba(0,0,0,0.24);
+}
+
+:root{
+--font-sans:"Geist",-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;
+--font-display:"Geist",-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",sans-serif;
+--font-mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+/* Display scale (tight, heavy, short lines) */
+--type-hero:clamp(48px,7.2vw,112px);--type-display-1:clamp(40px,5vw,80px);--type-display-2:clamp(32px,3.6vw,56px);
+--type-title-1:32px;--type-title-2:24px;--type-title-3:20px;
+--type-body-lg:19px;--type-body:16px;--type-body-sm:14px;--type-caption:12px;--type-overline:11px;
+--weight-regular:400;--weight-medium:500;--weight-semibold:600;--weight-bold:700;
+--leading-tight:1.02;--leading-snug:1.15;--leading-normal:1.45;--leading-relaxed:1.6;
+--tracking-hero:-0.045em;--tracking-display:-0.035em;--tracking-title:-0.02em;--tracking-body:-0.005em;--tracking-overline:0.12em;
+/* Semantic */
+--text-hero:var(--weight-semibold) var(--type-hero)/var(--leading-tight) var(--font-display);
+--text-display:var(--weight-semibold) var(--type-display-1)/var(--leading-tight) var(--font-display);
+--text-title:var(--weight-semibold) var(--type-title-1)/var(--leading-snug) var(--font-display);
+--text-body-default:var(--weight-regular) var(--type-body)/var(--leading-normal) var(--font-sans);
+--text-meta:var(--weight-medium) var(--type-caption)/1.3 var(--font-mono);
+}
+
+:root{
+--space-0:0;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;--space-20:80px;--space-24:96px;--space-32:128px;--space-40:160px;
+--container-max:1200px;--container-wide:1440px;--container-text:640px;--gutter:clamp(20px,4vw,48px); /* @kind spacing */
+--section-y:clamp(96px,14vw,180px); /* @kind spacing */
+
+--nav-height:56px;
+}
+
+:root{
+--radius-xs:6px;--radius-sm:10px;--radius-md:14px;--radius-lg:20px;--radius-xl:28px;--radius-2xl:36px;--radius-reel:24px;--radius-pill:999px;
+--shadow-none:none;
+--shadow-float:0 1px 0 rgba(255,255,255,0.06) inset,0 24px 48px -12px rgba(0,0,0,0.6);
+--shadow-lift:0 2px 8px rgba(0,0,0,0.12),0 12px 32px -8px rgba(0,0,0,0.28);
+--shadow-light-card:0 1px 2px rgba(0,0,0,0.04),0 8px 24px -6px rgba(0,0,0,0.10);
+--blur-glass:saturate(180%) blur(20px); /* @kind other */
+--ease-out:cubic-bezier(0.22,1,0.36,1); /* @kind other */
+--ease-in-out:cubic-bezier(0.65,0,0.35,1); /* @kind other */
+--ease-spring:cubic-bezier(0.34,1.4,0.64,1); /* @kind other */
+--dur-fast:160ms; /* @kind other */
+--dur-base:280ms; /* @kind other */
+--dur-slow:560ms; /* @kind other */
+--dur-reveal:900ms; /* @kind other */
+--press-scale:0.97; /* @kind other */
+}
+
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+body{margin:0;background:var(--bg-page);color:var(--text-primary);font-family:var(--font-sans);font-size:var(--type-body);line-height:var(--leading-normal);letter-spacing:var(--tracking-body)}
+a{color:var(--text-primary);text-decoration:none;transition:color var(--dur-fast) var(--ease-out)}
+a:hover{color:var(--text-accent)}
+::selection{background:var(--signal-500);color:var(--signal-ink)}
+:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+
+
+/* ---- Components (plain-HTML versions of the FanpageKit design-system components) ---- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--radius-pill);border:1px solid transparent;font-family:var(--font-sans);font-weight:500;letter-spacing:-0.01em;white-space:nowrap;cursor:pointer;transition:background var(--dur-fast) var(--ease-out),transform var(--dur-fast) var(--ease-out)}
+.btn:active{transform:scale(var(--press-scale))}
+.btn-sm{height:32px;padding:0 14px;font-size:13px}
+.btn-md{height:44px;padding:0 20px;font-size:15px}
+.btn-lg{height:56px;padding:0 28px;font-size:17px}
+.btn-full{width:100%}
+.btn-primary{background:var(--surface-inverse);color:var(--text-inverse)}
+.btn-primary:hover{background:var(--ink-800)}
+.btn-signal{background:var(--accent);color:var(--text-on-signal)}
+.btn-signal:hover{background:var(--accent-hover)}
+.btn-secondary{background:var(--surface-control);color:var(--text-primary)}
+.btn-outline{background:transparent;color:var(--text-primary);border-color:var(--border-strong)}
+.btn-outline:hover,.btn-ghost:hover{background:var(--surface-control)}
+.btn-ghost{background:transparent;color:var(--text-primary)}
+.btn-glass{background:var(--glass-dark);color:#fff;border-color:var(--border-subtle);backdrop-filter:var(--blur-glass)}
+.badge{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:var(--radius-pill);font:500 12px/1 var(--font-sans);letter-spacing:-0.005em;white-space:nowrap}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.badge-neutral{background:var(--surface-control);color:var(--text-secondary)}
+.badge-signal{background:rgba(34,212,107,.14);color:var(--signal-400)}
+.badge-signal .badge-dot{background:var(--signal-500)}
+.badge-scarce{background:rgba(255,90,54,.14);color:#FF8A6E}
+.badge-scarce .badge-dot{background:var(--ember-500)}
+.badge-outline{background:transparent;color:var(--text-secondary);border:1px solid var(--border-default)}
+.badge-glass{background:var(--glass-dark);color:#fff}
+.field{display:flex;flex-direction:column;gap:8px}
+.field-label{font:500 13px/1 var(--font-sans);color:var(--text-secondary)}
+.field-box{display:flex;align-items:center;gap:10px;height:48px;padding:0 16px;border-radius:var(--radius-md);background:var(--surface-control);box-shadow:0 0 0 1px var(--border-subtle)}
+.field-box:focus-within{box-shadow:0 0 0 1.5px var(--accent),var(--focus-ring)}
+.field-box input{flex:1;min-width:0;border:none;outline:none;background:transparent;color:var(--text-primary);font:400 16px/1 var(--font-sans)}
+
+/* ---- Page frame: the design is a 390px-wide mobile screen ---- */
+html,body{margin:0;background:#000}
+body{display:flex;justify-content:center}
+</style>
+<style>
+body{margin:0;background:#000}
+a{color:#F5F5F7}a:hover{color:#4DE58A}
+</style>
+</head>
+<body>
+<!-- Static design mock-up exported from the Fanpage Blueprint Builder design canvas.
+     Screen: 17 · Results: Your Fanpage Blueprint. See HANDOFF.md for the flow, data and logic. -->
+<div style="width: 390px; height: auto; box-sizing: border-box; background: var(--bg-page); color: var(--text-primary); font-family: var(--font-sans); display: flex; flex-direction: column; overflow: visible; min-height: 4700px"><div role="status" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; background: #D92D27; color: #ffffff; font: 600 13px/1.25 var(--font-sans); text-align: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2"></path><path d="M9 2h6"></path></svg><span>Your analysis expires in 10 minutes.</span><span style="font: 700 14px/1 var(--font-mono); letter-spacing: -0.02em; padding: 4px 8px; border-radius: 999px; background: rgba(0,0,0,0.28)">10:00</span></div>
+  <header style="display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 20px">
+    <img src="assets/logo/fanpagekit-lockup-white.png" alt="FanpageKit" style="height: 15px; width: auto">
+    <span style="font: 500 11px/1 var(--font-mono); letter-spacing: 0.08em; color: var(--text-tertiary)">SENT TO YOUR EMAIL</span>
+  </header>
+
+  <main style="display: flex; flex-direction: column; gap: 44px; padding: 12px 20px 0">
+
+    <!-- Hero -->
+    <section style="display: flex; flex-direction: column; gap: 18px">
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 10px; border-radius: 20px; background: var(--surface-card); border: 1px solid var(--border-subtle)">
+        <img src="assets/imagery/pack-golden-hour.png" alt="" style="width: 48px; height: 48px; border-radius: 10px; object-fit: cover; flex: none">
+        <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+          <span style="font: 500 10px/1 var(--font-mono); letter-spacing: 0.12em; color: var(--text-tertiary)">TRACK ANALYZED</span>
+          <span style="font: 600 15px/1.2 var(--font-sans)">Paper Planes in July</span>
+          <span style="font: 400 12px/1.2 var(--font-sans); color: var(--text-secondary)">Nova Reyes</span>
+        </span>
+        <span class="badge badge-signal"><span class="badge-dot"></span>Analyzed</span>
+      </div>
+      <h1 style="margin: 0; font: 600 38px/1.02 var(--font-display); letter-spacing: -0.045em">Fanpage Blueprint: Your path to 100k listeners</h1>
+      <p style="margin: 0; font: 400 17px/1.45 var(--font-sans); color: var(--text-secondary)">Your track is built for short-form. <span style="color: var(--text-primary)">The only thing missing is distribution.</span></p>
+    </section>
+
+    <!-- Metrics -->
+    <section aria-label="Your scores" style="display: flex; flex-direction: column; gap: 10px">
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+        <div style="display: flex; flex-direction: column; gap: 14px; padding: 16px; border-radius: 24px; background: var(--surface-card); border: 1px solid var(--border-subtle)">
+          <span style="font: 500 10px/1 var(--font-mono); letter-spacing: 0.12em; color: var(--text-tertiary)">FANPAGE FIT</span>
+          <div style="display: flex; gap: 12px; align-items: stretch; height: 132px">
+            <div style="width: 28px; border-radius: 10px; background: var(--ink-300); position: relative; overflow: hidden; flex: none"><div style="position: absolute; left: 0; right: 0; bottom: 0; height: 87%; border-radius: 10px; background: var(--signal-500)"></div></div>
+            <div style="display: flex; flex-direction: column; justify-content: flex-end; gap: 6px">
+              <span style="font: 600 44px/1 var(--font-mono); letter-spacing: -0.04em">87%</span>
+              <span style="font: 500 12px/1.2 var(--font-sans); color: var(--signal-400)">Excellent fit</span>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 24px; background: var(--surface-card); border: 1px solid var(--border-subtle)">
+          <span style="font: 500 10px/1 var(--font-mono); letter-spacing: 0.12em; color: var(--text-tertiary)">UNTAPPED AUDIENCE</span>
+          <div style="position: relative; width: 100%; height: auto; align-self: stretch; display: flex; flex-direction: column; align-items: center; gap: 10px">
+            
+            <span style="position: static; inset: 0; display: flex; align-items: center; justify-content: center; font: 600 24px/1 var(--font-mono); letter-spacing: -0.03em; font-size: 32px">97%</span>
+          <div role="img" aria-label="97 of 100 dots filled" style="display: grid; grid-template-columns: repeat(10, 8px); gap: 4px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5F5F7"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #3A3A3F"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #3A3A3F"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #3A3A3F"></span></div></div>
+          <span style="font: 400 12px/1.3 var(--font-sans); color: var(--text-secondary)">of listeners who'd like this song haven't heard it yet</span>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 24px; background: var(--surface-card); border: 1px solid var(--border-subtle)">
+        <span style="font: 500 10px/1 var(--font-mono); letter-spacing: 0.12em; color: var(--text-tertiary)">SHORT-FORM PROFILE</span>
+        <svg viewBox="-24 0 348 256" width="318" height="234" role="img" aria-label="Short-form profile: hook 91, emotion 88, replay value 79, relatability 84, shareability 76, visual fit 90" style="display: block; width: 100%; height: auto">
+          <polygon points="150,44 222.7,86 222.7,170 150,212 77.3,170 77.3,86" fill="none" stroke="#2E2E32" stroke-width="1"></polygon>
+          <polygon points="150,65 204.6,96.5 204.6,159.5 150,191 95.4,159.5 95.4,96.5" fill="none" stroke="#2E2E32" stroke-width="1"></polygon>
+          <polygon points="150,86 186.4,107 186.4,149 150,170 113.6,149 113.6,107" fill="none" stroke="#2E2E32" stroke-width="1"></polygon>
+          <polygon points="150,107 168.2,117.5 168.2,138.5 150,149 131.8,138.5 131.8,117.5" fill="none" stroke="#2E2E32" stroke-width="1"></polygon>
+          <line x1="150" y1="128" x2="150" y2="44" stroke="#2E2E32"></line>
+          <line x1="150" y1="128" x2="222.7" y2="86" stroke="#2E2E32"></line>
+          <line x1="150" y1="128" x2="222.7" y2="170" stroke="#2E2E32"></line>
+          <line x1="150" y1="128" x2="150" y2="212" stroke="#2E2E32"></line>
+          <line x1="150" y1="128" x2="77.3" y2="170" stroke="#2E2E32"></line>
+          <line x1="150" y1="128" x2="77.3" y2="86" stroke="#2E2E32"></line>
+          <polygon points="150,51.6 214,91 207.5,161.2 150,198.6 94.7,159.9 84.5,90.2" fill="#22D46B" fill-opacity="0.16" stroke="#22D46B" stroke-width="2.5" stroke-linejoin="round"></polygon>
+          <circle cx="150" cy="51.6" r="3.5" fill="#22D46B"></circle>
+          <circle cx="214" cy="91" r="3.5" fill="#22D46B"></circle>
+          <circle cx="207.5" cy="161.2" r="3.5" fill="#22D46B"></circle>
+          <circle cx="150" cy="198.6" r="3.5" fill="#22D46B"></circle>
+          <circle cx="94.7" cy="159.9" r="3.5" fill="#22D46B"></circle>
+          <circle cx="84.5" cy="90.2" r="3.5" fill="#22D46B"></circle>
+          <text x="150" y="18" text-anchor="middle" font-family="Geist, sans-serif" font-size="12" font-weight="600" fill="#F5F5F7">Hook <tspan font-family="Geist Mono, monospace" fill="#A1A1A6">91</tspan></text>
+          <text x="236" y="78" text-anchor="start" font-family="Geist, sans-serif" font-size="12" font-weight="600" fill="#F5F5F7">Emotion</text>
+          <text x="236" y="93" text-anchor="start" font-family="Geist Mono, monospace" font-size="11" fill="#A1A1A6">88</text>
+          <text x="236" y="176" text-anchor="start" font-family="Geist, sans-serif" font-size="12" font-weight="600" fill="#F5F5F7">Replay value</text>
+          <text x="236" y="191" text-anchor="start" font-family="Geist Mono, monospace" font-size="11" fill="#A1A1A6">79</text>
+          <text x="150" y="234" text-anchor="middle" font-family="Geist, sans-serif" font-size="12" font-weight="600" fill="#F5F5F7">Relatability <tspan font-family="Geist Mono, monospace" fill="#A1A1A6">84</tspan></text>
+          <text x="64" y="176" text-anchor="end" font-family="Geist, sans-serif" font-size="12" font-weight="600" fill="#F5F5F7">Shareability</text>
+          <text x="64" y="191" text-anchor="end" font-family="Geist Mono, monospace" font-size="11" fill="#A1A1A6">76</text>
+          <text x="64" y="78" text-anchor="end" font-family="Geist, sans-serif" font-size="12" font-weight="600" fill="#F5F5F7">Visual fit</text>
+          <text x="64" y="93" text-anchor="end" font-family="Geist Mono, monospace" font-size="11" fill="#A1A1A6">90</text>
+        </svg>
+        <span style="font: 400 12.5px/1.35 var(--font-sans); color: var(--text-secondary)">How your track scores on what makes fan page posts work.</span>
+      </div>
+    </section>
+
+    <!-- Trajectory -->
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font: 600 28px/1.06 var(--font-display); letter-spacing: -0.035em">Your growth trajectory.</h2>
+      <div style="padding: 16px 12px 12px; border-radius: 24px; background: #ffffff; border: 1px solid #e6e6e6; color: #121212">
+        <svg viewBox="0 0 340 230" width="326" height="220" role="img" aria-label="Illustrative listener growth over 6 months with 0, 1 and 3 fan pages; 3 pages crosses the 100,000 goal around month 5" style="display: block; width: 100%; height: auto"><line x1="40" x2="270" y1="30" y2="30" stroke="#e6e6e6"></line><line x1="40" x2="270" y1="67.500" y2="67.500" stroke="#e6e6e6"></line><line x1="40" x2="270" y1="105" y2="105" stroke="#e6e6e6"></line><line x1="40" x2="270" y1="142.500" y2="142.500" stroke="#e6e6e6"></line><line x1="40" x2="270" y1="180" y2="180" stroke="#b3b3b3"></line><text x="32" y="34" text-anchor="end" font-family="Geist, sans-serif" font-size="10" fill="#6a6a6a">100K</text><text x="32" y="71.500" text-anchor="end" font-family="Geist, sans-serif" font-size="10" fill="#6a6a6a">75K</text><text x="32" y="109" text-anchor="end" font-family="Geist, sans-serif" font-size="10" fill="#6a6a6a">50K</text><text x="32" y="146.500" text-anchor="end" font-family="Geist, sans-serif" font-size="10" fill="#6a6a6a">25K</text><text x="32" y="184" text-anchor="end" font-family="Geist, sans-serif" font-size="10" fill="#6a6a6a">0</text><line x1="40" x2="270" y1="30" y2="30" stroke="#121212" stroke-width="1.200" stroke-dasharray="4 4"></line><text x="44" y="24" font-family="Geist, sans-serif" font-size="10" font-weight="600" fill="#121212">Your goal: 100,000</text><path d="M40.0,178.0 L43.3,178.0 L46.7,175.3 L50.0,177.7 L53.3,174.7 L56.7,175.1 L60.0,175.2 L63.3,172.0 L66.7,172.9 L70.0,170.7 L73.3,167.8 L76.7,169.0 L80.0,167.7 L83.3,165.4 L86.7,167.0 L90.0,161.0 L93.3,159.2 L96.7,158.7 L100.0,159.0 L103.3,158.3 L106.7,156.2 L110.0,156.4 L113.3,149.8 L116.7,151.3 L120.0,146.6 L123.3,144.0 L126.7,144.4 L130.0,145.4 L133.3,140.0 L136.7,133.1 L140.0,121.2 L143.3,132.7 L146.7,128.3 L150.0,132.3 L153.3,126.5 L156.7,128.1 L160.0,125.5 L163.3,118.0 L166.7,117.2 L170.0,113.8 L173.3,109.5 L176.7,111.6 L180.0,111.2 L183.3,101.6 L186.7,107.1 L190.0,94.8 L193.3,98.2 L196.7,103.6 L200.0,89.1 L203.3,81.5 L206.7,84.1 L210.0,87.1 L213.3,49.5 L216.7,74.1 L220.0,79.5 L223.3,78.3 L226.7,68.7 L230.0,69.9 L233.3,67.0 L236.7,53.0 L240.0,63.6 L243.3,52.1 L246.7,52.0 L250.0,60.0 L253.3,42.3 L256.7,42.4 L260.0,42.4 L263.3,35.4 L266.7,29.1 L270.0,32.0 L270,180 L40,180 Z" fill="#D6E4FB"></path><path d="M40.0,178.0 L43.3,178.1 L46.7,177.6 L50.0,177.7 L53.3,177.9 L56.7,177.2 L60.0,176.9 L63.3,177.8 L66.7,177.2 L70.0,176.8 L73.3,177.7 L76.7,177.2 L80.0,177.2 L83.3,176.7 L86.7,177.2 L90.0,176.2 L93.3,176.6 L96.7,177.2 L100.0,176.6 L103.3,176.4 L106.7,176.6 L110.0,175.8 L113.3,176.2 L116.7,176.1 L120.0,175.9 L123.3,175.0 L126.7,176.1 L130.0,175.9 L133.3,176.0 L136.7,175.8 L140.0,175.9 L143.3,176.3 L146.7,174.7 L150.0,175.7 L153.3,175.3 L156.7,175.6 L160.0,175.4 L163.3,174.3 L166.7,174.0 L170.0,173.6 L173.3,175.8 L176.7,174.6 L180.0,174.2 L183.3,173.8 L186.7,174.6 L190.0,173.5 L193.3,173.4 L196.7,174.6 L200.0,174.0 L203.3,174.3 L206.7,174.5 L210.0,174.9 L213.3,173.9 L216.7,174.8 L220.0,174.2 L223.3,171.9 L226.7,173.9 L230.0,174.9 L233.3,174.0 L236.7,172.6 L240.0,173.9 L243.3,172.0 L246.7,173.0 L250.0,172.9 L253.3,172.3 L256.7,170.5 L260.0,173.2 L263.3,174.4 L266.7,170.5 L270.0,172.0" fill="none" stroke="#b3b3b3" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"></path><path d="M40.0,178.0 L43.3,178.5 L46.7,177.1 L50.0,176.8 L53.3,176.3 L56.7,175.4 L60.0,171.3 L63.3,172.7 L66.7,173.3 L70.0,170.3 L73.3,171.1 L76.7,167.8 L80.0,166.9 L83.3,165.2 L86.7,166.5 L90.0,164.6 L93.3,160.6 L96.7,161.8 L100.0,160.7 L103.3,161.3 L106.7,160.8 L110.0,157.2 L113.3,157.7 L116.7,153.7 L120.0,156.6 L123.3,151.2 L126.7,148.9 L130.0,154.7 L133.3,148.8 L136.7,146.2 L140.0,151.7 L143.3,150.3 L146.7,143.2 L150.0,147.6 L153.3,145.1 L156.7,142.8 L160.0,138.0 L163.3,144.5 L166.7,140.2 L170.0,139.6 L173.3,140.3 L176.7,121.7 L180.0,131.2 L183.3,130.0 L186.7,130.1 L190.0,125.5 L193.3,126.4 L196.7,130.5 L200.0,121.9 L203.3,125.3 L206.7,123.9 L210.0,122.0 L213.3,122.8 L216.7,120.6 L220.0,119.1 L223.3,116.2 L226.7,117.9 L230.0,112.8 L233.3,118.7 L236.7,105.9 L240.0,116.1 L243.3,114.9 L246.7,101.3 L250.0,111.8 L253.3,106.8 L256.7,104.1 L260.0,97.4 L263.3,99.5 L266.7,96.4 L270.0,100.0" fill="none" stroke="#8DB3F6" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"></path><path d="M40.0,178.0 L43.3,178.0 L46.7,175.3 L50.0,177.7 L53.3,174.7 L56.7,175.1 L60.0,175.2 L63.3,172.0 L66.7,172.9 L70.0,170.7 L73.3,167.8 L76.7,169.0 L80.0,167.7 L83.3,165.4 L86.7,167.0 L90.0,161.0 L93.3,159.2 L96.7,158.7 L100.0,159.0 L103.3,158.3 L106.7,156.2 L110.0,156.4 L113.3,149.8 L116.7,151.3 L120.0,146.6 L123.3,144.0 L126.7,144.4 L130.0,145.4 L133.3,140.0 L136.7,133.1 L140.0,121.2 L143.3,132.7 L146.7,128.3 L150.0,132.3 L153.3,126.5 L156.7,128.1 L160.0,125.5 L163.3,118.0 L166.7,117.2 L170.0,113.8 L173.3,109.5 L176.7,111.6 L180.0,111.2 L183.3,101.6 L186.7,107.1 L190.0,94.8 L193.3,98.2 L196.7,103.6 L200.0,89.1 L203.3,81.5 L206.7,84.1 L210.0,87.1 L213.3,49.5 L216.7,74.1 L220.0,79.5 L223.3,78.3 L226.7,68.7 L230.0,69.9 L233.3,67.0 L236.7,53.0 L240.0,63.6 L243.3,52.1 L246.7,52.0 L250.0,60.0 L253.3,42.3 L256.7,42.4 L260.0,42.4 L263.3,35.4 L266.7,29.1 L270.0,32.0" fill="none" stroke="#1D6CF0" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"></path><circle cx="270" cy="32" r="4" fill="#1D6CF0"></circle><text x="278" y="175" font-family="Geist, sans-serif" font-size="10" fill="#6a6a6a">No pages</text><text x="278" y="103" font-family="Geist, sans-serif" font-size="10" fill="#535353">1 page</text><text x="278" y="50" font-family="Geist, sans-serif" font-size="10" font-weight="600" fill="#1D6CF0">3 pages</text><text x="40" y="200" font-family="Geist, sans-serif" font-size="10" fill="#6a6a6a">Today</text><text x="132" y="200" text-anchor="middle" font-family="Geist, sans-serif" font-size="10" fill="#6a6a6a">Month 3</text><text x="270" y="200" text-anchor="end" font-family="Geist, sans-serif" font-size="10" fill="#6a6a6a">Month 6</text></svg>
+      </div>
+      <p style="margin: 0; font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary)">Every extra page puts your song in front of a new audience at the same time. <span style="color: var(--text-primary)">One page grows you. Three get you to your goal.</span></p>
+      <span style="font: 400 12px/1.3 var(--font-sans); color: var(--text-tertiary)">Illustrative projection. Results depend on posting consistency.</span>
+    </section>
+
+    <!-- Top 3 pages -->
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <h2 style="margin: 0; font: 600 28px/1.06 var(--font-display); letter-spacing: -0.035em">Your top 3 fan pages.</h2>
+        <p style="margin: 0; font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary)">Each reaches a different audience with your song. Start with the best one, add more to grow faster.</p>
+      </div>
+
+      <article style="display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 14px; padding: 12px; border-radius: 28px; background: var(--surface-card); border: 1.5px solid var(--ink-900)">
+        <div style="position: relative; height: 235px; border-radius: 20px; overflow: hidden; background: #111">
+          <img src="assets/imagery/pack-golden-hour.png" alt="Example post: silhouette at golden hour" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
+          <div style="position: absolute; left: 0; right: 0; top: 0; height: 40%; background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0))"></div>
+          <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 45%; background: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0))"></div>
+          <p style="position: absolute; top: 18px; left: 10px; right: 10px; margin: 0; text-align: center; font: 500 10.5px/1.3 var(--font-sans); color: #fff">the song i play when i pretend i'm over you</p>
+          <p style="position: absolute; top: 118px; left: 10px; right: 10px; margin: 0; text-align: center; font: 500 11px/1.3 var(--font-sans); color: #fff">we were paper planes in july, never meant to land</p>
+          <span style="position: absolute; top: 74px; left: 46px; width: 40px; height: 40px; border-radius: 50%; background: var(--glass-dark); border: 1px solid rgba(255,255,255,0.28); display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M7 4v16l13-8z"></path></svg></span>
+          <div style="position: absolute; left: 8px; right: 8px; bottom: 8px; display: flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; border-radius: 999px; background: var(--glass-dark); font: 500 9px/1 var(--font-sans); color: #fff; white-space: nowrap; overflow: hidden">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#22D46B" stroke-width="3" stroke-linecap="round" aria-hidden="true" style="flex: none"><path d="M2 10v3"></path><path d="M6 6v11"></path><path d="M10 3v18"></path><path d="M14 8v7"></path><path d="M18 5v13"></path><path d="M22 10v3"></path></svg>Paper Planes in July
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; min-width: 0; padding: 4px 4px 4px 0"><span class="badge badge-signal" style="align-self: flex-start">#1 Best option</span><span style="font: 600 15px/1.2 var(--font-sans); word-break: break-all">@goldenhour.library</span><span style="font: 400 13px/1.3 var(--font-sans)">Light academia</span><span style="display: flex; align-items: center; gap: 6px; align-self: flex-start; padding: 4px 10px 4px 4px; border-radius: 999px; background: var(--ink-200); font: 500 11px/1 var(--font-sans); color: var(--text-primary)"><img src="assets/imagery/pack-golden-hour.png" alt="" style="width: 18px; height: 18px; border-radius: 50%; object-fit: cover">FanpageKit: Golden Hour</span><span style="font: 400 12px/1.4 var(--font-sans); color: var(--text-secondary)">18–24 · women · the heartbroken</span></div>
+      <div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 12px; padding: 4px 4px 4px"><div style="display: flex; flex-direction: column; gap: 6px"><span style="display: flex; justify-content: space-between; font: 500 11px/1 var(--font-mono); letter-spacing: 0.06em; color: var(--text-secondary)"><span>FANPAGE FIT SCORE</span><span style="color: var(--signal-400)">94/100</span></span><span style="height: 6px; border-radius: 999px; background: var(--ink-300); overflow: hidden"><span style="display: block; width: 94%; height: 100%; background: var(--signal-500)"></span></span></div><div style="display: flex; flex-direction: column; gap: 6px"><span style="display: flex; justify-content: space-between; font: 500 11px/1 var(--font-mono); letter-spacing: 0.06em; color: var(--text-secondary)"><span>AUDIENCE TARGET</span><span style="color: var(--text-primary)">91/100</span></span><span style="height: 6px; border-radius: 999px; background: var(--ink-300); overflow: hidden"><span style="display: block; width: 91%; height: 100%; background: var(--ink-900)"></span></span></div><a href="#18-Upsell" style="display: flex; align-items: center; justify-content: center; height: 48px; border-radius: 999px; background: var(--ink-900); color: var(--ink-0); text-decoration: none; font: 600 15px/1 var(--font-sans)">Launch this page</a></div></article>
+
+      <article style="display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 14px; padding: 12px; border-radius: 28px; background: var(--surface-card); border: 1px solid var(--border-subtle)">
+        <div style="position: relative; height: 235px; border-radius: 20px; overflow: hidden; background: #111">
+          <img src="assets/imagery/pack-coastal-drive.png" alt="Example post from the Coastal Drive kit: beach and coastline" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
+          <div style="position: absolute; left: 0; right: 0; top: 0; height: 40%; background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0))"></div>
+          <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 45%; background: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0))"></div>
+          <p style="position: absolute; top: 18px; left: 10px; right: 10px; margin: 0; text-align: center; font: 500 10.5px/1.3 var(--font-sans); color: #fff">pov: 2am, empty highway, this comes on</p>
+          <p style="position: absolute; top: 118px; left: 10px; right: 10px; margin: 0; text-align: center; font: 500 11px/1.3 var(--font-sans); color: #fff">we were paper planes in july, never meant to land</p>
+          <span style="position: absolute; top: 74px; left: 46px; width: 40px; height: 40px; border-radius: 50%; background: var(--glass-dark); border: 1px solid rgba(255,255,255,0.28); display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M7 4v16l13-8z"></path></svg></span>
+          <div style="position: absolute; left: 8px; right: 8px; bottom: 8px; display: flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; border-radius: 999px; background: var(--glass-dark); font: 500 9px/1 var(--font-sans); color: #fff; white-space: nowrap; overflow: hidden">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#22D46B" stroke-width="3" stroke-linecap="round" aria-hidden="true" style="flex: none"><path d="M2 10v3"></path><path d="M6 6v11"></path><path d="M10 3v18"></path><path d="M14 8v7"></path><path d="M18 5v13"></path><path d="M22 10v3"></path></svg>Paper Planes in July
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; min-width: 0; padding: 4px 4px 4px 0"><span style="font: 500 10px/1 var(--font-mono); letter-spacing: 0.12em; color: var(--text-tertiary)">#2 FAN PAGE</span><span style="font: 600 15px/1.2 var(--font-sans); word-break: break-all">@iced.matcha.mornings</span><span style="font: 400 13px/1.3 var(--font-sans)">Clean girl</span><span style="display: flex; align-items: center; gap: 6px; align-self: flex-start; padding: 4px 10px 4px 4px; border-radius: 999px; background: var(--ink-200); font: 500 11px/1 var(--font-sans); color: var(--text-primary)"><img src="assets/imagery/pack-coastal-drive.png" alt="" style="width: 18px; height: 18px; border-radius: 50%; object-fit: cover">FanpageKit: Coastal Drive</span><span style="font: 400 12px/1.4 var(--font-sans); color: var(--text-secondary)">18–24 · women · late-night drivers</span></div>
+      <div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 12px; padding: 4px 4px 4px"><div style="display: flex; flex-direction: column; gap: 6px"><span style="display: flex; justify-content: space-between; font: 500 11px/1 var(--font-mono); letter-spacing: 0.06em; color: var(--text-secondary)"><span>FANPAGE FIT SCORE</span><span style="color: var(--text-primary)">88/100</span></span><span style="height: 6px; border-radius: 999px; background: var(--ink-300); overflow: hidden"><span style="display: block; width: 88%; height: 100%; background: var(--ink-900)"></span></span></div><div style="display: flex; flex-direction: column; gap: 6px"><span style="display: flex; justify-content: space-between; font: 500 11px/1 var(--font-mono); letter-spacing: 0.06em; color: var(--text-secondary)"><span>AUDIENCE TARGET</span><span style="color: var(--text-primary)">84/100</span></span><span style="height: 6px; border-radius: 999px; background: var(--ink-300); overflow: hidden"><span style="display: block; width: 84%; height: 100%; background: var(--ink-900)"></span></span></div><a href="#18-Upsell" style="display: flex; align-items: center; justify-content: center; height: 48px; border-radius: 999px; border: 1px solid var(--border-strong); color: var(--text-primary); text-decoration: none; font: 600 15px/1 var(--font-sans)">Launch this page</a></div></article>
+
+      <article style="display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 14px; padding: 12px; border-radius: 28px; background: var(--surface-card); border: 1px solid var(--border-subtle)">
+        <div style="position: relative; height: 235px; border-radius: 20px; overflow: hidden; background: #111">
+          <img src="assets/imagery/pack-midnight-city.png" alt="Example post from the Midnight City kit: silhouette against city lights" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
+          <div style="position: absolute; left: 0; right: 0; top: 0; height: 40%; background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0))"></div>
+          <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 45%; background: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0))"></div>
+          <p style="position: absolute; top: 18px; left: 10px; right: 10px; margin: 0; text-align: center; font: 500 10.5px/1.3 var(--font-sans); color: #fff">the song i play when i pretend i'm over you</p>
+          <span style="position: absolute; top: 74px; left: 46px; width: 40px; height: 40px; border-radius: 50%; background: var(--glass-dark); border: 1px solid rgba(255,255,255,0.28); display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M7 4v16l13-8z"></path></svg></span>
+          <p style="position: absolute; top: 150px; left: 10px; right: 10px; margin: 0; text-align: center; font: 500 11px/1.3 var(--font-sans); color: #fff">we were paper planes in july, never meant to land</p>
+          <div style="position: absolute; left: 8px; right: 8px; bottom: 8px; display: flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; border-radius: 999px; background: var(--glass-dark); font: 500 9px/1 var(--font-sans); color: #fff; white-space: nowrap; overflow: hidden">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#22D46B" stroke-width="3" stroke-linecap="round" aria-hidden="true" style="flex: none"><path d="M2 10v3"></path><path d="M6 6v11"></path><path d="M10 3v18"></path><path d="M14 8v7"></path><path d="M18 5v13"></path><path d="M22 10v3"></path></svg>Paper Planes in July
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; min-width: 0; padding: 4px 4px 4px 0"><span style="font: 500 10px/1 var(--font-mono); letter-spacing: 0.12em; color: var(--text-tertiary)">#3 FAN PAGE</span><span style="font: 600 15px/1.2 var(--font-sans); word-break: break-all">@pearls.and.bows</span><span style="font: 400 13px/1.3 var(--font-sans)">Coquette</span><span style="display: flex; align-items: center; gap: 6px; align-self: flex-start; padding: 4px 10px 4px 4px; border-radius: 999px; background: var(--ink-200); font: 500 11px/1 var(--font-sans); color: var(--text-primary)"><img src="assets/imagery/pack-midnight-city.png" alt="" style="width: 18px; height: 18px; border-radius: 50%; object-fit: cover">FanpageKit: Midnight City</span><span style="font: 400 12px/1.4 var(--font-sans); color: var(--text-secondary)">18–24 · women · the heartbroken</span></div>
+      <div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 12px; padding: 4px 4px 4px"><div style="display: flex; flex-direction: column; gap: 6px"><span style="display: flex; justify-content: space-between; font: 500 11px/1 var(--font-mono); letter-spacing: 0.06em; color: var(--text-secondary)"><span>FANPAGE FIT SCORE</span><span style="color: var(--text-primary)">81/100</span></span><span style="height: 6px; border-radius: 999px; background: var(--ink-300); overflow: hidden"><span style="display: block; width: 81%; height: 100%; background: var(--ink-900)"></span></span></div><div style="display: flex; flex-direction: column; gap: 6px"><span style="display: flex; justify-content: space-between; font: 500 11px/1 var(--font-mono); letter-spacing: 0.06em; color: var(--text-secondary)"><span>AUDIENCE TARGET</span><span style="color: var(--text-primary)">79/100</span></span><span style="height: 6px; border-radius: 999px; background: var(--ink-300); overflow: hidden"><span style="display: block; width: 79%; height: 100%; background: var(--ink-900)"></span></span></div><a href="#18-Upsell" style="display: flex; align-items: center; justify-content: center; height: 48px; border-radius: 999px; border: 1px solid var(--border-strong); color: var(--text-primary); text-decoration: none; font: 600 15px/1 var(--font-sans)">Launch this page</a></div></article>
+    </section>
+
+    <!-- Offer -->
+    <section id="offer" style="display: flex; flex-direction: column; gap: 10px; padding: 18px 16px 16px; border-radius: 28px; background: radial-gradient(120% 80% at 50% 0%, #12391F 0%, #0A2014 55%, #06140C 100%); border: 2px solid #22D46B; box-shadow: 0 0 0 6px rgba(34,212,107,0.12), 0 24px 60px rgba(34,212,107,0.22); margin: 0">
+      <span style="font: 500 11px/1 var(--font-mono); letter-spacing: 0.12em; color: var(--text-accent)">YOUR STARTER FAN PAGE</span>
+      <h2 style="margin: 0; font: 600 28px/1.06 var(--font-display); letter-spacing: -0.035em; font-size: 22px; line-height: 1.08">Start your faceless fan page now.</h2>
+      <div role="radiogroup" aria-label="Choose your fan page kit" style="display: flex; flex-direction: column; gap: 8px">
+        <span style="font: 500 11px/1 var(--font-mono); letter-spacing: 0.1em; color: var(--text-secondary)">CHOOSE YOUR KIT</span>
+        <button role="radio" aria-checked="true" style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 8px 12px 8px 8px; border-radius: 16px; border: 1.5px solid #22D46B; background: rgba(34,212,107,0.10); color: var(--text-primary); text-align: left; font: inherit; cursor: pointer"><img src="assets/imagery/pack-golden-hour.png" alt="" style="width: 40px; height: 52px; border-radius: 8px; object-fit: cover; flex: none"><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px"><span style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap"><span style="font: 600 14px/1.2 var(--font-sans)">Golden Hour</span><span class="badge badge-signal">#1 Best fit</span></span><span style="font: 400 12px/1.3 var(--font-sans); color: var(--text-secondary)">@goldenhour.library · Light academia</span></span><span style="width: 22px; height: 22px; border-radius: 50%; border: 6px solid #22D46B; background: #fff; box-sizing: border-box; flex: none"></span></button>
+        <button role="radio" aria-checked="false" style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 8px 12px 8px 8px; border-radius: 16px; border: 1px solid var(--border-default); background: rgba(0,0,0,0.25); color: var(--text-primary); text-align: left; font: inherit; cursor: pointer"><img src="assets/imagery/pack-coastal-drive.png" alt="" style="width: 40px; height: 52px; border-radius: 8px; object-fit: cover; flex: none"><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px"><span style="font: 600 14px/1.2 var(--font-sans)">Coastal Drive</span><span style="font: 400 12px/1.3 var(--font-sans); color: var(--text-secondary)">@iced.matcha.mornings · Clean girl</span></span><span style="width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--border-strong); box-sizing: border-box; flex: none"></span></button>
+        <button role="radio" aria-checked="false" style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 8px 12px 8px 8px; border-radius: 16px; border: 1px solid var(--border-default); background: rgba(0,0,0,0.25); color: var(--text-primary); text-align: left; font: inherit; cursor: pointer"><img src="assets/imagery/pack-midnight-city.png" alt="" style="width: 40px; height: 52px; border-radius: 8px; object-fit: cover; flex: none"><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px"><span style="font: 600 14px/1.2 var(--font-sans)">Midnight City</span><span style="font: 400 12px/1.3 var(--font-sans); color: var(--text-secondary)">@pearls.and.bows · Coquette</span></span><span style="width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--border-strong); box-sizing: border-box; flex: none"></span></button>
+        <span class="badge badge-scarce" style="align-self: flex-start; margin-top: 2px"><span class="badge-dot"></span>[N] of 200 Golden Hour kits left</span>
+      </div>
+      <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px">
+        <li style="display: flex; gap: 10px; font: 400 14.5px/1.4 var(--font-sans); color: #F5F5F7; align-items: center; padding: 7px 10px; border-radius: 12px; background: rgba(34,212,107,0.08); border: 1px solid rgba(34,212,107,0.22); font-size: 13px; line-height: 1.3"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22D46B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 0px; width: 22px; height: 22px; padding: 4px; box-sizing: border-box; border-radius: 50%; background: rgba(34,212,107,0.22)"><path d="M20 6 9 17l-5-5"></path></svg><span><span style="color: var(--text-primary); font-weight: 600">A month of ready-to-post content</span> in your aesthetic</span></li>
+        <li style="display: flex; gap: 10px; font: 400 14.5px/1.4 var(--font-sans); color: #F5F5F7; align-items: center; padding: 7px 10px; border-radius: 12px; background: rgba(34,212,107,0.08); border: 1px solid rgba(34,212,107,0.22); font-size: 13px; line-height: 1.3"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22D46B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 0px; width: 22px; height: 22px; padding: 4px; box-sizing: border-box; border-radius: 50%; background: rgba(34,212,107,0.22)"><path d="M20 6 9 17l-5-5"></path></svg><span>Raw clips to make even more posts</span></li>
+        <li style="display: flex; gap: 10px; font: 400 14.5px/1.4 var(--font-sans); color: #F5F5F7; align-items: center; padding: 7px 10px; border-radius: 12px; background: rgba(34,212,107,0.08); border: 1px solid rgba(34,212,107,0.22); font-size: 13px; line-height: 1.3"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22D46B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 0px; width: 22px; height: 22px; padding: 4px; box-sizing: border-box; border-radius: 50%; background: rgba(34,212,107,0.22)"><path d="M20 6 9 17l-5-5"></path></svg><span>Step-by-step editing guides for CapCut, Canva and more</span></li>
+        <li style="display: flex; gap: 10px; font: 400 14.5px/1.4 var(--font-sans); color: #F5F5F7; align-items: center; padding: 7px 10px; border-radius: 12px; background: rgba(34,212,107,0.08); border: 1px solid rgba(34,212,107,0.22); font-size: 13px; line-height: 1.3"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22D46B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 0px; width: 22px; height: 22px; padding: 4px; box-sizing: border-box; border-radius: 50%; background: rgba(34,212,107,0.22)"><path d="M20 6 9 17l-5-5"></path></svg><span>Posting playbook: what to post, when, and how to add your song</span></li>
+        <li style="display: flex; gap: 10px; align-items: center; font: 400 14.5px/1.4 var(--font-sans); color: #F5F5F7; padding: 7px 10px; border-radius: 12px; background: rgba(34,212,107,0.08); border: 1px solid rgba(34,212,107,0.22); font-size: 13px; line-height: 1.3"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22D46B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; width: 22px; height: 22px; padding: 4px; box-sizing: border-box; border-radius: 50%; background: rgba(34,212,107,0.22); margin-top: 0px"><path d="M20 6 9 17l-5-5"></path></svg><span>Fan page community</span><span class="badge badge-outline">New</span></li>
+      </ul>
+      <div style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap">
+        <span style="font: 600 40px/1 var(--font-display); letter-spacing: -0.04em">$37</span><span style="font: 400 17px/1 var(--font-sans); color: var(--text-tertiary); text-decoration: line-through">$57</span><span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 999px; background: #5ED57C; border: 1px solid #3FB862; box-shadow: 0 4px 14px rgba(34,212,107,0.35); color: #03210F; font: 600 13px/1 var(--font-sans); align-self: center">−35% · launch price</span>
+        
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 16px; border: 1px solid var(--border-default)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5F5F7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; width: 18px; height: 18px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+        <span style="font: 400 13px/1.35 var(--font-sans); color: var(--text-secondary); font-size: 12px"><span style="color: var(--text-primary); font-weight: 600">30-day money-back guarantee.</span> If it doesn't work for you, you get your money back.</span>
+      </div>
+      <button type="button" class="btn btn-primary btn-lg btn-full">Get the pack — $37</button>
+      <p style="margin: 0; text-align: center; font: 500 14px/1.3 var(--font-sans); color: var(--text-secondary); font-size: 12px">It's never been easier to start a faceless fan page.</p>
+    </section>
+
+    <!-- Proof -->
+    <section style="display: flex; flex-direction: column; gap: 14px; margin-right: -20px">
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-right: 20px">
+        <h2 style="margin: 0; font: 600 28px/1.06 var(--font-display); letter-spacing: -0.035em">Artists who started with fan pages.</h2>
+        <p style="margin: 0; font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary)">Straight from Spotify for Artists. <span style="color: var(--text-primary)">Organic growth, no paid promo.</span></p>
+      </div>
+      <div style="display: flex; gap: 10px; overflow: hidden">
+        <article style="width: 306px; flex: none; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 24px; background: var(--surface-card); border: 1px solid var(--border-subtle)">
+          <div style="display: flex; align-items: center; gap: 10px">
+            <span style="width: 36px; height: 36px; border-radius: 50%; background: var(--ink-300); display: flex; align-items: center; justify-content: center; font: 600 14px/1 var(--font-sans); flex: none">A</span>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px"><span style="font: 600 14px/1.2 var(--font-sans)">Artist name</span><span style="font: 400 11px/1.2 var(--font-sans); color: var(--text-tertiary)">Indie pop · US</span></span>
+            <span style="display: flex; align-items: center; gap: 4px; font: 500 10px/1 var(--font-mono); letter-spacing: 0.06em; color: var(--signal-400)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>VERIFIED</span>
+          </div>
+          <div role="img" aria-label="5 out of 5 stars" style="display: flex; gap: 3px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB547" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5.1 4.8 1.3 7-6.2-3.4-6.2 3.4 1.3-7L2 9.4l7-.9z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB547" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5.1 4.8 1.3 7-6.2-3.4-6.2 3.4 1.3-7L2 9.4l7-.9z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB547" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5.1 4.8 1.3 7-6.2-3.4-6.2 3.4 1.3-7L2 9.4l7-.9z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB547" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5.1 4.8 1.3 7-6.2-3.4-6.2 3.4 1.3-7L2 9.4l7-.9z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB547" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5.1 4.8 1.3 7-6.2-3.4-6.2 3.4 1.3-7L2 9.4l7-.9z"></path></svg>
+          </div>
+          <span style="font: 600 18px/1.2 var(--font-display); letter-spacing: -0.02em">1.85M listeners in 8 months.</span>
+          <p style="margin: 0; font: 400 14px/1.45 var(--font-sans); color: var(--text-secondary)">“Quote from the artist goes here: a line or two on what running fan pages did for their song.”</p>
+          <img src="assets/proof/s4a-listeners-1-8m.png" alt="Spotify for Artists: 1,853,687 listeners and 7,987,904 streams, Jan 25 to Sep 22, 2026" style="width: 100%; height: 200px; border-radius: 14px; object-fit: cover; object-position: top; background: #fff">
+          <span style="font: 400 11px/1.2 var(--font-mono); color: var(--text-tertiary)">7.99M streams · Jan–Sep 2026</span>
+        </article>
+        <article style="width: 306px; flex: none; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 24px; background: var(--surface-card); border: 1px solid var(--border-subtle)">
+          <div style="display: flex; align-items: center; gap: 10px">
+            <span style="width: 36px; height: 36px; border-radius: 50%; background: var(--ink-300); display: flex; align-items: center; justify-content: center; font: 600 14px/1 var(--font-sans); flex: none">B</span>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px"><span style="font: 600 14px/1.2 var(--font-sans)">Artist name</span><span style="font: 400 11px/1.2 var(--font-sans); color: var(--text-tertiary)">Alt-R&amp;B · UK</span></span>
+            <span style="display: flex; align-items: center; gap: 4px; font: 500 10px/1 var(--font-mono); letter-spacing: 0.06em; color: var(--signal-400)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>VERIFIED</span>
+          </div>
+          <div role="img" aria-label="5 out of 5 stars" style="display: flex; gap: 3px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB547" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5.1 4.8 1.3 7-6.2-3.4-6.2 3.4 1.3-7L2 9.4l7-.9z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB547" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5.1 4.8 1.3 7-6.2-3.4-6.2 3.4 1.3-7L2 9.4l7-.9z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB547" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5.1 4.8 1.3 7-6.2-3.4-6.2 3.4 1.3-7L2 9.4l7-.9z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB547" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5.1 4.8 1.3 7-6.2-3.4-6.2 3.4 1.3-7L2 9.4l7-.9z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB547" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5.1 4.8 1.3 7-6.2-3.4-6.2 3.4 1.3-7L2 9.4l7-.9z"></path></svg>
+          </div>
+          <span style="font: 600 18px/1.2 var(--font-display); letter-spacing: -0.02em">6.5M streams since March.</span>
+          <p style="margin: 0; font: 400 14px/1.45 var(--font-sans); color: var(--text-secondary)">“Quote from the artist goes here: a line or two on what running fan pages did for their song.”</p>
+          <img src="assets/proof/s4a-streams-6-5m.png" alt="Spotify for Artists: 6,502,946 streams and 1,467,028 listeners, March to August" style="width: 100%; height: 200px; border-radius: 14px; object-fit: cover; object-position: top; background: #fff">
+          <span style="font: 400 11px/1.2 var(--font-mono); color: var(--text-tertiary)">1.47M listeners · Mar–Aug</span>
+        </article>
+        <article style="width: 306px; flex: none; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 24px; background: var(--surface-card); border: 1px solid var(--border-subtle)">
+          <div style="display: flex; align-items: center; gap: 10px">
+            <span style="width: 36px; height: 36px; border-radius: 50%; background: var(--ink-300); display: flex; align-items: center; justify-content: center; font: 600 14px/1 var(--font-sans); flex: none">C</span>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px"><span style="font: 600 14px/1.2 var(--font-sans)">Artist name</span><span style="font: 400 11px/1.2 var(--font-sans); color: var(--text-tertiary)">Bedroom pop · Germany</span></span>
+          </div>
+          <div role="img" aria-label="5 out of 5 stars" style="display: flex; gap: 3px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB547" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5.1 4.8 1.3 7-6.2-3.4-6.2 3.4 1.3-7L2 9.4l7-.9z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB547" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5.1 4.8 1.3 7-6.2-3.4-6.2 3.4 1.3-7L2 9.4l7-.9z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB547" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5.1 4.8 1.3 7-6.2-3.4-6.2 3.4 1.3-7L2 9.4l7-.9z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB547" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5.1 4.8 1.3 7-6.2-3.4-6.2 3.4 1.3-7L2 9.4l7-.9z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB547" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5.1 4.8 1.3 7-6.2-3.4-6.2 3.4 1.3-7L2 9.4l7-.9z"></path></svg>
+          </div>
+          <span style="font: 600 18px/1.2 var(--font-display); letter-spacing: -0.02em">0 → 2,000+ a day in 4 months.</span>
+          <p style="margin: 0; font: 400 14px/1.45 var(--font-sans); color: var(--text-secondary)">“Quote from the artist goes here: a line or two on what running fan pages did for their song.”</p>
+          <img src="assets/proof/s4a-growth-2k.png" alt="Spotify for Artists chart rising from near zero to over 2,000 per day, April to July" style="width: 100%; height: 200px; border-radius: 14px; object-fit: cover; background: #fff">
+        </article>
+      </div>
+      <div style="display: flex; justify-content: center; gap: 6px; padding-right: 20px" aria-hidden="true">
+        <span style="width: 18px; height: 6px; border-radius: 999px; background: var(--ink-900)"></span>
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--ink-500)"></span>
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--ink-500)"></span>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font: 600 28px/1.06 var(--font-display); letter-spacing: -0.035em">Questions.</h2>
+      <div style="display: flex; flex-direction: column">
+        <div style="display: flex; flex-direction: column; gap: 8px; padding: 16px 0; border-top: 1px solid var(--border-subtle)">
+          <button style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 0; border: none; background: transparent; color: var(--text-primary); text-align: left; font: 600 16px/1.3 var(--font-sans); cursor: pointer" aria-expanded="true"><span style="flex: 1">Do I need to show my face?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path></svg></button>
+          <p style="margin: 0; font: 400 14.5px/1.5 var(--font-sans); color: var(--text-secondary)">No. Faceless fan pages never show you. Your song is the focal point of every post.</p>
+        </div>
+        <div style="padding: 16px 0; border-top: 1px solid var(--border-subtle)"><button style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 0; border: none; background: transparent; color: var(--text-primary); text-align: left; font: 600 16px/1.3 var(--font-sans); cursor: pointer" aria-expanded="false"><span style="flex: 1">How much time does it take?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></button></div>
+        <div style="padding: 16px 0; border-top: 1px solid var(--border-subtle)"><button style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 0; border: none; background: transparent; color: var(--text-primary); text-align: left; font: 600 16px/1.3 var(--font-sans); cursor: pointer" aria-expanded="false"><span style="flex: 1">Do I need editing skills?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></button></div>
+        <div style="padding: 16px 0; border-top: 1px solid var(--border-subtle)"><button style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 0; border: none; background: transparent; color: var(--text-primary); text-align: left; font: 600 16px/1.3 var(--font-sans); cursor: pointer" aria-expanded="false"><span style="flex: 1">Which platforms does it work on?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></button></div>
+        <div style="padding: 16px 0; border-top: 1px solid var(--border-subtle)"><button style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 0; border: none; background: transparent; color: var(--text-primary); text-align: left; font: 600 16px/1.3 var(--font-sans); cursor: pointer" aria-expanded="false"><span style="flex: 1">How fast will I see results?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></button></div>
+        <div style="padding: 16px 0; border-top: 1px solid var(--border-subtle)"><button style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 0; border: none; background: transparent; color: var(--text-primary); text-align: left; font: 600 16px/1.3 var(--font-sans); cursor: pointer" aria-expanded="false"><span style="flex: 1">Is this a subscription?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></button></div>
+        <div style="padding: 16px 0; border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle)"><button style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 0; border: none; background: transparent; color: var(--text-primary); text-align: left; font: 600 16px/1.3 var(--font-sans); cursor: pointer" aria-expanded="false"><span style="flex: 1">What if it doesn't work for me?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></button></div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="margin-top: auto; padding: 14px 20px 28px; display: flex; flex-direction: column; gap: 10px; background: var(--glass-dark); border-top: 1px solid var(--border-subtle)">
+    <button type="button" class="btn btn-primary btn-lg btn-full">Get the pack — $37</button>
+  </footer>
+</div>
+</body>
+</html>
