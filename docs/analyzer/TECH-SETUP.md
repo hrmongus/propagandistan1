@@ -137,13 +137,14 @@ aesthetic id is missing. `forceError: true` forces the fallback (ignored when `V
 ```json
 { "track": { "id": "4hWnpdm0As7Ruegjv2XD6W", "title": "Heart Is the Key", "artists": ["Lubó"],
              "artworkUrl": "…", "releaseDate": "2026-09-16", "spotifyUrl": "…" },
-  "answers": { "listeners": "1k-10k", "goal": "streams", "blocker": "no-time", "aesthetics": ["noir", "y2k"],
-               "age": "18-24", "gender": "mixed", "moments": ["night-drive"], "time": "1-3h", "release": "out", "experience": "never" },
+  "answers": { "listeners": "1k-10k", "goal": "100k", "blocker": "reach", "aesthetics": ["light-academia", "clean-girl", "coquette"],
+               "age": ["18-24"], "gender": "women", "moments": ["heartbreak", "night-drive"], "tried": ["playlists"],
+               "dailyTime": "15", "release": "month", "experience": "never" },
   "lyricLine": "optional", "firstName": "Sam", "email": "sam@example.com" }
 ```
 → `{ id: "Ab12Cd34", results_url: "https://…/s/Ab12Cd34", ms, hooks_ms, hooks_fallback }`.
 Errors: `invalid_email`, `disposable_email`, `invalid_track`, `invalid_answers` (400), `save_failed` (500).
-`answers.listeners` is required: `lt1k | 1k-10k | 10k-50k | 50k-100k | 100k+`. Aesthetics are ids in pick order.
+`answers.listeners` is required: `lt1k | 1k-10k | 10k-50k | 50k-100k | 100k+`. Every other value must be an option id from `@/lib/analyzer/config` (unknown ids are dropped). Aesthetics are ids in pick order (max 3), age max 2, moments max 3.
 
 ### `GET /api/strategy/{id}`
 → `{ id, created_at, first_name, track, answers, metrics, hooks, lyric_line }` (never the email). 404 `not_found`.
@@ -151,7 +152,9 @@ Errors: `invalid_email`, `disposable_email`, `invalid_track`, `invalid_answers` 
 ```json
 { "fanpageFit": { "score": 87, "label": "Excellent fit" }, "untappedAudiencePct": 97,
   "radar": { "hook": 91, "emotion": 77, "replay": 84, "relatability": 70, "shareability": 88, "visualFit": 93 },
-  "topFanPages": ["noir", "y2k", "streetwear"], "offerPack": "midnight" }
+  "topFanPages": ["light-academia", "clean-girl", "coquette"],
+  "pages": [{ "aesthetic": "light-academia", "kit": "golden", "fit": 94, "audience": 87 }, …],
+  "offerPack": "golden" }
 ```
 `hooks`: `{ pages: [{ aesthetic, hooks: [3] }], fallback, provider }`. Labels for radar keys: `RADAR_LABELS` in
 `lib/analyzer/metrics.ts`.

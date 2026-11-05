@@ -1,0 +1,80 @@
+import { ASSET } from './packs';
+
+/*
+ * Copy that isn't tied to one question. Items marked TODO(launch) are placeholders from HANDOFF.md §8 that must be
+ * replaced with real, verified content before the funnel goes live.
+ */
+
+/** TODO(launch): real customer count. While null, the landing shows "Loved by independent artists" without a number. */
+export const ARTIST_COUNT: string | null = null;
+
+export const DISTRIBUTORS = ['DistroKid', 'TuneCore', 'CD Baby', 'Amuse', 'Ditto', 'AWAL'];
+
+/** Landing FAQ (HANDOFF.md §6 says these answers still needed writing; drafted here, review before launch). */
+export const LANDING_FAQ: { q: string; a: string }[] = [
+  { q: 'Are you using my song to train AI?', a: "No. We only read your track's public details from Spotify. We never store your audio or use it to train AI." },
+  { q: 'How does the Blueprint Builder work?', a: 'Pick your song, answer 9 quick questions about your audience and goals, and we build a fan page plan around them: 3 page concepts, hooks written for your song and a 6-month growth path.' },
+  { q: 'Is my song safe with you?', a: "Yes. Nothing is published or shared. Your Blueprint is saved under a private link that only you get by email." },
+  { q: "Why is it free? What's the catch?", a: 'No catch. The Blueprint shows you what fan pages can do for your song. If you want ready-made content to run them, we sell FanpageKit packs, but you never have to buy anything.' },
+];
+
+/** Results FAQ (HANDOFF.md §6, verbatim). */
+export const RESULTS_FAQ: { q: string; a: string }[] = [
+  { q: 'Do I need to show my face?', a: 'No. Faceless fan pages never show you. Your song is the focal point of every post.' },
+  { q: 'How much time does it take?', a: 'About 4 minutes per post. The content is ready-made, so you only add your song and post.' },
+  { q: 'Do I need editing skills?', a: 'No. Step-by-step guides for CapCut, Canva, iMovie and more walk you through every post.' },
+  { q: 'Which platforms does it work on?', a: 'Instagram Reels and TikTok. Every clip is vertical and ready to post. You attach your track as the platform audio.' },
+  { q: 'How fast will I see results?', a: 'It depends on your song and how consistently you post. Fan pages grow with steady daily posting, so start as early as you can.' },
+  { q: 'Is this a subscription?', a: 'No. One-time payment. The pack is yours to keep, with a commercial licence and no royalties or credit required.' },
+  { q: "What if it doesn't work for me?", a: "You're covered by our 30-day money-back guarantee." },
+];
+
+export type Proof = { initial: string; name: string; meta: string; verified: boolean; stars: number; headline: string; quote: string; image: string; imageAlt: string; caption?: string; position?: string };
+
+/** TODO(launch): replace with real artists who agreed to be featured; show stars only if they gave that rating. */
+export const PROOF: Proof[] = [
+  { initial: 'A', name: 'Artist name', meta: 'Indie pop · US', verified: true, stars: 5, headline: '1.85M listeners in 8 months.', quote: 'Quote from the artist goes here: a line or two on what running fan pages did for their song.', image: ASSET('proof/s4a-listeners-1-8m.png'), imageAlt: 'Spotify for Artists: 1,853,687 listeners and 7,987,904 streams, Jan 25 to Sep 22, 2026', caption: '7.99M streams · Jan–Sep 2026', position: 'top' },
+  { initial: 'B', name: 'Artist name', meta: 'Alt-R&B · UK', verified: true, stars: 5, headline: '6.5M streams since March.', quote: 'Quote from the artist goes here: a line or two on what running fan pages did for their song.', image: ASSET('proof/s4a-streams-6-5m.png'), imageAlt: 'Spotify for Artists: 6,502,946 streams and 1,467,028 listeners, March to August', caption: '1.47M listeners · Mar–Aug', position: 'top' },
+  { initial: 'C', name: 'Artist name', meta: 'Bedroom pop · Germany', verified: false, stars: 5, headline: '0 → 2,000+ a day in 4 months.', quote: 'Quote from the artist goes here: a line or two on what running fan pages did for their song.', image: ASSET('proof/s4a-growth-2k.png'), imageAlt: 'Spotify for Artists chart rising from near zero to over 2,000 per day, April to July' },
+];
+
+/** TODO(launch): label logos need permission (HANDOFF.md §8); empty slots keep the space until then. */
+export const LABEL_LOGOS: { name: string; src: string | null }[] = [
+  { name: 'Label', src: null }, { name: 'Label', src: null }, { name: 'Label', src: null }, { name: 'Label', src: null },
+];
+
+/**
+ * Analyzing screen status lines (one every ~1.6s). v1 has no audio analysis, so the mock's "reading the audio /
+ * locating the hook / transcribing lyrics" steps are replaced by steps that actually happen.
+ */
+export const ANALYZING_STEPS = [
+  'Reading your track',
+  'Matching your aesthetics',
+  'Mapping your audience',
+  'Writing your hooks',
+  'Picking your fan pages',
+  'Filling your fan pages',
+  'Modelling your 6-month path',
+];
+
+/** How long the analyzing screen holds, even if everything is ready sooner (HANDOFF.md: 12–15s). */
+export const ANALYZING_MS = 12_500;
+
+/** Results offer box bullets. */
+export const OFFER_BULLETS: { text: string; lead?: string; badge?: string }[] = [
+  { lead: 'A month of ready-to-post content', text: 'in your aesthetic' },
+  { text: 'Raw clips to make even more posts' },
+  { text: 'Step-by-step editing guides for CapCut, Canva and more' },
+  { text: 'Posting playbook: what to post, when, and how to add your song' },
+  { text: 'Fan page community', badge: 'New' },
+];
+
+/** Checkout step 1: what's inside the pack. */
+export const PACK_INCLUDES: { text: string; lead?: string; signal?: boolean }[] = [
+  { text: 'About $1.23 per finished post', signal: true },
+  { lead: '30 ready-to-post reels', text: ', one a day for a month' },
+  { text: 'Raw clips to make even more posts' },
+  { text: 'Your Blueprint hooks, written for this song' },
+  { text: 'Editing guides and a posting playbook' },
+  { text: 'Fan page community' },
+];

@@ -48,8 +48,10 @@ export type ClientEvents = {
   email_submitted: { step: string | null };
   /** The results page (/s/{id}) was shown. */
   results_viewed: { step: string | null };
-  /** The results-page offer was clicked (also logged server-side by /api/checkout). */
+  /** The results-page offer was clicked (also logged server-side by /api/checkout). `step`: offer, sticky or page-1…3. */
   offer_clicked: { step: string | null };
+  /** A kit was picked in the results-page offer selector. */
+  kit_selected: { pack: PackSlug; source: 'offer' };
 
   /* access */
   access_viewed: { order_name: string; monthly: boolean; upsell: boolean };

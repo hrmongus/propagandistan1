@@ -1,20 +1,24 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
+import { geistMono } from '@/components/blueprint/fonts';
+import { Results, type StrategyRow } from '@/components/blueprint/results';
 import { getStrategy } from '@/lib/analyzer/strategies';
 import { isSlug } from '@/lib/analyzer/store';
+import '@/components/blueprint/blueprint.css';
 
-export const metadata: Metadata = { title: 'Your fan page strategy', robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: 'Your Fanpage Blueprint — FanpageKit', robots: { index: false, follow: false } };
+export const viewport: Viewport = { themeColor: '#000000', viewportFit: 'cover' };
 export const dynamic = 'force-dynamic';
 
-/** Permanent results link (used in emails). Raw JSON until the designed results screen replaces it. */
+/** Permanent results link (screen 17), sent by email. The row never includes the email address. */
 export default async function Strategy({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   if (!isSlug(id)) notFound();
-  const row = await getStrategy(id);
+  const row = (await getStrategy(id)) as StrategyRow | null;
   if (!row) notFound();
   return (
-    <main style={{ background: '#fff', color: '#000', minHeight: '100vh', padding: 16 }}>
-      <pre style={{ whiteSpace: 'pre-wrap', fontSize: 12 }}>{JSON.stringify(row, null, 2)}</pre>
-    </main>
+    <div className={`fpb ${geistMono.variable}`}>
+      <Results row={row} />
+    </div>
   );
 }

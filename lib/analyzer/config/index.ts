@@ -1,6 +1,7 @@
-// Single import point for all analyzer content: import { AESTHETICS, PACKS, MOMENTS, QUIZ } from '@/lib/analyzer/config'.
+// Single import point for all Blueprint content: import { AESTHETICS, PACKS, MOMENTS, GOALS, … } from '@/lib/analyzer/config'.
 export * from './types';
 export { AESTHETICS, aestheticById } from './aesthetics';
-export { PACKS } from './packs';
+export { ASSET, KIT_FALLBACK, PACKS, packById } from './packs';
 export { MOMENTS, momentById } from './moments';
-export { QUIZ, LISTENER_BRACKETS } from './quiz';
+export * from './quiz';
+export * from './copy';

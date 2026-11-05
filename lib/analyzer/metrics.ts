@@ -1,4 +1,4 @@
-import { AESTHETICS, aestheticById, type Aesthetic, type ListenerBracket, type PackId, type QuizAnswers } from './config';
+import { AESTHETICS, aestheticById, KIT_FALLBACK, type Aesthetic, type ListenerBracket, type PackId, type QuizAnswers } from './config';
 
 /*
  * The results-page numbers. Pure and deterministic: seeded from a hash of the track id and the answers, so the
@@ -14,6 +14,9 @@ export type Metrics = {
   radar: Record<RadarKey, number>;
   /** Aesthetic ids: the user's picks in pick order, filled to 3 with aesthetics on the first pick's pack. */
   topFanPages: string[];
+  /** The 3 recommended pages, best first: each with its own kit (no two share one) and its own scores. */
+  pages: { aesthetic: string; kit: PackId; fit: number; audience: number }[];
+  /** The #1 page's kit: preselected in the offer. */
   offerPack: PackId;
 };
 
@@ -64,6 +67,17 @@ export function fillTopFanPages(picks: string[], pool: Aesthetic[] = AESTHETICS,
   return chosen;
 }
 
+/** Mapped kit first; if an earlier page already took it, the closest unused kit (KIT_FALLBACK order). */
+export function assignKits(aestheticIds: string[]): PackId[] {
+  const used = new Set<PackId>();
+  return aestheticIds.map((id) => {
+    const mapped = aestheticById(id)?.pack ?? 'golden';
+    const kit = [mapped, ...KIT_FALLBACK[mapped]].find((k) => !used.has(k)) ?? mapped;
+    used.add(kit);
+    return kit;
+  });
+}
+
 export function getMetrics(trackId: string, answers: QuizAnswers): Metrics {
   const r = rng(hash(trackId + '|' + canonical(answers)));
   const fit = intIn(r, 78, 90);
@@ -72,11 +86,21 @@ export function getMetrics(trackId: string, answers: QuizAnswers): Metrics {
   // No valid pick: choose one deterministically so the page still has three fan pages.
   const fallbackFirst = AESTHETICS[Math.floor(r() * AESTHETICS.length)].id;
   const topFanPages = fillTopFanPages(answers.aesthetics ?? [], AESTHETICS, fallbackFirst);
+  const kits = assignKits(topFanPages);
+  // Per-page scores, strictly descending so #1 is visibly the best option.
+  let fitCap = 96, audCap = 94;
+  const pages = topFanPages.map((aesthetic, i) => {
+    const pageFit = intIn(r, Math.min(fitCap, Math.max(70, fitCap - 8)), fitCap);
+    const pageAud = intIn(r, Math.min(audCap, Math.max(66, audCap - 8)), audCap);
+    fitCap = pageFit - 3; audCap = pageAud - 3;
+    return { aesthetic, kit: kits[i], fit: pageFit, audience: pageAud };
+  });
   return {
     fanpageFit: { score: fit, label: fit >= 86 ? 'Excellent fit' : 'Strong fit' },
     untappedAudiencePct: UNTAPPED[answers.listeners] ?? UNTAPPED.lt1k,
     radar,
     topFanPages,
-    offerPack: aestheticById(topFanPages[0])!.pack,
+    pages,
+    offerPack: kits[0],
   };
 }

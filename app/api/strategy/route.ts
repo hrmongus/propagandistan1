@@ -3,7 +3,9 @@ import { espTags, sendToESP } from '@/lib/analyzer/esp';
 import { generateHooks } from '@/lib/analyzer/hooks';
 import { getMetrics } from '@/lib/analyzer/metrics';
 import { sb, slug } from '@/lib/analyzer/store';
-import { LISTENER_BRACKETS, type QuizAnswers } from '@/lib/analyzer/config';
+import {
+  aestheticById, AGES, BLOCKERS, DAILY_TIME, EXPERIENCE, GENDERS, GOALS, LIMITS, LISTENER_BRACKETS, MOMENTS, RELEASES, TRIED, type QuizAnswers,
+} from '@/lib/analyzer/config';
 import { config } from '@/lib/config';
 
 export const maxDuration = 15;
@@ -11,6 +13,10 @@ export const maxDuration = 15;
 type Track = { id: string; title: string; artists: string[]; artworkUrl?: string | null; releaseDate?: string | null; spotifyUrl?: string };
 
 const s = (v: unknown, max: number) => (typeof v === 'string' && v.trim() ? v.trim().slice(0, max) : undefined);
+/** A known option id, typed as that option's id union. */
+const pick = <T extends string>(v: unknown, options: readonly { id: T }[]): T | undefined => options.find((o) => o.id === v)?.id;
+const picks = <T extends string>(v: unknown, options: readonly { id: T }[], max: number): T[] =>
+  [...new Set(Array.isArray(v) ? v : [])].map((x) => pick(x, options)).filter((x): x is T => !!x).slice(0, max);
 const arr = (v: unknown, max: number) => (Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string').slice(0, max).map((x) => x.slice(0, 60)) : []);
 
 function parseTrack(v: unknown): Track | null {
@@ -24,11 +30,20 @@ function parseTrack(v: unknown): Track | null {
 
 function parseAnswers(v: unknown): QuizAnswers | null {
   const a = (v ?? {}) as Record<string, unknown>;
-  const listeners = LISTENER_BRACKETS.find((b) => b.id === a.listeners)?.id;
+  const listeners = pick(a.listeners, LISTENER_BRACKETS);
   if (!listeners) return null;
   return {
-    listeners, aesthetics: arr(a.aesthetics, 3), moments: arr(a.moments, 8),
-    goal: s(a.goal, 40), blocker: s(a.blocker, 40), age: s(a.age, 20), gender: s(a.gender, 20), time: s(a.time, 20), release: s(a.release, 20), experience: s(a.experience, 40),
+    listeners,
+    goal: pick(a.goal, GOALS),
+    blocker: pick(a.blocker, BLOCKERS),
+    aesthetics: arr(a.aesthetics, 3).filter((id) => aestheticById(id)),
+    age: picks(a.age, AGES, LIMITS.age),
+    gender: pick(a.gender, GENDERS),
+    moments: picks(a.moments, MOMENTS, LIMITS.moments),
+    tried: picks(a.tried, TRIED, TRIED.length),
+    dailyTime: pick(a.dailyTime, DAILY_TIME),
+    release: pick(a.release, RELEASES),
+    experience: pick(a.experience, EXPERIENCE),
   };
 }
 
@@ -47,7 +62,7 @@ export async function POST(req: Request) {
   const firstName = s(b.firstName, 80) ?? null, lyricLine = s(b.lyricLine, 200) ?? null;
 
   const metrics = getMetrics(track.id, answers);
-  const hooks = await generateHooks({ title: track.title, artist: track.artists[0], lyricLine, aesthetics: metrics.topFanPages, age: answers.age, gender: answers.gender, moments: answers.moments });
+  const hooks = await generateHooks({ title: track.title, artist: track.artists[0], lyricLine, aesthetics: metrics.topFanPages, age: answers.age?.join(', '), gender: answers.gender, moments: answers.moments });
 
   const row = {
     first_name: firstName, email: email.email, track, answers, metrics, lyric_line: lyricLine,
@@ -68,7 +83,7 @@ export async function POST(req: Request) {
 
   const origin = process.env.NEXT_PUBLIC_SITE_URL ? config.siteUrl : new URL(req.url).origin;
   const results_url = `${origin}/s/${id}`;
-  await sendToESP({ email: email.email, first_name: firstName, results_url, tags: espTags(answers, metrics.topFanPages[0]) }).catch((e) => console.error('[strategy] ESP failed', e));
+  await sendToESP({ email: email.email, first_name: firstName, results_url, tags: espTags(answers) }).catch((e) => console.error('[strategy] ESP failed', e));
 
   return Response.json({ id, results_url, ms: Math.round(performance.now() - t0), hooks_ms: hooks.ms, hooks_fallback: hooks.fallback });
 }

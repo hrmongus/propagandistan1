@@ -35,3 +35,48 @@ lead submit with `/s/{id}`, funnel events and checkout handoff.
 | 18 | `18-checkout-1-offer.html` | received |
 | 18b | `18b-checkout-2-payment.html` | received |
 | assets | `assets/imagery`, `assets/logo`, `assets/proof` | pending upload |
+
+## Build status (2026-11-05)
+
+Built: screens 00–18b at `/fanpage-blueprint` (quiz, 00–16) and `/s/{id}` (results 17 + checkout sheets 18/18b).
+Design preview of the results without Supabase: `/dev/blueprint-results`.
+
+| Piece | Where |
+|---|---|
+| Tokens + component CSS (scoped `.fpb`) | `components/blueprint/blueprint.css` |
+| Shared components (Icon, Logo, Img, OptionCard, Chip, QHeader, Footer, Sheet) | `components/blueprint/ui.tsx` |
+| Quiz state machine, persisted to localStorage | `components/blueprint/state.ts`, `Flow.tsx` |
+| Screens 00–14 / 15–16 / 17–18b | `screens.tsx` / `finale.tsx` / `results.tsx` |
+| Charts (goal card, growth chart, radar) | `charts.tsx` |
+| All copy and options | `lib/analyzer/config/*` (one import: `@/lib/analyzer/config`) |
+| Scores, kits per page | `lib/analyzer/metrics.ts` (unit-tested) |
+
+### Images: drop them in, no code changes
+
+Copy the files into `public/fanpage-blueprint/assets/` with the mock-ups' names:
+
+- `logo/fanpagekit-lockup-white.png` (or swap the path in `components/blueprint/ui.tsx` for an SVG)
+- `imagery/pack-golden-hour.png`, `pack-midnight-city.png`, `pack-coastal-drive.png`, `pack-forest-trail.png`
+- `imagery/tile-01.png` … `tile-24.png`
+- `proof/s4a-listeners-1-8m.png`, `s4a-streams-6-5m.png`, `s4a-growth-2k.png`
+
+Every image slot renders a grey placeholder at the final size until its file exists, so nothing shifts.
+
+### Decisions taken (change any of them)
+
+1. **No audio in v1.** Lyric layer on 06 shows a neutral stand-in line; reels show the hook only; analyzing steps
+   describe what actually happens (`ANALYZING_STEPS`). The "Upload an MP3" link on 01 is hidden.
+2. **Moments:** the mock's 12 (max 3). New default hooks for chill, romance, rebellion, dreamy, feel-good.
+3. **Results link:** `/s/{id}` (backend), not `/b/{id}`.
+4. **10-minute expiry bar:** left out of 17 and 18 (results don't expire; fake urgency, HANDOFF.md §8).
+5. **Bundle toggle on 18b:** off by default (pre-ticked paid add-ons aren't allowed in the EU).
+6. **"Ready to build" summary on 14:** not added (follows the mock).
+7. **Kits:** the 3 pages never share a kit; fallback order in `KIT_FALLBACK` reproduces the mock's example.
+8. **Payment:** Stripe's embedded checkout (same as `/checkout`) replaces the mock's hand-drawn card fields; after
+   paying, buyers land on the existing `/upsell` → `/access` pages (the "order confirmed" step).
+
+### Still placeholder (HANDOFF.md §8, must change before launch)
+
+`ARTIST_COUNT`, `PROOF` (names, quotes, ratings), `LABEL_LOGOS`, the "#1 organic method" claim on 03, the $57
+anchor (`PRICES.packWas`), kit stock (comes from `lib/data.ts`, same as the live site), example follower counts on 09.
+Spotify attribution: the results track card links to Spotify ("Open Spotify"); the Spotify logo isn't placed yet.

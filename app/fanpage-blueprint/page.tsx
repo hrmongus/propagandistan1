@@ -1,16 +1,21 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import { Flow } from '@/components/blueprint/Flow';
+import { geistMono } from '@/components/blueprint/fonts';
+import '@/components/blueprint/blueprint.css';
 
-// Fanpage Blueprint Builder (docs/fanpage-blueprint/HANDOFF.md). Placeholder until the screens are built;
-// kept out of search until launch.
+// Fanpage Blueprint Builder (docs/fanpage-blueprint/HANDOFF.md). Kept out of search until launch.
 export const metadata: Metadata = {
-  title: 'Free Fanpage Blueprint Builder',
+  title: 'Free Fanpage Blueprint Builder — FanpageKit',
+  description: "Get your track's Fanpage Fit Score and a personal fan page plan in 2 minutes.",
   robots: { index: false, follow: false },
 };
 
+export const viewport: Viewport = { themeColor: '#000000', viewportFit: 'cover' };
+
 export default function FanpageBlueprint() {
   return (
-    <main style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', background: '#000', color: '#A1A1A6', fontFamily: 'system-ui', padding: 20 }}>
-      <p>Fanpage Blueprint Builder: in progress.</p>
-    </main>
+    <div className={`fpb ${geistMono.variable}`}>
+      <Flow />
+    </div>
   );
 }

@@ -112,7 +112,11 @@ payment form is a cross-origin iframe, so card details are never recorded.
 ### Analyzer (lead magnet: `/s/{id}` and the analyzer screens)
 
 Sent by `track(name, step?)` in `lib/analyzer/track.ts`, which also stores every event in the Supabase `events`
-table (drop-off SQL in `docs/analyzer/TECH-SETUP.md`). The screens don't exist yet; the helper is ready for them.
+table (drop-off SQL in `docs/analyzer/TECH-SETUP.md`). Screens: `/fanpage-blueprint` (quiz, `components/blueprint/`)
+and `/s/{id}` (results + checkout sheets). `step_viewed.step` is the screen id: `landing`, `search`, `listeners`,
+`did-you-know`, `goal`, `blocker`, `how-it-works`, `aesthetics`, `audience`, `several-pages`, `tried`, `proof`,
+`daily-time`, `release`, `experience`, `analyzing`, `email-gate`. The checkout sheet's step 2 reuses the checkout events
+below (`checkout_viewed`, `checkout_bundle_toggled`, `checkout_error`); purchases are tracked by the webhook as usual.
 
 | Event | Properties | Fires when |
 | --- | --- | --- |
@@ -120,7 +124,8 @@ table (drop-off SQL in `docs/analyzer/TECH-SETUP.md`). The screens don't exist y
 | `step_viewed` | `step` (screen or quiz question id) | An analyzer screen or quiz step is shown |
 | `email_submitted` | `step` | `POST /api/strategy` succeeded |
 | `results_viewed` | `step` | The results page `/s/{id}` is shown |
-| `offer_clicked` | `step` | The results-page offer is clicked. `/api/checkout` also logs it server-side to the `events` table (not PostHog) |
+| `offer_clicked` | `step` (`offer`, `sticky`, `page-1`…`page-3`) | A results-page offer button opens the checkout sheet. `/api/checkout` also logs it server-side to the `events` table (not PostHog) |
+| `kit_selected` | `pack`, `source` (`offer`) | A kit is picked in the results-page "Choose your kit" selector (PostHog only) |
 
 `upsell_accepted` / `upsell_declined` are also written to the `events` table by `track()` for the analyzer
 funnel, but they go to PostHog only from the upsell page, as listed above, so they aren't counted twice.
