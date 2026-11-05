@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState, type Dispatch, type ReactNode } from 'react';
 import {
-  AESTHETICS, AGES, ARTIST_COUNT, BLOCKERS, DAILY_TIME, EXPERIENCE, GENDERS, LABEL_LOGOS, LANDING_FAQ, LIMITS,
-  LISTENER_BRACKETS, LISTENER_SHORT, LISTENER_START, MAJOR_LABELS, MOMENTS, PROOF, RELEASES, TRIED, aestheticById, goalsFor, momentById, type Option,
+  AESTHETICS, AGES, ARTIST_COUNT, ASSET, BLOCKERS, DAILY_TIME, EXPERIENCE, GENDERS, LABEL_LOGOS, LANDING_FAQ, LIMITS,
+  LISTENER_BRACKETS, LISTENER_SHORT, LISTENER_START, MAJOR_LABELS, MOMENTS, PROOF, RELEASES, TRIED, aestheticById, goalsFor, type Option,
 } from '@/lib/analyzer/config';
 import type { SpotifyTrack } from '@/lib/analyzer/spotify';
 import { GoalChart } from './charts';
@@ -334,45 +334,148 @@ const LAYERS = [
   { t: 'Your track', s: 'Attached as the audio. One tap to stream' },
 ];
 
+/** Where each numbered marker sits on the example video (percent of the phone screen). */
+const MARKERS: React.CSSProperties[] = [
+  { top: '15.5%', left: '1.5%' }, // 1: POV hook at the top of the video
+  { top: '41%', left: '9%' },     // 2: lyric line in the middle of the clip
+  { top: '29%', right: '19%' },   // 3: the footage itself
+  { bottom: '1.6%', left: '3%' },  // 4: the sound row (song attached as audio)
+];
+
+const TT = {
+  heart: '<path d="M12 21s-8.5-5.4-10.2-10.6C.6 6.6 3 3.5 6.4 3.5c2.1 0 3.9 1.1 5.6 3.2 1.7-2.1 3.5-3.2 5.6-3.2 3.4 0 5.8 3.1 4.6 6.9C20.5 15.6 12 21 12 21z"/>',
+  comment: '<path d="M12 3C6.5 3 2 6.7 2 11.3c0 2.6 1.4 4.9 3.7 6.4-.2 1.3-.9 2.6-2 3.6 2.3-.1 4.2-.9 5.6-2 .9.2 1.8.3 2.7.3 5.5 0 10-3.7 10-8.3S17.5 3 12 3z"/>',
+  bookmark: '<path d="M6 2.5h12a1.5 1.5 0 0 1 1.5 1.5v17.5L12 16.8l-7.5 4.7V4A1.5 1.5 0 0 1 6 2.5z"/>',
+  share: '<path d="M13.5 4.5 22 12l-8.5 7.5v-4.3c-5.4 0-9 1.6-11.5 5.3 1-5.6 4.1-10.7 11.5-11.6z"/>',
+  home: '<path d="M3 10.5 12 3l9 7.5V21h-6.5v-6h-5v6H3z"/>',
+  friends: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5c2 .8 3.5 2.7 3.5 5.5"/>',
+  inbox: '<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 13h5l1.5 2.5h5L16 13h5"/>',
+  profile: '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+  note: '<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
+};
+
+/** A short-form app "For You" screen: example post video with the familiar overlay (no app logos). */
+function PhoneMock({ handle, sound, revealed, active }: { handle: string; sound: string; revealed: number; active: number }) {
+  const rail = (d: string, label: string, filled = true) => (
+    <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+      <svg width="27" height="27" viewBox="0 0 24 24" fill={filled ? '#fff' : 'none'} stroke={filled ? 'none' : '#fff'} strokeWidth="2" aria-hidden="true" style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,.35))' }} dangerouslySetInnerHTML={{ __html: d }} />
+      <span style={{ font: '600 10px/1 var(--font-sans)', color: '#fff', textShadow: '0 1px 2px rgba(0,0,0,.5)' }}>{label}</span>
+    </span>
+  );
+  const nav = (d: string, label: string, on = false) => (
+    <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, flex: 1, color: on ? '#fff' : 'rgba(255,255,255,.62)' }}>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill={on ? '#fff' : 'none'} stroke="currentColor" strokeWidth={on ? 0 : 1.9} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" dangerouslySetInnerHTML={{ __html: d }} />
+      <span style={{ font: '500 8.5px/1 var(--font-sans)' }}>{label}</span>
+    </span>
+  );
+  return (
+    <div style={{ position: 'relative', width: 'min(276px, 74vw)', aspectRatio: '276 / 566', borderRadius: 38, padding: 7, background: '#1C1C1F', boxShadow: 'var(--shadow-float), 0 0 0 1px rgba(255,255,255,.08)', flex: 'none' }}>
+      <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: 31, overflow: 'hidden', background: '#000', display: 'flex', flexDirection: 'column' }}>
+        {/* video area: the example post, 9:16 */}
+        <div style={{ position: 'relative', flex: 1, overflow: 'hidden' }}>
+          <video src={ASSET('video/how-it-works.mp4')} poster={ASSET('video/how-it-works.jpg')} autoPlay muted loop playsInline preload="auto"
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} aria-label="Example fan page post" />
+          {/* status bar */}
+          <div aria-hidden="true" style={{ position: 'absolute', top: 9, left: 20, right: 16, display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#fff', font: '600 12px/1 var(--font-sans)' }}>
+            <span>9:41</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <svg width="16" height="11" viewBox="0 0 16 11" fill="#fff"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.3" y="5" width="3" height="6" rx="1"/><rect x="8.6" y="2.5" width="3" height="8.5" rx="1"/><rect x="12.9" y="0" width="3" height="11" rx="1"/></svg>
+              <svg width="15" height="11" viewBox="0 0 24 17" fill="#fff"><path d="M12 3.5c3.6 0 6.9 1.4 9.4 3.7l1.8-1.9A16 16 0 0 0 12 1 16 16 0 0 0 .8 5.3l1.8 1.9A13.4 13.4 0 0 1 12 3.5zm0 5c2.3 0 4.4.9 6 2.4l1.8-1.9A11 11 0 0 0 12 6a11 11 0 0 0-7.8 3l1.8 1.9c1.6-1.5 3.7-2.4 6-2.4zm0 5c1 0 1.9.4 2.6 1L12 17l-2.6-2.5c.7-.6 1.6-1 2.6-1z"/></svg>
+              <svg width="24" height="11" viewBox="0 0 26 12" fill="none"><rect x=".5" y=".5" width="22" height="11" rx="3" stroke="#fff" strokeOpacity=".5"/><rect x="2" y="2" width="17" height="8" rx="1.8" fill="#fff"/><rect x="23.5" y="4" width="1.8" height="4" rx="1" fill="#fff" fillOpacity=".5"/></svg>
+            </span>
+          </div>
+          {/* top tabs */}
+          <div style={{ position: 'absolute', top: 34, left: 0, right: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 16, font: '600 13px/1 var(--font-sans)', textShadow: '0 1px 2px rgba(0,0,0,.4)' }}>
+            <span style={{ color: 'rgba(255,255,255,.62)' }}>Following</span>
+            <span style={{ color: '#fff', position: 'relative' }}>For You<span style={{ position: 'absolute', left: '50%', bottom: -7, width: 22, height: 2.5, marginLeft: -11, borderRadius: 2, background: '#fff' }} /></span>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true" style={{ position: 'absolute', right: 12 }} dangerouslySetInnerHTML={{ __html: TT.search }} />
+          </div>
+          {/* right rail */}
+          <div style={{ position: 'absolute', right: 7, bottom: 14, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 13 }}>
+            <span style={{ position: 'relative', marginBottom: 6 }}>
+              <span style={{ display: 'block', width: 38, height: 38, borderRadius: '50%', border: '1.5px solid #fff', background: 'linear-gradient(135deg,#4a4a4f,#1c1c1f)' }} />
+              <span style={{ position: 'absolute', left: '50%', bottom: -8, width: 17, height: 17, marginLeft: -8.5, borderRadius: '50%', background: '#FE2C55', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '700 13px/1 var(--font-sans)' }}>+</span>
+            </span>
+            {rail(TT.heart, '48.2K')}
+            {rail(TT.comment, '1,204')}
+            {rail(TT.bookmark, '8,903')}
+            {rail(TT.share, 'Share')}
+            <span className="fpb-spin-slow" style={{ width: 34, height: 34, borderRadius: '50%', background: 'radial-gradient(circle, #555 0 22%, #111 23% 100%)', border: '6px solid #2a2a2e', marginTop: 2 }} />
+          </div>
+          {/* caption + sound */}
+          <div style={{ position: 'absolute', left: 11, right: 60, bottom: 14, display: 'flex', flexDirection: 'column', gap: 6, color: '#fff', textShadow: '0 1px 2px rgba(0,0,0,.5)' }}>
+            <span style={{ font: '700 13.5px/1.2 var(--font-sans)' }}>@{handle}</span>
+            <span style={{ font: '400 12px/1.3 var(--font-sans)' }}>this one hits different at 2am <span style={{ fontWeight: 600 }}>#fyp</span></span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 5, font: '500 12px/1.2 var(--font-sans)', minWidth: 0, paddingLeft: 26 }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" aria-hidden="true" style={{ flex: 'none' }} dangerouslySetInnerHTML={{ __html: TT.note }} />
+              <span className="fpb-ellipsis">{sound}</span>
+            </span>
+          </div>
+          {/* numbered markers */}
+          {MARKERS.map((pos, i) => (
+            <span key={i} aria-hidden="true" style={{
+              position: 'absolute', ...pos, width: 24, height: 24, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              font: '700 12px/1 var(--font-mono)', background: 'var(--signal-500)', color: 'var(--signal-ink)',
+              boxShadow: active === i ? '0 0 0 4px rgba(34,212,107,.35), 0 2px 8px rgba(0,0,0,.5)' : '0 2px 8px rgba(0,0,0,.5)',
+              opacity: i < revealed ? 1 : 0, transform: i < revealed ? 'scale(1)' : 'scale(.4)', transition: 'opacity 320ms var(--ease-out), transform 420ms var(--ease-out), box-shadow 280ms',
+            }}>{i + 1}</span>
+          ))}
+        </div>
+        {/* bottom nav */}
+        <div style={{ height: 50, flex: 'none', display: 'flex', alignItems: 'center', padding: '0 4px 4px', background: '#000', borderTop: '1px solid rgba(255,255,255,.08)' }}>
+          {nav(TT.home, 'Home', true)}
+          {nav(TT.friends, 'Friends')}
+          <span style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+            <span style={{ position: 'relative', width: 40, height: 26 }}>
+              <span style={{ position: 'absolute', inset: 0, left: -3, right: 3, borderRadius: 8, background: '#25F4EE' }} />
+              <span style={{ position: 'absolute', inset: 0, left: 3, right: -3, borderRadius: 8, background: '#FE2C55' }} />
+              <span style={{ position: 'absolute', inset: 0, borderRadius: 8, background: '#fff', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '600 20px/1 var(--font-sans)' }}>+</span>
+            </span>
+          </span>
+          {nav(TT.inbox, 'Inbox')}
+          {nav(TT.profile, 'Profile')}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function HowItWorks({ state, back, next }: ScreenProps) {
-  const [active, setActive] = useState(0);
+  // Markers and explanations appear one by one (1.8s apart); once all four are in, the highlight keeps cycling.
+  const [tick, setTick] = useState(0);
   useEffect(() => {
-    const t = setInterval(() => setActive((a) => (a + 1) % 4), 1800);
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const t = setInterval(() => setTick((n) => n + 1), reduce ? 2400 : 1800);
     return () => clearInterval(t);
   }, []);
+  const revealed = Math.min(4, tick + 1);
+  const active = tick % 4;
   const first = aestheticById(state.answers.aesthetics?.[0] ?? '');
-  const hook = momentById(state.answers.moments?.[0] ?? 'night-drive')?.defaultHook;
-  const dim = (i: number) => ({ opacity: active === i ? 1 : 0.35 });
-  const badge = (i: number, pos: React.CSSProperties) => (
-    <span style={{ position: 'absolute', width: 20, height: 20, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '600 10px/1 var(--font-mono)', background: active === i ? '#fff' : 'rgba(255,255,255,0.2)', color: active === i ? '#000' : '#fff', transition: 'background 280ms', ...pos }}>{i + 1}</span>
-  );
+  const sound = state.track ? `${state.track.title} - ${state.track.artists[0]}` : 'Your track - You';
   return (
     <QuizScreen id="how-it-works" back={back} footer={<Footer><button type="button" className="fpb-btn primary" onClick={next}>Next</button></Footer>}>
       <Titles overline="HOW IT WORKS" title="Your music is the focal point of every post." lede={<>Every layer has one job: make people stop, feel something, and <b>listen to your song</b>.</>} />
       <div style={{ display: 'flex', gap: 20, alignItems: 'center', flexDirection: 'column' }}>
-        <div className="fpb-reel" style={{ width: 162, height: 288, borderRadius: 24, flex: 'none', boxShadow: 'var(--shadow-float)' }}>
-          <Img src={first ? first.images[0] : '/fanpage-blueprint/assets/imagery/pack-golden-hour.png'} className="fpb-layer" style={{ position: 'absolute', inset: 0, opacity: active === 2 ? 0.85 : 0.55 }} label="Example background video frame" />
-          <div className="scrim-t" /><div className="scrim-b" />
-          <p className="fpb-layer" style={{ position: 'absolute', top: 34, left: 14, right: 14, margin: 0, textAlign: 'center', font: '500 12px/1.3 var(--font-sans)', color: '#fff', ...dim(0) }}>{hook}</p>
-          <p className="fpb-layer" style={{ position: 'absolute', top: 140, left: 12, right: 12, margin: 0, padding: '6px 4px', textAlign: 'center', font: 'italic 500 13px/1.3 var(--font-sans)', color: '#fff', outline: active === 1 ? '2px solid #fff' : '2px solid transparent', outlineOffset: 2, borderRadius: 6, ...dim(1) }}>
-            {/* v1 has no transcription: a neutral stand-in for the lyric layer */}
-            your best lyric line, right here
-          </p>
-          <div className="audio-pill fpb-layer" style={{ left: 10, right: 10, bottom: 12, height: 24, font: '500 10px/1 var(--font-sans)', ...dim(3) }}>
-            <Icon d={ICONS.wave} size={11} stroke={2.5} color="#22D46B" /><span className="fpb-ellipsis">{state.track ? `${state.track.title} · ${state.track.artists[0]}` : 'Your track'}</span>
-          </div>
-          {badge(0, { top: 10, left: 10 })}{badge(1, { top: 112, left: 10 })}{badge(2, { top: 210, right: 10 })}{badge(3, { bottom: 44, left: 10 })}
-        </div>
+        <PhoneMock handle={first?.handle ?? 'goldenhour.library'} sound={sound} revealed={revealed} active={active} />
         <ol style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 6, width: '100%' }}>
-          {LAYERS.map((l, i) => (
-            <li key={l.t} style={{ display: 'flex', gap: 10, padding: '12px 14px', borderRadius: 14, alignItems: 'center', border: `1px solid ${active === i ? 'var(--border-default)' : 'transparent'}`, background: active === i ? 'var(--surface-card)' : 'transparent', transition: 'background 280ms, border-color 280ms' }}>
-              <span style={{ width: 20, height: 20, borderRadius: '50%', background: active === i ? 'var(--ink-900)' : 'var(--ink-300)', color: active === i ? 'var(--ink-0)' : 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '600 10px/1 var(--font-mono)', flex: 'none' }}>{i + 1}</span>
-              <span style={{ display: 'flex', flexDirection: 'column', gap: 3, flex: 1, minWidth: 0 }}>
-                <span style={{ font: '600 14px/1.2 var(--font-sans)', color: active === i ? 'var(--text-primary)' : 'var(--text-secondary)' }}>{l.t}</span>
-                <span style={{ fontSize: 12, lineHeight: 1.35, color: active === i ? 'var(--text-secondary)' : 'var(--text-tertiary)' }}>{l.s}</span>
-              </span>
-            </li>
-          ))}
+          {LAYERS.map((l, i) => {
+            const shown = i < revealed, on = active === i;
+            return (
+              <li key={l.t} style={{
+                display: 'flex', gap: 10, padding: '12px 14px', borderRadius: 14, alignItems: 'center',
+                border: `1px solid ${on ? 'rgba(34,212,107,.45)' : 'var(--border-subtle)'}`, background: on ? 'rgba(34,212,107,.08)' : 'var(--surface-card)',
+                opacity: shown ? 1 : 0, transform: shown ? 'translateY(0)' : 'translateY(10px)',
+                transition: 'opacity 420ms var(--ease-out), transform 420ms var(--ease-out), background 280ms, border-color 280ms',
+              }}>
+                <span style={{ width: 22, height: 22, borderRadius: '50%', background: 'var(--signal-500)', color: 'var(--signal-ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '700 11px/1 var(--font-mono)', flex: 'none' }}>{i + 1}</span>
+                <span style={{ display: 'flex', flexDirection: 'column', gap: 3, flex: 1, minWidth: 0 }}>
+                  <span style={{ font: '600 14px/1.2 var(--font-sans)' }}>{l.t}</span>
+                  <span style={{ fontSize: 12, lineHeight: 1.35, color: 'var(--text-secondary)' }}>{l.s}</span>
+                </span>
+              </li>
+            );
+          })}
         </ol>
       </div>
     </QuizScreen>

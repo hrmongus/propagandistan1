@@ -235,6 +235,7 @@
 .fpb-anim-phone { animation: fpb-glow 2.4s ease-in-out infinite; }
 .fpb-anim-spin { animation: fpb-spin .9s linear infinite; }
 .fpb-anim-step { animation: fpb-stepIn 400ms var(--ease-out) both; }
+.fpb-spin-slow { animation: fpb-spin 4s linear infinite; }
 
 /* how-it-works layer highlight */
 .fpb-layer { transition: opacity 280ms var(--ease-out), outline-color 280ms; }
