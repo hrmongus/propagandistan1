@@ -300,7 +300,7 @@ export function Goal({ state, dispatch, next, back }: ScreenProps) {
   const picked = options.find((g) => g.id === state.answers.goal);
   return (
     <QuizScreen id="goal" back={back} footer={<NextBtn s={state} next={next} />}>
-      <Titles title="Where do you want to be in 6 months?" lede="Pick the number that would change things for you." />
+      <Titles title="Your goal in 6 months?" />
       <GoalChart start={LISTENER_START[state.answers.listeners ?? 'lt1k']} today={state.answers.listeners ? LISTENER_SHORT[state.answers.listeners] : '—'} goal={picked?.short ?? null} goalValue={picked?.value ?? 0} />
       <SingleList options={options} value={state.answers.goal} onPick={(id) => set(dispatch, { goal: id })} />
     </QuizScreen>

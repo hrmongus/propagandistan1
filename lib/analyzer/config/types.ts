@@ -32,7 +32,7 @@ export type MomentId =
 export type Moment = { id: MomentId; label: string; icon: string; defaultHook: string };
 
 export type ListenerBracket = 'lt1k' | '1k-10k' | '10k-50k' | '50k-100k' | '100k+';
-export type GoalId = '10k' | '50k' | '100k' | '500k' | '1M';
+export type GoalId = '10k' | '50k' | '100k' | '500k';
 export type BlockerId = 'reach' | 'time' | 'money' | 'unknown' | 'face';
 export type AgeId = '13-17' | '18-24' | '25-34' | '35-44' | '45+';
 export type GenderId = 'women' | 'men' | 'everyone';

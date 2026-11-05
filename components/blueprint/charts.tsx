@@ -50,7 +50,7 @@ function series(seed: number, n: number, from: number, to: number, shape: (t: nu
  */
 export function GoalChart({ start, today, goal, goalValue }: { start: number; today: string; goal: string | null; goalValue: number }) {
   const N = 120;
-  const W = 340, H = 200, L = 58, R = 8, T = 10, B = 26;
+  const W = 340, H = 118, L = 58, R = 8, T = 6, B = 22;
   const max = niceMax(Math.max(goalValue || 0, start * 1.6));
   const x = (i: number) => L + ((W - L - R) * i) / (N - 1);
   const y = (v: number) => T + (H - T - B) * (1 - Math.min(v, max * 1.08) / max);
@@ -69,19 +69,15 @@ export function GoalChart({ start, today, goal, goalValue }: { start: number; to
   const font = 'var(--font-geist), -apple-system, sans-serif';
 
   return (
-    <section aria-label="Your 6-month path" style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: '18px 16px 14px', borderRadius: 24, background: '#fff', border: '1px solid #e6e6e6', color: S4A.ink }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-        <span style={{ font: `700 22px/1.1 ${font}`, letterSpacing: '-0.035em' }}>Listeners, next 6 months</span>
-        <span style={{ fontSize: 13, color: S4A.muted }}>Today – {months[3].label.replace(' 1', '')} · Worldwide</span>
-      </div>
+    <section aria-label="Your 6-month path" style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '10px 12px 10px', borderRadius: 20, background: '#fff', border: '1px solid #e6e6e6', color: S4A.ink }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-        <div style={{ padding: '10px 12px', borderRadius: 8 }}>
-          <div style={{ fontSize: 12.5, color: S4A.muted }}>Today</div>
-          <div style={{ font: `700 18px/1.3 ${font}`, letterSpacing: '-0.02em', color: '#535353' }}>{today}</div>
+        <div style={{ padding: '6px 10px', borderRadius: 8 }}>
+          <div style={{ fontSize: 11.5, color: S4A.muted }}>Listeners today</div>
+          <div style={{ font: `700 16px/1.25 ${font}`, letterSpacing: '-0.02em', color: '#535353' }}>{today}</div>
         </div>
-        <div style={{ padding: '10px 12px', borderRadius: 8, background: '#f3f3f3' }}>
-          <div style={{ fontSize: 12.5, color: S4A.muted }}>Month 6 goal</div>
-          <div style={{ font: `700 18px/1.3 ${font}`, letterSpacing: '-0.02em', color: goal ? S4A.ink : '#c4c4c4' }}>{goalValue ? goalValue.toLocaleString('en-US') : 'Pick below'}</div>
+        <div style={{ padding: '6px 10px', borderRadius: 8, background: '#f3f3f3' }}>
+          <div style={{ fontSize: 11.5, color: S4A.muted }}>In 6 months</div>
+          <div style={{ font: `700 16px/1.25 ${font}`, letterSpacing: '-0.02em', color: goal ? S4A.ink : '#c4c4c4' }}>{goalValue ? goalValue.toLocaleString('en-US') : 'Pick below'}</div>
         </div>
       </div>
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={goal ? `Without fan pages you stay around ${today}; with fan pages the line climbs to ${goal} by month 6` : `Without fan pages you stay around ${today}`} style={{ display: 'block', width: '100%', height: 'auto', overflow: 'visible' }}>
@@ -98,7 +94,7 @@ export function GoalChart({ start, today, goal, goalValue }: { start: number; to
           <text key={m.i} x={x(m.i)} y={H - 6} textAnchor={m.i === 0 ? 'start' : m.i === N - 1 ? 'end' : 'middle'} fontFamily={font} fontSize="11.5" fill={S4A.muted}>{m.label}</text>
         ))}
       </svg>
-      <div style={{ display: 'flex', gap: 16, fontSize: 12, color: S4A.muted }}>
+      <div style={{ display: 'flex', gap: 14, fontSize: 11.5, color: S4A.muted, paddingLeft: 4 }}>
         <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ width: 14, height: 3, borderRadius: 2, background: S4A.grey }} />Without fan pages</span>
         <span style={{ display: 'flex', alignItems: 'center', gap: 6, opacity: goal ? 1 : 0.4 }}><span style={{ width: 14, height: 3, borderRadius: 2, background: S4A.blue }} />With fan pages</span>
       </div>

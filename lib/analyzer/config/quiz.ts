@@ -31,8 +31,7 @@ export const GOALS: (Option<GoalId> & { value: number; short: string })[] = [
   { id: '10k', label: '10K', short: '10K', value: 10_000, sub: 'Your first real fanbase', icon: I.sprout },
   { id: '50k', label: '50K', short: '50K', value: 50_000, sub: "On every label scout's radar", icon: I.star },
   { id: '100k', label: '100K', short: '100K', value: 100_000, sub: 'Full-time artist territory', icon: I.flame },
-  { id: '500k', label: '500K', short: '500K', value: 500_000, sub: 'Playlist and radio territory', icon: I.trend },
-  { id: '1M', label: '1M', short: '1M', value: 1_000_000, sub: 'The million-listener club', icon: I.crown },
+  { id: '500k', label: '500K+', short: '500K+', value: 500_000, sub: 'Playlist and radio territory', icon: I.crown },
 ];
 
 /** Goals strictly above the current bracket (HANDOFF.md: "only show goals above the current bucket"). */

@@ -15,7 +15,7 @@ describe('getMetrics: same input, same output', () => {
   });
 
   it('changes with the track or the answers', () => {
-    const a = getMetrics('track-a', base), b = getMetrics('track-b', base), c = getMetrics('track-a', { ...base, goal: '1M' });
+    const a = getMetrics('track-a', base), b = getMetrics('track-b', base), c = getMetrics('track-a', { ...base, goal: '500k' });
     expect(a.radar).not.toEqual(b.radar);
     expect(a.radar).not.toEqual(c.radar);
   });
