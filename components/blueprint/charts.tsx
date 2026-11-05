@@ -104,35 +104,35 @@ export function GoalChart({ start, today, goal, goalValue }: { start: number; to
 
 /** Screen 17: 0 / 1 / 3 pages over 6 months, dashed goal line; the 3-page line crosses the goal around month 5. */
 export function GrowthChart({ goalValue, seed }: { goalValue: number; seed: number }) {
-  const X0 = 40, X1 = 270, Y0 = 180, YG = 30; // axes: y=180 is 0, y=30 is the goal
+  const X0 = 40, X1 = 328, Y0 = 180, YG = 30; // axes: y=180 is 0, y=30 is the goal
   const none = jagged(seed + 1, X0, X1, Y0 - 4, Y0 - 14, (t) => t, 1.5);
-  const one = jagged(seed + 2, X0, X1, Y0 - 4, Y0 - (Y0 - YG) * 0.52, (t) => t ** 1.25, 4);
   const three = jagged(seed + 3, X0, X1, Y0 - 4, YG - 2, (t) => (t < 0.83 ? (t / 0.83) ** 1.5 * 0.985 : 0.985 + (t - 0.83) * 0.09), 6);
   const ticks = [0, 0.25, 0.5, 0.75, 1];
+  const font = 'var(--font-geist), sans-serif';
   return (
-    <svg viewBox="0 0 340 230" role="img" aria-label={`Illustrative listener growth over 6 months with 0, 1 and 3 fan pages; 3 pages crosses the ${goalValue.toLocaleString('en-US')} goal around month 5`} style={{ display: 'block', width: '100%', height: 'auto' }}>
+    <svg viewBox="0 0 340 228" role="img" aria-label={`Illustrative listener growth over 6 months: without fan pages it stays flat; with fan pages it crosses the ${goalValue.toLocaleString('en-US')} goal around month 5`} style={{ display: 'block', width: '100%', height: 'auto' }}>
       {ticks.map((t) => {
         const y = Y0 - (Y0 - YG) * t;
         return (
           <g key={t}>
             <line x1={X0} x2={X1} y1={y} y2={y} stroke={t === 0 ? '#b3b3b3' : '#e6e6e6'} />
-            <text x="32" y={y + 4} textAnchor="end" fontFamily="var(--font-geist), sans-serif" fontSize="10" fill="#6a6a6a">{fmt(Math.round(goalValue * t))}</text>
+            <text x="32" y={y + 4} textAnchor="end" fontFamily={font} fontSize="10" fill="#6a6a6a">{fmt(Math.round(goalValue * t))}</text>
           </g>
         );
       })}
       <line x1={X0} x2={X1} y1={YG} y2={YG} stroke="#121212" strokeWidth="1.2" strokeDasharray="4 4" />
-      <text x="44" y="24" fontFamily="var(--font-geist), sans-serif" fontSize="10" fontWeight="600" fill="#121212">Your goal: {goalValue.toLocaleString('en-US')}</text>
+      <text x="44" y="24" fontFamily={font} fontSize="10" fontWeight="600" fill="#121212">Your goal: {goalValue.toLocaleString('en-US')}</text>
       <path d={`${d(three)} L${X1},${Y0} L${X0},${Y0} Z`} fill="#D6E4FB" />
       <path d={d(none)} fill="none" stroke="#b3b3b3" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" />
-      <path d={d(one)} fill="none" stroke="#8DB3F6" strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round" />
       <path d={d(three)} fill="none" stroke="#1D6CF0" strokeWidth="2.2" strokeLinejoin="round" strokeLinecap="round" />
       <circle cx={X1} cy={three[three.length - 1][1]} r="4" fill="#1D6CF0" />
-      <text x="278" y={none[none.length - 1][1] + 3} fontFamily="var(--font-geist), sans-serif" fontSize="10" fill="#6a6a6a">No pages</text>
-      <text x="278" y={one[one.length - 1][1] + 3} fontFamily="var(--font-geist), sans-serif" fontSize="10" fill="#535353">1 page</text>
-      <text x="278" y={three[three.length - 1][1] + 16} fontFamily="var(--font-geist), sans-serif" fontSize="10" fontWeight="600" fill="#1D6CF0">3 pages</text>
-      <text x={X0} y="200" fontFamily="var(--font-geist), sans-serif" fontSize="10" fill="#6a6a6a">Today</text>
-      <text x={(X0 + X1) / 2 + 3} y="200" textAnchor="middle" fontFamily="var(--font-geist), sans-serif" fontSize="10" fill="#6a6a6a">Month 3</text>
-      <text x={X1} y="200" textAnchor="end" fontFamily="var(--font-geist), sans-serif" fontSize="10" fill="#6a6a6a">Month 6</text>
+      <text x={X0} y="198" fontFamily={font} fontSize="10" fill="#6a6a6a">Today</text>
+      <text x={(X0 + X1) / 2} y="198" textAnchor="middle" fontFamily={font} fontSize="10" fill="#6a6a6a">Month 3</text>
+      <text x={X1} y="198" textAnchor="end" fontFamily={font} fontSize="10" fill="#6a6a6a">Month 6</text>
+      <rect x={X0} y="214" width="12" height="3" rx="1.5" fill="#b3b3b3" />
+      <text x={X0 + 17} y="219" fontFamily={font} fontSize="10" fill="#6a6a6a">Without fan pages</text>
+      <rect x={X0 + 122} y="214" width="12" height="3" rx="1.5" fill="#1D6CF0" />
+      <text x={X0 + 139} y="219" fontFamily={font} fontSize="10" fill="#6a6a6a">With fan pages</text>
     </svg>
   );
 }
