@@ -23,6 +23,8 @@ export function Flow() {
   const { state, dispatch, hydrated } = useQuiz();
   const screen = state.screen;
   const seeded = useRef(false);
+  /** Steps pushed onto browser history in this page load (after a reload there are none to go back through). */
+  const depth = useRef(0);
 
   // Seed history with the current step once state has loaded (a refresh resumes where the user was).
   useEffect(() => {
@@ -31,6 +33,7 @@ export function Flow() {
     history.replaceState({ fpb: screen }, '');
     const onPop = (e: PopStateEvent) => {
       const s = (e.state as { fpb?: ScreenId } | null)?.fpb;
+      if (depth.current > 0) depth.current--;
       // Never step back into the timed analyzing screen.
       dispatch({ type: 'go', screen: s && s !== 'analyzing' ? s : 'landing' });
     };
@@ -51,13 +54,18 @@ export function Flow() {
     if (screen === 'search' && state.track) track('track_selected', 'search');
     // The analyzing screen replaces its own entry, so "back" from the email gate lands on the last question.
     if (screen === 'analyzing') history.replaceState({ fpb: to }, '');
-    else history.pushState({ fpb: to }, '');
+    else { history.pushState({ fpb: to }, ''); depth.current++; }
     dispatch({ type: 'go', screen: to });
   }, [screen, state.track, dispatch]);
 
   const back = useCallback(() => {
-    if (history.state?.fpb && history.length > 1) history.back();
-    else dispatch({ type: 'go', screen: SCREENS[Math.max(0, SCREENS.indexOf(screen) - 1)] });
+    if (depth.current > 0) { history.back(); return; } // the popstate handler updates depth
+    // Nothing of ours to go back through (e.g. after a reload): step to the previous screen in place.
+    // From the email gate that's the last question, skipping the timed analyzing screen.
+    const i = SCREENS.indexOf(screen);
+    const prev = SCREENS[Math.max(0, i - 1)] === 'analyzing' ? 'experience' : SCREENS[Math.max(0, i - 1)];
+    history.replaceState({ fpb: prev }, '');
+    dispatch({ type: 'go', screen: prev });
   }, [screen, dispatch]);
 
   if (!hydrated) return <div className="fpb-screen" aria-busy="true" />;

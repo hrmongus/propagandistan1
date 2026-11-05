@@ -7,6 +7,7 @@ import { getMetrics } from '@/lib/analyzer/metrics';
 import { setStrategyId, track } from '@/lib/analyzer/track';
 import { ICONS, Icon, Img, Logo } from './ui';
 import type { ScreenProps } from './screens';
+import { clearQuiz } from './state';
 
 /** sessionStorage key for an unsaved test result (see /fanpage-blueprint/results). */
 export const PREVIEW_KEY = 'fpb_unsaved_result';
@@ -119,7 +120,7 @@ const ERRORS: Record<string, string> = {
   invalid_answers: 'Some answers are missing. Go back and check the questions.',
 };
 
-export function EmailGate({ state }: ScreenProps) {
+export function EmailGate({ state, dispatch, back }: ScreenProps) {
   const router = useRouter();
   const metrics = useMetrics(state);
   const goal = GOALS.find((g) => g.id === state.answers.goal);
@@ -177,7 +178,16 @@ export function EmailGate({ state }: ScreenProps) {
       </div>
       <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)' }} />
 
-      <div style={{ position: 'relative', flex: 1, display: 'flex', alignItems: 'center', padding: '24px 20px' }}>
+      {/* Way out of the gate: back to the last question, or start over with a different song. */}
+      <header className="fpb-top" style={{ position: 'relative', zIndex: 2 }}>
+        <button type="button" className="fpb-back" aria-label="Back" onClick={back}><Icon d={ICONS.back} /></button>
+        <Logo small />
+        <button type="button" onClick={() => { clearQuiz(); history.replaceState({ fpb: 'landing' }, ''); dispatch({ type: 'reset' }); }}
+          style={{ border: 'none', background: 'transparent', color: 'var(--text-secondary)', font: '500 13px/1 var(--font-sans)', cursor: 'pointer', padding: '10px 0', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+          Start over
+        </button>
+      </header>
+      <div style={{ position: 'relative', flex: 1, display: 'flex', alignItems: 'center', padding: '8px 20px 24px' }}>
         <form onSubmit={submit} aria-label="Unlock your strategy" className="fpb-enter" style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 16, padding: '24px 20px 22px', borderRadius: 28, background: 'var(--ink-100)', border: '1px solid var(--border-default)', boxShadow: 'var(--shadow-float)' }}>
           <div className="fpb-titles">
             <span className="fpb-overline" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--signal-500)' }} />YOUR STRATEGY IS READY</span>
