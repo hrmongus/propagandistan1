@@ -10,7 +10,7 @@ import '@/components/blueprint/blueprint.css';
  * Supabase. Uses the real getMetrics and the default hooks. Not linked anywhere; noindex via app/dev/layout.tsx.
  */
 const answers: QuizAnswers = {
-  listeners: '1k-10k', goal: '100k', blocker: 'reach', aesthetics: ['light-academia', 'clean-girl', 'coquette'],
+  genre: 'pop', listeners: '1k-10k', goal: '100k', blocker: 'reach', aesthetics: ['light-academia', 'clean-girl', 'coquette'],
   age: ['18-24'], gender: 'women', moments: ['heartbreak', 'night-drive'], tried: ['playlists', 'ads'],
   dailyTime: '15', release: 'month', experience: 'never',
 };

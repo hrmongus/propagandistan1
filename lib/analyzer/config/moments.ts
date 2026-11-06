@@ -1,4 +1,4 @@
-import type { Moment } from './types';
+import type { Moment, MomentId } from './types';
 
 /*
  * Listening moments: labels and icons from screen 08 (the mock-up is the source of truth for labels, HANDOFF.md §4).
@@ -21,3 +21,11 @@ export const MOMENTS: Moment[] = [
 ];
 
 export const momentById = (id: string) => MOMENTS.find((m) => m.id === id);
+
+/** Two related listening moments per moment, shown next to the artist's pick on the results page. */
+export const MOMENT_RELATED: Record<MomentId, [MomentId, MomentId]> = {
+  gym: ['confidence', 'party'], study: ['chill', 'dreamy'], chill: ['study', 'dreamy'], party: ['feel-good', 'confidence'],
+  romance: ['heartbreak', 'dreamy'], heartbreak: ['nostalgia', 'romance'], 'night-drive': ['nostalgia', 'dreamy'],
+  confidence: ['gym', 'rebellion'], nostalgia: ['heartbreak', 'night-drive'], rebellion: ['confidence', 'party'],
+  'feel-good': ['party', 'chill'], dreamy: ['chill', 'night-drive'],
+};

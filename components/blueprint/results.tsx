@@ -7,7 +7,7 @@ import { createCheckoutSession } from '@/app/checkout/actions';
 import { Fan } from '@/components/Fan';
 import { distinctId, track as phTrack } from '@/lib/analytics/client';
 import {
-  GENDERS, GOALS, OFFER_BULLETS, PACK_INCLUDES, RESULTS_FAQ, aestheticById, momentById, packById, type PackId, type QuizAnswers,
+  GENDERS, GENRE_RELATED, GENRES, GOALS, MOMENT_RELATED, OFFER_BULLETS, PACK_INCLUDES, RESULTS_FAQ, aestheticById, momentById, packById, type PackId, type QuizAnswers,
 } from '@/lib/analyzer/config';
 import type { Metrics } from '@/lib/analyzer/metrics';
 import type { SpotifyTrack } from '@/lib/analyzer/spotify';
@@ -38,17 +38,27 @@ const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
 
 const DEAL_PCT = Math.round(((PRICES.packWas - PRICES.pack) / PRICES.packWas) * 100);
 
-function audienceLine(a: QuizAnswers, momentId?: string) {
-  const gender = GENDERS.find((g) => g.id === a.gender)?.label.replace('Mostly ', '').toLowerCase();
-  const moment = momentById(momentId ?? '')?.label.toLowerCase();
-  return [a.age?.join(', '), gender, moment].filter(Boolean).join(' · ');
+
+/** A labelled row of chips: the artist's answer highlighted green, related options beside it. */
+function ChipRow({ label, items }: { label: string; items: { text: string; on: boolean }[] }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+      <span style={{ font: '500 10px/1 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-tertiary)' }}>{label}</span>
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+      {items.map((x) => (
+        <span key={x.text} style={{ padding: '5px 9px', borderRadius: 999, font: `${x.on ? 600 : 500} 11.5px/1 var(--font-sans)`, whiteSpace: 'nowrap',
+          background: x.on ? 'rgba(34,212,107,.16)' : 'var(--ink-200)', color: x.on ? 'var(--signal-300)' : 'var(--text-secondary)', border: `1px solid ${x.on ? 'rgba(34,212,107,.55)' : 'transparent'}` }}>{x.text}</span>
+      ))}
+      </div>
+    </div>
+  );
 }
 
 /**
  * Audience as a distribution curve over the age buckets: peaks on the ages the artist picked, tails off either side.
  * `shift` nudges the peak a little per page so the three pages don't look identical.
  */
-function AudienceCurve({ a, shift = 0, caption }: { a: QuizAnswers; shift?: number; caption: string }) {
+function AudienceCurve({ a, shift = 0, caption }: { a: QuizAnswers; shift?: number; caption?: string }) {
   const picked = (a.age ?? []).map((id) => AGES.findIndex((g) => g.id === id)).filter((i) => i >= 0);
   const centre = (picked.length ? picked.reduce((x, y) => x + y, 0) / picked.length : 1.5) + shift;
   const spread = picked.length > 1 ? 1.15 : 0.85;
@@ -63,7 +73,7 @@ function AudienceCurve({ a, shift = 0, caption }: { a: QuizAnswers; shift?: numb
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       <span style={{ font: '500 10px/1 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-tertiary)' }}>AUDIENCE</span>
-      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Audience distribution by age, peaking at ${caption}`} style={{ width: '100%', height: 'auto', display: 'block', overflow: 'visible' }}>
+      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Audience distribution by age${caption ? `, peaking at ${caption}` : ''}`} style={{ width: '100%', height: 'auto', display: 'block', overflow: 'visible' }}>
         <path d={`${line}L${W},${H - B}L0,${H - B}Z`} fill="rgba(255,255,255,.06)" />
         {bandPath && <path d={bandPath} fill="rgba(34,212,107,.28)" />}
         <path d={line} fill="none" stroke="var(--signal-500)" strokeWidth="1.8" strokeLinejoin="round" />
@@ -72,7 +82,7 @@ function AudienceCurve({ a, shift = 0, caption }: { a: QuizAnswers; shift?: numb
           <text key={g.id} x={(i / (AGES.length - 1)) * W} y={H - 1} textAnchor={i === 0 ? 'start' : i === AGES.length - 1 ? 'end' : 'middle'} fontSize="7.5" fontFamily="var(--font-mono)" fill={picked.includes(i) ? '#F5F5F7' : '#8A8A8E'}>{g.label}</text>
         ))}
       </svg>
-      <span style={{ fontSize: 11.5, lineHeight: 1.35, color: 'var(--text-secondary)' }}>{caption}</span>
+      {caption && <span style={{ fontSize: 11.5, lineHeight: 1.35, color: 'var(--text-secondary)' }}>{caption}</span>}
     </div>
   );
 }
@@ -184,7 +194,12 @@ export function Results({ row }: { row: StrategyRow }) {
           <span style={{ font: '600 17px/1.15 var(--font-sans)', letterSpacing: '-0.02em' }}>{pk.name}</span>
           <span style={{ font: '500 11.5px/1.3 var(--font-mono)', color: 'var(--signal-400)' }}>{pk.vibe}</span>
           <span style={{ fontSize: 12.5, lineHeight: 1.4, color: 'var(--text-secondary)' }}>{pk.feel}</span>
-          <div style={{ marginTop: 'auto' }}><AudienceCurve a={a} shift={i === 0 ? 0 : i === 1 ? 0.35 : -0.3} caption={audienceLine(a, p.moment)} /></div>
+          <div style={{ marginTop: 'auto' }}><AudienceCurve a={a} shift={i === 0 ? 0 : i === 1 ? 0.35 : -0.3} /></div>
+        </div>
+        <div style={{ gridColumn: '1 / -1', display: 'flex', flexDirection: 'column', gap: 12, padding: '4px 4px 2px' }}>
+          {a.genre && <ChipRow label="GENRE" items={[a.genre, ...GENRE_RELATED[a.genre]].map((id, k) => ({ text: GENRES.find((g) => g.id === id)?.label ?? id, on: k === 0 }))} />}
+          {p.moment && <ChipRow label="MOOD" items={[p.moment, ...MOMENT_RELATED[p.moment]].map((id, k) => ({ text: momentById(id)?.label ?? id, on: k === 0 }))} />}
+          {a.gender && <ChipRow label="LISTENER" items={GENDERS.map((g) => ({ text: g.label.replace('Mostly ', '').replace(/^./, (c) => c.toUpperCase()), on: g.id === a.gender }))} />}
         </div>
         <div style={{ gridColumn: '1 / -1', display: 'flex', flexDirection: 'column', gap: 12, padding: 4 }}>
           <Bar label="FANPAGE FIT SCORE" value={p.fit} signal />

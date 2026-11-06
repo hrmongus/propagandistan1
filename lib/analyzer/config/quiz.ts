@@ -30,6 +30,14 @@ export const GENRES: Option<GenreId>[] = [
   { id: 'other', label: 'Other', icon: '<circle cx="6" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="18" cy="12" r="1.2"/>' },
 ];
 
+/** Two neighbouring genres per genre, shown next to the artist's pick on the results page. */
+export const GENRE_RELATED: Record<GenreId, [GenreId, GenreId]> = {
+  hiphop: ['rnb', 'afrobeats'], pop: ['rnb', 'electronic'], rnb: ['hiphop', 'pop'], rock: ['indie', 'metal'],
+  latin: ['reggaeton', 'pop'], electronic: ['pop', 'lofi'], country: ['folk', 'rock'], indie: ['rock', 'folk'],
+  afrobeats: ['hiphop', 'rnb'], kpop: ['pop', 'electronic'], folk: ['indie', 'country'], reggaeton: ['latin', 'hiphop'],
+  lofi: ['electronic', 'indie'], metal: ['rock', 'indie'], other: ['pop', 'indie'],
+};
+
 export const LISTENER_BRACKETS: Option<ListenerBracket>[] = [
   { id: 'lt1k', label: 'Under 1K', sub: 'Just getting started', icon: I.sprout },
   { id: '1k-10k', label: '1K – 10K', sub: 'Some traction', icon: I.trend },
