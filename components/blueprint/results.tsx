@@ -76,8 +76,8 @@ function ReelMock({ kit, hook, lyric, title, height = 235 }: { kit: PackId; hook
       <Img src={pack.cover} label={`Example post from the ${pack.name} kit`} style={{ position: 'absolute', inset: 0 }} />
       <video key={pack.id} src={pack.previewClipUrl} poster={pack.cover} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
       <div className="scrim-t" /><div className="scrim-b" />
-      <p style={{ position: 'absolute', top: 18, left: 10, right: 10, margin: 0, textAlign: 'center', font: '500 10.5px/1.3 var(--font-sans)', color: '#fff' }}>{hook}</p>
-      {lyric && <p style={{ position: 'absolute', top: 118, left: 10, right: 10, margin: 0, textAlign: 'center', font: '500 11px/1.3 var(--font-sans)', color: '#fff' }}>{lyric}</p>}
+      <p style={{ position: 'absolute', top: 18, left: 10, right: 10, margin: 0, textAlign: 'center', font: '600 11px/1.3 var(--font-sans)', color: '#fff', textShadow: '0 1px 6px rgba(0,0,0,.6)' }}>{hook}</p>
+      {lyric && <p style={{ position: 'absolute', top: '52%', left: 12, right: 12, margin: 0, textAlign: 'center', font: 'italic 500 11.5px/1.35 var(--font-sans)', color: '#fff', textShadow: '0 1px 6px rgba(0,0,0,.7)' }}>{lyric}</p>}
       <div className="audio-pill" style={{ left: 8, right: 8, bottom: 8, height: 20, font: '500 9px/1 var(--font-sans)' }}>
         <Icon d={ICONS.wave} size={9} stroke={3} color="#22D46B" /><span className="fpb-ellipsis">{title}</span>
       </div>
@@ -102,6 +102,16 @@ const Guarantee = () => (
 
 /** Index into the main site's pack fans (components/Fan.tsx), same stacks as the shop and the upsell. */
 const fanIndex = (k: PackId) => PACK_SLUGS.indexOf(packById(k).checkoutSlug);
+
+/** General overlay for the example post: "POV: you found the song that will get you through …", by listening moment. */
+const THROUGH: Record<string, string> = {
+  gym: 'every workout', study: 'finals week', chill: 'a slow Sunday', party: 'the whole night', romance: 'falling for them',
+  heartbreak: 'the breakup', 'night-drive': 'every night drive', confidence: 'your main character era', nostalgia: 'missing the old days',
+  rebellion: 'breaking every rule', 'feel-good': 'a bad week', dreamy: 'every daydream',
+};
+const povHook = (moment?: string) => `POV: you found the song that will get you through ${THROUGH[moment ?? ''] ?? 'anything'}`;
+/** Placeholder lyric line on the example post until the artist's own lyric is used. */
+const SAMPLE_LYRIC = '“lorem ipsum dolor sit amet, consectetur adipiscing”';
 
 const WINDOW_MS = 10 * 60 * 1000;
 
@@ -160,13 +170,17 @@ export function Results({ row }: { row: StrategyRow }) {
     const ageShow = ageIdx.length ? AGES.filter((_, k) => k >= Math.min(...ageIdx) - 1 && k <= Math.max(...ageIdx) + 1).slice(0, 4) : [];
     return (
       <article style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: 12, borderRadius: 26, background: 'var(--surface-card)', border: i === 0 ? '1.5px solid var(--ink-900)' : '1px solid var(--border-subtle)', height: '100%' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '108px minmax(0, 1fr)', gap: 14 }}>
-          <ReelMock kit={p.kit} hook={p.hook} lyric={row.lyric_line} title={t.title} height={192} />
+        <div style={{ display: 'grid', gridTemplateColumns: '140px minmax(0, 1fr)', gap: 14 }}>
+          <ReelMock kit={p.kit} hook={povHook(p.moment)} lyric={row.lyric_line ?? SAMPLE_LYRIC} title={t.title} height={249} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, minWidth: 0, paddingTop: 4 }}>
             {i === 0 ? <span className="fpb-badge signal" style={{ alignSelf: 'flex-start' }}>#1 Top pick</span> : <span style={{ font: '500 11px/1 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-tertiary)' }}>#{i + 1} FAN PAGE</span>}
             <span style={{ font: '600 18px/1.15 var(--font-sans)', letterSpacing: '-0.02em' }}>{pk.name}</span>
             <span style={{ font: '500 11px/1.35 var(--font-mono)', color: 'var(--signal-400)' }}>{pk.vibe}</span>
             <span style={{ fontSize: 12.5, lineHeight: 1.4, color: 'var(--text-secondary)' }}>{pk.feel}</span>
+            <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 12, paddingBottom: 4 }}>
+              <MiniBar label="FIT SCORE" value={p.fit} signal />
+              <MiniBar label="AUDIENCE" value={p.audience} />
+            </div>
           </div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 7, padding: '0 2px' }}>
@@ -174,10 +188,6 @@ export function Results({ row }: { row: StrategyRow }) {
           {p.moment && <ChipRow label="MOOD" items={[p.moment, ...MOMENT_RELATED[p.moment]].map((id, k) => ({ text: momentById(id)?.label ?? id, on: k === 0 }))} />}
           {ageShow.length > 0 && <ChipRow label="AGE" items={ageShow.map((g) => ({ text: g.label, on: !!a.age?.includes(g.id) }))} />}
           {a.gender && <ChipRow label="LISTENER" items={GENDERS.map((g) => ({ text: g.label.replace('Mostly ', '').replace(/^./, (c) => c.toUpperCase()), on: g.id === a.gender }))} />}
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, padding: '0 2px' }}>
-          <MiniBar label="FIT SCORE" value={p.fit} signal />
-          <MiniBar label="AUDIENCE" value={p.audience} />
         </div>
         <button type="button" className="fpb-btn primary md" onClick={() => openOffer(`page-${i + 1}`, p.kit)}>Launch this page</button>
       </article>
