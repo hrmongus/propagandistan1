@@ -650,7 +650,7 @@ function PageCarousel() {
   useEffect(() => {
     const el = box.current;
     if (!el) return;
-    const fit = () => setK(Math.min(1, el.clientHeight / CARD_H));
+    const fit = () => setK(Math.min(0.82, (el.clientHeight / CARD_H) * 0.86)); // a little smaller than the space, so neighbours show
     fit();
     const ro = new ResizeObserver(fit);
     ro.observe(el);
@@ -659,22 +659,42 @@ function PageCarousel() {
   const w = CARD_W * k;
   const onScroll = () => { const r = row.current; if (r && w) setAt(Math.round(r.scrollLeft / (w + 12))); };
   const go = (i: number) => row.current?.scrollTo({ left: i * (w + 12), behavior: 'smooth' });
+  // Auto-advance every 3.2s (looping); any touch, click or hover pauses it for ~10s.
+  const skip = useRef(0); // ticks to skip after the user interacts
+  const pause = () => { skip.current = 3; };
+  useEffect(() => {
+    if (!w || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    const t = setInterval(() => {
+      if (skip.current > 0) { skip.current--; return; }
+      setAt((cur) => { const n = (cur + 1) % FANPAGE_EXAMPLES.length; go(n); return n; });
+    }, 3200);
+    return () => clearInterval(t);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [w]);
+  const arrow = (dir: -1 | 1) => (
+    <button type="button" aria-label={dir < 0 ? 'Previous page' : 'Next page'} onClick={() => { pause(); go((at + dir + FANPAGE_EXAMPLES.length) % FANPAGE_EXAMPLES.length); }}
+      style={{ width: 34, height: 34, borderRadius: '50%', border: '1px solid var(--border-default)', background: 'var(--surface-card)', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flex: 'none' }}>
+      <Icon d={dir < 0 ? ICONS.back : '<path d="m9 18 6-6-6-6"/>'} size={16} stroke={2.4} />
+    </button>
+  );
   return (
     <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
-      <div ref={box} style={{ flex: 1, minHeight: 0, margin: '0 -20px' }}>
-        <div ref={row} onScroll={onScroll} className="fpb-carousel" aria-label="Example fan pages" style={{ height: '100%', gap: 12, padding: `0 calc(50% - ${w / 2}px)`, opacity: k ? 1 : 0 }}>
-          {FANPAGE_EXAMPLES.map((p) => (
-            <div key={p.handle} style={{ flex: 'none', width: w, height: CARD_H * k, scrollSnapAlign: 'center' }}>
+      <div ref={box} onPointerDown={pause} onMouseEnter={pause} onWheel={pause} style={{ flex: 1, minHeight: 0, margin: '0 -20px', display: 'flex', alignItems: 'center' }}>
+        <div ref={row} onScroll={onScroll} className="fpb-carousel" aria-label="Example fan pages" style={{ width: '100%', alignItems: 'center', gap: 12, padding: `0 calc(50% - ${w / 2}px)`, opacity: k ? 1 : 0 }}>
+          {FANPAGE_EXAMPLES.map((p, i) => (
+            <div key={p.handle} style={{ flex: 'none', width: w, height: CARD_H * k, scrollSnapAlign: 'center', opacity: i === at ? 1 : 0.45, transform: i === at ? 'scale(1)' : 'scale(.92)', transition: 'opacity 300ms, transform 300ms' }}>
               <div style={{ transform: `scale(${k})`, transformOrigin: 'top left', width: CARD_W, height: CARD_H }}><ProfileCard p={p} /></div>
             </div>
           ))}
         </div>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: 6, flex: 'none' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 6, flex: 'none' }}>
+        {arrow(-1)}<span style={{ width: 8 }} />
         {FANPAGE_EXAMPLES.map((p, i) => (
-          <button key={p.handle} type="button" aria-label={`Show @${p.handle}`} aria-current={i === at} onClick={() => go(i)}
+          <button key={p.handle} type="button" aria-label={`Show @${p.handle}`} aria-current={i === at} onClick={() => { pause(); go(i); }}
             style={{ width: i === at ? 18 : 6, height: 6, padding: 0, border: 'none', borderRadius: 3, background: i === at ? 'var(--text-primary)' : 'var(--ink-400, #555)', transition: 'width 200ms', cursor: 'pointer' }} />
         ))}
+        <span style={{ width: 8 }} />{arrow(1)}
       </div>
     </div>
   );
