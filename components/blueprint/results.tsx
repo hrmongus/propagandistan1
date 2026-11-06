@@ -303,7 +303,7 @@ export function Results({ row }: { row: StrategyRow }) {
                 return (
                   <button key={p.kit} type="button" role="radio" aria-checked={on} onClick={() => pickKit(p.kit)}
                     style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, padding: '12px 6px 10px', borderRadius: 16, cursor: 'pointer', color: 'var(--text-primary)', background: on ? 'rgba(34,212,107,.10)' : 'var(--ink-200)', border: `1.5px solid ${on ? 'var(--signal-500)' : 'transparent'}` }}>
-                    {i === 0 && <span className="fpb-badge signal" style={{ position: 'absolute', top: -9, left: '50%', transform: 'translateX(-50%)', height: 18, fontSize: 9.5, padding: '0 7px', whiteSpace: 'nowrap' }}>Best fit</span>}
+                    {i === 0 && <span style={{ position: 'absolute', top: -9, left: '50%', transform: 'translateX(-50%)', height: 18, display: 'inline-flex', alignItems: 'center', padding: '0 8px', borderRadius: 999, background: 'var(--signal-500)', color: 'var(--signal-ink)', font: '600 9.5px/1 var(--font-sans)', whiteSpace: 'nowrap' }}>Best fit</span>}
                     <Img src={packById(p.kit).cover} style={{ width: 34, height: 34, borderRadius: '50%' }} />
                     <span className="fpb-ellipsis" style={{ maxWidth: '100%', font: '600 12px/1.1 var(--font-sans)' }}>{packById(p.kit).name}</span>
                   </button>
