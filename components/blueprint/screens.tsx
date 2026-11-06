@@ -734,16 +734,35 @@ export function Tried({ state, dispatch, next, back }: ScreenProps) {
 export function ProofCards() {
   const ref = useRef<HTMLDivElement>(null);
   const [idx, setIdx] = useState(0);
+  const step = () => { const el = ref.current; const c = el?.firstElementChild as HTMLElement | null; return c ? c.offsetWidth + 10 : 0; };
   const onScroll = () => {
     const el = ref.current;
-    if (!el) return;
-    setIdx(Math.round(el.scrollLeft / (el.firstElementChild as HTMLElement).offsetWidth));
+    if (!el || !step()) return;
+    setIdx(Math.round(el.scrollLeft / step()));
   };
+  // Auto-advance every 3.5s, looping. Holding a finger on it pauses for as long as it's held;
+  // a tap or swipe stops it for ~10s so the review can be read.
+  const held = useRef(false);
+  const skip = useRef(0);
+  useEffect(() => {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    const t = setInterval(() => {
+      if (held.current) return;
+      if (skip.current > 0) { skip.current--; return; }
+      const el = ref.current;
+      if (!el || !step()) return;
+      const n = (Math.round(el.scrollLeft / step()) + 1) % PROOF.length;
+      el.scrollTo({ left: n * step(), behavior: 'smooth' });
+    }, 3500);
+    return () => clearInterval(t);
+  }, []);
+  const hold = () => { held.current = true; };
+  const release = () => { held.current = false; skip.current = 3; };
   return (
     <>
-      <div ref={ref} className="fpb-carousel" onScroll={onScroll}>
+      <div ref={ref} className="fpb-carousel" onScroll={onScroll} onPointerDown={hold} onPointerUp={release} onPointerCancel={release} onPointerLeave={() => { if (held.current) release(); }} onWheel={() => { skip.current = 3; }}>
         {PROOF.map((p, i) => (
-          <article key={i} style={{ width: 'min(306px, 82vw)', flex: 'none', display: 'flex', flexDirection: 'column', gap: 12, padding: 16, borderRadius: 24, background: 'var(--surface-card)', border: '1px solid var(--border-subtle)' }}>
+          <article key={i} style={{ width: 'min(306px, 82vw)', flex: 'none', scrollSnapAlign: 'start', userSelect: 'none', WebkitTouchCallout: 'none', display: 'flex', flexDirection: 'column', gap: 12, padding: 16, borderRadius: 24, background: 'var(--surface-card)', border: '1px solid var(--border-subtle)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               {p.avatar ? <Img src={p.avatar} style={{ width: 36, height: 36, borderRadius: '50%', flex: 'none' }} /> : <span style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--ink-300)', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '600 14px/1 var(--font-sans)', flex: 'none' }}>{p.initial}</span>}
               <span style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 3 }}><span style={{ font: '600 14px/1.2 var(--font-sans)' }}>{p.name}</span><span style={{ fontSize: 11, lineHeight: 1.2, color: 'var(--text-tertiary)' }}>{p.meta}</span></span>

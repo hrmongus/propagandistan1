@@ -212,6 +212,7 @@ export function EmailGate({ state, dispatch, back }: ScreenProps) {
           {error && <p role="alert" style={{ margin: 0, fontSize: 13, lineHeight: 1.4, color: '#FF8A6E' }}>{error}</p>}
           <button type="submit" className="fpb-btn signal" disabled={busy || (!TEST_MODE && !email)}>{busy ? 'Saving your Blueprint…' : 'Show my blueprint'}</button>
           <p className="fpb-fine">We also email you a link to your results. No spam.</p>
+          <p className="fpb-fine" style={{ fontSize: 11 }}>By proceeding you agree to receive marketing emails and to our <a href="/privacy" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>Privacy Policy</a>.</p>
         </form>
       </div>
     </div>
