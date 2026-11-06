@@ -256,11 +256,11 @@ export function Genre({ state, dispatch, next, back }: ScreenProps) {
     <QuizScreen id="genre" back={back} footer={<NextBtn s={state} next={next} />}>
       <TrackPill track={state.track} />
       <Titles title="What genre is your music?" lede="Pick the closest one." />
-      <div role="radiogroup" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 8 }}>
+      <div role="radiogroup" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 6 }}>
         {GENRES.map((g) => (
-          <button key={g.id} type="button" role="radio" aria-checked={v === g.id} onClick={() => set(dispatch, { genre: g.id })} className="fpb-opt compact" style={{ minHeight: 56 }}>
-            <span className="ico"><Icon d={g.icon!} size={20} /></span>
-            <span className="txt"><span className="t">{g.label}</span></span>
+          <button key={g.id} type="button" role="radio" aria-checked={v === g.id} onClick={() => set(dispatch, { genre: g.id })} className="fpb-opt compact" style={{ minHeight: 48, padding: '0 10px', gap: 10, borderRadius: 14 }}>
+            <span className="ico" style={{ width: 28, height: 28, borderRadius: 8 }}><Icon d={g.icon!} size={16} /></span>
+            <span className="txt"><span className="t" style={{ fontSize: 14, lineHeight: 1.15 }}>{g.label}</span></span>
           </button>
         ))}
       </div>

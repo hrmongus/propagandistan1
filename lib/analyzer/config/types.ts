@@ -42,7 +42,7 @@ export type AgeId = '13-17' | '18-24' | '25-34' | '35-44' | '45+';
 export type GenderId = 'women' | 'men' | 'everyone';
 export type TriedId = 'playlists' | 'ads' | 'own-content' | 'influencers' | 'curators' | 'other' | 'nothing';
 export type DailyTimeId = '5' | '15' | '30' | '60';
-export type GenreId = 'pop' | 'hiphop' | 'rnb' | 'indie' | 'rock' | 'electronic' | 'country' | 'latin' | 'folk' | 'other';
+export type GenreId = 'hiphop' | 'pop' | 'rnb' | 'rock' | 'latin' | 'electronic' | 'country' | 'indie' | 'afrobeats' | 'kpop' | 'folk' | 'reggaeton' | 'lofi' | 'metal' | 'other';
 export type ReleaseId = 'out' | 'month' | '3m' | 'none';
 export type ExperienceId = 'never' | 'tried' | 'running';
 
