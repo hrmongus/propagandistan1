@@ -658,60 +658,68 @@ function ProfileCard({ p }: { p: (typeof FANPAGE_EXAMPLES)[number] }) {
   );
 }
 
-/** Swipeable row of profile cards, scaled so the whole card fits the space left on the screen. */
+/**
+ * Continuous slow drift for a horizontal carousel whose items are rendered twice: scrolls ~speed px per frame and
+ * wraps at the halfway point, so it loops forever. Holding a finger (or mouse) on it pauses it; after letting go,
+ * swiping or using the wheel it resumes from wherever the user left it after `resumeMs`.
+ */
+function useDrift(ref: React.RefObject<HTMLDivElement | null>, speed = 0.35, resumeMs = 2500) {
+  const held = useRef(false);
+  const resumeAt = useRef(0);
+  const pos = useRef(-1);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    let raf = 0, last = 0;
+    const tick = (t: number) => {
+      raf = requestAnimationFrame(tick);
+      const dt = last ? Math.min(64, t - last) : 16; last = t;
+      if (held.current || t < resumeAt.current) { pos.current = -1; return; }
+      const half = el.scrollWidth / 2;
+      if (half <= el.clientWidth) return;
+      if (pos.current < 0) pos.current = el.scrollLeft;
+      pos.current += speed * (dt / 16.7);
+      if (pos.current >= half) pos.current -= half;
+      el.scrollLeft = pos.current;
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [ref, speed]);
+  const later = () => { resumeAt.current = performance.now() + resumeMs; };
+  return {
+    onPointerDown: () => { held.current = true; },
+    onPointerUp: () => { held.current = false; later(); },
+    onPointerCancel: () => { held.current = false; later(); },
+    onPointerLeave: () => { if (held.current) { held.current = false; later(); } },
+    onWheel: later,
+    onTouchMove: later,
+  };
+}
+
+/** Row of profile cards, scaled to the space left on the screen, drifting slowly in an endless loop. */
 function PageCarousel() {
   const box = useRef<HTMLDivElement>(null);
   const row = useRef<HTMLDivElement>(null);
   const [k, setK] = useState(0);
-  const [at, setAt] = useState(0);
   useEffect(() => {
     const el = box.current;
     if (!el) return;
-    const fit = () => setK(Math.min(0.82, (el.clientHeight / CARD_H) * 0.86)); // a little smaller than the space, so neighbours show
+    const fit = () => setK(Math.min(0.82, (el.clientHeight / CARD_H) * 0.9));
     fit();
     const ro = new ResizeObserver(fit);
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
+  const drift = useDrift(row, 0.4);
   const w = CARD_W * k;
-  const onScroll = () => { const r = row.current; if (r && w) setAt(Math.round(r.scrollLeft / (w + 12))); };
-  const go = (i: number) => row.current?.scrollTo({ left: i * (w + 12), behavior: 'smooth' });
-  // Auto-advance every 3.2s (looping); any touch, click or hover pauses it for ~10s.
-  const skip = useRef(0); // ticks to skip after the user interacts
-  const pause = () => { skip.current = 3; };
-  useEffect(() => {
-    if (!w || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
-    const t = setInterval(() => {
-      if (skip.current > 0) { skip.current--; return; }
-      setAt((cur) => { const n = (cur + 1) % FANPAGE_EXAMPLES.length; go(n); return n; });
-    }, 3200);
-    return () => clearInterval(t);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [w]);
-  const arrow = (dir: -1 | 1) => (
-    <button type="button" aria-label={dir < 0 ? 'Previous page' : 'Next page'} onClick={() => { pause(); go((at + dir + FANPAGE_EXAMPLES.length) % FANPAGE_EXAMPLES.length); }}
-      style={{ width: 34, height: 34, borderRadius: '50%', border: '1px solid var(--border-default)', background: 'var(--surface-card)', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flex: 'none' }}>
-      <Icon d={dir < 0 ? ICONS.back : '<path d="m9 18 6-6-6-6"/>'} size={16} stroke={2.4} />
-    </button>
-  );
   return (
-    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
-      <div ref={box} onPointerDown={pause} onMouseEnter={pause} onWheel={pause} style={{ flex: 1, minHeight: 0, margin: '0 -20px', display: 'flex', alignItems: 'center' }}>
-        <div ref={row} onScroll={onScroll} className="fpb-carousel" aria-label="Example fan pages" style={{ width: '100%', alignItems: 'center', gap: 12, padding: `0 calc(50% - ${w / 2}px)`, opacity: k ? 1 : 0 }}>
-          {FANPAGE_EXAMPLES.map((p, i) => (
-            <div key={p.handle} style={{ flex: 'none', width: w, height: CARD_H * k, scrollSnapAlign: 'center', opacity: i === at ? 1 : 0.45, transform: i === at ? 'scale(1)' : 'scale(.92)', transition: 'opacity 300ms, transform 300ms' }}>
-              <div style={{ transform: `scale(${k})`, transformOrigin: 'top left', width: CARD_W, height: CARD_H }}><ProfileCard p={p} /></div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 6, flex: 'none' }}>
-        {arrow(-1)}<span style={{ width: 8 }} />
-        {FANPAGE_EXAMPLES.map((p, i) => (
-          <button key={p.handle} type="button" aria-label={`Show @${p.handle}`} aria-current={i === at} onClick={() => { pause(); go(i); }}
-            style={{ width: i === at ? 18 : 6, height: 6, padding: 0, border: 'none', borderRadius: 3, background: i === at ? 'var(--text-primary)' : 'var(--ink-400, #555)', transition: 'width 200ms', cursor: 'pointer' }} />
+    <div ref={box} style={{ flex: 1, minHeight: 0, margin: '0 -20px', display: 'flex', alignItems: 'center' }}>
+      <div ref={row} {...drift} className="fpb-carousel" aria-label="Example fan pages" style={{ width: '100%', alignItems: 'center', gap: 12, padding: '0 20px', scrollSnapType: 'none', opacity: k ? 1 : 0 }}>
+        {[...FANPAGE_EXAMPLES, ...FANPAGE_EXAMPLES].map((p, i) => (
+          <div key={i} aria-hidden={i >= FANPAGE_EXAMPLES.length || undefined} style={{ flex: 'none', width: w, height: CARD_H * k, userSelect: 'none', WebkitTouchCallout: 'none' }}>
+            <div style={{ transform: `scale(${k})`, transformOrigin: 'top left', width: CARD_W, height: CARD_H }}><ProfileCard p={p} /></div>
+          </div>
         ))}
-        <span style={{ width: 8 }} />{arrow(1)}
       </div>
     </div>
   );
@@ -750,36 +758,11 @@ export function Tried({ state, dispatch, next, back }: ScreenProps) {
 
 export function ProofCards() {
   const ref = useRef<HTMLDivElement>(null);
-  const [idx, setIdx] = useState(0);
-  const step = () => { const el = ref.current; const c = el?.firstElementChild as HTMLElement | null; return c ? c.offsetWidth + 10 : 0; };
-  const onScroll = () => {
-    const el = ref.current;
-    if (!el || !step()) return;
-    setIdx(Math.round(el.scrollLeft / step()));
-  };
-  // Auto-advance every 3.5s, looping. Holding a finger on it pauses for as long as it's held;
-  // a tap or swipe stops it for ~10s so the review can be read.
-  const held = useRef(false);
-  const skip = useRef(0);
-  useEffect(() => {
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
-    const t = setInterval(() => {
-      if (held.current) return;
-      if (skip.current > 0) { skip.current--; return; }
-      const el = ref.current;
-      if (!el || !step()) return;
-      const n = (Math.round(el.scrollLeft / step()) + 1) % PROOF.length;
-      el.scrollTo({ left: n * step(), behavior: 'smooth' });
-    }, 3500);
-    return () => clearInterval(t);
-  }, []);
-  const hold = () => { held.current = true; };
-  const release = () => { held.current = false; skip.current = 3; };
+  const drift = useDrift(ref, 0.35);
   return (
-    <>
-      <div ref={ref} className="fpb-carousel" onScroll={onScroll} onPointerDown={hold} onPointerUp={release} onPointerCancel={release} onPointerLeave={() => { if (held.current) release(); }} onWheel={() => { skip.current = 3; }}>
-        {PROOF.map((p, i) => (
-          <article key={i} style={{ width: 'min(306px, 82vw)', flex: 'none', scrollSnapAlign: 'start', userSelect: 'none', WebkitTouchCallout: 'none', display: 'flex', flexDirection: 'column', gap: 12, padding: 16, borderRadius: 24, background: 'var(--surface-card)', border: '1px solid var(--border-subtle)' }}>
+    <div ref={ref} {...drift} className="fpb-carousel" style={{ scrollSnapType: 'none' }}>
+      {[...PROOF, ...PROOF].map((p, i) => (
+          <article key={i} aria-hidden={i >= PROOF.length || undefined} style={{ width: 'min(306px, 82vw)', flex: 'none', userSelect: 'none', WebkitTouchCallout: 'none', display: 'flex', flexDirection: 'column', gap: 12, padding: 16, borderRadius: 24, background: 'var(--surface-card)', border: '1px solid var(--border-subtle)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               {p.avatar ? <Img src={p.avatar} style={{ width: 36, height: 36, borderRadius: '50%', flex: 'none' }} /> : <span style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--ink-300)', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '600 14px/1 var(--font-sans)', flex: 'none' }}>{p.initial}</span>}
               <span style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 3 }}><span style={{ font: '600 14px/1.2 var(--font-sans)' }}>{p.name}</span><span style={{ fontSize: 11, lineHeight: 1.2, color: 'var(--text-tertiary)' }}>{p.meta}</span></span>
@@ -790,10 +773,8 @@ export function ProofCards() {
             {p.image && <Img src={p.image} label={p.imageAlt} style={{ width: '100%', height: 220, borderRadius: 14, backgroundColor: '#fff', backgroundSize: 'contain, 0 0', backgroundPosition: p.position ?? 'center' }} />}
             {p.caption && <span style={{ font: '400 11px/1.2 var(--font-mono)', color: 'var(--text-tertiary)' }}>{p.caption}</span>}
           </article>
-        ))}
-      </div>
-      <div className="fpb-dots" aria-hidden="true" style={{ paddingRight: 20 }}>{PROOF.map((_, i) => <span key={i} className={i === idx ? 'on' : ''} />)}</div>
-    </>
+      ))}
+    </div>
   );
 }
 
