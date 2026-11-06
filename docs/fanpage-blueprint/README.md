@@ -49,7 +49,7 @@ Design preview of the results without Supabase: `/dev/blueprint-results`.
 | Screens 00–14 / 15–16 / 17–18b | `screens.tsx` / `finale.tsx` / `results.tsx` |
 | Charts (goal card, growth chart, radar) | `charts.tsx` |
 | All copy and options | `lib/analyzer/config/*` (one import: `@/lib/analyzer/config`) |
-| Scores, kits per page | `lib/analyzer/metrics.ts` (unit-tested) |
+| Pack ranking, fit scores, pages | `lib/analyzer/metrics.ts` (unit-tested) |
 
 ### Images: drop them in, no code changes
 
@@ -71,7 +71,7 @@ Every image slot renders a grey placeholder at the final size until its file exi
 4. **10-minute expiry bar:** on 17 (added at the owner's request), counting down from the strategy's `created_at` so a reload doesn't reset it. Nothing changes at zero yet: per HANDOFF.md §8 the offer should genuinely end (e.g. the $37 price) before this runs on paid traffic.
 5. **Bundle toggle on 18b:** off by default (pre-ticked paid add-ons aren't allowed in the EU).
 6. **"Ready to build" summary on 14:** not added (follows the mock).
-7. **Kits:** the 3 pages never share a kit; fallback order in `KIT_FALLBACK` reproduces the mock's example.
+7. **Pack recommendation:** `scorePacks()` in `lib/analyzer/metrics.ts` ranks the 4 packs from the pack fit sheet (`lib/analyzer/config/packFit.ts`, copied from the Pack Fit Matrix artifact): B +2 / F +1 / N -2 per answer, weighted genre 2, aesthetics 1.5 (first pick counts most), mood 1, age 0.5. Ties: first aesthetic pick, then Midnight City. The top 3 packs become the 3 fan pages; fit 55–97 comes from the same score.
 8. **Payment:** Stripe's embedded checkout (same as `/checkout`) replaces the mock's hand-drawn card fields; after
    paying, buyers land on the existing `/upsell` → `/access` pages (the "order confirmed" step).
 

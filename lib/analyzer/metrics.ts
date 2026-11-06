@@ -1,9 +1,12 @@
-import { AESTHETICS, aestheticById, KIT_FALLBACK, type Aesthetic, type ListenerBracket, type PackId, type QuizAnswers } from './config';
+import {
+  AESTHETICS, FIT_POINTS, FIT_WEIGHTS, PACK_FIT, PACK_PRIORITY, PACKS, type FitQuestion, type ListenerBracket, type PackId, type QuizAnswers,
+} from './config';
 
 /*
- * The results-page numbers. Pure and deterministic: seeded from a hash of the track id and the answers, so the
- * same input always gives the same output (a reloaded /s/{id} or a re-submitted quiz shows identical numbers).
- * These are presentation metrics for the lead magnet, not measurements.
+ * The results-page numbers. Pure and deterministic, so a reloaded /s/{id} or a re-submitted quiz shows identical
+ * numbers. The pack ranking and the fit scores come from the pack fit sheet (config/packFit.ts): each answer is
+ * worth B +2 / F +1 / N -2 for a pack, weighted by question (genre counts most). The radar and the small audience
+ * jitter are seeded from a hash of the track id and the answers.
  */
 
 export type RadarKey = 'hook' | 'emotion' | 'replay' | 'relatability' | 'shareability' | 'visualFit';
@@ -12,9 +15,9 @@ export type Metrics = {
   fanpageFit: { score: number; label: 'Excellent fit' | 'Strong fit' };
   untappedAudiencePct: number;
   radar: Record<RadarKey, number>;
-  /** Aesthetic ids: the user's picks in pick order, filled to 3 with aesthetics on the first pick's pack. */
+  /** The aesthetic behind each recommended page, in page order (hooks are written per aesthetic). */
   topFanPages: string[];
-  /** The 3 recommended pages, best first: each with its own kit (no two share one) and its own scores. */
+  /** The 3 recommended pages, best first: one per pack (ranked by the fit sheet) with its scores. */
   pages: { aesthetic: string; kit: PackId; fit: number; audience: number }[];
   /** The #1 page's kit: preselected in the offer. */
   offerPack: PackId;
@@ -57,50 +60,78 @@ function canonical(v: unknown): string {
 
 const intIn = (r: () => number, lo: number, hi: number) => lo + Math.floor(r() * (hi - lo + 1));
 
-/** Picks first (in pick order, unknown ids dropped, max 3), then same-pack aesthetics in config order, then any. */
-export function fillTopFanPages(picks: string[], pool: Aesthetic[] = AESTHETICS, fallbackFirst?: string): string[] {
-  const chosen = [...new Set(picks)].filter((id) => pool.some((a) => a.id === id)).slice(0, 3);
-  if (!chosen.length && fallbackFirst) chosen.push(fallbackFirst);
-  const pack = pool.find((a) => a.id === chosen[0])?.pack;
-  for (const a of pool) if (chosen.length < 3 && a.pack === pack && !chosen.includes(a.id)) chosen.push(a.id);
-  for (const a of pool) if (chosen.length < 3 && !chosen.includes(a.id)) chosen.push(a.id);
-  return chosen;
+/** The artist's answers per scored question, as weighted answer lists (aesthetics: first pick counts most). */
+function scoredAnswers(a: QuizAnswers): [FitQuestion, { id: string; w: number }[]][] {
+  const out: [FitQuestion, { id: string; w: number }[]][] = [];
+  if (a.genre) out.push(['genre', [{ id: a.genre, w: 1 }]]);
+  const ae = [...new Set(a.aesthetics ?? [])];
+  if (ae.length) out.push(['aesthetics', ae.map((id, i) => ({ id, w: i === 0 ? 1 : 0.6 }))]);
+  if (a.moments?.length) out.push(['moments', a.moments.map((id) => ({ id, w: 1 }))]);
+  if (a.age?.length) out.push(['age', a.age.map((id) => ({ id, w: 1 }))]);
+  return out;
 }
 
-/** Mapped kit first; if an earlier page already took it, the closest unused kit (KIT_FALLBACK order). */
-export function assignKits(aestheticIds: string[]): PackId[] {
-  const used = new Set<PackId>();
-  return aestheticIds.map((id) => {
-    const mapped = aestheticById(id)?.pack ?? 'golden';
-    const kit = [mapped, ...KIT_FALLBACK[mapped]].find((k) => !used.has(k)) ?? mapped;
-    used.add(kit);
-    return kit;
-  });
+/** Weighted average points (-2..2) of a list of answers for one pack and question; unknown answers count as F. */
+function questionPoints(pack: PackId, q: FitQuestion, answers: { id: string; w: number }[]) {
+  const wSum = answers.reduce((n, x) => n + x.w, 0);
+  return answers.reduce((n, x) => n + FIT_POINTS[PACK_FIT[pack][q][x.id] ?? 'F'] * x.w, 0) / wSum;
+}
+
+export type PackScore = { pack: PackId; points: number; norm: number; audienceNorm: number };
+
+/**
+ * Every pack scored against the answers, best first. `points` is the weighted sum; `norm` maps it to 0..1 between
+ * the worst (all N) and best (all B) possible for the questions answered. Ties: the first aesthetic pick's level for
+ * the pack, then PACK_PRIORITY (Midnight City first).
+ */
+export function scorePacks(a: QuizAnswers): PackScore[] {
+  const qs = scoredAnswers(a);
+  const wTotal = qs.reduce((n, [q]) => n + FIT_WEIGHTS[q], 0);
+  const audQs = qs.filter(([q]) => q === 'age' || q === 'moments');
+  const audTotal = audQs.reduce((n, [q]) => n + FIT_WEIGHTS[q], 0);
+  const range = (pts: number, tot: number) => (tot ? (pts - tot * FIT_POINTS.N) / (tot * (FIT_POINTS.B - FIT_POINTS.N)) : 0.5);
+  const firstAe = a.aesthetics?.[0];
+  return PACKS.map(({ id: pack }) => {
+    const points = qs.reduce((n, [q, ans]) => n + FIT_WEIGHTS[q] * questionPoints(pack, q, ans), 0);
+    const audPts = audQs.reduce((n, [q, ans]) => n + FIT_WEIGHTS[q] * questionPoints(pack, q, ans), 0);
+    return { pack, points, norm: range(points, wTotal), audienceNorm: range(audPts, audTotal) };
+  }).sort((x, y) => y.points - x.points
+    || (firstAe ? FIT_POINTS[PACK_FIT[y.pack].aesthetics[firstAe] ?? 'F'] - FIT_POINTS[PACK_FIT[x.pack].aesthetics[firstAe] ?? 'F'] : 0)
+    || PACK_PRIORITY.indexOf(x.pack) - PACK_PRIORITY.indexOf(y.pack));
+}
+
+/** The aesthetic to show for a pack: the artist's own pick that suits it best, else the best-suited unused one. */
+function aestheticFor(pack: PackId, picks: string[], used: Set<string>) {
+  const rank = (id: string) => FIT_POINTS[PACK_FIT[pack].aesthetics[id] ?? 'F'];
+  const own = picks.filter((id) => !used.has(id) && AESTHETICS.some((x) => x.id === id)).sort((x, y) => rank(y) - rank(x))[0];
+  if (own && rank(own) > 0) return own;
+  const pool = AESTHETICS.filter((x) => !used.has(x.id)).sort((x, y) => rank(y.id) - rank(x.id) || (x.pack === pack ? -1 : 0) - (y.pack === pack ? -1 : 0));
+  return pool[0]?.id ?? own ?? AESTHETICS[0].id;
 }
 
 export function getMetrics(trackId: string, answers: QuizAnswers): Metrics {
   const r = rng(hash(trackId + '|' + canonical(answers)));
-  const fit = intIn(r, 78, 90);
   const radar = {} as Record<RadarKey, number>;
   for (const k of Object.keys(RADAR_LABELS) as RadarKey[]) radar[k] = intIn(r, 68, 96);
-  // No valid pick: choose one deterministically so the page still has three fan pages.
-  const fallbackFirst = AESTHETICS[Math.floor(r() * AESTHETICS.length)].id;
-  const topFanPages = fillTopFanPages(answers.aesthetics ?? [], AESTHETICS, fallbackFirst);
-  const kits = assignKits(topFanPages);
-  // Per-page scores, strictly descending so #1 is visibly the best option.
-  let fitCap = 96, audCap = 94;
-  const pages = topFanPages.map((aesthetic, i) => {
-    const pageFit = intIn(r, Math.min(fitCap, Math.max(70, fitCap - 8)), fitCap);
-    const pageAud = intIn(r, Math.min(audCap, Math.max(66, audCap - 8)), audCap);
-    fitCap = pageFit - 3; audCap = pageAud - 3;
-    return { aesthetic, kit: kits[i], fit: pageFit, audience: pageAud };
+
+  // Top 3 packs by fit. Fit 60..97 from the sheet; each page at least 2 below the one above so #1 reads as the best.
+  const used = new Set<string>();
+  let cap = 97;
+  const pages = scorePacks(answers).slice(0, 3).map((s) => {
+    const fit = Math.min(cap, Math.max(55, Math.round(60 + 37 * s.norm)));
+    cap = fit - 2;
+    const audience = Math.max(56, Math.min(96, Math.round(58 + 36 * s.audienceNorm) + intIn(r, -2, 2)));
+    const aesthetic = aestheticFor(s.pack, answers.aesthetics ?? [], used);
+    used.add(aesthetic);
+    return { aesthetic, kit: s.pack, fit, audience };
   });
+  const score = pages[0].fit;
   return {
-    fanpageFit: { score: fit, label: fit >= 86 ? 'Excellent fit' : 'Strong fit' },
+    fanpageFit: { score, label: score >= 86 ? 'Excellent fit' : 'Strong fit' },
     untappedAudiencePct: UNTAPPED[answers.listeners] ?? UNTAPPED.lt1k,
     radar,
-    topFanPages,
+    topFanPages: pages.map((p) => p.aesthetic),
     pages,
-    offerPack: kits[0],
+    offerPack: pages[0].kit,
   };
 }

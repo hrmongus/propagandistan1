@@ -12,13 +12,3 @@ export const PACKS: Pack[] = [
 
 export const packById = (id: PackId) => PACKS.find((p) => p.id === id)!;
 
-/**
- * When two recommended pages map to the same kit, the later one takes the closest unused kit (HANDOFF.md §4).
- * Golden Hour's order reproduces the mock (Light academia, Clean girl, Coquette → Golden Hour, Coastal Drive, Midnight City). To be confirmed with the product owner.
- */
-export const KIT_FALLBACK: Record<PackId, PackId[]> = {
-  golden: ['coastal', 'midnight', 'forest'],
-  coastal: ['golden', 'midnight', 'forest'],
-  midnight: ['coastal', 'forest', 'golden'],
-  forest: ['golden', 'midnight', 'coastal'],
-};
