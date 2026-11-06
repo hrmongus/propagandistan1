@@ -7,12 +7,13 @@ import { createCheckoutSession } from '@/app/checkout/actions';
 import { Fan } from '@/components/Fan';
 import { distinctId, track as phTrack } from '@/lib/analytics/client';
 import {
-  GENDERS, GOALS, OFFER_BULLETS, PACK_INCLUDES, PACKS, RESULTS_FAQ, aestheticById, momentById, packById, type PackId, type QuizAnswers,
+  GENDERS, GOALS, OFFER_BULLETS, PACK_INCLUDES, RESULTS_FAQ, aestheticById, momentById, packById, type PackId, type QuizAnswers,
 } from '@/lib/analyzer/config';
 import type { Metrics } from '@/lib/analyzer/metrics';
 import type { SpotifyTrack } from '@/lib/analyzer/spotify';
 import { setStrategyId, track } from '@/lib/analyzer/track';
 import { PACK_SLUGS, PACKS as SITE_PACKS } from '@/lib/data';
+import { AGES } from '@/lib/analyzer/config';
 import { BUNDLE_SAVE, FOUR_SINGLES, PRICES } from '@/lib/prices';
 import { GrowthChart, Radar } from './charts';
 import { ProofCards } from './screens';
@@ -36,12 +37,44 @@ const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
 
 const DEAL_PCT = Math.round(((PRICES.packWas - PRICES.pack) / PRICES.packWas) * 100);
-const stockOf = (kit: PackId) => SITE_PACKS.find((p) => p.slug === packById(kit).checkoutSlug)?.stock ?? null;
 
 function audienceLine(a: QuizAnswers, momentId?: string) {
   const gender = GENDERS.find((g) => g.id === a.gender)?.label.replace('Mostly ', '').toLowerCase();
   const moment = momentById(momentId ?? '')?.label.toLowerCase();
   return [a.age?.join(', '), gender, moment].filter(Boolean).join(' · ');
+}
+
+/**
+ * Audience as a distribution curve over the age buckets: peaks on the ages the artist picked, tails off either side.
+ * `shift` nudges the peak a little per page so the three pages don't look identical.
+ */
+function AudienceCurve({ a, shift = 0, caption }: { a: QuizAnswers; shift?: number; caption: string }) {
+  const picked = (a.age ?? []).map((id) => AGES.findIndex((g) => g.id === id)).filter((i) => i >= 0);
+  const centre = (picked.length ? picked.reduce((x, y) => x + y, 0) / picked.length : 1.5) + shift;
+  const spread = picked.length > 1 ? 1.15 : 0.85;
+  const W = 150, H = 54, B = 12, N = 60;
+  const xs = Array.from({ length: N }, (_, i) => (i / (N - 1)) * (AGES.length - 1));
+  const ys = xs.map((x) => Math.exp(-((x - centre) ** 2) / (2 * spread * spread)));
+  const pt = (i: number) => `${((xs[i] / (AGES.length - 1)) * W).toFixed(1)},${(4 + (H - B - 4) * (1 - ys[i])).toFixed(1)}`;
+  const line = xs.map((_, i) => `${i ? 'L' : 'M'}${pt(i)}`).join('');
+  const lo = Math.max(0, Math.min(...(picked.length ? picked : [1])) - 0.5), hi = Math.min(AGES.length - 1, Math.max(...(picked.length ? picked : [2])) + 0.5);
+  const band = xs.map((x, i) => ({ x, i })).filter(({ x }) => x >= lo && x <= hi);
+  const bandPath = band.length ? `M${pt(band[0].i).split(',')[0]},${H - B}` + band.map(({ i }) => `L${pt(i)}`).join('') + `L${pt(band[band.length - 1].i).split(',')[0]},${H - B}Z` : '';
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <span style={{ font: '500 10px/1 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-tertiary)' }}>AUDIENCE</span>
+      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Audience distribution by age, peaking at ${caption}`} style={{ width: '100%', height: 'auto', display: 'block', overflow: 'visible' }}>
+        <path d={`${line}L${W},${H - B}L0,${H - B}Z`} fill="rgba(255,255,255,.06)" />
+        {bandPath && <path d={bandPath} fill="rgba(34,212,107,.28)" />}
+        <path d={line} fill="none" stroke="var(--signal-500)" strokeWidth="1.8" strokeLinejoin="round" />
+        <line x1="0" x2={W} y1={H - B} y2={H - B} stroke="rgba(255,255,255,.18)" />
+        {AGES.map((g, i) => (
+          <text key={g.id} x={(i / (AGES.length - 1)) * W} y={H - 1} textAnchor={i === 0 ? 'start' : i === AGES.length - 1 ? 'end' : 'middle'} fontSize="7.5" fontFamily="var(--font-mono)" fill={picked.includes(i) ? '#F5F5F7' : '#8A8A8E'}>{g.label}</text>
+        ))}
+      </svg>
+      <span style={{ fontSize: 11.5, lineHeight: 1.35, color: 'var(--text-secondary)' }}>{caption}</span>
+    </div>
+  );
 }
 
 /** Reel mock: the kit's example clip (muted, looping), hook on top, optional lyric line, audio pill. */
@@ -125,6 +158,7 @@ export function Results({ row }: { row: StrategyRow }) {
   const [kit, setKit] = useState<PackId>(m.offerPack);
   const [sheet, setSheet] = useState<null | 'offer' | 'pay'>(null);
   const [faq, setFaq] = useState(0);
+  const [more, setMore] = useState(false);
   const seed = useMemo(() => hash(row.id), [row.id]);
 
   useEffect(() => {
@@ -139,7 +173,27 @@ export function Results({ row }: { row: StrategyRow }) {
   };
   const pickKit = (k: PackId) => { setKit(k); phTrack('kit_selected', { pack: packById(k).checkoutSlug, source: 'offer' }); };
   const kitPage = pages.find((p) => p.kit === kit) ?? pages[0];
-  const stock = stockOf(kit);
+
+  const pageCard = (p: (typeof pages)[number], i: number) => {
+    const pk = packById(p.kit);
+    return (
+      <article style={{ display: 'grid', gridTemplateColumns: '122px minmax(0, 1fr)', gap: 14, padding: 12, borderRadius: 28, background: 'var(--surface-card)', border: i === 0 ? '1.5px solid var(--ink-900)' : '1px solid var(--border-subtle)', height: '100%' }}>
+        <ReelMock kit={p.kit} hook={p.hook} lyric={row.lyric_line} title={t.title} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 9, minWidth: 0, padding: '4px 4px 4px 0' }}>
+          {i === 0 ? <span className="fpb-badge signal" style={{ alignSelf: 'flex-start' }}>#1 Top pick</span> : <span style={{ font: '500 11px/1 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-tertiary)' }}>#{i + 1} FAN PAGE</span>}
+          <span style={{ font: '600 17px/1.15 var(--font-sans)', letterSpacing: '-0.02em' }}>{pk.name}</span>
+          <span style={{ font: '500 11.5px/1.3 var(--font-mono)', color: 'var(--signal-400)' }}>{pk.vibe}</span>
+          <span style={{ fontSize: 12.5, lineHeight: 1.4, color: 'var(--text-secondary)' }}>{pk.feel}</span>
+          <div style={{ marginTop: 'auto' }}><AudienceCurve a={a} shift={i === 0 ? 0 : i === 1 ? 0.35 : -0.3} caption={audienceLine(a, p.moment)} /></div>
+        </div>
+        <div style={{ gridColumn: '1 / -1', display: 'flex', flexDirection: 'column', gap: 12, padding: 4 }}>
+          <Bar label="FANPAGE FIT SCORE" value={p.fit} signal />
+          <Bar label="AUDIENCE TARGET" value={p.audience} />
+          <button type="button" className="fpb-btn primary md" onClick={() => openOffer(`page-${i + 1}`, p.kit)}>Launch this page</button>
+        </div>
+      </article>
+    );
+  };
 
   return (
     <div className="fpb-screen">
@@ -201,34 +255,25 @@ export function Results({ row }: { row: StrategyRow }) {
           <div style={{ padding: '16px 12px 12px', borderRadius: 24, background: '#fff', border: '1px solid #e6e6e6', color: '#121212' }}>
             <GrowthChart goalValue={goal?.value ?? 100_000} seed={seed} />
           </div>
-          <p className="fpb-lede sm">Every extra page puts your song in front of a new audience at the same time. <b>One page grows you. Three get you to your goal.</b></p>
-          <span style={{ fontSize: 12, lineHeight: 1.3, color: 'var(--text-tertiary)' }}>Illustrative projection. Results depend on posting consistency.</span>
+          <p className="fpb-lede sm">Each fan page reaches a new audience. <b>More pages, faster growth.</b></p>
         </section>
 
-        {/* top 3 pages */}
+        {/* blueprint: top pick, the other two behind "show more" in a swipe row */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           <div className="fpb-titles" style={{ gap: 8 }}>
-            <h2 className="fpb-h3">Your top 3 fan pages.</h2>
-            <p className="fpb-lede sm">Each reaches a different audience with your song. Start with the best one, add more to grow faster.</p>
+            <span className="fpb-overline">YOUR FANPAGE BLUEPRINT</span>
+            <h2 className="fpb-h3">Your top fan page.</h2>
           </div>
-          {pages.map((p, i) => (
-            <article key={p.aesthetic} style={{ display: 'grid', gridTemplateColumns: '132px minmax(0, 1fr)', gap: 14, padding: 12, borderRadius: 28, background: 'var(--surface-card)', border: i === 0 ? '1.5px solid var(--ink-900)' : '1px solid var(--border-subtle)' }}>
-              <ReelMock kit={p.kit} hook={p.hook} lyric={row.lyric_line} title={t.title} />
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, minWidth: 0, padding: '4px 4px 4px 0' }}>
-                {i === 0 ? <span className="fpb-badge signal">#1 Best option</span> : <span style={{ font: '500 11px/1 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-tertiary)' }}>#{i + 1} FAN PAGE</span>}
-                <span style={{ font: '600 15px/1.2 var(--font-sans)', wordBreak: 'break-all' }}>@{p.info.handle}</span>
-                <span style={{ fontSize: 13, lineHeight: 1.3 }}>{p.info.name}</span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: 6, alignSelf: 'flex-start', padding: '4px 10px 4px 4px', borderRadius: 999, background: 'var(--ink-200)', font: '500 11px/1 var(--font-sans)' }}>
-                  <Img src={packById(p.kit).cover} style={{ width: 18, height: 18, borderRadius: '50%' }} />FanpageKit: {packById(p.kit).name}
-                </span>
-                <span style={{ fontSize: 12, lineHeight: 1.4, color: 'var(--text-secondary)' }}>{audienceLine(a, p.moment)}</span>
+          {pageCard(pages[0], 0)}
+          {pages.length > 1 && (more ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, margin: '0 -20px' }}>
+              <span style={{ font: '500 10px/1 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-tertiary)', padding: '0 20px' }}>MORE FAN PAGES · SWIPE</span>
+              <div className="fpb-carousel" style={{ padding: '0 20px', gap: 10, scrollPaddingLeft: 20 }}>
+                {pages.slice(1).map((p, k) => <div key={p.aesthetic} style={{ flex: 'none', width: 'min(330px, 86vw)', scrollSnapAlign: 'start' }}>{pageCard(p, k + 1)}</div>)}
               </div>
-              <div style={{ gridColumn: '1 / -1', display: 'flex', flexDirection: 'column', gap: 12, padding: 4 }}>
-                <Bar label="FANPAGE FIT SCORE" value={p.fit} signal />
-                <Bar label="AUDIENCE TARGET" value={p.audience} />
-                <button type="button" className="fpb-btn primary md" onClick={() => openOffer(`page-${i + 1}`, p.kit)}>Launch this page</button>
-              </div>
-            </article>
+            </div>
+          ) : (
+            <button type="button" className="fpb-btn ghost md" onClick={() => setMore(true)} style={{ border: '1px solid var(--border-default)', background: 'transparent', color: 'var(--text-primary)' }}>Show {pages.length - 1} more fan pages</button>
           ))}
         </section>
 
@@ -238,36 +283,33 @@ export function Results({ row }: { row: StrategyRow }) {
             <span className="fpb-overline">YOUR STARTER FAN PAGE</span>
             <h2 className="fpb-h3">Start your faceless fan page now.</h2>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <span style={{ font: '500 10px/1 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-tertiary)' }}>EXAMPLE CONTENT</span>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 6 }}>
-              {PACKS.map((pk) => (
-                <figure key={pk.id} style={{ margin: 0, display: 'flex', flexDirection: 'column', gap: 5 }}>
-                  <span style={{ position: 'relative', aspectRatio: '9 / 16', borderRadius: 10, overflow: 'hidden', outline: pk.id === kit ? '2px solid var(--signal-500)' : 'none', outlineOffset: 1 }}>
-                    <Img src={pk.cover} style={{ position: 'absolute', inset: 0 }} />
-                    <video src={pk.previewClipUrl} poster={pk.cover} autoPlay muted loop playsInline preload="metadata" aria-label={`Example clip from the ${pk.name} kit`} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-                  </span>
-                  <figcaption className="fpb-ellipsis" style={{ fontSize: 10.5, textAlign: 'center', color: pk.id === kit ? 'var(--text-primary)' : 'var(--text-tertiary)' }}>{pk.name}</figcaption>
-                </figure>
-              ))}
+          <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
+            <span style={{ position: 'relative', width: 116, aspectRatio: '9 / 16', borderRadius: 16, overflow: 'hidden', flex: 'none', border: '1px solid var(--border-default)' }}>
+              <Img src={packById(kit).cover} style={{ position: 'absolute', inset: 0 }} />
+              <video key={kit} src={packById(kit).previewClipUrl} poster={packById(kit).cover} autoPlay muted loop playsInline preload="metadata" aria-label={`Example clip from the ${packById(kit).name} kit`} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+            </span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0 }}>
+              <span style={{ font: '500 10px/1 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-tertiary)' }}>EXAMPLE CONTENT</span>
+              <span style={{ font: '600 18px/1.15 var(--font-sans)', letterSpacing: '-0.02em' }}>{packById(kit).name}</span>
+              <span style={{ font: '500 11.5px/1.3 var(--font-mono)', color: 'var(--signal-400)' }}>{packById(kit).vibe}</span>
+              <span style={{ fontSize: 12.5, lineHeight: 1.4, color: 'var(--text-secondary)' }}>{packById(kit).feel}</span>
             </div>
           </div>
           <div role="radiogroup" aria-label="Choose your fan page kit" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <span style={{ font: '500 10px/1 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-tertiary)' }}>CHOOSE YOUR KIT</span>
-            {pages.map((p, i) => {
-              const on = kit === p.kit;
-              return (
-                <button key={p.kit} type="button" role="radio" aria-checked={on} onClick={() => pickKit(p.kit)} className="fpb-result" style={{ padding: '8px 14px 8px 8px' }}>
-                  <span style={{ flex: 'none' }}><Fan gi={fanIndex(p.kit)} size="tiny" /></span>
-                  <span style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}><span style={{ font: '600 15px/1.2 var(--font-sans)' }}>{packById(p.kit).name}</span>{i === 0 && <span className="fpb-badge signal">#1 Best fit</span>}</span>
-                    <span className="fpb-ellipsis" style={{ fontSize: 12, color: 'var(--text-tertiary)' }}>@{p.info.handle} · {p.info.name}</span>
-                  </span>
-                  <span className={on ? 'fpb-check on' : 'fpb-check'} aria-hidden="true">{on && <Icon d={ICONS.check} size={13} stroke={3} />}</span>
-                </button>
-              );
-            })}
-            {stock && <span className="fpb-badge scarce"><span className="dot" />{stock.replace(' left', ` ${packById(kit).name} kits left`)}</span>}
+            <div style={{ display: 'grid', gridTemplateColumns: `repeat(${pages.length}, minmax(0, 1fr))`, gap: 6 }}>
+              {pages.map((p, i) => {
+                const on = kit === p.kit;
+                return (
+                  <button key={p.kit} type="button" role="radio" aria-checked={on} onClick={() => pickKit(p.kit)}
+                    style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, padding: '12px 6px 10px', borderRadius: 16, cursor: 'pointer', color: 'var(--text-primary)', background: on ? 'rgba(34,212,107,.10)' : 'var(--ink-200)', border: `1.5px solid ${on ? 'var(--signal-500)' : 'transparent'}` }}>
+                    {i === 0 && <span className="fpb-badge signal" style={{ position: 'absolute', top: -9, left: '50%', transform: 'translateX(-50%)', height: 18, fontSize: 9.5, padding: '0 7px', whiteSpace: 'nowrap' }}>Best fit</span>}
+                    <Img src={packById(p.kit).cover} style={{ width: 34, height: 34, borderRadius: '50%' }} />
+                    <span className="fpb-ellipsis" style={{ maxWidth: '100%', font: '600 12px/1.1 var(--font-sans)' }}>{packById(p.kit).name}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
           <ul className="fpb-ticks">
             {OFFER_BULLETS.map((b) => <li key={b.text}><Tick /><span>{b.lead && <b>{b.lead} </b>}{b.text}{b.badge && <span className="fpb-badge outline" style={{ marginLeft: 8, height: 20 }}>{b.badge}</span>}</span></li>)}

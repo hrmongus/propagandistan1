@@ -11,6 +11,10 @@ export type Pack = {
   /** Cover image (placeholder until the real pack frame is uploaded). */
   cover: string;
   previewClipUrl: string;
+  /** Three mood words for the pack's footage, e.g. "Warm · nostalgic · bittersweet". */
+  vibe: string;
+  /** One line on the feeling the pack gives a song. */
+  feel: string;
 };
 
 export type Aesthetic = {
