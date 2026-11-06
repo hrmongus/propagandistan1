@@ -42,56 +42,37 @@ const DEAL_PCT = Math.round(((PRICES.packWas - PRICES.pack) / PRICES.packWas) * 
 /** A labelled row of chips: the artist's answer highlighted green, related options beside it. */
 function ChipRow({ label, items }: { label: string; items: { text: string; on: boolean }[] }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-      <span style={{ font: '500 10px/1 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-tertiary)' }}>{label}</span>
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-      {items.map((x) => (
-        <span key={x.text} style={{ padding: '5px 9px', borderRadius: 999, font: `${x.on ? 600 : 500} 11.5px/1 var(--font-sans)`, whiteSpace: 'nowrap',
-          background: x.on ? 'rgba(34,212,107,.16)' : 'var(--ink-200)', color: x.on ? 'var(--signal-300)' : 'var(--text-secondary)', border: `1px solid ${x.on ? 'rgba(34,212,107,.55)' : 'transparent'}` }}>{x.text}</span>
-      ))}
+    <div style={{ display: 'grid', gridTemplateColumns: '62px minmax(0, 1fr)', alignItems: 'center', gap: 6 }}>
+      <span style={{ font: '500 9.5px/1 var(--font-mono)', letterSpacing: '.1em', color: 'var(--text-tertiary)' }}>{label}</span>
+      <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+        {items.map((x) => (
+          <span key={x.text} style={{ padding: '4px 8px', borderRadius: 999, font: `${x.on ? 600 : 500} 11px/1.1 var(--font-sans)`, whiteSpace: 'nowrap',
+            background: x.on ? 'rgba(34,212,107,.16)' : 'var(--ink-200)', color: x.on ? 'var(--signal-300)' : 'var(--text-tertiary)', border: `1px solid ${x.on ? 'rgba(34,212,107,.55)' : 'transparent'}` }}>{x.text}</span>
+        ))}
       </div>
     </div>
   );
 }
 
-/**
- * Audience as a distribution curve over the age buckets: peaks on the ages the artist picked, tails off either side.
- * `shift` nudges the peak a little per page so the three pages don't look identical.
- */
-function AudienceCurve({ a, shift = 0, caption }: { a: QuizAnswers; shift?: number; caption?: string }) {
-  const picked = (a.age ?? []).map((id) => AGES.findIndex((g) => g.id === id)).filter((i) => i >= 0);
-  const centre = (picked.length ? picked.reduce((x, y) => x + y, 0) / picked.length : 1.5) + shift;
-  const spread = picked.length > 1 ? 1.15 : 0.85;
-  const W = 150, H = 54, B = 12, N = 60;
-  const xs = Array.from({ length: N }, (_, i) => (i / (N - 1)) * (AGES.length - 1));
-  const ys = xs.map((x) => Math.exp(-((x - centre) ** 2) / (2 * spread * spread)));
-  const pt = (i: number) => `${((xs[i] / (AGES.length - 1)) * W).toFixed(1)},${(4 + (H - B - 4) * (1 - ys[i])).toFixed(1)}`;
-  const line = xs.map((_, i) => `${i ? 'L' : 'M'}${pt(i)}`).join('');
-  const lo = Math.max(0, Math.min(...(picked.length ? picked : [1])) - 0.5), hi = Math.min(AGES.length - 1, Math.max(...(picked.length ? picked : [2])) + 0.5);
-  const band = xs.map((x, i) => ({ x, i })).filter(({ x }) => x >= lo && x <= hi);
-  const bandPath = band.length ? `M${pt(band[0].i).split(',')[0]},${H - B}` + band.map(({ i }) => `L${pt(i)}`).join('') + `L${pt(band[band.length - 1].i).split(',')[0]},${H - B}Z` : '';
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-      <span style={{ font: '500 10px/1 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-tertiary)' }}>AUDIENCE</span>
-      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Audience distribution by age${caption ? `, peaking at ${caption}` : ''}`} style={{ width: '100%', height: 'auto', display: 'block', overflow: 'visible' }}>
-        <path d={`${line}L${W},${H - B}L0,${H - B}Z`} fill="rgba(255,255,255,.06)" />
-        {bandPath && <path d={bandPath} fill="rgba(34,212,107,.28)" />}
-        <path d={line} fill="none" stroke="var(--signal-500)" strokeWidth="1.8" strokeLinejoin="round" />
-        <line x1="0" x2={W} y1={H - B} y2={H - B} stroke="rgba(255,255,255,.18)" />
-        {AGES.map((g, i) => (
-          <text key={g.id} x={(i / (AGES.length - 1)) * W} y={H - 1} textAnchor={i === 0 ? 'start' : i === AGES.length - 1 ? 'end' : 'middle'} fontSize="7.5" fontFamily="var(--font-mono)" fill={picked.includes(i) ? '#F5F5F7' : '#8A8A8E'}>{g.label}</text>
-        ))}
-      </svg>
-      {caption && <span style={{ fontSize: 11.5, lineHeight: 1.35, color: 'var(--text-secondary)' }}>{caption}</span>}
-    </div>
-  );
-}
+/** Compact score: label + value over a thin bar (two sit side by side on the card). */
+const MiniBar = ({ label, value, signal }: { label: string; value: number; signal?: boolean }) => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+    <span style={{ display: 'flex', justifyContent: 'space-between', font: '500 10px/1 var(--font-mono)', letterSpacing: '.08em', color: 'var(--text-secondary)' }}>
+      <span>{label}</span><span style={{ color: signal ? 'var(--signal-400)' : 'var(--text-primary)' }}>{value}</span>
+    </span>
+    <span style={{ height: 5, borderRadius: 999, background: 'var(--ink-300)', overflow: 'hidden' }}>
+      <span style={{ display: 'block', height: '100%', width: `${value}%`, borderRadius: 999, background: signal ? 'var(--signal-500)' : 'var(--ink-900)' }} />
+    </span>
+  </div>
+);
+
+
 
 /** Reel mock: the kit's example clip (muted, looping), hook on top, optional lyric line, audio pill. */
-function ReelMock({ kit, hook, lyric, title }: { kit: PackId; hook: string; lyric: string | null; title: string }) {
+function ReelMock({ kit, hook, lyric, title, height = 235 }: { kit: PackId; hook: string; lyric: string | null; title: string; height?: number }) {
   const pack = packById(kit);
   return (
-    <div className="fpb-reel" style={{ height: 235, borderRadius: 20 }}>
+    <div className="fpb-reel" style={{ height, borderRadius: 20 }}>
       <Img src={pack.cover} label={`Example post from the ${pack.name} kit`} style={{ position: 'absolute', inset: 0 }} />
       <video key={pack.id} src={pack.previewClipUrl} poster={pack.cover} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
       <div className="scrim-t" /><div className="scrim-b" />
@@ -103,17 +84,6 @@ function ReelMock({ kit, hook, lyric, title }: { kit: PackId; hook: string; lyri
     </div>
   );
 }
-
-const Bar = ({ label, value, signal }: { label: string; value: number; signal?: boolean }) => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-    <span style={{ display: 'flex', justifyContent: 'space-between', font: '500 11px/1 var(--font-mono)', letterSpacing: '.06em', color: 'var(--text-secondary)' }}>
-      <span>{label}</span><span style={{ color: signal ? 'var(--signal-400)' : 'var(--text-primary)' }}>{value}/100</span>
-    </span>
-    <span style={{ height: 6, borderRadius: 999, background: 'var(--ink-300)', overflow: 'hidden' }}>
-      <span style={{ display: 'block', width: `${value}%`, height: '100%', background: signal ? 'var(--signal-500)' : 'var(--ink-900)' }} />
-    </span>
-  </div>
-);
 
 const PriceBlock = ({ big }: { big?: boolean }) => (
   <span style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
@@ -186,29 +156,34 @@ export function Results({ row }: { row: StrategyRow }) {
 
   const pageCard = (p: (typeof pages)[number], i: number) => {
     const pk = packById(p.kit);
+    const ageIdx = (a.age ?? []).map((id) => AGES.findIndex((g) => g.id === id)).filter((x) => x >= 0);
+    const ageShow = ageIdx.length ? AGES.filter((_, k) => k >= Math.min(...ageIdx) - 1 && k <= Math.max(...ageIdx) + 1).slice(0, 4) : [];
     return (
-      <article style={{ display: 'grid', gridTemplateColumns: '122px minmax(0, 1fr)', gap: 14, padding: 12, borderRadius: 28, background: 'var(--surface-card)', border: i === 0 ? '1.5px solid var(--ink-900)' : '1px solid var(--border-subtle)', height: '100%' }}>
-        <ReelMock kit={p.kit} hook={p.hook} lyric={row.lyric_line} title={t.title} />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 9, minWidth: 0, padding: '4px 4px 4px 0' }}>
-          {i === 0 ? <span className="fpb-badge signal" style={{ alignSelf: 'flex-start' }}>#1 Top pick</span> : <span style={{ font: '500 11px/1 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-tertiary)' }}>#{i + 1} FAN PAGE</span>}
-          <span style={{ font: '600 17px/1.15 var(--font-sans)', letterSpacing: '-0.02em' }}>{pk.name}</span>
-          <span style={{ font: '500 11.5px/1.3 var(--font-mono)', color: 'var(--signal-400)' }}>{pk.vibe}</span>
-          <span style={{ fontSize: 12.5, lineHeight: 1.4, color: 'var(--text-secondary)' }}>{pk.feel}</span>
-          <div style={{ marginTop: 'auto' }}><AudienceCurve a={a} shift={i === 0 ? 0 : i === 1 ? 0.35 : -0.3} /></div>
+      <article style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: 12, borderRadius: 26, background: 'var(--surface-card)', border: i === 0 ? '1.5px solid var(--ink-900)' : '1px solid var(--border-subtle)', height: '100%' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '108px minmax(0, 1fr)', gap: 14 }}>
+          <ReelMock kit={p.kit} hook={p.hook} lyric={row.lyric_line} title={t.title} height={192} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, minWidth: 0, paddingTop: 4 }}>
+            {i === 0 ? <span className="fpb-badge signal" style={{ alignSelf: 'flex-start' }}>#1 Top pick</span> : <span style={{ font: '500 11px/1 var(--font-mono)', letterSpacing: '.12em', color: 'var(--text-tertiary)' }}>#{i + 1} FAN PAGE</span>}
+            <span style={{ font: '600 18px/1.15 var(--font-sans)', letterSpacing: '-0.02em' }}>{pk.name}</span>
+            <span style={{ font: '500 11px/1.35 var(--font-mono)', color: 'var(--signal-400)' }}>{pk.vibe}</span>
+            <span style={{ fontSize: 12.5, lineHeight: 1.4, color: 'var(--text-secondary)' }}>{pk.feel}</span>
+          </div>
         </div>
-        <div style={{ gridColumn: '1 / -1', display: 'flex', flexDirection: 'column', gap: 12, padding: '4px 4px 2px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 7, padding: '0 2px' }}>
           {a.genre && <ChipRow label="GENRE" items={[a.genre, ...GENRE_RELATED[a.genre]].map((id, k) => ({ text: GENRES.find((g) => g.id === id)?.label ?? id, on: k === 0 }))} />}
           {p.moment && <ChipRow label="MOOD" items={[p.moment, ...MOMENT_RELATED[p.moment]].map((id, k) => ({ text: momentById(id)?.label ?? id, on: k === 0 }))} />}
+          {ageShow.length > 0 && <ChipRow label="AGE" items={ageShow.map((g) => ({ text: g.label, on: !!a.age?.includes(g.id) }))} />}
           {a.gender && <ChipRow label="LISTENER" items={GENDERS.map((g) => ({ text: g.label.replace('Mostly ', '').replace(/^./, (c) => c.toUpperCase()), on: g.id === a.gender }))} />}
         </div>
-        <div style={{ gridColumn: '1 / -1', display: 'flex', flexDirection: 'column', gap: 12, padding: 4 }}>
-          <Bar label="FANPAGE FIT SCORE" value={p.fit} signal />
-          <Bar label="AUDIENCE TARGET" value={p.audience} />
-          <button type="button" className="fpb-btn primary md" onClick={() => openOffer(`page-${i + 1}`, p.kit)}>Launch this page</button>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, padding: '0 2px' }}>
+          <MiniBar label="FIT SCORE" value={p.fit} signal />
+          <MiniBar label="AUDIENCE" value={p.audience} />
         </div>
+        <button type="button" className="fpb-btn primary md" onClick={() => openOffer(`page-${i + 1}`, p.kit)}>Launch this page</button>
       </article>
     );
   };
+
 
   return (
     <div className="fpb-screen">
