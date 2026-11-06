@@ -71,7 +71,7 @@ export function Check({ on, square }: { on: boolean; square?: boolean }) {
   );
 }
 
-/** Header for quiz screens: back, logo, "n/9", progress bar. */
+/** Header for quiz screens: back, logo, "n/10", progress bar. */
 export function QHeader({ onBack, step, progress }: { onBack?: () => void; step?: number; progress: number }) {
   return (
     <header className="fpb-qhead">
@@ -80,7 +80,7 @@ export function QHeader({ onBack, step, progress }: { onBack?: () => void; step?
           <button type="button" className="fpb-back" aria-label="Back" onClick={onBack}><Icon d={ICONS.back} /></button>
         ) : <span style={{ width: 44 }} />}
         <Logo small />
-        <span className="fpb-count">{step ? `${step}/9` : ''}</span>
+        <span className="fpb-count">{step ? `${step}/10` : ''}</span>
       </div>
       <div className="fpb-progress" role="progressbar" aria-valuenow={Math.round(progress)} aria-valuemin={0} aria-valuemax={100}>
         <span style={{ width: `${progress}%` }} />

@@ -42,6 +42,7 @@ export type AgeId = '13-17' | '18-24' | '25-34' | '35-44' | '45+';
 export type GenderId = 'women' | 'men' | 'everyone';
 export type TriedId = 'playlists' | 'ads' | 'own-content' | 'influencers' | 'curators' | 'other' | 'nothing';
 export type DailyTimeId = '5' | '15' | '30' | '60';
+export type GenreId = 'pop' | 'hiphop' | 'rnb' | 'indie' | 'rock' | 'electronic' | 'country' | 'latin' | 'folk' | 'other';
 export type ReleaseId = 'out' | 'month' | '3m' | 'none';
 export type ExperienceId = 'never' | 'tried' | 'running';
 
@@ -50,6 +51,7 @@ export type Option<T extends string = string> = { id: T; label: string; sub?: st
 
 /** What the quiz produces (HANDOFF.md §4). */
 export type QuizAnswers = {
+  genre?: GenreId;
   listeners: ListenerBracket;
   goal?: GoalId;
   blocker?: BlockerId;

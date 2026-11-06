@@ -8,9 +8,10 @@ export async function sendToESP(lead: EspLead) {
   console.info('[esp] stub, would send:', { email: lead.email.replace(/^(.).*@/, '$1***@'), first_name: lead.first_name, results_url: lead.results_url, tags: lead.tags });
 }
 
-/** ESP tags (HANDOFF.md §5.7): listener bucket, goal, blocker, aesthetics, audience, tried, release, experience. */
+/** ESP tags (HANDOFF.md §5.7): genre, listener bucket, goal, blocker, aesthetics, audience, tried, release, experience. */
 export function espTags(a: QuizAnswers) {
   const tags = [`listeners:${a.listeners}`];
+  if (a.genre) tags.push(`genre:${a.genre}`);
   if (a.goal) tags.push(`goal:${a.goal}`);
   if (a.blocker) tags.push(`blocker:${a.blocker}`);
   a.aesthetics.forEach((id, i) => tags.push(`aesthetic:${id}`, ...(i === 0 ? [`aesthetic_first:${id}`] : [])));

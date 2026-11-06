@@ -7,16 +7,16 @@ import type { SpotifyTrack } from '@/lib/analyzer/spotify';
 /* Quiz state machine (HANDOFF.md §4): one reducer, persisted to localStorage so a refresh keeps the answers. */
 
 export const SCREENS = [
-  'landing', 'search', 'listeners', 'did-you-know', 'goal', 'blocker', 'how-it-works', 'aesthetics', 'audience',
+  'landing', 'search', 'genre', 'listeners', 'did-you-know', 'goal', 'blocker', 'how-it-works', 'aesthetics', 'audience',
   'several-pages', 'tried', 'proof', 'daily-time', 'release', 'experience', 'analyzing', 'email-gate',
 ] as const;
 export type ScreenId = (typeof SCREENS)[number];
 
-/** Progress bar width and "n/9" counter per screen, as drawn in the mock-ups. */
+/** Progress bar width and "n/10" counter per screen (the mock-ups' 9 questions plus genre). */
 export const PROGRESS: Partial<Record<ScreenId, { pct: number; step?: number }>> = {
-  listeners: { pct: 11, step: 1 }, 'did-you-know': { pct: 15 }, goal: { pct: 22, step: 2 }, blocker: { pct: 33, step: 3 },
-  'how-it-works': { pct: 38 }, aesthetics: { pct: 44, step: 4 }, audience: { pct: 55, step: 5 }, 'several-pages': { pct: 60 },
-  tried: { pct: 66, step: 6 }, proof: { pct: 70 }, 'daily-time': { pct: 77, step: 7 }, release: { pct: 88, step: 8 }, experience: { pct: 100, step: 9 },
+  genre: { pct: 6, step: 1 }, listeners: { pct: 13, step: 2 }, 'did-you-know': { pct: 17 }, goal: { pct: 24, step: 3 }, blocker: { pct: 33, step: 4 },
+  'how-it-works': { pct: 38 }, aesthetics: { pct: 44, step: 5 }, audience: { pct: 55, step: 6 }, 'several-pages': { pct: 60 },
+  tried: { pct: 66, step: 7 }, proof: { pct: 70 }, 'daily-time': { pct: 77, step: 8 }, release: { pct: 88, step: 9 }, experience: { pct: 100, step: 10 },
 };
 
 export type Answers = Partial<QuizAnswers>;
@@ -56,6 +56,7 @@ export function canContinue(s: State, screen: ScreenId = s.screen): boolean {
   const a = s.answers;
   switch (screen) {
     case 'search': return !!s.track;
+    case 'genre': return !!a.genre;
     case 'listeners': return !!a.listeners;
     case 'goal': return !!a.goal && goalAllowed(a);
     case 'blocker': return BLOCKERS.some((b) => b.id === a.blocker); // old saved ids no longer count

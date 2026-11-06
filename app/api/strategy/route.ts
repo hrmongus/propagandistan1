@@ -4,7 +4,7 @@ import { generateHooks } from '@/lib/analyzer/hooks';
 import { getMetrics } from '@/lib/analyzer/metrics';
 import { sb, slug } from '@/lib/analyzer/store';
 import {
-  aestheticById, AGES, BLOCKERS, DAILY_TIME, EXPERIENCE, GENDERS, GOALS, LIMITS, LISTENER_BRACKETS, MOMENTS, RELEASES, TRIED, type QuizAnswers,
+  aestheticById, AGES, BLOCKERS, GENRES, DAILY_TIME, EXPERIENCE, GENDERS, GOALS, LIMITS, LISTENER_BRACKETS, MOMENTS, RELEASES, TRIED, type QuizAnswers,
 } from '@/lib/analyzer/config';
 import { config } from '@/lib/config';
 
@@ -36,6 +36,7 @@ function parseAnswers(v: unknown): QuizAnswers | null {
   const listeners = pick(a.listeners, LISTENER_BRACKETS);
   if (!listeners) return null;
   return {
+    genre: pick(a.genre, GENRES),
     listeners,
     goal: pick(a.goal, GOALS),
     blocker: pick(a.blocker, BLOCKERS),
@@ -66,7 +67,7 @@ export async function POST(req: Request) {
   const firstName = s(b.firstName, 80) ?? null, lyricLine = s(b.lyricLine, 200) ?? null;
 
   const metrics = getMetrics(track.id, answers);
-  const hooks = await generateHooks({ title: track.title, artist: track.artists[0], lyricLine, aesthetics: metrics.topFanPages, age: answers.age?.join(', '), gender: answers.gender, moments: answers.moments });
+  const hooks = await generateHooks({ title: track.title, artist: track.artists[0], lyricLine, genres: answers.genre && answers.genre !== 'other' ? [GENRES.find((g) => g.id === answers.genre)!.label] : undefined, aesthetics: metrics.topFanPages, age: answers.age?.join(', '), gender: answers.gender, moments: answers.moments });
 
   const row = {
     first_name: firstName, email: email.email, track, answers, metrics, lyric_line: lyricLine,

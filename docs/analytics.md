@@ -113,7 +113,7 @@ payment form is a cross-origin iframe, so card details are never recorded.
 
 Sent by `track(name, step?)` in `lib/analyzer/track.ts`, which also stores every event in the Supabase `events`
 table (drop-off SQL in `docs/analyzer/TECH-SETUP.md`). Screens: `/fanpage-blueprint` (quiz, `components/blueprint/`)
-and `/s/{id}` (results + checkout sheets). `step_viewed.step` is the screen id: `landing`, `search`, `listeners`,
+and `/s/{id}` (results + checkout sheets). `step_viewed.step` is the screen id: `landing`, `search`, `genre`, `listeners`,
 `did-you-know`, `goal`, `blocker`, `how-it-works`, `aesthetics`, `audience`, `several-pages`, `tried`, `proof`,
 `daily-time`, `release`, `experience`, `analyzing`, `email-gate`. The checkout sheet's step 2 reuses the checkout events
 below (`checkout_viewed`, `checkout_bundle_toggled`, `checkout_error`); purchases are tracked by the webhook as usual.

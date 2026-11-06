@@ -1,5 +1,5 @@
 import type {
-  AgeId, BlockerId, DailyTimeId, ExperienceId, GenderId, GoalId, ListenerBracket, Option, ReleaseId, TriedId,
+  AgeId, BlockerId, GenreId, DailyTimeId, ExperienceId, GenderId, GoalId, ListenerBracket, Option, ReleaseId, TriedId,
 } from './types';
 
 /* Quiz questions and answers, copied from the screen mock-ups (docs/fanpage-blueprint/screens 02–14). */
@@ -11,6 +11,19 @@ const I = {
   flame: '<path d="M12 3c1 4 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 .3 1.5 1 2 2 2 0-3-1-5 1-8z"/>',
   crown: '<path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/>',
 };
+
+export const GENRES: Option<GenreId>[] = [
+  { id: 'pop', label: 'Pop', icon: '<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>' },
+  { id: 'hiphop', label: 'Hip-hop / Rap', icon: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>' },
+  { id: 'rnb', label: 'R&B / Soul', icon: '<path d="M12 21s-8.5-5.4-10.2-10.6C.6 6.6 3 3.5 6.4 3.5c2.1 0 3.9 1.1 5.6 3.2 1.7-2.1 3.5-3.2 5.6-3.2 3.4 0 5.8 3.1 4.6 6.9C20.5 15.6 12 21 12 21z"/>' },
+  { id: 'indie', label: 'Indie / Alt', icon: '<path d="M9 18V6l11-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>' },
+  { id: 'rock', label: 'Rock', icon: '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>' },
+  { id: 'electronic', label: 'Electronic', icon: '<path d="M2 10v3M6 6v11M10 3v18M14 8v7M18 5v13M22 10v3"/>' },
+  { id: 'country', label: 'Country', icon: '<path d="M3 15c0-2 4-3 9-3s9 1 9 3c0 1-4 2-9 2s-9-1-9-2z"/><path d="M7 12.5 8 6c.3-1.5 2-1.5 4 0 2-1.5 3.7-1.5 4 0l1 6.5"/>' },
+  { id: 'latin', label: 'Latin', icon: '<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/>' },
+  { id: 'folk', label: 'Folk / Acoustic', icon: '<path d="M12 20v-8M12 12c0-4 3-6 7-6 0 4-3 6-7 6zM12 14c0-3-2-5-6-5 0 3 2 5 6 5z"/>' },
+  { id: 'other', label: 'Something else', icon: '<circle cx="6" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="18" cy="12" r="1.2"/>' },
+];
 
 export const LISTENER_BRACKETS: Option<ListenerBracket>[] = [
   { id: 'lt1k', label: 'Under 1K', sub: 'Just getting started', icon: I.sprout },

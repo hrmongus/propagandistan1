@@ -3,14 +3,14 @@
 import { useCallback, useEffect, useRef, type ComponentType } from 'react';
 import { track } from '@/lib/analyzer/track';
 import {
-  Aesthetics, Audience, Blocker, DailyTime, DidYouKnow, Experience, Goal, HowItWorks, Landing, Listeners, Proof, Release,
+  Aesthetics, Audience, Blocker, DailyTime, DidYouKnow, Experience, Genre, Goal, HowItWorks, Landing, Listeners, Proof, Release,
   Search, SeveralPages, Tried, type ScreenProps,
 } from './screens';
 import { Analyzing, EmailGate } from './finale';
 import { SCREENS, useQuiz, type ScreenId } from './state';
 
 const VIEWS: Record<ScreenId, ComponentType<ScreenProps>> = {
-  landing: Landing, search: Search, listeners: Listeners, 'did-you-know': DidYouKnow, goal: Goal, blocker: Blocker,
+  landing: Landing, search: Search, genre: Genre, listeners: Listeners, 'did-you-know': DidYouKnow, goal: Goal, blocker: Blocker,
   'how-it-works': HowItWorks, aesthetics: Aesthetics, audience: Audience, 'several-pages': SeveralPages, tried: Tried,
   proof: Proof, 'daily-time': DailyTime, release: Release, experience: Experience, analyzing: Analyzing, 'email-gate': EmailGate,
 };

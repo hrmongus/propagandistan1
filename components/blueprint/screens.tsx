@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type Dispatch, type ReactNode } from 'react';
 import {
-  AESTHETICS, AGES, ARTIST_COUNT, ASSET, BLOCKERS, FANPAGE_EXAMPLES, LANDING_AVATARS, DAILY_TIME, EXPERIENCE, GENDERS, LABEL_LOGOS, LANDING_FAQ, LIMITS,
+  AESTHETICS, AGES, ARTIST_COUNT, ASSET, BLOCKERS, GENRES, FANPAGE_EXAMPLES, LANDING_AVATARS, DAILY_TIME, EXPERIENCE, GENDERS, LABEL_LOGOS, LANDING_FAQ, LIMITS,
   LISTENER_BRACKETS, LISTENER_SHORT, LISTENER_START, MOMENTS, PROOF, RELEASES, TRIED, aestheticById, goalsFor, type Option,
 } from '@/lib/analyzer/config';
 import type { SpotifyTrack } from '@/lib/analyzer/spotify';
@@ -250,10 +250,27 @@ function TrackPill({ track }: { track: SpotifyTrack | null }) {
   );
 }
 
+export function Genre({ state, dispatch, next, back }: ScreenProps) {
+  const v = state.answers.genre;
+  return (
+    <QuizScreen id="genre" back={back} footer={<NextBtn s={state} next={next} />}>
+      <TrackPill track={state.track} />
+      <Titles title="What genre is your music?" lede="Pick the closest one." />
+      <div role="radiogroup" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 8 }}>
+        {GENRES.map((g) => (
+          <button key={g.id} type="button" role="radio" aria-checked={v === g.id} onClick={() => set(dispatch, { genre: g.id })} className="fpb-opt compact" style={{ minHeight: 56 }}>
+            <span className="ico"><Icon d={g.icon!} size={20} /></span>
+            <span className="txt"><span className="t">{g.label}</span></span>
+          </button>
+        ))}
+      </div>
+    </QuizScreen>
+  );
+}
+
 export function Listeners({ state, dispatch, next, back }: ScreenProps) {
   return (
     <QuizScreen id="listeners" back={back} footer={<NextBtn s={state} next={next} />}>
-      <TrackPill track={state.track} />
       <Titles title="Where are you right now?" lede="Your current monthly listeners on Spotify." />
       <SingleList options={LISTENER_BRACKETS} value={state.answers.listeners} onPick={(id) => set(dispatch, { listeners: id })} />
     </QuizScreen>
