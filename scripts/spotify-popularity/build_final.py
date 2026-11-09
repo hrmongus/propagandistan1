@@ -12,6 +12,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "data" / "final.csv"
+RAW = HERE / "data" / "raw.csv"
 
 # Fitted on artists with popularity 10-32 (~2k-50k listeners), 9 Nov 2026. See README.
 MID = (2.756, 0.0613)    # middle estimate: half of artists above, half below
@@ -69,6 +70,16 @@ def main() -> int:
         w = csv.DictWriter(f, fieldnames=COLS)
         w.writeheader()
         w.writerows(out)
+
+    # Lean version: only trusted TikTok counts; Instagram counts can't be fetched (login wall).
+    with RAW.open("w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["artist", "monthly_listeners", "popularity", "spotify_followers",
+                    "tiktok_followers", "instagram_followers"])
+        for x in out:
+            w.writerow([x["artist"], x["monthly_listeners"], x["popularity"], x["spotify_followers"],
+                        x["tiktok_followers"] if x["tiktok_trusted"] == "yes" else "", ""])
+    print(f"Wrote {RAW}")
 
     tt = [x for x in out if x["tiktok_followers"] != ""]
     print(f"Wrote {len(out)} artists to {OUT}")

@@ -252,32 +252,32 @@ spotify_id,artist,mbid,instagram_url,instagram_source,tiktok_url,tiktok_source,t
 2eUgwyMobMitdjib3FxQVF,Bones & Beeker,ad6c9f96-c27f-4374-90cd-381500c27265,,,,,,no_match,,,8756,
 0itd8fCSPL3NAu9CAhuHG0,Olivia Ellen Lloyd,6bd67be9-c602-4b20-bcd5-5d6b728a9ecd,https://www.instagram.com/oliviaellenlloyd/,musicbrainz,,,,no_match,,,8690,2026-11-09T12:39:15+00:00
 1NlfNuVbIeGVsfLvOY1z1j,Anthony Newes,,,,https://www.tiktok.com/@anthonynewes,guess,23,ok,Anthony Newes,False,8662,2026-11-09T13:38:18+00:00
-6Boxq99fVSm6dot5YclQdW,Whirlybird,,https://instagram.com/whirlyb.ird,spotify,,,,,,,8483,
+6Boxq99fVSm6dot5YclQdW,Whirlybird,,https://instagram.com/whirlyb.ird,spotify,https://www.tiktok.com/@whirlyb.ird,guess,17400,ok,whirlybird,False,8483,2026-11-09T13:38:21+00:00
 5CntgQQt3H4CZ4HsliJGAH,A Different Thread,7b3c9f6b-4566-4136-9b2e-e818da624e6a,https://www.instagram.com/adifferentthread/,musicbrainz,https://www.tiktok.com/@adifferentthread,musicbrainz,3336,ok,,,7028,2026-11-09T12:39:20+00:00
-0vHwBHcc8FGUHiO5N0DpBc,Sleeping in the Aviary,,,,,,,,,,6367,
-5L1kMtZYyA3Sv6JmhbVKNc,Minimall,,https://instagram.com/intheminimall,spotify,,,,,,,6287,
-0w4ZAa01uZC7QGNVBr6IkM,My Name Is Ian,7dde339d-c0a4-4960-9c08-1c537b8cf856,https://instagram.com/mynameisianmusic,spotify,,,,,,,5919,
-6SN7uc9WSl64mnlI9wOnWL,Mar Daniel,,,,,,,,,,5579,
-3xQTOURcCHZyrRIiQNddKO,Amoura Reignn,,,,,,,,,,5578,
-6tIGv1B5IXtjtwHndklV4u,Spud Cannon,,https://instagram.com/spudcannonband,spotify,,,,,,,5533,
-1Zy22LfvnzO4dERnZGM0bA,10LEC6,,https://instagram.com/10lec6/,spotify,,,,,,,5428,
-46vs9UZGRcEdKbS8jTTP9k,Luxie,,https://instagram.com/luxie.wav/,spotify,,,,,,,5313,
-1OCGT4W29rXiHvDzMHkJyu,Aaron Percy,408234d7-ca27-42fb-90ec-41f06480eb1b,https://www.instagram.com/aa.percy/,musicbrainz,,,,,,,5159,
-42tz1PWwrLG2F3nZzVSVQq,James Adrian Brown,d5e94def-f08a-436b-b041-fd403f812027,https://instagram.com/brownjamezz,spotify,,,,,,,5086,
-2hQq5kPUjPSNnI95WB6LK2,JANKA,,https://www.instagram.com/janka.musik/,wikidata,,,,,,,5150,
-4wwryeuCrTd7l25Qg5BTVC,Andraya,,https://instagram.com/Cursemevoodoo,spotify,,,,,,,4577,
-0vTocKlC6Oqwwh1hgFPXn8,Lloyd Frontiny,,,,,,,,,,4432,
-2XxdWUIImuXGYIN3E9Uave,Jonathan Stephen Simons,,https://instagram.com/jonathanstephensimons,spotify,,,,,,,4325,
-46499wg3volqXLyO8Rg44t,Yasmo & die Klangkantine,faa522f1-af9e-436d-b746-31022fe4fb4f,https://instagram.com/yasmoone/,spotify,,,,,,,4339,
-56HzUkOrdunCoUYH2w25Xu,Niels Orens,ccb20a3f-3d87-4be2-8410-a0e217048ce8,https://www.instagram.com/nielsorens/,musicbrainz,,,,,,,4170,
-6ov2mjV4oMELm0kUjTfUnB,Axefield,daca66d6-cf4e-4df4-aa8d-391ad62174ab,https://www.instagram.com/whosaxefield/,musicbrainz,,,,,,,4117,
-3qt9LthXDZFPAnaIUItbI0,Micah Felts,,https://instagram.com/micahfelts,spotify,https://www.tiktok.com/@micahfeltsmusic,spotify,,,,,4049,
-3TIpMWwtIVLALtazdyDhoi,The Proper Ornaments,,https://instagram.com/theproperornaments,spotify,,,,,,,3756,
-7hVRBYGVXutdWChnzb92Jb,Alexa Rose,734a434b-c60e-4105-ab5e-b891b0e5df36,https://www.instagram.com/alexarosemusic/,musicbrainz,,,,,,,3722,
-0pCgCsaxp6OAhzHvBjsjBc,heartholder,,https://instagram.com/heartholder,spotify,https://www.tiktok.com/@heartholderrr,spotify,,,,,3718,
-67T9KadC0xMwVN0iwsG8hi,Lazuli Vane,,https://instagram.com/lazulivane,spotify,,,,,,,3629,
-22SFz1lQl1U9w6QHq2VdFA,Callum Kenworthy,,https://instagram.com/callum_kenworthy_music,spotify,,,,,,,3574,
-2vY3QN8jlAZS4C4OsbDYV6,Seba Safe,,https://instagram.com/seba__safe,spotify,,,,,,,3521,
+0vHwBHcc8FGUHiO5N0DpBc,Sleeping in the Aviary,,,,,,,no_match,,,6367,
+5L1kMtZYyA3Sv6JmhbVKNc,Minimall,,https://instagram.com/intheminimall,spotify,,,,no_match,,,6287,
+0w4ZAa01uZC7QGNVBr6IkM,My Name Is Ian,7dde339d-c0a4-4960-9c08-1c537b8cf856,https://instagram.com/mynameisianmusic,spotify,,,,no_match,,,5919,
+6SN7uc9WSl64mnlI9wOnWL,Mar Daniel,,,,https://www.tiktok.com/@mardaniel,guess,15,ok,Mardaniel,False,5579,2026-11-09T13:38:50+00:00
+3xQTOURcCHZyrRIiQNddKO,Amoura Reignn,,,,https://www.tiktok.com/@amourareignn,guess,12700,ok,Amoura Reignn,False,5578,2026-11-09T13:38:53+00:00
+6tIGv1B5IXtjtwHndklV4u,Spud Cannon,,https://instagram.com/spudcannonband,spotify,https://www.tiktok.com/@spudcannonband,guess,132,ok,spudcannonband,False,5533,2026-11-09T13:38:57+00:00
+1Zy22LfvnzO4dERnZGM0bA,10LEC6,,https://instagram.com/10lec6/,spotify,,,,no_match,,,5428,
+46vs9UZGRcEdKbS8jTTP9k,Luxie,,https://instagram.com/luxie.wav/,spotify,https://www.tiktok.com/@luxiemusic,guess,7439,ok,Luxie,False,5313,2026-11-09T13:39:16+00:00
+1OCGT4W29rXiHvDzMHkJyu,Aaron Percy,408234d7-ca27-42fb-90ec-41f06480eb1b,https://www.instagram.com/aa.percy/,musicbrainz,https://www.tiktok.com/@aaronpercy,guess,95,ok,Aaron Percy,False,5159,2026-11-09T13:39:23+00:00
+42tz1PWwrLG2F3nZzVSVQq,James Adrian Brown,d5e94def-f08a-436b-b041-fd403f812027,https://instagram.com/brownjamezz,spotify,https://www.tiktok.com/@jamesadrianbrown,guess,84,ok,James Adrian Brown,False,5086,2026-11-09T13:39:31+00:00
+2hQq5kPUjPSNnI95WB6LK2,JANKA,,https://www.instagram.com/janka.musik/,wikidata,https://www.tiktok.com/@janka.musik,guess,36,ok,JANKA,False,5150,2026-11-09T13:39:34+00:00
+4wwryeuCrTd7l25Qg5BTVC,Andraya,,https://instagram.com/Cursemevoodoo,spotify,https://www.tiktok.com/@andraya,guess,18,ok,andraya,False,4577,2026-11-09T13:39:42+00:00
+0vTocKlC6Oqwwh1hgFPXn8,Lloyd Frontiny,,,,,,,no_match,,,4432,
+2XxdWUIImuXGYIN3E9Uave,Jonathan Stephen Simons,,https://instagram.com/jonathanstephensimons,spotify,,,,no_match,,,4325,
+46499wg3volqXLyO8Rg44t,Yasmo & die Klangkantine,faa522f1-af9e-436d-b746-31022fe4fb4f,https://instagram.com/yasmoone/,spotify,,,,no_match,,,4339,
+56HzUkOrdunCoUYH2w25Xu,Niels Orens,ccb20a3f-3d87-4be2-8410-a0e217048ce8,https://www.instagram.com/nielsorens/,musicbrainz,,,,no_match,,,4170,
+6ov2mjV4oMELm0kUjTfUnB,Axefield,daca66d6-cf4e-4df4-aa8d-391ad62174ab,https://www.instagram.com/whosaxefield/,musicbrainz,https://www.tiktok.com/@whosaxefield,guess,171,ok,Axefield,False,4117,2026-11-09T13:40:17+00:00
+3qt9LthXDZFPAnaIUItbI0,Micah Felts,,https://instagram.com/micahfelts,spotify,https://www.tiktok.com/@micahfeltsmusic,spotify,2379,ok,Micah Felts,False,4049,2026-11-09T13:40:20+00:00
+3TIpMWwtIVLALtazdyDhoi,The Proper Ornaments,,https://instagram.com/theproperornaments,spotify,,,,no_match,,,3756,
+7hVRBYGVXutdWChnzb92Jb,Alexa Rose,734a434b-c60e-4105-ab5e-b891b0e5df36,https://www.instagram.com/alexarosemusic/,musicbrainz,https://www.tiktok.com/@alexarose,guess,48,ok,Alexa Rose,False,3722,2026-11-09T13:40:34+00:00
+0pCgCsaxp6OAhzHvBjsjBc,heartholder,,https://instagram.com/heartholder,spotify,https://www.tiktok.com/@heartholderrr,spotify,4813,ok,heartholder,False,3718,2026-11-09T13:40:37+00:00
+67T9KadC0xMwVN0iwsG8hi,Lazuli Vane,,https://instagram.com/lazulivane,spotify,https://www.tiktok.com/@lazulivane,guess,363,ok,Lazuli Vane,False,3629,2026-11-09T13:40:41+00:00
+22SFz1lQl1U9w6QHq2VdFA,Callum Kenworthy,,https://instagram.com/callum_kenworthy_music,spotify,https://www.tiktok.com/@callum_kenworthy_music,guess,25,ok,Callum Kenworthy Music,False,3574,2026-11-09T13:40:44+00:00
+2vY3QN8jlAZS4C4OsbDYV6,Seba Safe,,https://instagram.com/seba__safe,spotify,https://www.tiktok.com/@seba__safe,guess,13100,ok,Seba Safe,False,3521,2026-11-09T13:40:48+00:00
 2lgTnaXO0b6ufPyEmbZJO9,Flora Falls,,https://instagram.com/florafallsmusic,spotify,,,,,,,3420,
 74BPG8mr54PDRxjszcQ6qc,NITAP,,https://instagram.com/nitapmusic,spotify,,,,,,,3380,
 7t9NP0OdDdA7mU8fq3Gvyb,Caleb J. Murphy,,https://instagram.com/calebjmurphy,spotify,,,,,,,3293,
