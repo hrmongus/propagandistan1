@@ -33,7 +33,7 @@ SOCIALS = HERE / "data" / "socials.csv"
 UA = "artist-research-script/0.1 ( github.com/hrmongus/propagandistan1 )"
 FIELDS = ["spotify_id", "artist", "mbid", "instagram_url", "instagram_source", "tiktok_url",
           "tiktok_source", "tiktok_followers", "tiktok_status", "tiktok_nickname", "tiktok_verified",
-          "spotify_page_listeners", "fetched_at"]
+          "tiktok_confidence", "tiktok_videos", "tiktok_bio", "spotify_page_listeners", "fetched_at"]
 
 
 def unicodedata_ascii(s: str) -> str:
