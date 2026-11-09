@@ -6,9 +6,9 @@ Usage:
     python3 scripts/spotify-popularity/fetch.py path/to/artists.csv
 
 Input CSV (header row required, column names are case-insensitive):
-    artist             artist name (required unless spotify_id is given)
+    artist             artist name (required unless spotify_id is given; alias: artist_name)
     monthly_listeners  e.g. 1234567, "1,234,567", "1.2M", "850K" (required)
-    spotify_id         optional: artist ID, open.spotify.com URL or spotify:artist: URI.
+    spotify_id         optional (alias: spotify_url): artist ID, open.spotify.com URL or spotify:artist: URI.
                        Strongly recommended: name search can pick the wrong artist.
 
 Re-running is safe: rows already in results.csv (same Spotify ID) are updated, not duplicated.
@@ -140,6 +140,9 @@ def main() -> int:
     with open(sys.argv[1], newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
         reader.fieldnames = [(h or "").strip().lower() for h in reader.fieldnames or []]
+        aliases = {"artist_name": "artist", "name": "artist", "spotify_url": "spotify_id",
+                   "url": "spotify_id", "listeners": "monthly_listeners"}
+        reader.fieldnames = [aliases.get(h, h) for h in reader.fieldnames]
         rows = list(reader)
 
     sp = Spotify(cid, secret)
