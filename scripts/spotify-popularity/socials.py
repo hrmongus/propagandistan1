@@ -31,8 +31,14 @@ HERE = Path(__file__).resolve().parent
 RESULTS = HERE / "data" / "results.csv"
 SOCIALS = HERE / "data" / "socials.csv"
 UA = "artist-research-script/0.1 ( github.com/hrmongus/propagandistan1 )"
-FIELDS = ["spotify_id", "artist", "mbid", "instagram_url", "tiktok_url",
-          "tiktok_followers", "tiktok_status", "fetched_at"]
+FIELDS = ["spotify_id", "artist", "mbid", "instagram_url", "instagram_source", "tiktok_url",
+          "tiktok_source", "tiktok_followers", "tiktok_status", "tiktok_nickname", "tiktok_verified",
+          "spotify_page_listeners", "fetched_at"]
+
+
+def unicodedata_ascii(s: str) -> str:
+    import unicodedata
+    return unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode()
 
 
 def http(url: str, timeout: int = 30) -> tuple[int, str]:
@@ -103,7 +109,7 @@ def tiktok_followers(url: str) -> tuple[str, str]:
 def save(rows: dict[str, dict]) -> None:
     tmp = SOCIALS.with_suffix(".tmp")
     with tmp.open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=FIELDS)
+        w = csv.DictWriter(f, fieldnames=FIELDS, restval="", extrasaction="ignore")
         w.writeheader()
         w.writerows(rows.values())
     tmp.replace(SOCIALS)
