@@ -37,11 +37,15 @@ FIELDS = ["spotify_id", "artist", "mbid", "instagram_url", "tiktok_url",
 
 def http(url: str, timeout: int = 30) -> tuple[int, str]:
     req = urllib.request.Request(url, headers={"User-Agent": UA})
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            return r.status, r.read().decode("utf-8", "replace")
-    except urllib.error.HTTPError as e:
-        return e.code, ""
+    for attempt in range(5):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return r.status, r.read().decode("utf-8", "replace")
+        except urllib.error.HTTPError as e:
+            return e.code, ""
+        except (urllib.error.URLError, OSError):  # dropped connection, timeout
+            time.sleep(5 * 2 ** attempt)
+    raise RuntimeError(f"network kept failing for {url}")
 
 
 _last_mb = 0.0
