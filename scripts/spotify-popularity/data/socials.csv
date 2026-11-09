@@ -236,18 +236,18 @@ spotify_id,artist,mbid,instagram_url,instagram_source,tiktok_url,tiktok_source,t
 3e5snAyVao8Jsu9kxumEUs,Superet,,https://instagram.com/superetmusic,spotify,https://www.tiktok.com/@superetmusic,guess,92,ok,superet,False,11666,2026-11-09T13:36:21+00:00
 63gbws6nuYUlQpwWtTlPqD,Evil,3edb68a4-253f-49dd-9942-fffca6eb7998,https://www.instagram.com/obeyevil/,musicbrainz,,,,no_match,,,11285,
 5k64JTFIHR64agZZUTinI7,Nanuk,,https://instagram.com/Nanukworld,spotify,https://www.tiktok.com/@nanukworld,guess,1957,ok,Nanuk,False,11135,2026-11-09T13:36:35+00:00
-5H5V1QXY7qIG8aM56LobT6,GoldenOak,,https://instagram.com/goldenoakmusic,spotify,,,,,,,11022,
-36NGS6ojjJE7TIvKgz62Fw,meez,,https://instagram.com/meezykw,spotify,,,,,,,10816,
-6v69fIFhI2VqebXUWcvWU1,Strawberry Mountain,98b1c604-1bd2-470b-8861-7321fbd3c79c,,,,,,,,,10617,
-2yUdwBLaO98tsD5fDi5it2,Dinosaur 94,f8aae1b9-d0a0-4274-94da-f57a4c3bda68,https://www.instagram.com/dinosaur_94_/,musicbrainz,,,,,,,10205,
-0qfB8idneKlyQdy3UjPhYY,Libby Dale,a3463394-fb9f-4014-a1bd-409bb510a6ed,https://www.instagram.com/libbymonster/,musicbrainz,https://www.tiktok.com/@libbydalemusic,spotify,,,,,10179,
-65XzNlM5KrnHuUuiMo2NuT,Matilda Tjäder,,https://instagram.com/matilda____tjader/,spotify,,,,,,,10173,
-2b23b0MFD3aI6e67JRWgay,Black Bear,,https://instagram.com/blackbearsambeebe/,spotify,,,,,,,9707,
-7eDeCweG3x20jhQvvbUkjl,Filiah,778c47dc-b30b-44a7-b313-3d6ddadd6212,https://instagram.com/thisisfiliah,spotify,https://www.tiktok.com/@thisisfiliah,spotify,,,,,8187,
-2Gcc4SikvtGCQtDC8b6ZRs,Kissing Other ppl,,https://instagram.com/kissingotherpplband,spotify,,,,,,,9510,
-2izH50d9suTRrx44cPxPMO,Sun Way Street,,https://instagram.com/sun_way_street/,spotify,,,,,,,9446,
-5PvcbcfjWTEq5pTQbcUGVl,Daito Manabe,,https://www.instagram.com/daitomanabe/,wikidata,,,,,,,9024,
-36sTWFzP26mJPY0cA1OYLR,Hierophants,,,,,,,,,,8996,
+5H5V1QXY7qIG8aM56LobT6,GoldenOak,,https://instagram.com/goldenoakmusic,spotify,https://www.tiktok.com/@goldenoakmusic,guess,5262,ok,GoldenOak,False,11022,2026-11-09T13:36:39+00:00
+36NGS6ojjJE7TIvKgz62Fw,meez,,https://instagram.com/meezykw,spotify,https://www.tiktok.com/@meezykw,guess,8970,ok,meez,False,10816,2026-11-09T13:36:43+00:00
+6v69fIFhI2VqebXUWcvWU1,Strawberry Mountain,98b1c604-1bd2-470b-8861-7321fbd3c79c,,,,,,no_match,,,10617,
+2yUdwBLaO98tsD5fDi5it2,Dinosaur 94,f8aae1b9-d0a0-4274-94da-f57a4c3bda68,https://www.instagram.com/dinosaur_94_/,musicbrainz,,,,no_match,,,10205,
+0qfB8idneKlyQdy3UjPhYY,Libby Dale,a3463394-fb9f-4014-a1bd-409bb510a6ed,https://www.instagram.com/libbymonster/,musicbrainz,https://www.tiktok.com/@libbydalemusic,spotify,1463,ok,libbydale,False,10179,2026-11-09T13:37:04+00:00
+65XzNlM5KrnHuUuiMo2NuT,Matilda Tjäder,,https://instagram.com/matilda____tjader/,spotify,,,,no_match,,,10173,
+2b23b0MFD3aI6e67JRWgay,Black Bear,,https://instagram.com/blackbearsambeebe/,spotify,https://www.tiktok.com/@blackbear,guess,47,ok,blackbear,False,9707,2026-11-09T13:37:21+00:00
+7eDeCweG3x20jhQvvbUkjl,Filiah,778c47dc-b30b-44a7-b313-3d6ddadd6212,https://instagram.com/thisisfiliah,spotify,https://www.tiktok.com/@thisisfiliah,spotify,381,ok,thisisfiliah,False,8187,2026-11-09T13:37:25+00:00
+2Gcc4SikvtGCQtDC8b6ZRs,Kissing Other ppl,,https://instagram.com/kissingotherpplband,spotify,https://www.tiktok.com/@kissing.other.ppl,guess,452,ok,kissingotherpplband,False,9510,2026-11-09T13:37:32+00:00
+2izH50d9suTRrx44cPxPMO,Sun Way Street,,https://instagram.com/sun_way_street/,spotify,https://www.tiktok.com/@sunwaystreetmusic,guess,231,ok,Sun way street (band),False,9446,2026-11-09T13:37:43+00:00
+5PvcbcfjWTEq5pTQbcUGVl,Daito Manabe,,https://www.instagram.com/daitomanabe/,wikidata,,,,no_match,,,9024,
+36sTWFzP26mJPY0cA1OYLR,Hierophants,,,,,,,no_match,,,8996,
 2yDFhqSKvBkQy4chiPiPeI,Candi Jenkins,,https://instagram.com/candijenkinsmusic/?hl=en,spotify,,,,,,,8909,
 2eUgwyMobMitdjib3FxQVF,Bones & Beeker,ad6c9f96-c27f-4374-90cd-381500c27265,,,,,,,,,8756,
 0itd8fCSPL3NAu9CAhuHG0,Olivia Ellen Lloyd,6bd67be9-c602-4b20-bcd5-5d6b728a9ecd,https://www.instagram.com/oliviaellenlloyd/,musicbrainz,,,,,,,8690,2026-11-09T12:39:15+00:00

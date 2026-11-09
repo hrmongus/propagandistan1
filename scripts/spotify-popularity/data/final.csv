@@ -1,0 +1,331 @@
+artist,spotify_url,monthly_listeners,spotify_page_listeners,popularity,spotify_followers,followers_per_listener,est_listeners_mid,est_listeners_90,instagram_url,instagram_source,tiktok_url,tiktok_followers,tiktok_source,tiktok_confidence,tiktok_trusted,tiktok_videos,fetched_at
+Bruno Mars,https://open.spotify.com/artist/0du5cEVh5yTK9QJze8zA0C,125290260,125290260,94,90511945,0.72,,,https://www.instagram.com/brunomars/,musicbrainz,https://www.tiktok.com/@brunomars,17300000,musicbrainz,source,yes,,2026-11-09
+Rihanna,https://open.spotify.com/artist/5pKCCKE2ajJHZ9KAiaK11H,117080863,117080863,94,77854047,0.66,,,https://www.instagram.com/badgalriri/,musicbrainz,https://www.tiktok.com/@rihanna,16900000,musicbrainz,source,yes,,2026-11-09
+The Weeknd,https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ,117073738,117073738,96,129959744,1.11,,,https://www.instagram.com/theweeknd/,musicbrainz,https://www.tiktok.com/@theweeknd,11400000,musicbrainz,source,yes,,2026-11-09
+Taylor Swift,https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02,97890106,97890106,98,166389993,1.70,,,https://www.instagram.com/taylorswift/,musicbrainz,https://www.tiktok.com/@taylorswift,33400000,musicbrainz,source,yes,,2026-11-09
+Drake,https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4,93827617,93827617,100,119185590,1.27,,,https://www.instagram.com/champagnepapi/,musicbrainz,https://www.tiktok.com/@drakemusic,3,guess,unchecked,no,,2026-11-09
+Ed Sheeran,https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V,78481779,78481779,89,128980124,1.64,,,https://www.instagram.com/teddysphotos/,musicbrainz,https://www.tiktok.com/@edsheeran,18100000,musicbrainz,source,yes,,2026-11-09
+Dua Lipa,https://open.spotify.com/artist/6M2wZ9GZgrQXHCFfjv46we,71381591,71381591,89,49458006,0.69,,,https://www.instagram.com/dualipa/,musicbrainz,https://www.tiktok.com/@dualipaofficial,12400000,musicbrainz,source,yes,,2026-11-09
+Cigarettes After Sex,https://open.spotify.com/artist/1QAJqy2dA3ihHBFIHRphZj,33546498,33610572,86,20330006,0.61,,,https://www.instagram.com/cigsaftersex/,musicbrainz,https://www.tiktok.com/@cigarettesaftersex,796400,musicbrainz,source,yes,,2026-11-09
+Major Lazer,https://open.spotify.com/artist/738wLrAtLtCtFOLvQBXOXp,29923451,29135340,77,6628038,0.22,,,https://www.instagram.com/majorlazer/,musicbrainz,https://www.tiktok.com/@majorlazer,797700,musicbrainz,source,yes,,2026-11-09
+Laufey,https://open.spotify.com/artist/7gW0r5CkdEUMm42w9XpyZO,21793334,22247679,83,11259599,0.52,,,https://www.instagram.com/laufey/,musicbrainz,https://www.tiktok.com/@laufey,11200000,musicbrainz,source,yes,,2026-11-09
+AURORA,https://open.spotify.com/artist/1WgXqy2Dd70QQOU7Ay074N,20045139,19739246,77,5394049,0.27,,,https://www.instagram.com/auroramusic/,musicbrainz,https://www.tiktok.com/@iamauroramusic,6300000,musicbrainz,source,yes,,2026-11-09
+BigXthaPlug,https://open.spotify.com/artist/6qxpnaukVayrQn6ViNvu9I,20002701,20230464,82,2836737,0.14,,,https://www.instagram.com/bigxthaplug/,musicbrainz,https://www.tiktok.com/@bigxthaplug,291,guess,unchecked,no,,2026-11-09
+FloyyMenor,https://open.spotify.com/artist/7CvTknweLr9feJtRGrpDBy,19565751,19072223,77,2592494,0.13,,,https://www.instagram.com/floyymenor/,musicbrainz,,,,,,,2026-11-09
+Jonas Blue,https://open.spotify.com/artist/1HBjj22wzbscIZ9sEb5dyf,19133527,18643280,75,3982424,0.21,,,https://www.instagram.com/jonasblue/,musicbrainz,https://www.tiktok.com/@jonasblue,636000,wikidata,source,yes,,2026-11-09
+Armin van Buuren,https://open.spotify.com/artist/0SfsnGyD8FpIN4U4WCkBZ5,15127248,15046970,76,4812841,0.32,,,https://www.instagram.com/arminvanbuuren/,musicbrainz,https://www.tiktok.com/@arminvanbuuren,2500000,wikidata,source,yes,,2026-11-09
+Flo Milli,https://open.spotify.com/artist/08PvCOlef4xdOr20jFSTPd,12746760,12568323,72,1930625,0.15,,,https://www.instagram.com/flomillishit/,musicbrainz,https://www.tiktok.com/@flomillishit,2100000,wikidata,source,yes,,2026-11-09
+Blood Orange,https://open.spotify.com/artist/6LEeAFiJF8OuPx747e1wxR,11145374,10944429,73,1703343,0.15,,,https://www.instagram.com/devhynes/,wikidata,https://www.tiktok.com/@bloodorange,85400,guess,unchecked,no,,2026-11-09
+Adam Port,https://open.spotify.com/artist/2loEsOijJ6XiGzWYFXMIRk,9808861,9609443,72,407412,0.04,,,https://instagram.com/adamport,spotify,,,,,,,2026-11-09
+Falling In Reverse,https://open.spotify.com/artist/2CmaKO2zEGJ1NWpS1yfVGz,9600974,9372534,77,4906876,0.51,,,https://www.instagram.com/fallinginreverse/,musicbrainz,https://www.tiktok.com/@fallinginreverse,1500000,musicbrainz,source,yes,,2026-11-09
+Thee Sacred Souls,https://open.spotify.com/artist/0oK5D6uPhGu4Jk2dbZfodU,8809325,8611611,71,1141903,0.13,,,https://instagram.com/theesacredsouls/,spotify,https://www.tiktok.com/@theesacredsouls,117100,guess,unchecked,no,,2026-11-09
+Connor Price,https://open.spotify.com/artist/5zixe6AbgXPqt4c1uSl94L,7516982,7446360,73,1932550,0.26,,,https://www.instagram.com/connorprice_/,wikidata,https://www.tiktok.com/@connorprice__,5900000,wikidata,source,yes,,2026-11-09
+Nic D,https://open.spotify.com/artist/1XlLhtgJjC4ROQZilBZAvw,4339762,4297714,69,578585,0.13,,,https://www.instagram.com/iamnicd/,musicbrainz,https://www.tiktok.com/@iamnicd,2100000,musicbrainz,source,yes,,2026-11-09
+&ME,https://open.spotify.com/artist/5mIowAJMp7RKNheelruV5z,4275703,4186365,66,266289,0.06,,,https://instagram.com/andmeandyou/,spotify,https://www.tiktok.com/@andmeandyou,178700,guess,unchecked,no,,2026-11-09
+Rampa,https://open.spotify.com/artist/08jywfUS0hp8XYlYs0cvz8,4056146,3956844,66,263218,0.06,,,https://instagram.com/rampa_keinemusik/,spotify,https://www.tiktok.com/@rampa_keinemusik,183200,guess,unchecked,no,,2026-11-09
+Delerium,https://open.spotify.com/artist/0IUq1plF3ON4Fboj1bE6kN,3810356,3820320,62,151478,0.04,,,https://instagram.com/LEEBBILL,spotify,https://www.tiktok.com/@delerium,1,guess,unchecked,no,,2026-11-09
+Spiritbox,https://open.spotify.com/artist/4MzJMcHQBl9SIYSjwWn8QW,3678086,3654327,69,1256332,0.34,,,https://www.instagram.com/spiritboxmusic/,musicbrainz,https://www.tiktok.com/@spiritboxband?,361300,musicbrainz,source,yes,,2026-11-09
+Bryan Martin,https://open.spotify.com/artist/0ChjBYedhZTQnWZWQYg15U,3512259,3498190,65,279887,0.08,,,https://instagram.com/bryanmartinmusic,spotify,https://www.tiktok.com/@bryanmartinmusic,402000,guess,unchecked,no,,2026-11-09
+Killswitch Engage,https://open.spotify.com/artist/37394IP6uhnjIpsawpMu4l,3381369,3354495,66,2341280,0.69,,,https://www.instagram.com/killswitchengage/,musicbrainz,https://www.tiktok.com/@killswitchengageofficial,53900,musicbrainz,source,yes,,2026-11-09
+Kaiser Chiefs,https://open.spotify.com/artist/0LbLWjaweRbO4FDKYlbfNt,2860673,2842401,61,1437972,0.50,,,https://www.instagram.com/kaiserchiefs/,wikidata,,,,,,,2026-11-09
+AFI,https://open.spotify.com/artist/19I4tYiChJoxEO5EuviXpz,2860460,2837398,64,1077176,0.38,,,https://www.instagram.com/afireinside/,musicbrainz,,,,,,,2026-11-09
+BADBADNOTGOOD,https://open.spotify.com/artist/65dGLGjkw3UbddUg2GKQoZ,2853516,2812948,63,952488,0.33,,,https://www.instagram.com/badbadnotgood/,musicbrainz,https://www.tiktok.com/@badbadnotgood,46500,guess,unchecked,no,,2026-11-09
+Neck Deep,https://open.spotify.com/artist/2TM0qnbJH4QPhGMCdPt7fH,2824575,2814602,65,1868242,0.66,,,https://www.instagram.com/neckdeepuk/,musicbrainz,https://www.tiktok.com/@neckdeepuk,113300,wikidata,source,yes,,2026-11-09
+Ren,https://open.spotify.com/artist/0Repe2EiNjaFAFIukrroUM,2540462,2525773,70,2011591,0.79,,,https://www.instagram.com/renmakesmusic/,musicbrainz,https://www.tiktok.com/@renmakesmusic,4900000,musicbrainz,source,yes,,2026-11-09
+Asia,https://open.spotify.com/artist/1bdytLV3FPjyhfrb6BhMej,2529065,2490100,59,801210,0.32,,,https://instagram.com/asiatheband/?hl=en,spotify,https://www.tiktok.com/@asia,1313,guess,unchecked,no,,2026-11-09
+Local H,https://open.spotify.com/artist/415JrPfN7ukaTu8JV8BLE8,2381843,2368669,60,344113,0.14,,,https://www.instagram.com/local_h/,musicbrainz,https://www.tiktok.com/@localh,8,guess,unchecked,no,,2026-11-09
+Emmylou Harris,https://open.spotify.com/artist/5s6TJEuHTr9GR894wc6VfP,2271014,2248057,62,464650,0.20,,,https://instagram.com/emmylou_harris_,spotify,https://www.tiktok.com/@emmylou_harris_,15,guess,unchecked,no,,2026-11-09
+Lecrae,https://open.spotify.com/artist/1CFCsEqKrCyvAFKOATQHiW,2270855,2294589,65,1498874,0.66,,,https://www.instagram.com/lecrae/,musicbrainz,https://www.tiktok.com/@_lecrae,663500,wikidata,source,yes,,2026-11-09
+Alter Bridge,https://open.spotify.com/artist/4DWX7u8BV0vZIQSpJQQDWU,2214716,2210681,63,1335115,0.60,,,https://www.instagram.com/officialalterbridge/,musicbrainz,https://www.tiktok.com/@officialalterbridge,34600,spotify,source,yes,,2026-11-09
+Joy Oladokun,https://open.spotify.com/artist/7rrTqtOUOwva4sgTx9C9F9,2186598,2144058,59,280296,0.13,,,https://www.instagram.com/joyoladokun/,musicbrainz,https://www.tiktok.com/@joyoladokun,130300,guess,unchecked,no,,2026-11-09
+SOJA,https://open.spotify.com/artist/2vaWvC8suCFkRXejDOK7EE,2122829,2098338,62,1217836,0.57,,,https://www.instagram.com/sojagram/,musicbrainz,https://www.tiktok.com/@soja,49,guess,unchecked,no,,2026-11-09
+underscores,https://open.spotify.com/artist/7HfUJxeVTgrvhk0eWHFzV7,1938271,1901394,68,358575,0.18,,,https://www.instagram.com/underscores/,musicbrainz,,,,,,,2026-11-09
+Weyes Blood,https://open.spotify.com/artist/3Uqu1mEdkUJxPe7s31n1M9,1917720,1888620,59,630720,0.33,,,https://www.instagram.com/weyesblood/,musicbrainz,https://www.tiktok.com/@weyesbloodofficial,14100,wikidata,source,yes,,2026-11-09
+Toro y Moi,https://open.spotify.com/artist/6O4EGCCb6DoIiR6B1QCQgp,1888965,1872188,59,832729,0.44,,,https://www.instagram.com/toroymoi/,musicbrainz,https://www.tiktok.com/@toroymoi,10700,musicbrainz,source,yes,,2026-11-09
+New Found Glory,https://open.spotify.com/artist/4ghjRm4M2vChDfTUycx0Ce,1825707,1817595,61,982937,0.54,,,https://www.instagram.com/newfoundglory/,musicbrainz,https://www.tiktok.com/@newfoundglory,157900,wikidata,source,yes,,2026-11-09
+Sevendust,https://open.spotify.com/artist/35Uu85Pq33mK8x1jYqsHY2,1818339,1818148,63,1385413,0.76,,,https://www.instagram.com/sevendustofficial/,musicbrainz,https://www.tiktok.com/@sevendustofficial,3881,guess,unchecked,no,,2026-11-09
+lots of hands,https://open.spotify.com/artist/6sNcyjEVdNlZ0dpgr7EcT9,1781396,1759750,59,84991,0.05,,,https://www.instagram.com/lotsofhands/,musicbrainz,https://www.tiktok.com/@lotsofhands,25600,guess,unchecked,no,,2026-11-09
+Jessica Pratt,https://open.spotify.com/artist/5KTykbPcDB4GYS49jcHbWh,1704964,1710585,58,188867,0.11,,,https://www.instagram.com/jpblues/,wikidata,https://www.tiktok.com/@jessicapratt,84,guess,unchecked,no,,2026-11-09
+Monolink,https://open.spotify.com/artist/2I4hRNCYkPKJQlkoEZKjYx,1699124,1692257,59,629231,0.37,,,https://www.instagram.com/monolinkmusic/,musicbrainz,https://www.tiktok.com/@monolinkmusic,41200,musicbrainz,source,yes,,2026-11-09
+Oscar Peterson,https://open.spotify.com/artist/6zkX5fhrSD4tdVOmimR9wB,1695599,1734367,58,350321,0.21,,,https://instagram.com/oscarpetersonlegacy,spotify,https://www.tiktok.com/@oscarpeterson,0,guess,unchecked,no,,2026-11-09
+Shakey Graves,https://open.spotify.com/artist/1fZpYWNWdL5Z3wrDtISFUH,1639290,1607689,59,626391,0.38,,,https://www.instagram.com/shakeygraves/,musicbrainz,,,,,,,2026-11-09
+Michael Nau,https://open.spotify.com/artist/1VfgWum48nwYJcCfdPwWgs,1574579,1657816,57,98538,0.06,,,https://instagram.com/mnau,spotify,,,,,,,2026-11-09
+Knocked Loose,https://open.spotify.com/artist/4qrHkx5cgWIslciLXUMrYw,1399671,1403313,62,731575,0.52,,,https://www.instagram.com/knockedloosehc/,musicbrainz,https://www.tiktok.com/@knockedloosehc,175700,musicbrainz,source,yes,,2026-11-09
+Old Crow Medicine Show,https://open.spotify.com/artist/4DBi4EYXgiqbkxvWUXUzMi,1369357,1361059,55,484090,0.35,,,https://instagram.com/crowmedicine,spotify,https://www.tiktok.com/@crowmedicine,0,guess,unchecked,no,,2026-11-09
+Frankie Cosmos,https://open.spotify.com/artist/0x4xCoWaOFd3WsKarzaxnW,1364456,1348280,55,385006,0.28,,,https://www.instagram.com/frankiecombos/,musicbrainz,https://www.tiktok.com/@frankiecombos,65100,guess,unchecked,no,,2026-11-09
+American Football,https://open.spotify.com/artist/5FwydyGVcsQllnM4xM6jw4,1298127,1304449,58,571043,0.44,,,https://www.instagram.com/americfootball/,musicbrainz,https://www.tiktok.com/@americfootball,35700,guess,unchecked,no,,2026-11-09
+Amon Amarth,https://open.spotify.com/artist/3pulcT2wt7FEG10lQlqDJL,1248540,1219631,64,1318207,1.06,,,https://www.instagram.com/amonamarth/,musicbrainz,,,wikidata,,,,2026-11-09
+The Amity Affliction,https://open.spotify.com/artist/6kNKUYGn6VNGsRoXmyoDPK,1190546,1192084,61,852961,0.72,,,https://www.instagram.com/theamityaffliction/,musicbrainz,https://www.tiktok.com/@amityaffliction_official,87600,musicbrainz,source,yes,,2026-11-09
+Anamanaguchi,https://open.spotify.com/artist/2UwJRAgSOi1zcLkvUNc8XL,1135787,1144469,54,267824,0.24,,,https://www.instagram.com/anamanaguchi_official/,musicbrainz,https://www.tiktok.com/@anamanaguchi,3148,spotify,source,yes,,2026-11-09
+Douwe Bob,https://open.spotify.com/artist/6VSZeMeJlVPGoR2nfB6UxD,1117115,1358850,57,102411,0.09,,,https://www.instagram.com/douwebob/,musicbrainz,https://www.tiktok.com/@douwebobmusic,0,guess,unchecked,no,,2026-11-09
+Marco Flores Y La Jerez,https://open.spotify.com/artist/3cseuYmozraz4XJn6nDo80,1113996,1088610,54,315402,0.28,,,https://instagram.com/marcofloresylajerez/?hl=es-la,spotify,,,,,,,2026-11-09
+Powerwolf,https://open.spotify.com/artist/5HFkc3t0HYETL4JeEbDB1v,1112758,1116215,62,1124079,1.01,,,https://www.instagram.com/officialpowerwolf/,musicbrainz,https://www.tiktok.com/@powerwolfmetal,196800,musicbrainz,source,yes,,2026-11-09
+Anberlin,https://open.spotify.com/artist/5v61OSg53KaQxGMpErkBNp,1090555,1108460,56,361111,0.33,,,https://www.instagram.com/anberlin/,musicbrainz,https://www.tiktok.com/@anberlin,2,guess,unchecked,no,,2026-11-09
+Colt Ford,https://open.spotify.com/artist/0OpWIlokQeE7BNQMhuu2Nx,1059472,1051169,58,1189613,1.12,,,https://instagram.com/coltfordmusic,spotify,https://www.tiktok.com/@coltford,2,guess,unchecked,no,,2026-11-09
+M.O.P.,https://open.spotify.com/artist/1BH45DVSTeGBvcYXNCd67g,1026936,1040681,53,433277,0.42,,,,,,,,,,,2026-11-09
+Hot Mulligan,https://open.spotify.com/artist/1lKZzN2d4IqiEYxyECIEHI,993934,988526,63,402748,0.41,,,https://www.instagram.com/hotmulligan/,musicbrainz,https://www.tiktok.com/@hotmulligan,118700,guess,unchecked,no,,2026-11-09
+Lambrini Girls,https://open.spotify.com/artist/6VR4TJ20WGiho2xZWMuuWb,880856,866611,55,186712,0.21,,,https://www.instagram.com/lambrinigirlz/,musicbrainz,https://www.tiktok.com/@lmbrinigrls,8920,wikidata,source,yes,,2026-11-09
+Bankai,https://open.spotify.com/artist/2qVxBbxlMuZ22B57rReIQg,818656,812007,50,9227,0.01,,,https://instagram.com/mltr,spotify,https://www.tiktok.com/@bankaimusic,1214,guess,unchecked,no,,2026-11-09
+Atmosphere,https://open.spotify.com/artist/1GAS0rb4L8VTPvizAx2O9J,796378,788228,56,725269,0.91,,,https://www.instagram.com/atmosphere/,musicbrainz,https://www.tiktok.com/@atmospheremusic,58,guess,unchecked,no,,2026-11-09
+Kate Nash,https://open.spotify.com/artist/5vBKu1igxFo6g1sHADkIdg,762467,759970,50,457871,0.60,,,https://www.instagram.com/katenash/,musicbrainz,https://www.tiktok.com/@katenashyeah,204900,wikidata,source,yes,,2026-11-09
+Stand Atlantic,https://open.spotify.com/artist/1W2Fv4YUnjC8hx2qQd6fGh,753445,757622,57,269801,0.36,,,https://www.instagram.com/standatlantic/,musicbrainz,https://www.tiktok.com/@standatlantic,121800,musicbrainz,source,yes,,2026-11-09
+This Is Lorelei,https://open.spotify.com/artist/0GmYGGZZIU8vHbI0bAXZun,751338,727403,56,59541,0.08,,,https://www.instagram.com/hellothisisnate/,musicbrainz,https://www.tiktok.com/@thisisloreleiofficial,2131,musicbrainz,source,yes,,2026-11-09
+El Michels Affair,https://open.spotify.com/artist/0cLrgpG3pW4MX4nD8h6qCc,744962,745244,51,240792,0.32,,,https://www.instagram.com/elmichelsaffair/,musicbrainz,https://www.tiktok.com/@elmichelsaffair,2,guess,unchecked,no,,2026-11-09
+Circa Survive,https://open.spotify.com/artist/11FY888Qctoy6YueCpFkXT,687646,687700,58,448367,0.65,,,https://www.instagram.com/circasurvive/,musicbrainz,https://www.tiktok.com/@circasurvive,0,guess,unchecked,no,,2026-11-09
+Son Lux,https://open.spotify.com/artist/3kZdsaTYgaaolNxpnJ4iDe,670752,661213,52,358011,0.53,,,https://www.instagram.com/son_lux/,musicbrainz,https://www.tiktok.com/@son_lux,3174,musicbrainz,source,yes,,2026-11-09
+Ásgeir,https://open.spotify.com/artist/7xUZ4069zcyBM4Bn10NQ1c,658300,659766,54,341776,0.52,,,https://www.instagram.com/asgeirmusic/,musicbrainz,https://www.tiktok.com/@asgeirmusic,1899,guess,unchecked,no,,2026-11-09
+mischluft,https://open.spotify.com/artist/6IPWduBm255hSxmAcNoHjF,636744,643853,54,83343,0.13,,,https://www.instagram.com/mischluft/,musicbrainz,https://www.tiktok.com/@mischluft,9812,guess,unchecked,no,,2026-11-09
+Aesop Rock,https://open.spotify.com/artist/2fSaE6BXtQy0x7R7v9IOmZ,635148,634992,57,514487,0.81,,,https://www.instagram.com/aesoprockwins/,musicbrainz,https://www.tiktok.com/@aesoprocktok,36400,spotify,source,yes,,2026-11-09
+Beach Fossils,https://open.spotify.com/artist/1bwUhKRmEkOZ1wuTnV9XjC,627659,623906,51,594196,0.95,,,https://www.instagram.com/beachfossilsnyc/,musicbrainz,https://www.tiktok.com/@beachfossilsnyc,19300,guess,unchecked,no,,2026-11-09
+AJ Vitanza,https://open.spotify.com/artist/4cYjXmjtYTr8km9NLjC7xe,601787,603842,54,57355,0.10,,,https://www.instagram.com/ajvitanza/,musicbrainz,https://www.tiktok.com/@ajvitanza,51100,musicbrainz,source,yes,,2026-11-09
+Martin Luke Brown,https://open.spotify.com/artist/7L2rePM60cIztWZ7cLlskE,581444,563829,50,56816,0.10,,,https://www.instagram.com/martinlukebrown/,musicbrainz,https://www.tiktok.com/@martinlukebrown,16400,guess,unchecked,no,,2026-11-09
+Connan Mockasin,https://open.spotify.com/artist/247AfC9pLuqwgpH8Mo96oA,568586,568013,50,281593,0.50,,,https://instagram.com/connanmockasin/?hl=en,spotify,https://www.tiktok.com/@connanmockasin,2,guess,unchecked,no,,2026-11-09
+Apollo Brown,https://open.spotify.com/artist/151BUVKmiB9rHDjIkgbeVE,553321,560550,52,173528,0.31,,,https://instagram.com/apollobrown/,spotify,https://www.tiktok.com/@apollobrown,1,guess,unchecked,no,,2026-11-09
+Melvins,https://open.spotify.com/artist/6aVjo0xHSiuW5hkasoYSR3,550509,548314,52,499559,0.91,,,https://www.instagram.com/melvinsdotcom/,musicbrainz,https://www.tiktok.com/@melvinsdotcom,1,guess,unchecked,no,,2026-11-09
+Peaches,https://open.spotify.com/artist/1gkSl4XpHIHI4I1WQbfXOE,542976,533286,49,317310,0.58,,,https://www.instagram.com/peachesnisker/,wikidata,https://www.tiktok.com/@peachesnisker,24900,wikidata,source,yes,,2026-11-09
+Heilung,https://open.spotify.com/artist/7sTKZr30LqC928DZ5P9mNQ,532597,538707,54,862737,1.62,,,https://www.instagram.com/amplifiedhistory/,musicbrainz,https://www.tiktok.com/@amplifiedhistory,45400,guess,unchecked,no,,2026-11-09
+Bill Callahan,https://open.spotify.com/artist/7gqsi6aBSkRMJoL9psKqMr,492579,468649,49,210276,0.43,,,https://instagram.com/therealbillcallahan,spotify,https://www.tiktok.com/@billcallahan,11,guess,unchecked,no,,2026-11-09
+Smif-N-Wessun,https://open.spotify.com/artist/2p0Hf0MF8Nw8lwAXokczf0,481843,534041,49,249546,0.52,,,https://instagram.com/realsmifnwessun,spotify,https://www.tiktok.com/@smifnwessun,2,guess,unchecked,no,,2026-11-09
+Goose,https://open.spotify.com/artist/5tkITWzssc9z9hu7ZEOCXz,479842,477772,56,258129,0.54,,,https://www.instagram.com/goosetheband/,musicbrainz,https://www.tiktok.com/@goosetheband,23900,spotify,source,yes,,2026-11-09
+The Wonder Years,https://open.spotify.com/artist/0nq64XZMWV1s7XHXIkdH7K,478946,476842,54,313110,0.65,,,https://www.instagram.com/thewonderyearsband/,musicbrainz,https://www.tiktok.com/@thewonderyearsband,15200,guess,unchecked,no,,2026-11-09
+PREP,https://open.spotify.com/artist/31SBgHxc8eqZUk9MdveH42,434062,444592,51,328043,0.76,,,https://instagram.com/prepband,spotify,https://www.tiktok.com/@prepband,18400,spotify,source,yes,,2026-11-09
+Yin Yin,https://open.spotify.com/artist/2sLMYvxNmHIYNx6re1WUM2,428593,431977,49,175233,0.41,,,https://www.instagram.com/yinyinband/,musicbrainz,https://www.tiktok.com/@yinyinband,284,musicbrainz,source,yes,,2026-11-09
+Mei Semones,https://open.spotify.com/artist/3Cp20KSVlMlFuOdqiqHFGR,424897,422483,52,147741,0.35,,,https://www.instagram.com/mei_semones/,musicbrainz,https://www.tiktok.com/@meisemones,86800,musicbrainz,source,yes,,2026-11-09
+Norman Brown,https://open.spotify.com/artist/79kOOyVKcrCOKDnzcDHsia,422758,421026,53,138422,0.33,,,https://instagram.com/normanticmusic/,spotify,https://www.tiktok.com/@normanbrown,29,guess,unchecked,no,,2026-11-09
+Ty Segall,https://open.spotify.com/artist/58XGUNsRNu3cVOIOYk5chx,419534,424312,50,354611,0.85,,,https://www.instagram.com/tysegall/,musicbrainz,,,,,,,2026-11-09
+Louie Zong,https://open.spotify.com/artist/7jOY91ZU7kn86slH3fBbaD,402799,399669,50,273805,0.68,,,https://www.instagram.com/louie.zong/,musicbrainz,https://www.tiktok.com/@louiezong,20,guess,unchecked,no,,2026-11-09
+Madeline Juno,https://open.spotify.com/artist/6u8KyY2rfBGDtDejRJ9JaQ,384300,380597,52,173315,0.45,,,https://www.instagram.com/madelinejuno/,musicbrainz,,,,,,,2026-11-09
+Euge Groove,https://open.spotify.com/artist/05UwRaoOjJPuGzCtawrORF,365111,362380,52,107930,0.30,,,,,,,,,,,2026-11-09
+Lee Fields,https://open.spotify.com/artist/3MAzDpqE01xyUmzNsc0Ee0,342451,340679,46,70744,0.21,,,https://www.instagram.com/leefieldsandtheexpressions/,musicbrainz,https://www.tiktok.com/@leefields,5,guess,unchecked,no,,2026-11-09
+Widowspeak,https://open.spotify.com/artist/5ZW7HlSuZz8ng2X21cXbdP,337896,330729,46,139196,0.41,,,https://www.instagram.com/widowspeaking/,musicbrainz,https://www.tiktok.com/@widowspeak,0,guess,unchecked,no,,2026-11-09
+Grandaddy,https://open.spotify.com/artist/3W4xM5XYtUp4ifYYPVKVdk,335138,337936,47,195482,0.58,,,https://www.instagram.com/grandaddymusic/,musicbrainz,,,,,,,2026-11-09
+Karen Dalton,https://open.spotify.com/artist/5O5V29YvM6AzAQ0rNt59fy,302473,299280,44,176965,0.59,,,,,,,,,,,2026-11-09
+Widespread Panic,https://open.spotify.com/artist/54SHZF2YS3W87xuJKSvOVf,286194,289311,53,318057,1.11,,,https://www.instagram.com/widespreadpanichq/,musicbrainz,https://www.tiktok.com/@widespreadpanichq,7102,guess,unchecked,no,,2026-11-09
+Black Moon,https://open.spotify.com/artist/2yN6bq26wynQcRuPkBYTDb,279229,294885,43,223543,0.80,,,https://instagram.com/real_black_moon,spotify,https://www.tiktok.com/@blackmoon,4541,guess,unchecked,no,,2026-11-09
+Oddisee,https://open.spotify.com/artist/72tRiBHei5G9M8it4h4sfC,268052,264241,46,251710,0.94,,,https://www.instagram.com/oddisee/,musicbrainz,https://www.tiktok.com/@oddisee,0,guess,unchecked,no,,2026-11-09
+McKinley Dixon,https://open.spotify.com/artist/5trjmXbxVZ8E68aVhj8Nko,260538,253605,46,74163,0.28,,,https://www.instagram.com/freemckinley/,musicbrainz,,,,,,,2026-11-09
+Snarky Puppy,https://open.spotify.com/artist/7ENzCHnmJUr20nUjoZ0zZ1,259163,257610,48,803409,3.10,,,https://www.instagram.com/snarkypuppy/,wikidata,https://www.tiktok.com/@snarkypuppy,0,guess,unchecked,no,,2026-11-09
+Teenage Fanclub,https://open.spotify.com/artist/2Sp19cOHSqAUlE64hekARW,256063,250634,48,170992,0.67,,,https://www.instagram.com/teenagefanclubofficial/,musicbrainz,,,,,,,2026-11-09
+Destroyer,https://open.spotify.com/artist/22ojy4H4ZVpowC4lRRC8In,240024,243000,44,199192,0.83,,,https://www.instagram.com/destroyer_band/,wikidata,https://www.tiktok.com/@destroyer,23,guess,unchecked,no,,2026-11-09
+Windser,https://open.spotify.com/artist/0G9ibJ5qs4Zl6iupdrVAG1,237814,229059,42,19863,0.08,,,https://www.instagram.com/jordantopf/,musicbrainz,https://www.tiktok.com/@windser,7382,guess,unchecked,no,,2026-11-09
+Jaguar Sun,https://open.spotify.com/artist/4WQwU51LUtrVrw0K8BMpAC,237209,237840,44,42218,0.18,,,https://www.instagram.com/jaguar__sun/,musicbrainz,,,,,,,2026-11-09
+Evidence,https://open.spotify.com/artist/6VfeYClQyVUCPJdXb9jl3O,233231,231298,48,117396,0.50,,,https://www.instagram.com/evidence/,musicbrainz,https://www.tiktok.com/@evidence,82,guess,unchecked,no,,2026-11-09
+Saves The Day,https://open.spotify.com/artist/5gWhlJBlLQGLOgYWO8lwCU,224026,220917,47,183803,0.82,,,https://www.instagram.com/savestheday/,musicbrainz,https://www.tiktok.com/@savestheday,660,guess,unchecked,no,,2026-11-09
+Squirrel Flower,https://open.spotify.com/artist/7bI1v9NGBBhq8iGfytctni,212140,204739,44,58433,0.28,,,https://www.instagram.com/sqrrlflwr/,musicbrainz,https://www.tiktok.com/@sqrrlflwr,9411,guess,unchecked,no,,2026-11-09
+Lunar Vacation,https://open.spotify.com/artist/7EEefVBNBS3ckwouEl62oB,204939,205098,43,122286,0.60,,,https://instagram.com/lunar_vacation,spotify,,,,,,,2026-11-09
+Scorcher,https://open.spotify.com/artist/2BYHpYwXO4zi36Tf3pEH5n,203590,205646,44,38780,0.19,,,,,https://www.tiktok.com/@scorcher,0,guess,unchecked,no,,2026-11-09
+Linda Elys,https://open.spotify.com/artist/3uB8CiuJs0I1cDNUaVpdjf,202473,207244,42,11023,0.05,,,https://www.instagram.com/lindaelsenermusic/,musicbrainz,https://www.tiktok.com/@lindaelys,10,guess,unchecked,no,,2026-11-09
+Bacao Rhythm & Steel Band,https://open.spotify.com/artist/0sjhSgEkyVa8QRmkkuckJ0,201514,201214,41,71754,0.36,,,https://instagram.com/bacaorsb,spotify,,,,,,,2026-11-09
+Christian McBride,https://open.spotify.com/artist/5ACxPOI9gR3l0cyy2dvkHv,196137,214327,43,74962,0.38,,,https://www.instagram.com/chrmcbride/,musicbrainz,https://www.tiktok.com/@christianmcbride,6,guess,unchecked,no,,2026-11-09
+Russian Circles,https://open.spotify.com/artist/0AZ3VR0YbFcS0Kgei7L2QF,193856,194430,48,307378,1.59,,,https://instagram.com/russiancircles,spotify,,,,,,,2026-11-09
+Ironik,https://open.spotify.com/artist/1vwcHXpc5g75lakGYbUEJ3,192137,189030,40,49331,0.26,,,https://www.instagram.com/djironik/,wikidata,https://www.tiktok.com/@djironik,1,guess,unchecked,no,,2026-11-09
+Napalm Death,https://open.spotify.com/artist/3UqRgrDIQ208yNGiWKRMNt,183379,181924,47,467222,2.55,,,https://www.instagram.com/theofficialnapalmdeath/,musicbrainz,https://www.tiktok.com/@official_napalmdeath,1400,musicbrainz,source,yes,,2026-11-09
+Joya Marleen,https://open.spotify.com/artist/4vaE77ooZ6reoKW8b7YTeb,172060,176450,40,27667,0.16,,,https://www.instagram.com/joya.marleen/,musicbrainz,https://www.tiktok.com/@joya.marleen,18,guess,unchecked,no,,2026-11-09
+Cryptopsy,https://open.spotify.com/artist/29PgYwTelpNl6370XLqFtN,163107,165061,46,245599,1.51,,,https://www.instagram.com/cryptopsyofficial/,musicbrainz,https://www.tiktok.com/@cryptopsyofficial,3558,musicbrainz,source,yes,,2026-11-09
+Slothrust,https://open.spotify.com/artist/6Nwhmo3adbTqPMCsgBgkf4,148740,146160,43,101502,0.68,,,https://www.instagram.com/slothrust/,wikidata,https://www.tiktok.com/@slothrust,0,guess,unchecked,no,,2026-11-09
+The New Pornographers,https://open.spotify.com/artist/4mO4aGO6u29UyR6XLZR9XW,147045,146108,42,220249,1.50,,,https://www.instagram.com/thenewpornographers/,musicbrainz,https://www.tiktok.com/@thenewpornographers,5797,guess,unchecked,no,,2026-11-09
+Have Heart,https://open.spotify.com/artist/6e0QWfEFmK6AguLy02mlqi,141847,144581,47,119164,0.84,,,https://instagram.com/haveheartusa,spotify,https://www.tiktok.com/@haveheart,4,guess,unchecked,no,,2026-11-09
+Linda Perry,https://open.spotify.com/artist/5tfiJ40SRxluWNgA6ruvSo,141504,145655,42,76770,0.54,,,https://www.instagram.com/reallindaperry/,musicbrainz,https://www.tiktok.com/@lindaperryofficial,239600,spotify,source,yes,,2026-11-09
+Agnostic Front,https://open.spotify.com/artist/3zDvanHxaETiHltPkKKYhT,139685,138284,43,219487,1.57,,,https://www.instagram.com/agnosticfrontnyc/,musicbrainz,https://www.tiktok.com/@agnosticfrontnyc,1081,guess,unchecked,no,,2026-11-09
+Wild Pink,https://open.spotify.com/artist/2BS3fywRW33o5GygfzZaOZ,137269,144728,44,32512,0.24,,,https://www.instagram.com/wildpinknyc/,musicbrainz,https://www.tiktok.com/@wildpinknyc,7,guess,unchecked,no,,2026-11-09
+Rotting Christ,https://open.spotify.com/artist/7FhkwcO8Jd7BRWdllBpXBJ,134823,134308,46,306353,2.27,,,https://www.instagram.com/rottingchristofficial/,musicbrainz,,,,,,,2026-11-09
+Mark Tarmonea,https://open.spotify.com/artist/0G0DRVtduDqqikbVbZXaNn,127340,125348,36,20455,0.16,,,https://www.instagram.com/tarmonea/,musicbrainz,https://www.tiktok.com/@marktarmonea,14000,guess,unchecked,no,,2026-11-09
+Pigeons Playing Ping Pong,https://open.spotify.com/artist/52NOvMXEjgf8MQl0qop2dl,123209,123863,42,144212,1.17,,,https://www.instagram.com/pigeonsplaying/,musicbrainz,https://www.tiktok.com/@pigeonsplaying,4161,guess,unchecked,no,,2026-11-09
+adan diaz,https://open.spotify.com/artist/6ktN7KRUuaLMHyKOog3tGP,121869,122655,39,42488,0.35,,,https://www.instagram.com/adandiazzz/,musicbrainz,https://www.tiktok.com/@adandiazzz,72200,musicbrainz,source,yes,,2026-11-09
+Joey Alexander,https://open.spotify.com/artist/0FcNSKwWZJb98ry9M2qEII,118950,119027,37,60967,0.51,,,https://www.instagram.com/joeyalexandermusic/,musicbrainz,,,,,,,2026-11-09
+The Districts,https://open.spotify.com/artist/3HZgaiR960RFqx9d4LPraD,111457,110947,37,107016,0.96,,,https://instagram.com/thedistrictsband,spotify,https://www.tiktok.com/@thedistrictsband,434,guess,unchecked,no,,2026-11-09
+Brian Bromberg,https://open.spotify.com/artist/6iyIbAydXPDNz1yYFl7A9h,109557,108309,38,41253,0.38,,,,,https://www.tiktok.com/@brianbromberg,1,guess,unchecked,no,,2026-11-09
+La Reezy,https://open.spotify.com/artist/2uVTJrWgoWoJmImS2I0KVE,108960,107435,41,45744,0.42,,,https://instagram.com/lareezymusic/,spotify,https://www.tiktok.com/@lareezy,17,guess,unchecked,no,,2026-11-09
+Joe Kay,https://open.spotify.com/artist/6Vn8Kob72sGHpoOBIQvKBk,108672,112208,36,19586,0.18,,,https://www.instagram.com/joekay/,musicbrainz,https://www.tiktok.com/@joekay,195100,guess,unchecked,no,,2026-11-09
+Wombo,https://open.spotify.com/artist/67GGyFejJ19UWUjJlLhJq4,104288,103080,37,45411,0.44,,,https://instagram.com/womborocks,spotify,https://www.tiktok.com/@wombo,40800,guess,unchecked,no,,2026-11-09
+Betty Davis,https://open.spotify.com/artist/5Ryxgm3uLvQOsw4H5ZpHDn,98574,98783,37,191978,1.95,,,,,https://www.tiktok.com/@bettydavis,3,guess,unchecked,no,,2026-11-09
+Matt Costa,https://open.spotify.com/artist/0EghvcisxKybq4CVO7rB5t,95104,94628,39,88548,0.93,,,https://instagram.com/mattcostamusic,spotify,https://www.tiktok.com/@mattcostamusic,365,guess,unchecked,no,,2026-11-09
+Luther Dickinson,https://open.spotify.com/artist/1YLrCQC8gRomtIs7kc9Eyk,90285,90601,37,10215,0.11,,,https://www.instagram.com/lutherdickinson/,musicbrainz,https://www.tiktok.com/@lutherdickinson,0,guess,unchecked,no,,2026-11-09
+Leyya,https://open.spotify.com/artist/0uG3hwOGxuGEOAyocfCwfl,89101,86709,34,37027,0.42,,,https://instagram.com/leyyamusic,spotify,https://www.tiktok.com/@leyyamusic,117,guess,unchecked,no,,2026-11-09
+Makaya McCraven,https://open.spotify.com/artist/5FnpXrrMdJVZCK54oHWqUa,88402,94567,40,100982,1.14,,,https://instagram.com/makayamccraven,spotify,https://www.tiktok.com/@makayamccraven,25,guess,unchecked,no,,2026-11-09
+Tortoise,https://open.spotify.com/artist/3WggbHDpj4rPKbL97zG5MQ,86420,88574,40,176682,2.04,,,https://www.instagram.com/trts/,musicbrainz,https://www.tiktok.com/@tortoisemusic,0,guess,unchecked,no,,2026-11-09
+Kevin Knapp,https://open.spotify.com/artist/1qhZdOpfyWk2RbhTCpbAkv,84006,81624,33,9430,0.11,,,,,https://www.tiktok.com/@kevinknapp,25,guess,unchecked,no,,2026-11-09
+Mama's Broke,https://open.spotify.com/artist/18kqY0obPXyo3oXtuzrS7k,72169,70726,37,22668,0.31,,,https://www.instagram.com/mamasbroke/,musicbrainz,https://www.tiktok.com/@mamasbroke,15700,spotify,source,yes,,2026-11-09
+Illusion Hills,https://open.spotify.com/artist/0f2SJQsxzXCl2af2iFGMed,71596,78011,34,15162,0.21,,,https://www.instagram.com/illusionhills/,musicbrainz,https://www.tiktok.com/@illusionhills,28100,guess,unchecked,no,,2026-11-09
+Kitchen Dwellers,https://open.spotify.com/artist/5JiwO4LnQq3F6MGCRh3D31,67435,69328,38,49092,0.73,,,https://instagram.com/kitchendwellers,spotify,,,,,,,2026-11-09
+Jeff Parker,https://open.spotify.com/artist/3AaY5O1qS0tcNPHwwMwplt,55869,59519,38,60632,1.09,,,https://instagram.com/jeffparkersounds,spotify,https://www.tiktok.com/@jeffparker,18,guess,unchecked,no,,2026-11-09
+Viv & Riley,https://open.spotify.com/artist/02eGekE35DrC5E0qH4kh3H,51027,49990,31,8176,0.16,45321,62994,https://instagram.com/vivandriley,spotify,,,,,,,2026-11-09
+ALASKALASKA,https://open.spotify.com/artist/78CgVNlDQMvOVDIrRL84tJ,49024,49024,32,31328,0.64,52192,72544,https://www.instagram.com/alaskalaskamusic/,musicbrainz,https://www.tiktok.com/@alaskalaskamusic,73,guess,unchecked,no,,2026-11-09
+Nathan Evans Fox,https://open.spotify.com/artist/2sQgm2iQWAvwjyGjTXDUJ2,43690,43690,33,11951,0.27,,,https://instagram.com/nathan.evans.fox/,spotify,https://www.tiktok.com/@nathan.evans.fox,40700,guess,unchecked,no,,2026-11-09
+Rachel Baiman,https://open.spotify.com/artist/2tT6zyEbGIc7bpJHMdOrEs,43613,43613,31,13374,0.31,45321,62994,https://www.instagram.com/rachelbaiman/,musicbrainz,https://www.tiktok.com/@rachelbaiman,1630,guess,unchecked,no,,2026-11-09
+The Jesus Lizard,https://open.spotify.com/artist/6r26MaDr8bqNALjXgYPXMa,43595,43910,35,115548,2.65,,,,,,,,,,,2026-11-09
+claire rousay,https://open.spotify.com/artist/24KMaDNklCLuxhzamE6tmq,43528,39886,32,28160,0.65,52192,72544,https://www.instagram.com/clairerousay/,musicbrainz,,,,,,,2026-11-09
+The Teeth,https://open.spotify.com/artist/6mPVyXVEtodJcnf9AhjCHN,43259,43259,32,17001,0.39,52192,72544,https://instagram.com/theteethmusic/,spotify,https://www.tiktok.com/@theteethmusic,70,guess,unchecked,no,,2026-11-09
+The Montvales,https://open.spotify.com/artist/0FYazSWo7TGjPJz0Jz4O9t,42973,41343,31,5093,0.12,45321,62994,https://instagram.com/themontvales,spotify,https://www.tiktok.com/@themontvales,725,guess,unchecked,no,,2026-11-09
+Yabadum,https://open.spotify.com/artist/61b7Q2JnuxCcc3REqayakO,41740,41740,31,15488,0.37,45321,62994,,,,,,,,,2026-11-09
+Tyler Ramsey,https://open.spotify.com/artist/1Ga71MIHyTN9VVuEtW57GK,41448,41448,30,17383,0.42,39355,54702,https://www.instagram.com/1000blackbirds/,musicbrainz,https://www.tiktok.com/@tylerramsey,188,guess,unchecked,no,,2026-11-09
+Abby Webster,https://open.spotify.com/artist/0HhLNo5pI32wCYNKqpXuCD,40890,40890,31,12867,0.31,45321,62994,https://instagram.com/abbywebsterrr,spotify,https://www.tiktok.com/@abbywebster,0,guess,unchecked,no,,2026-11-09
+Chris Acker,https://open.spotify.com/artist/6zOZGDOyElPbPuiI8kahym,40488,40488,32,11184,0.28,52192,72544,https://instagram.com/chrisacker_growthsprout,spotify,https://www.tiktok.com/@chrisacker,952,guess,unchecked,no,,2026-11-09
+OR,https://open.spotify.com/artist/0OVGzl7zhsnqmi9wFTHmsA,39023,39023,30,562,0.01,39355,54702,,,,,,,,,2026-11-09
+Ella Rossi,https://open.spotify.com/artist/5XeDL6Pow4Ag5j9HWv9KHm,37901,37901,25,2297,0.06,19431,27008,https://instagram.com/ellarossimusic/,spotify,https://www.tiktok.com/@ellarossimusic,9238,spotify,source,yes,,2026-11-09
+JAKE BACK,https://open.spotify.com/artist/7I7qQivsylYuJBN0IESUmi,36597,36597,27,934,0.03,25769,35818,https://instagram.com/jakebackmusic,spotify,https://www.tiktok.com/@jakebackmusic,719,guess,unchecked,no,,2026-11-09
+Dan & Drum,https://open.spotify.com/artist/1ZajCRAa7VEcTytwxzr20a,35846,35846,28,19017,0.53,29676,41248,https://www.instagram.com/dananddrum/,musicbrainz,https://www.tiktok.com/@dananddrum,403,guess,unchecked,no,,2026-11-09
+ARTHUR,https://open.spotify.com/artist/0vIme0FGc4SmFByKiV27tw,33287,33287,31,26977,0.81,45321,62994,https://www.instagram.com/arthur.beneficial/,musicbrainz,https://www.tiktok.com/@arthurmusic,5,guess,unchecked,no,,2026-11-09
+Inkkø,https://open.spotify.com/artist/2GYgQ9HxcrxzKil0Z1jGw2,31868,31868,26,306,0.01,22377,31103,https://instagram.com/inkko_music?igsh=MTJsZTQ3YmJ6dTduag%3D%3D&utm_source=qr,spotify,https://www.tiktok.com/@inkk,8,guess,unchecked,no,,2026-11-09
+Death Before Dishonor,https://open.spotify.com/artist/0BIBoMLD3B0gptcCP0b9K5,31593,31946,31,55534,1.76,45321,62994,https://www.instagram.com/deathbeforedishonorbhc/,musicbrainz,https://www.tiktok.com/@deathbeforedishonorbhc,0,guess,unchecked,no,,2026-11-09
+Gap Dream,https://open.spotify.com/artist/1yZc7JDNtiB3ztNtCupSKq,30793,31659,27,11804,0.38,25769,35818,,,,,,,,,2026-11-09
+Liv Greene,https://open.spotify.com/artist/2UltodJ8HNFM8hNpVyD5Ae,29429,29429,26,3243,0.11,22377,31103,https://instagram.com/liv_greene_,spotify,https://www.tiktok.com/@livgreene,611,guess,unchecked,no,,2026-11-09
+Tino Drima,https://open.spotify.com/artist/5n4DcEOWdeY9kuOVCoffDi,28914,28914,27,11784,0.41,25769,35818,https://www.instagram.com/tinodrima/,musicbrainz,https://www.tiktok.com/@tinodrima,148,guess,unchecked,no,,2026-11-09
+OLAN,https://open.spotify.com/artist/1gMMbPTZtOb9W3IBYl6twO,28906,28906,29,7209,0.25,34174,47501,https://www.instagram.com/olansound/,musicbrainz,https://www.tiktok.com/@olanmusic,120,guess,unchecked,no,,2026-11-09
+Erin Rae,https://open.spotify.com/artist/167VlZ0C0ewQbgKexRFcs6,28806,28806,31,27165,0.94,45321,62994,https://www.instagram.com/erinraemusic/,musicbrainz,https://www.tiktok.com/@erinraemusic,5,guess,unchecked,no,,2026-11-09
+Rachael Jenkins,https://open.spotify.com/artist/5j0GrXECgqyWvysNyBN0CP,28641,28161,26,22612,0.79,22377,31103,https://instagram.com/rachiichachii/,spotify,https://www.tiktok.com/@rachiichachii,158800,guess,unchecked,no,,2026-11-09
+Jobi Riccio,https://open.spotify.com/artist/0iBeDti8V9DLGVPA2xHMeO,28105,28105,27,9990,0.36,25769,35818,https://www.instagram.com/jobiriccio/,musicbrainz,https://www.tiktok.com/@jobiriccio,2642,musicbrainz,source,yes,,2026-11-09
+Jack Rose,https://open.spotify.com/artist/0K6DXvfMXmF7L4h0P7Ivva,27492,27492,27,17052,0.62,25769,35818,,,https://www.tiktok.com/@jackrosemusic,6,guess,unchecked,no,,2026-11-09
+The Soundcarriers,https://open.spotify.com/artist/5Yp3YCgu7Vi0KX9ARA0jYc,27478,27478,27,18953,0.69,25769,35818,,,,,,,,,2026-11-09
+Reed Foehl,https://open.spotify.com/artist/7FdDCsimcDPyvCrMtZIMTv,27459,27459,25,4009,0.15,19431,27008,https://instagram.com/ReedFoehl,spotify,https://www.tiktok.com/@reedfoehl,288,guess,unchecked,no,,2026-11-09
+Ruinelle,https://open.spotify.com/artist/2gdhgsmJkOLPYGP7kwIL9j,27423,26977,38,2255,0.08,,,,,,,,,,,2026-11-09
+ILĀ,https://open.spotify.com/artist/2vHCmNtVE5TAEgVn024QTF,27416,27416,24,889,0.03,16873,23453,https://www.instagram.com/hausofila/,musicbrainz,https://www.tiktok.com/@hausofila,97,guess,unchecked,no,,2026-11-09
+Max Gomez,https://open.spotify.com/artist/5nm8ML0WhLsR8eJ5PobwyN,27261,27261,26,8453,0.31,22377,31103,https://instagram.com/maxgomezmusic,spotify,https://www.tiktok.com/@maxgomezmusic,1,guess,unchecked,no,,2026-11-09
+Hologram Teen,https://open.spotify.com/artist/1u5weRHG0G3kj2VLqO2DUA,26512,26512,24,2353,0.09,16873,23453,https://instagram.com/hologram_teen,spotify,https://www.tiktok.com/@hologramteen,5,guess,unchecked,no,,2026-11-09
+elle.,https://open.spotify.com/artist/1mLMQIK6kSQeuBdoOkaZoX,25554,25554,31,9027,0.35,45321,62994,https://instagram.com/elle.lover.girl/,spotify,https://www.tiktok.com/@elle.music,3,guess,unchecked,no,,2026-11-09
+Anna Tivel,https://open.spotify.com/artist/112l2WmZaTlJcl13f4iFAs,25274,25274,29,24172,0.96,34174,47501,https://www.instagram.com/annativel/,musicbrainz,,,,,,,2026-11-09
+Pinc Louds,https://open.spotify.com/artist/5G4Nw3oz2lzx4gneIDs3YX,24935,24621,27,29705,1.19,25769,35818,https://www.instagram.com/pinclouds/,wikidata,,,,,,,2026-11-09
+Mason Via,https://open.spotify.com/artist/23Q1PNqXqh9dzm8op1vOHi,24243,24243,26,4116,0.17,22377,31103,https://instagram.com/mason_via,spotify,https://www.tiktok.com/@masonviamusic,4826,spotify,source,yes,,2026-11-09
+Melanie MacLaren,https://open.spotify.com/artist/2R1li8gWj9IYRHBAHzylbF,24205,24205,25,2457,0.10,19431,27008,https://instagram.com/melaniemaclaren,spotify,https://www.tiktok.com/@melaniemaclaren,1573,guess,unchecked,no,,2026-11-09
+And The Kids,https://open.spotify.com/artist/1lD0aDDoi19NaYzCatN0jX,24039,24039,27,18902,0.79,25769,35818,https://instagram.com/andthekidsmusic/,spotify,,,,,,,2026-11-09
+Jennifur,https://open.spotify.com/artist/3IZ1UX4baD16tONZHqaQhb,23590,16664,26,3422,0.15,22377,31103,https://instagram.com/jennifurmusic,spotify,https://www.tiktok.com/@jennifur,5,guess,unchecked,no,,2026-11-09
+Ebbb,https://open.spotify.com/artist/2LikjKVyI5gqANlB9S7DNW,23554,23554,25,5294,0.22,19431,27008,https://www.instagram.com/ebbbbbbbbbbbbb_/,musicbrainz,https://www.tiktok.com/@ebbbbbbbbbbbbb_,92,guess,unchecked,no,,2026-11-09
+Stoop Kids,https://open.spotify.com/artist/1Rxe2OboMb1Bx2n49182AJ,23405,23405,24,16470,0.70,16873,23453,https://instagram.com/stoopkidsmusic,spotify,https://www.tiktok.com/@stoopkidsmusic,500,guess,unchecked,no,,2026-11-09
+Randall Bramblett,https://open.spotify.com/artist/3v7rZDkM01Le1Sxma0sLoT,23277,22493,26,5644,0.24,22377,31103,https://instagram.com/randallbramblett/,spotify,,,,,,,2026-11-09
+Sivilian,https://open.spotify.com/artist/1oPAUZhQVyw3t9OOeeG6WI,22986,21746,23,1859,0.08,14652,20366,https://instagram.com/iamsivilian,spotify,https://www.tiktok.com/@iamsivilian,1413,guess,unchecked,no,,2026-11-09
+The Two Tracks,https://open.spotify.com/artist/6aVvlcztW1alspwVhzcdP7,22106,22106,25,2680,0.12,19431,27008,https://www.instagram.com/thetwotracks/,musicbrainz,https://www.tiktok.com/@thetwotracks,85,guess,unchecked,no,,2026-11-09
+Professor Caveman,https://open.spotify.com/artist/43v0qrDTLSQ2hYBlM5kmHZ,21843,21843,25,8616,0.39,19431,27008,https://instagram.com/chic0romano,spotify,,,,,,,2026-11-09
+pecq,https://open.spotify.com/artist/7dtoq4U0UlyvMomL00qPDf,21739,21739,23,3532,0.16,14652,20366,https://www.instagram.com/pecqband/,musicbrainz,,,,,,,2026-11-09
+Sonya,https://open.spotify.com/artist/7toAYyXSQZh3yXAe7rqZUM,21657,21657,30,7299,0.34,39355,54702,https://instagram.com/sonyasings.wav,spotify,https://www.tiktok.com/@sonyamusic,20,guess,unchecked,no,,2026-11-09
+Bailey Bigger,https://open.spotify.com/artist/2F5hL2QOcp2BJw1tA5oHXm,21077,21077,22,3332,0.16,12723,17685,https://www.instagram.com/baileybigger/,musicbrainz,,,,,,,2026-11-09
+Margaux,https://open.spotify.com/artist/2ycbMlovjNV5gks2r8Vtsp,21016,21016,26,11585,0.55,22377,31103,https://www.instagram.com/margauxtosleep/,musicbrainz,https://www.tiktok.com/@margauxtosleep,178,guess,unchecked,no,,2026-11-09
+Imani Dawn,https://open.spotify.com/artist/5bqZLEQZHGCWyJSaEq1J6C,20987,20987,30,4926,0.23,39355,54702,https://instagram.com/foreveralone.wav/,spotify,,,,,,,2026-11-09
+Man Power,https://open.spotify.com/artist/13k6pNRPmiKWrRQtg1xlf3,20880,20880,26,6142,0.29,22377,31103,https://www.instagram.com/manpowermusic/,musicbrainz,,,,,,,2026-11-09
+La Doña,https://open.spotify.com/artist/5eBVoDUYv0feTepoBSz4SJ,20685,20070,25,24831,1.20,19431,27008,https://www.instagram.com/ladona415/,wikidata,https://www.tiktok.com/@ladona415,779,guess,unchecked,no,,2026-11-09
+Crocodiles,https://open.spotify.com/artist/1Z4Erxt5wSXH0gbOsVJUMv,19906,19906,26,37788,1.90,22377,31103,,,https://www.tiktok.com/@crocodiles,14,guess,unchecked,no,,2026-11-09
+Yucky Duster,https://open.spotify.com/artist/1Weg0rySdtq4iIyW0alvFd,19559,19559,27,15695,0.80,25769,35818,,,,,,,,,2026-11-09
+Foresight,https://open.spotify.com/artist/3XcSsKSKxFCeZkomI2xBHW,19238,19238,24,6588,0.34,16873,23453,https://instagram.com/foresightedmusic,spotify,https://www.tiktok.com/@foresightedmusic,444,guess,unchecked,no,,2026-11-09
+The Music Tapes,https://open.spotify.com/artist/0Xjtselvq13TzhtPlo7g0r,18514,18514,25,18552,1.00,19431,27008,,,,,,,,,2026-11-09
+SAM-E,https://open.spotify.com/artist/4X9RCdLI1RcvzYUglNMtcd,18357,18357,21,63,0.00,11048,15357,,,,,,,,,2026-11-09
+Mister Heavenly,https://open.spotify.com/artist/2HoWH2v3xB11oIAoQIWBBi,17960,17960,28,17906,1.00,29676,41248,https://instagram.com/misterheavenlyband,spotify,,,,,,,2026-11-09
+Maya De Vitry,https://open.spotify.com/artist/183NiypM74rwjSbeava1pq,17813,17813,24,8679,0.49,16873,23453,https://instagram.com/mayadevitry,spotify,,,,,,,2026-11-09
+Don Altae,https://open.spotify.com/artist/37Y2mDVbUlztt1I5e6K9Bz,17761,17991,20,2907,0.16,9594,13335,https://instagram.com/DonAltae,spotify,https://www.tiktok.com/@donaltae,2468,guess,unchecked,no,,2026-11-09
+Rob Clouth,https://open.spotify.com/artist/2dVK1PzRYltCwzq7uKgHa6,17675,17675,24,7720,0.44,16873,23453,https://www.instagram.com/robclouth/,musicbrainz,,,,,,,2026-11-09
+Orbiting Human Circus,https://open.spotify.com/artist/2j6asjJTdzpuwZZXsQVtSH,17477,17477,25,3584,0.21,19431,27008,,,,,,,,,2026-11-09
+Jeff Bridges,https://open.spotify.com/artist/266j9hfnayXOZhRRi0sTOu,16989,16744,26,25758,1.52,22377,31103,https://www.instagram.com/thejeffbridges/,musicbrainz,https://www.tiktok.com/@thejeffbridges,5,guess,unchecked,no,,2026-11-09
+The Lowlies,https://open.spotify.com/artist/5zVnc1srpnBxAWVnKnTA51,16947,16947,23,2090,0.12,14652,20366,https://instagram.com/thelowlies/,spotify,https://www.tiktok.com/@thelowlies,50,guess,unchecked,no,,2026-11-09
+Small Leaks Sink Ships,https://open.spotify.com/artist/3XMGw77i8OGr1ys7LF1KHJ,16922,16922,24,14610,0.86,16873,23453,https://www.instagram.com/smallleaks/,musicbrainz,https://www.tiktok.com/@smallleaks,102,guess,unchecked,no,,2026-11-09
+Herberta,https://open.spotify.com/artist/6aikktRDpWoxLf3xWj5anD,16642,16642,19,121,0.01,8331,11580,,,,,,,,,2026-11-09
+Diners,https://open.spotify.com/artist/5d5zCtQbxnmPLkOZAuw9lp,16622,16622,23,19070,1.15,14652,20366,https://www.instagram.com/dinersmusic/,musicbrainz,https://www.tiktok.com/@diners,19,guess,unchecked,no,,2026-11-09
+'•. ¸¸ .•´¯data cluster ¯'•. ¸¸ .•´,https://open.spotify.com/artist/4VRBuSZuS0yhwvU2SIPjZL,16443,16443,24,2013,0.12,16873,23453,https://www.instagram.com/_data_cluster/,musicbrainz,https://www.tiktok.com/@data.cluster,1393,musicbrainz,source,yes,,2026-11-09
+Blossom Hill,https://open.spotify.com/artist/1XDRiF92Udd46NuFLTKnIb,15544,15544,22,624,0.04,12723,17685,https://www.instagram.com/blossomhill.wav/,wikidata,,,,,,,2026-11-09
+The Snails,https://open.spotify.com/artist/3b9xFi5STo0NHNhggV4V0b,15364,15364,21,7409,0.48,11048,15357,,,,,,,,,2026-11-09
+Hannah Juanita,https://open.spotify.com/artist/4BhOvUyS23JWzGZC7j3GbE,14251,14251,23,7705,0.54,14652,20366,https://instagram.com/hannahjuanita_thehardliner,spotify,https://www.tiktok.com/@hannahjuanita,57,guess,unchecked,no,,2026-11-09
+Sean McVerry,https://open.spotify.com/artist/7sAXoFldVGlGtZ5LPVtAYD,14195,14448,22,9203,0.65,12723,17685,https://www.instagram.com/seanmcverry/,musicbrainz,https://www.tiktok.com/@seanmcverry,52700,guess,unchecked,no,,2026-11-09
+American Pets,https://open.spotify.com/artist/6Qx1uU4RPFG1H4pkbW2LpJ,13802,13802,21,4018,0.29,11048,15357,,,,,,,,,2026-11-09
+Cristina Vane,https://open.spotify.com/artist/7lfl96v1nJCpVeAmr6lgJD,13720,13720,24,14675,1.07,16873,23453,https://instagram.com/cristinavanemusic,spotify,https://www.tiktok.com/@cristinavanemusic,5,guess,unchecked,no,,2026-11-09
+Another Country $$$$,https://open.spotify.com/artist/3At9kBvFhiXo8y64fyHdwo,13680,13680,22,1828,0.13,12723,17685,https://www.instagram.com/_another_country_/,musicbrainz,https://www.tiktok.com/@anothercountrymusic,24,guess,unchecked,no,,2026-11-09
+Chatham Rabbits,https://open.spotify.com/artist/3yf23aN9drtTEXSYsxd4od,13170,13170,24,10462,0.79,16873,23453,https://instagram.com/chatham_rabbits,spotify,https://www.tiktok.com/@chathamrabbits,3514,guess,unchecked,no,,2026-11-09
+Crooks & Nannies,https://open.spotify.com/artist/2v081HF22KJUbNXmXPKTdk,12998,12998,22,8198,0.63,12723,17685,https://instagram.com/theoriginalcrooksandnannies,spotify,,,,,,,2026-11-09
+Camp Howard,https://open.spotify.com/artist/1sVAJwNAESRYE5RIYhgGb2,12541,12541,20,8761,0.70,9594,13335,https://www.instagram.com/camphowardband/,musicbrainz,,,,,,,2026-11-09
+KÁRYYN,https://open.spotify.com/artist/4DLYIUgjZAea6vgzGwJUTI,12529,12529,21,12724,1.02,11048,15357,https://www.instagram.com/karyyn_music/,musicbrainz,https://www.tiktok.com/@karyynmusic,580,guess,unchecked,no,,2026-11-09
+Big Richard,https://open.spotify.com/artist/6eFN4r6XUT4l9Dh2iHK5Rt,12430,12430,24,13014,1.05,16873,23453,https://www.instagram.com/bigrichardband/,musicbrainz,https://www.tiktok.com/@bigrichardband,9616,musicbrainz,source,yes,,2026-11-09
+Eli and Aila Wildman,https://open.spotify.com/artist/7Mwc7g02oafy5lhtCztVVZ,12338,12338,20,342,0.03,9594,13335,,,,,,,,,2026-11-09
+Fabian Kuss,https://open.spotify.com/artist/1cZcwWGr7bVpvs1w8yIPES,11829,11829,19,77,0.01,8331,11580,,,https://www.tiktok.com/@fabiankuss,26,guess,unchecked,no,,2026-11-09
+Don't Stop or We'll Die,https://open.spotify.com/artist/3gc8ddHIjroKBbooNKDcP6,11804,11804,20,11301,0.96,9594,13335,https://www.instagram.com/dontstoporwelldie/,musicbrainz,https://www.tiktok.com/@dontstoporwelldie,451,guess,unchecked,no,,2026-11-09
+Superet,https://open.spotify.com/artist/3e5snAyVao8Jsu9kxumEUs,11666,11666,21,7651,0.66,11048,15357,https://instagram.com/superetmusic,spotify,https://www.tiktok.com/@superetmusic,92,guess,unchecked,no,,2026-11-09
+Evil,https://open.spotify.com/artist/63gbws6nuYUlQpwWtTlPqD,11285,11285,23,15817,1.40,14652,20366,https://www.instagram.com/obeyevil/,musicbrainz,,,,,,,2026-11-09
+Nanuk,https://open.spotify.com/artist/5k64JTFIHR64agZZUTinI7,11135,11135,19,1792,0.16,8331,11580,https://instagram.com/Nanukworld,spotify,https://www.tiktok.com/@nanukworld,1957,guess,unchecked,no,,2026-11-09
+GoldenOak,https://open.spotify.com/artist/5H5V1QXY7qIG8aM56LobT6,11022,11022,20,3712,0.34,9594,13335,https://instagram.com/goldenoakmusic,spotify,https://www.tiktok.com/@goldenoakmusic,5262,guess,unchecked,no,,2026-11-09
+meez,https://open.spotify.com/artist/36NGS6ojjJE7TIvKgz62Fw,10816,10816,22,3347,0.31,12723,17685,https://instagram.com/meezykw,spotify,https://www.tiktok.com/@meezykw,8970,guess,unchecked,no,,2026-11-09
+Strawberry Mountain,https://open.spotify.com/artist/6v69fIFhI2VqebXUWcvWU1,10617,10617,19,6753,0.64,8331,11580,,,,,,,,,2026-11-09
+Dinosaur 94,https://open.spotify.com/artist/2yUdwBLaO98tsD5fDi5it2,10205,10205,20,3843,0.38,9594,13335,https://www.instagram.com/dinosaur_94_/,musicbrainz,,,,,,,2026-11-09
+Libby Dale,https://open.spotify.com/artist/0qfB8idneKlyQdy3UjPhYY,10179,10179,17,199,0.02,6282,8732,https://www.instagram.com/libbymonster/,musicbrainz,https://www.tiktok.com/@libbydalemusic,1463,spotify,source,yes,,2026-11-09
+Matilda Tjäder,https://open.spotify.com/artist/65XzNlM5KrnHuUuiMo2NuT,10173,10173,18,204,0.02,7234,10055,https://instagram.com/matilda____tjader/,spotify,,,,,,,2026-11-09
+Black Bear,https://open.spotify.com/artist/2b23b0MFD3aI6e67JRWgay,9707,9707,19,5021,0.52,8331,11580,https://instagram.com/blackbearsambeebe/,spotify,https://www.tiktok.com/@blackbear,47,guess,unchecked,no,,2026-11-09
+Filiah,https://open.spotify.com/artist/7eDeCweG3x20jhQvvbUkjl,9516,8187,19,2066,0.22,8331,11580,https://instagram.com/thisisfiliah,spotify,https://www.tiktok.com/@thisisfiliah,381,spotify,source,yes,,2026-11-09
+Kissing Other ppl,https://open.spotify.com/artist/2Gcc4SikvtGCQtDC8b6ZRs,9510,9510,19,988,0.10,8331,11580,https://instagram.com/kissingotherpplband,spotify,https://www.tiktok.com/@kissing.other.ppl,452,guess,unchecked,no,,2026-11-09
+Sun Way Street,https://open.spotify.com/artist/2izH50d9suTRrx44cPxPMO,9446,9446,19,875,0.09,8331,11580,https://instagram.com/sun_way_street/,spotify,https://www.tiktok.com/@sunwaystreetmusic,231,guess,unchecked,no,,2026-11-09
+Daito Manabe,https://open.spotify.com/artist/5PvcbcfjWTEq5pTQbcUGVl,9024,9024,18,2799,0.31,7234,10055,https://www.instagram.com/daitomanabe/,wikidata,,,,,,,2026-11-09
+Hierophants,https://open.spotify.com/artist/36sTWFzP26mJPY0cA1OYLR,8996,8996,18,5365,0.60,7234,10055,,,,,,,,,2026-11-09
+Candi Jenkins,https://open.spotify.com/artist/2yDFhqSKvBkQy4chiPiPeI,8909,8909,20,3429,0.38,9594,13335,https://instagram.com/candijenkinsmusic/?hl=en,spotify,,,,,,,2026-11-09
+Bones & Beeker,https://open.spotify.com/artist/2eUgwyMobMitdjib3FxQVF,8756,8756,18,4579,0.52,7234,10055,,,,,,,,,2026-11-09
+Olivia Ellen Lloyd,https://open.spotify.com/artist/0itd8fCSPL3NAu9CAhuHG0,8690,8690,18,2880,0.33,7234,10055,https://www.instagram.com/oliviaellenlloyd/,musicbrainz,,,,,,,2026-11-09
+Anthony Newes,https://open.spotify.com/artist/1NlfNuVbIeGVsfLvOY1z1j,8662,8662,18,92,0.01,7234,10055,,,,,,,,,2026-11-09
+Whirlybird,https://open.spotify.com/artist/6Boxq99fVSm6dot5YclQdW,8483,8483,20,4391,0.52,9594,13335,https://instagram.com/whirlyb.ird,spotify,,,,,,,2026-11-09
+A Different Thread,https://open.spotify.com/artist/5CntgQQt3H4CZ4HsliJGAH,7028,7028,16,2383,0.34,5455,7582,https://www.instagram.com/adifferentthread/,musicbrainz,https://www.tiktok.com/@adifferentthread,3336,musicbrainz,source,yes,,2026-11-09
+Sleeping in the Aviary,https://open.spotify.com/artist/0vHwBHcc8FGUHiO5N0DpBc,6367,6367,16,3612,0.57,5455,7582,,,,,,,,,2026-11-09
+Minimall,https://open.spotify.com/artist/5L1kMtZYyA3Sv6JmhbVKNc,6287,6287,19,5064,0.81,8331,11580,https://instagram.com/intheminimall,spotify,,,,,,,2026-11-09
+My Name Is Ian,https://open.spotify.com/artist/0w4ZAa01uZC7QGNVBr6IkM,5919,5919,19,2739,0.46,8331,11580,https://instagram.com/mynameisianmusic,spotify,,,,,,,2026-11-09
+Mar Daniel,https://open.spotify.com/artist/6SN7uc9WSl64mnlI9wOnWL,5579,5579,14,810,0.15,4113,5717,,,,,,,,,2026-11-09
+Amoura Reignn,https://open.spotify.com/artist/3xQTOURcCHZyrRIiQNddKO,5578,5578,18,3842,0.69,7234,10055,,,,,,,,,2026-11-09
+Spud Cannon,https://open.spotify.com/artist/6tIGv1B5IXtjtwHndklV4u,5533,5533,15,5611,1.01,4737,6584,https://instagram.com/spudcannonband,spotify,,,,,,,2026-11-09
+10LEC6,https://open.spotify.com/artist/1Zy22LfvnzO4dERnZGM0bA,5428,5428,15,2750,0.51,4737,6584,https://instagram.com/10lec6/,spotify,,,,,,,2026-11-09
+Luxie,https://open.spotify.com/artist/46vs9UZGRcEdKbS8jTTP9k,5313,5313,17,2440,0.46,6282,8732,https://instagram.com/luxie.wav/,spotify,,,,,,,2026-11-09
+Aaron Percy,https://open.spotify.com/artist/1OCGT4W29rXiHvDzMHkJyu,5159,5159,15,2675,0.52,4737,6584,https://www.instagram.com/aa.percy/,musicbrainz,,,,,,,2026-11-09
+James Adrian Brown,https://open.spotify.com/artist/42tz1PWwrLG2F3nZzVSVQq,5086,5086,18,521,0.10,7234,10055,https://instagram.com/brownjamezz,spotify,,,,,,,2026-11-09
+JANKA,https://open.spotify.com/artist/2hQq5kPUjPSNnI95WB6LK2,5024,5150,17,762,0.15,6282,8732,https://www.instagram.com/janka.musik/,wikidata,,,,,,,2026-11-09
+Andraya,https://open.spotify.com/artist/4wwryeuCrTd7l25Qg5BTVC,4577,4577,16,3241,0.71,5455,7582,https://instagram.com/Cursemevoodoo,spotify,,,,,,,2026-11-09
+Lloyd Frontiny,https://open.spotify.com/artist/0vTocKlC6Oqwwh1hgFPXn8,4432,4432,15,1183,0.27,4737,6584,,,,,,,,,2026-11-09
+Jonathan Stephen Simons,https://open.spotify.com/artist/2XxdWUIImuXGYIN3E9Uave,4325,4325,13,305,0.07,3572,4965,https://instagram.com/jonathanstephensimons,spotify,,,,,,,2026-11-09
+Yasmo & die Klangkantine,https://open.spotify.com/artist/46499wg3volqXLyO8Rg44t,4274,4339,16,7157,1.67,5455,7582,https://instagram.com/yasmoone/,spotify,,,,,,,2026-11-09
+Niels Orens,https://open.spotify.com/artist/56HzUkOrdunCoUYH2w25Xu,4170,4170,13,1663,0.40,3572,4965,https://www.instagram.com/nielsorens/,musicbrainz,,,,,,,2026-11-09
+Axefield,https://open.spotify.com/artist/6ov2mjV4oMELm0kUjTfUnB,4117,4117,13,1447,0.35,3572,4965,https://www.instagram.com/whosaxefield/,musicbrainz,,,,,,,2026-11-09
+Micah Felts,https://open.spotify.com/artist/3qt9LthXDZFPAnaIUItbI0,4049,4049,14,955,0.24,4113,5717,https://instagram.com/micahfelts,spotify,,,spotify,,,,2026-11-09
+The Proper Ornaments,https://open.spotify.com/artist/3TIpMWwtIVLALtazdyDhoi,3756,3756,14,7998,2.13,4113,5717,https://instagram.com/theproperornaments,spotify,,,,,,,2026-11-09
+Alexa Rose,https://open.spotify.com/artist/7hVRBYGVXutdWChnzb92Jb,3722,3722,18,6045,1.62,7234,10055,https://www.instagram.com/alexarosemusic/,musicbrainz,,,,,,,2026-11-09
+heartholder,https://open.spotify.com/artist/0pCgCsaxp6OAhzHvBjsjBc,3718,3718,12,619,0.17,3102,4311,https://instagram.com/heartholder,spotify,,,spotify,,,,2026-11-09
+Lazuli Vane,https://open.spotify.com/artist/67T9KadC0xMwVN0iwsG8hi,3629,3629,13,2540,0.70,3572,4965,https://instagram.com/lazulivane,spotify,,,,,,,2026-11-09
+Callum Kenworthy,https://open.spotify.com/artist/22SFz1lQl1U9w6QHq2VdFA,3574,3574,12,966,0.27,3102,4311,https://instagram.com/callum_kenworthy_music,spotify,,,,,,,2026-11-09
+Seba Safe,https://open.spotify.com/artist/2vY3QN8jlAZS4C4OsbDYV6,3521,3521,14,2903,0.82,4113,5717,https://instagram.com/seba__safe,spotify,,,,,,,2026-11-09
+Flora Falls,https://open.spotify.com/artist/2lgTnaXO0b6ufPyEmbZJO9,3420,3420,14,2788,0.82,4113,5717,https://instagram.com/florafallsmusic,spotify,,,,,,,2026-11-09
+NITAP,https://open.spotify.com/artist/74BPG8mr54PDRxjszcQ6qc,3380,3380,16,1119,0.33,5455,7582,https://instagram.com/nitapmusic,spotify,,,,,,,2026-11-09
+Caleb J. Murphy,https://open.spotify.com/artist/7t9NP0OdDdA7mU8fq3Gvyb,3293,3293,11,1722,0.52,2693,3744,https://instagram.com/calebjmurphy,spotify,,,,,,,2026-11-09
+Crimewave,https://open.spotify.com/artist/5OUmWGRLqtsJyI88aw9RRs,3256,3256,13,3025,0.93,3572,4965,https://www.instagram.com/crimewavewave/,musicbrainz,,,,,,,2026-11-09
+Amidst the Grave's Demons,https://open.spotify.com/artist/0OdAp03okD3UgcYIp0DY3y,3218,3218,36,12588,3.91,,,https://instagram.com/ch0dez1lla,spotify,,,,,,,2026-11-09
+Ami Kagura,https://open.spotify.com/artist/5kD4Fn0dWSk7lqUvQpB258,3197,3197,17,1435,0.45,6282,8732,https://instagram.com/ami.kagura,spotify,,,spotify,,,,2026-11-09
+Mantha,https://open.spotify.com/artist/46w8ppLshcbQr7RqZoFaW5,3193,3193,12,1541,0.48,3102,4311,https://instagram.com/mantha/,spotify,,,,,,,2026-11-09
+Aries Ivory,https://open.spotify.com/artist/4GNeFjz8ZEiYSdjH61ojXN,3174,3174,12,546,0.17,3102,4311,,,,,,,,,2026-11-09
+Fell Runner,https://open.spotify.com/artist/0teb8J1T7OwcAQlBxRnPVd,3082,3082,10,3079,1.00,2339,3251,https://instagram.com/fellrunnermusic,spotify,,,,,,,2026-11-09
+Marcus Duval,https://open.spotify.com/artist/1pKhh2H8w83xaCtFLMLbJe,2839,2839,13,641,0.23,3572,4965,,,,,,,,,2026-11-09
+Kelsey Berrington,https://open.spotify.com/artist/4a7HcGHizQvERPl32Weo84,2822,2822,12,1259,0.45,3102,4311,https://instagram.com/kelseyberrington/,spotify,,,,,,,2026-11-09
+Cut Face,https://open.spotify.com/artist/6ePW2VRCCUcvTreIndzgiF,2786,2786,11,605,0.22,2693,3744,https://instagram.com/cutface_music/,spotify,,,,,,,2026-11-09
+Movulango,https://open.spotify.com/artist/4pz1ttFtZAf7DDLrVXsZxY,2728,2728,13,1900,0.70,3572,4965,https://www.instagram.com/movulango/,musicbrainz,,,,,,,2026-11-09
+Jackson Childs,https://open.spotify.com/artist/6ZecDzb1SkkFuyW0N99WL8,2641,2641,15,588,0.22,4737,6584,,,,,,,,,2026-11-09
+Joshua Vila,https://open.spotify.com/artist/42NL24rRW3VQXF1vwVgf3E,2619,2619,10,336,0.13,2339,3251,https://instagram.com/vilalala_,spotify,,,,,,,2026-11-09
+Sonnie Daye,https://open.spotify.com/artist/13xdN6x8VqFlsj2j0ZuGj0,2616,2616,14,1129,0.43,4113,5717,,,,,,,,,2026-11-09
+Lotta St Joan,https://open.spotify.com/artist/0rgYebsetngyGJU1iNikFU,2524,2524,10,1355,0.54,2339,3251,https://instagram.com/lotta_st_joan,spotify,,,,,,,2026-11-09
+Lucas Button,https://open.spotify.com/artist/6VNHBFZYp869RC10wuRUC3,2469,2469,9,409,0.17,,,https://instagram.com/lucasbutton,spotify,,,,,,,2026-11-09
+ANGELCONCEPCION,https://open.spotify.com/artist/1aEmSYXiQJZVzife8ECCCW,2467,2467,10,1770,0.72,2339,3251,https://instagram.com/arconcepcion,spotify,,,,,,,2026-11-09
+Jordyn Mills,https://open.spotify.com/artist/6Zmwj2wEkfRDw5Wcl0cZSg,2423,2423,12,897,0.37,3102,4311,,,,,,,,,2026-11-09
+Pizzasta,https://open.spotify.com/artist/2HnjAjv2xersrg78tgrfvw,2381,2381,12,1339,0.56,3102,4311,,,,,,,,,2026-11-09
+Dj Ayeeyebiz,https://open.spotify.com/artist/2Vjeoorl0kW1WFdeINI4J6,2321,2321,10,599,0.26,2339,3251,,,,,,,,,2026-11-09
+Sienna Rose,https://open.spotify.com/artist/6V73qtq1rMEqd6m0EMGiym,2219,2219,14,586,0.26,4113,5717,,,,,,,,,2026-11-09
+Andrew Jim Gannon,https://open.spotify.com/artist/464NTe6cRnXVTaeRzC3o1S,2163,2163,10,288,0.13,2339,3251,https://instagram.com/andrewjimgannon,spotify,,,,,,,2026-11-09
+Tom Joseph,https://open.spotify.com/artist/7slnZuyJUJfzATQzU1GbTe,1997,1907,10,570,0.29,2339,3251,https://instagram.com/tom.joseph.official,spotify,,,,,,,2026-11-09
+Daragh Fleming,https://open.spotify.com/artist/1lhUpzgCfbh8Nuws0nNIoD,1954,1954,10,1128,0.58,2339,3251,,,,,,,,,2026-11-09
+Kandace,https://open.spotify.com/artist/49alPBoON2xUvNWhRpO3nx,1876,1876,8,1454,0.78,,,https://instagram.com/kandaceduke,spotify,,,,,,,2026-11-09
+songsbydre,https://open.spotify.com/artist/00FHfQErkN9X57LhRf2Xx7,1848,1848,10,862,0.47,2339,3251,https://instagram.com/songsbydre,spotify,,,,,,,2026-11-09
+Stav McAllister,https://open.spotify.com/artist/6itaKD7ZDkiVMtWQQtVQPk,1828,1828,7,494,0.27,,,,,,,,,,,2026-11-09
+Seri Rue,https://open.spotify.com/artist/7uibqYCDfuww997LfLFEsp,1752,1695,8,598,0.34,,,,,,,,,,,2026-11-09
+Trance Farmers,https://open.spotify.com/artist/06LnNN91rDJazYPprmInaq,1696,1696,8,2804,1.65,,,https://instagram.com/trance_farmers?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr,spotify,,,,,,,2026-11-09
+Noa,https://open.spotify.com/artist/0yVrZHa0Ui9V6qIDl9Yuww,1641,1641,6,315,0.19,,,,,,,,,,,2026-11-09
+Matthew Frederick,https://open.spotify.com/artist/6dlxAbwqhm5i1yiIDVvQEG,1537,1537,8,743,0.48,,,https://www.instagram.com/matthewfrederickmusic/,musicbrainz,,,,,,,2026-11-09
+abijah,https://open.spotify.com/artist/0oQvQOVt5h1WlEf4mAkoie,1420,1420,6,463,0.33,,,https://instagram.com/unburdened.cc,spotify,,,,,,,2026-11-09
+Alexander William,https://open.spotify.com/artist/2NqshbL4WoWDXM5VE1hKXc,1366,1366,7,2247,1.64,,,https://instagram.com/alexnderwilliam,spotify,,,,,,,2026-11-09
+Reliable Child,https://open.spotify.com/artist/1F8NnsmBTiXwQFrzaZkzHJ,1355,1355,7,555,0.41,,,https://instagram.com/reliable_child/,spotify,,,,,,,2026-11-09
+Nicolai Funch,https://open.spotify.com/artist/3xDPchSCDFSj4n7t2AwLCw,1330,1330,8,564,0.42,,,https://instagram.com/nicolaifunch,spotify,,,,,,,2026-11-09
+Michael Baker,https://open.spotify.com/artist/1BDT8ZLTWT1Bm2c0j363Xr,1299,1299,7,1670,1.29,,,https://instagram.com/michaelbakermusic,spotify,,,,,,,2026-11-09
+Karo Lynn,https://open.spotify.com/artist/6kTgqFXtx6GogRc1rp81W7,1057,1057,9,4539,4.29,,,https://www.instagram.com/karolynnmusic/,musicbrainz,,,,,,,2026-11-09
+KAESI,https://open.spotify.com/artist/12Ttm2E3EQC9pVbs3iIsEd,1043,1043,7,522,0.50,,,https://instagram.com/Kaesiwrld,spotify,,,,,,,2026-11-09
+Ben Kunder,https://open.spotify.com/artist/3UF7BFQmcD2Wc4BJqcMKI6,1006,1006,6,1188,1.18,,,https://instagram.com/benkundermusic,spotify,,,,,,,2026-11-09
+PAPER TAPES,https://open.spotify.com/artist/1evhuCTQlgRkAPCfIZ7rDL,773,773,5,911,1.18,,,https://instagram.com/papertapes,spotify,,,,,,,2026-11-09
+Roomie Demos,https://open.spotify.com/artist/57gl5mVAIpgKtRcgoSDOew,688,688,12,2170,3.15,3102,4311,,,,,,,,,2026-11-09
+PulpFusion,https://open.spotify.com/artist/5qUPjhBb5hEQtsHNasu89W,668,657,5,1286,1.93,,,https://instagram.com/pulpfusion.official/,spotify,,,,,,,2026-11-09
+Piano Memories,https://open.spotify.com/artist/4Yyy0yuX8jw4H7PS7lMVuj,488,488,8,14,0.03,,,,,,,,,,,2026-11-09
+Synthies,https://open.spotify.com/artist/2dUFpUJX64CKMS7HZqOEFm,277,277,6,577,2.08,,,https://instagram.com/synthiesmusic?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==,spotify,,,,,,,2026-11-09
+Bedroom Tapes,https://open.spotify.com/artist/2lS6Lz6f0vWceQOPmUWXRC,196,196,3,130,0.66,,,,,,,,,,,2026-11-09
+Jacob Tompkins,https://open.spotify.com/artist/0vlHqBzGh8lYagBOU84Oex,166,160,1,250,1.51,,,https://instagram.com/jacobbtompkins/,spotify,,,,,,,2026-11-09
+Takomo,https://open.spotify.com/artist/60EpphgqiIwMjzbgnfuB8P,38,38,0,167,4.39,,,,,,,,,,,2026-11-09
+Axolotl,https://open.spotify.com/artist/0t9I5EpdaKBk85x479dUge,25,34,0,6,0.24,,,,,,,,,,,2026-11-09
+Morgengrau,https://open.spotify.com/artist/226GAa8Vl1V5WDGykmVMMD,3,3,0,10,3.33,,,,,,,,,,,2026-11-09
