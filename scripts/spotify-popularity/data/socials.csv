@@ -11,131 +11,131 @@ spotify_id,artist,mbid,instagram_url,instagram_source,tiktok_url,tiktok_source,t
 7gW0r5CkdEUMm42w9XpyZO,Laufey,21a89505-10a9-4ac0-8388-833bc07b9f86,https://www.instagram.com/laufey/,musicbrainz,https://www.tiktok.com/@laufey,musicbrainz,11200000,ok,,,22247679,2026-11-09T12:37:21+00:00
 1WgXqy2Dd70QQOU7Ay074N,AURORA,484a4e90-6899-4e4b-a948-a2255d365340,https://www.instagram.com/auroramusic/,musicbrainz,https://www.tiktok.com/@iamauroramusic,musicbrainz,6300000,ok,,,19739246,2026-11-09T12:37:26+00:00
 6qxpnaukVayrQn6ViNvu9I,BigXthaPlug,d25f6294-686a-4569-b1b9-fe64bfef2519,https://www.instagram.com/bigxthaplug/,musicbrainz,https://www.tiktok.com/@bigxthaplug,guess,291,ok,Bigxthaplug,False,20230464,2026-11-09T13:17:21+00:00
-7CvTknweLr9feJtRGrpDBy,FloyyMenor,04a5ed75-6c9f-4d50-87bd-9600abbe68f7,https://www.instagram.com/floyymenor/,musicbrainz,,,,,,,19072223,
-1HBjj22wzbscIZ9sEb5dyf,Jonas Blue,17678771-5799-4017-851a-319f25b6948d,https://www.instagram.com/jonasblue/,musicbrainz,https://www.tiktok.com/@jonasblue,wikidata,,,,,18643280,
-0SfsnGyD8FpIN4U4WCkBZ5,Armin van Buuren,477b8c0c-c5fc-4ad2-b5b2-191f0bf2a9df,https://www.instagram.com/arminvanbuuren/,musicbrainz,https://www.tiktok.com/@arminvanbuuren,wikidata,,,,,15046970,
-08PvCOlef4xdOr20jFSTPd,Flo Milli,21dab5d7-3bda-4f72-a054-6379729dcb62,https://www.instagram.com/flomillishit/,musicbrainz,https://www.tiktok.com/@flomillishit,wikidata,,,,,12568323,
-6LEeAFiJF8OuPx747e1wxR,Blood Orange,,https://www.instagram.com/devhynes/,wikidata,,,,,,,10944429,
-2loEsOijJ6XiGzWYFXMIRk,Adam Port,870549f3-6266-496f-a019-5762aadb713c,https://instagram.com/adamport,spotify,,,,,,,9609443,
+7CvTknweLr9feJtRGrpDBy,FloyyMenor,04a5ed75-6c9f-4d50-87bd-9600abbe68f7,https://www.instagram.com/floyymenor/,musicbrainz,,,,no_match,,,19072223,
+1HBjj22wzbscIZ9sEb5dyf,Jonas Blue,17678771-5799-4017-851a-319f25b6948d,https://www.instagram.com/jonasblue/,musicbrainz,https://www.tiktok.com/@jonasblue,wikidata,636000,ok,Jonas Blue,True,18643280,2026-11-09T13:17:32+00:00
+0SfsnGyD8FpIN4U4WCkBZ5,Armin van Buuren,477b8c0c-c5fc-4ad2-b5b2-191f0bf2a9df,https://www.instagram.com/arminvanbuuren/,musicbrainz,https://www.tiktok.com/@arminvanbuuren,wikidata,2500000,ok,Armin van Buuren,True,15046970,2026-11-09T13:17:35+00:00
+08PvCOlef4xdOr20jFSTPd,Flo Milli,21dab5d7-3bda-4f72-a054-6379729dcb62,https://www.instagram.com/flomillishit/,musicbrainz,https://www.tiktok.com/@flomillishit,wikidata,2100000,ok,floski✰,True,12568323,2026-11-09T13:17:39+00:00
+6LEeAFiJF8OuPx747e1wxR,Blood Orange,,https://www.instagram.com/devhynes/,wikidata,https://www.tiktok.com/@bloodorange,guess,85400,ok,Blood Orange,True,10944429,2026-11-09T13:17:47+00:00
+2loEsOijJ6XiGzWYFXMIRk,Adam Port,870549f3-6266-496f-a019-5762aadb713c,https://instagram.com/adamport,spotify,,,,no_match,,,9609443,
 2CmaKO2zEGJ1NWpS1yfVGz,Falling In Reverse,e56ab1ae-1cfa-4d0e-b33b-af31bff677c7,https://www.instagram.com/fallinginreverse/,musicbrainz,https://www.tiktok.com/@fallinginreverse,musicbrainz,1500000,ok,,,9372534,2026-11-09T12:37:31+00:00
-0oK5D6uPhGu4Jk2dbZfodU,Thee Sacred Souls,32b87bbc-2363-457a-97b4-3103a569f3a7,https://instagram.com/theesacredsouls/,spotify,,,,,,,8611611,
-5zixe6AbgXPqt4c1uSl94L,Connor Price,,https://www.instagram.com/connorprice_/,wikidata,https://www.tiktok.com/@connorprice__,wikidata,,,,,7446360,
+0oK5D6uPhGu4Jk2dbZfodU,Thee Sacred Souls,32b87bbc-2363-457a-97b4-3103a569f3a7,https://instagram.com/theesacredsouls/,spotify,https://www.tiktok.com/@theesacredsouls,guess,117100,ok,Thee Sacred Souls,True,8611611,2026-11-09T13:17:57+00:00
+5zixe6AbgXPqt4c1uSl94L,Connor Price,,https://www.instagram.com/connorprice_/,wikidata,https://www.tiktok.com/@connorprice__,wikidata,5900000,ok,Connor Price,True,7446360,2026-11-09T13:18:01+00:00
 1XlLhtgJjC4ROQZilBZAvw,Nic D,87cf18ac-ff7e-4060-8fd3-8e7df0d15af8,https://www.instagram.com/iamnicd/,musicbrainz,https://www.tiktok.com/@iamnicd,musicbrainz,2100000,ok,,,4297714,2026-11-09T12:37:35+00:00
-5mIowAJMp7RKNheelruV5z,&ME,ab886374-8565-4407-ac50-f76baadd4c7f,https://instagram.com/andmeandyou/,spotify,,,,,,,4186365,
-08jywfUS0hp8XYlYs0cvz8,Rampa,8a0a4b30-a611-42a9-8716-f530f99cb869,https://instagram.com/rampa_keinemusik/,spotify,,,,,,,3956844,
-0IUq1plF3ON4Fboj1bE6kN,Delerium,4279aba0-1bde-40a9-8fb2-c63d165dc554,https://instagram.com/LEEBBILL,spotify,,,,,,,3820320,
+5mIowAJMp7RKNheelruV5z,&ME,ab886374-8565-4407-ac50-f76baadd4c7f,https://instagram.com/andmeandyou/,spotify,https://www.tiktok.com/@andmeandyou,guess,178700,ok,&ME,True,4186365,2026-11-09T13:18:05+00:00
+08jywfUS0hp8XYlYs0cvz8,Rampa,8a0a4b30-a611-42a9-8716-f530f99cb869,https://instagram.com/rampa_keinemusik/,spotify,https://www.tiktok.com/@rampa_keinemusik,guess,183200,ok,Rampa,True,3956844,2026-11-09T13:18:08+00:00
+0IUq1plF3ON4Fboj1bE6kN,Delerium,4279aba0-1bde-40a9-8fb2-c63d165dc554,https://instagram.com/LEEBBILL,spotify,https://www.tiktok.com/@delerium,guess,1,ok,Delerium,False,3820320,2026-11-09T13:18:15+00:00
 4MzJMcHQBl9SIYSjwWn8QW,Spiritbox,9c935736-7530-41e4-b776-1dbcf534c061,https://www.instagram.com/spiritboxmusic/,musicbrainz,https://www.tiktok.com/@spiritboxband?,musicbrainz,361300,ok,,,3654327,2026-11-09T12:37:40+00:00
-0ChjBYedhZTQnWZWQYg15U,Bryan Martin,539f6311-ef8e-4763-a57a-240c1fe2bc4a,https://instagram.com/bryanmartinmusic,spotify,,,,,,,3498190,
+0ChjBYedhZTQnWZWQYg15U,Bryan Martin,539f6311-ef8e-4763-a57a-240c1fe2bc4a,https://instagram.com/bryanmartinmusic,spotify,https://www.tiktok.com/@bryanmartinmusic,guess,402000,ok,Bryan Martin,False,3498190,2026-11-09T13:18:19+00:00
 37394IP6uhnjIpsawpMu4l,Killswitch Engage,8295ee00-0096-461d-95c7-c2263d2a4c6d,https://www.instagram.com/killswitchengage/,musicbrainz,https://www.tiktok.com/@killswitchengageofficial,musicbrainz,53900,ok,,,3354495,2026-11-09T12:37:44+00:00
-0LbLWjaweRbO4FDKYlbfNt,Kaiser Chiefs,90218af4-4d58-4821-8d41-2ee295ebbe21,https://www.instagram.com/kaiserchiefs/,wikidata,,,,,,,2842401,
-19I4tYiChJoxEO5EuviXpz,AFI,1c3919b2-43ca-4a4a-935d-9d50135ec0ef,https://www.instagram.com/afireinside/,musicbrainz,,,,,,,2837398,
-65dGLGjkw3UbddUg2GKQoZ,BADBADNOTGOOD,754294d5-d7d2-4ea2-8184-1dcaaf55a56f,https://www.instagram.com/badbadnotgood/,musicbrainz,,,,,,,2812948,
-2TM0qnbJH4QPhGMCdPt7fH,Neck Deep,c41dd59f-d805-41df-9e0e-83ec0f9f468e,https://www.instagram.com/neckdeepuk/,musicbrainz,https://www.tiktok.com/@neckdeepuk,wikidata,,,,,2814602,
+0LbLWjaweRbO4FDKYlbfNt,Kaiser Chiefs,90218af4-4d58-4821-8d41-2ee295ebbe21,https://www.instagram.com/kaiserchiefs/,wikidata,,,,no_match,,,2842401,
+19I4tYiChJoxEO5EuviXpz,AFI,1c3919b2-43ca-4a4a-935d-9d50135ec0ef,https://www.instagram.com/afireinside/,musicbrainz,,,,no_match,,,2837398,
+65dGLGjkw3UbddUg2GKQoZ,BADBADNOTGOOD,754294d5-d7d2-4ea2-8184-1dcaaf55a56f,https://www.instagram.com/badbadnotgood/,musicbrainz,https://www.tiktok.com/@badbadnotgood,guess,46500,ok,BADBADNOTGOOD,True,2812948,2026-11-09T13:18:33+00:00
+2TM0qnbJH4QPhGMCdPt7fH,Neck Deep,c41dd59f-d805-41df-9e0e-83ec0f9f468e,https://www.instagram.com/neckdeepuk/,musicbrainz,https://www.tiktok.com/@neckdeepuk,wikidata,113300,ok,Neck Deep,True,2814602,2026-11-09T13:18:36+00:00
 0Repe2EiNjaFAFIukrroUM,Ren,81250ee6-a008-4007-8cfd-dddc22176cac,https://www.instagram.com/renmakesmusic/,musicbrainz,https://www.tiktok.com/@renmakesmusic,musicbrainz,4900000,ok,,,2525773,2026-11-09T12:37:49+00:00
-1bdytLV3FPjyhfrb6BhMej,Asia,8f695099-c714-4ad0-8888-36eca37fee84,https://instagram.com/asiatheband/?hl=en,spotify,,,,,,,2490100,
-415JrPfN7ukaTu8JV8BLE8,Local H,baaf92f5-f2b2-4f51-9723-abed41a257f8,https://www.instagram.com/local_h/,musicbrainz,,,,,,,2368669,
-5s6TJEuHTr9GR894wc6VfP,Emmylou Harris,35ef61ca-43db-4772-ba27-0489e9ebcb69,https://instagram.com/emmylou_harris_,spotify,,,,,,,2248057,
-1CFCsEqKrCyvAFKOATQHiW,Lecrae,ffe54de6-5cee-4c0f-8329-f5946f9bc3ff,https://www.instagram.com/lecrae/,musicbrainz,https://www.tiktok.com/@_lecrae,wikidata,,,,,2294589,
-4DWX7u8BV0vZIQSpJQQDWU,Alter Bridge,60a23fda-a440-4ab9-a344-7dfdd2ed341a,https://www.instagram.com/officialalterbridge/,musicbrainz,https://www.tiktok.com/@officialalterbridge,spotify,,,,,2210681,
-7rrTqtOUOwva4sgTx9C9F9,Joy Oladokun,a2abdca1-2041-45b9-8d01-e34fdef7922f,https://www.instagram.com/joyoladokun/,musicbrainz,,,,,,,2144058,
-2vaWvC8suCFkRXejDOK7EE,SOJA,c97c748f-d375-41a6-875d-25843f73ba6f,https://www.instagram.com/sojagram/,musicbrainz,,,,,,,2098338,
-7HfUJxeVTgrvhk0eWHFzV7,underscores,ab1a3f85-e0ea-470a-af5c-175447ae774c,https://www.instagram.com/underscores/,musicbrainz,,,,,,,1901394,
-3Uqu1mEdkUJxPe7s31n1M9,Weyes Blood,469d6414-1f06-43de-80d5-17762d4a356a,https://www.instagram.com/weyesblood/,musicbrainz,https://www.tiktok.com/@weyesbloodofficial,wikidata,,,,,1888620,
+1bdytLV3FPjyhfrb6BhMej,Asia,8f695099-c714-4ad0-8888-36eca37fee84,https://instagram.com/asiatheband/?hl=en,spotify,https://www.tiktok.com/@asia,guess,1313,ok,asia,False,2490100,2026-11-09T13:18:44+00:00
+415JrPfN7ukaTu8JV8BLE8,Local H,baaf92f5-f2b2-4f51-9723-abed41a257f8,https://www.instagram.com/local_h/,musicbrainz,https://www.tiktok.com/@localh,guess,8,ok,LocalH,False,2368669,2026-11-09T13:18:51+00:00
+5s6TJEuHTr9GR894wc6VfP,Emmylou Harris,35ef61ca-43db-4772-ba27-0489e9ebcb69,https://instagram.com/emmylou_harris_,spotify,https://www.tiktok.com/@emmylou_harris_,guess,15,ok,Emmylou Harris,False,2248057,2026-11-09T13:18:55+00:00
+1CFCsEqKrCyvAFKOATQHiW,Lecrae,ffe54de6-5cee-4c0f-8329-f5946f9bc3ff,https://www.instagram.com/lecrae/,musicbrainz,https://www.tiktok.com/@_lecrae,wikidata,663500,ok,Lecrae,True,2294589,2026-11-09T13:18:58+00:00
+4DWX7u8BV0vZIQSpJQQDWU,Alter Bridge,60a23fda-a440-4ab9-a344-7dfdd2ed341a,https://www.instagram.com/officialalterbridge/,musicbrainz,https://www.tiktok.com/@officialalterbridge,spotify,34600,ok,Alter Bridge,True,2210681,2026-11-09T13:19:02+00:00
+7rrTqtOUOwva4sgTx9C9F9,Joy Oladokun,a2abdca1-2041-45b9-8d01-e34fdef7922f,https://www.instagram.com/joyoladokun/,musicbrainz,https://www.tiktok.com/@joyoladokun,guess,130300,ok,joyoladokun,True,2144058,2026-11-09T13:19:06+00:00
+2vaWvC8suCFkRXejDOK7EE,SOJA,c97c748f-d375-41a6-875d-25843f73ba6f,https://www.instagram.com/sojagram/,musicbrainz,https://www.tiktok.com/@soja,guess,49,ok,SOJA,False,2098338,2026-11-09T13:19:13+00:00
+7HfUJxeVTgrvhk0eWHFzV7,underscores,ab1a3f85-e0ea-470a-af5c-175447ae774c,https://www.instagram.com/underscores/,musicbrainz,,,,no_match,,,1901394,
+3Uqu1mEdkUJxPe7s31n1M9,Weyes Blood,469d6414-1f06-43de-80d5-17762d4a356a,https://www.instagram.com/weyesblood/,musicbrainz,https://www.tiktok.com/@weyesbloodofficial,wikidata,14100,ok,Weyes Blood,True,1888620,2026-11-09T13:19:23+00:00
 6O4EGCCb6DoIiR6B1QCQgp,Toro y Moi,3a6d6481-142d-423f-91d4-55bbfff318ed,https://www.instagram.com/toroymoi/,musicbrainz,https://www.tiktok.com/@toroymoi,musicbrainz,10700,ok,,,1872188,2026-11-09T12:37:53+00:00
-4ghjRm4M2vChDfTUycx0Ce,New Found Glory,6acb932e-840d-47ac-8e0d-725ad8a6e52c,https://www.instagram.com/newfoundglory/,musicbrainz,https://www.tiktok.com/@newfoundglory,wikidata,,,,,1817595,
-35Uu85Pq33mK8x1jYqsHY2,Sevendust,52b9e109-44a0-45eb-a197-226c4abab232,https://www.instagram.com/sevendustofficial/,musicbrainz,,,,,,,1818148,
-6sNcyjEVdNlZ0dpgr7EcT9,lots of hands,e686eb25-a2f7-43fb-ad4d-84a4fdaf41c9,https://www.instagram.com/lotsofhands/,musicbrainz,,,,,,,1759750,
-5KTykbPcDB4GYS49jcHbWh,Jessica Pratt,1a331805-47cc-4f30-a123-94d820dbca31,https://www.instagram.com/jpblues/,wikidata,,,,,,,1710585,
+4ghjRm4M2vChDfTUycx0Ce,New Found Glory,6acb932e-840d-47ac-8e0d-725ad8a6e52c,https://www.instagram.com/newfoundglory/,musicbrainz,https://www.tiktok.com/@newfoundglory,wikidata,157900,ok,New Found Glory,True,1817595,2026-11-09T13:19:26+00:00
+35Uu85Pq33mK8x1jYqsHY2,Sevendust,52b9e109-44a0-45eb-a197-226c4abab232,https://www.instagram.com/sevendustofficial/,musicbrainz,https://www.tiktok.com/@sevendustofficial,guess,3881,ok,SEVENDUST,False,1818148,2026-11-09T13:19:30+00:00
+6sNcyjEVdNlZ0dpgr7EcT9,lots of hands,e686eb25-a2f7-43fb-ad4d-84a4fdaf41c9,https://www.instagram.com/lotsofhands/,musicbrainz,https://www.tiktok.com/@lotsofhands,guess,25600,ok,lots of hands,False,1759750,2026-11-09T13:19:34+00:00
+5KTykbPcDB4GYS49jcHbWh,Jessica Pratt,1a331805-47cc-4f30-a123-94d820dbca31,https://www.instagram.com/jpblues/,wikidata,https://www.tiktok.com/@jessicapratt,guess,84,ok,Jessica Pratt,False,1710585,2026-11-09T13:19:41+00:00
 2I4hRNCYkPKJQlkoEZKjYx,Monolink,7ebdcb79-22df-4111-924e-23306bcaf776,https://www.instagram.com/monolinkmusic/,musicbrainz,https://www.tiktok.com/@monolinkmusic,musicbrainz,41200,ok,,,1692257,2026-11-09T12:37:58+00:00
-6zkX5fhrSD4tdVOmimR9wB,Oscar Peterson,ed801bdd-f057-41c0-94fb-76cb5676cd59,https://instagram.com/oscarpetersonlegacy,spotify,,,,,,,1734367,
-1fZpYWNWdL5Z3wrDtISFUH,Shakey Graves,24ca022c-653e-4379-812a-71f729b900ef,https://www.instagram.com/shakeygraves/,musicbrainz,,,,,,,1607689,
-1VfgWum48nwYJcCfdPwWgs,Michael Nau,567f3771-1b6b-4f43-b0c0-69e128e5789a,https://instagram.com/mnau,spotify,,,,,,,1657816,
+6zkX5fhrSD4tdVOmimR9wB,Oscar Peterson,ed801bdd-f057-41c0-94fb-76cb5676cd59,https://instagram.com/oscarpetersonlegacy,spotify,https://www.tiktok.com/@oscarpeterson,guess,0,ok,oscarpeterson,False,1734367,2026-11-09T13:19:48+00:00
+1fZpYWNWdL5Z3wrDtISFUH,Shakey Graves,24ca022c-653e-4379-812a-71f729b900ef,https://www.instagram.com/shakeygraves/,musicbrainz,,,,no_match,,,1607689,
+1VfgWum48nwYJcCfdPwWgs,Michael Nau,567f3771-1b6b-4f43-b0c0-69e128e5789a,https://instagram.com/mnau,spotify,,,,no_match,,,1657816,
 4qrHkx5cgWIslciLXUMrYw,Knocked Loose,9ca10859-49e2-44e3-b3d6-04c535207bc2,https://www.instagram.com/knockedloosehc/,musicbrainz,https://www.tiktok.com/@knockedloosehc,musicbrainz,175700,ok,,,1403313,2026-11-09T12:38:02+00:00
-4DBi4EYXgiqbkxvWUXUzMi,Old Crow Medicine Show,0202af38-ac32-48d0-a546-87caaef2dee2,https://instagram.com/crowmedicine,spotify,,,,,,,1361059,
-0x4xCoWaOFd3WsKarzaxnW,Frankie Cosmos,e49dd402-2297-4192-a359-48b233d39cd4,https://www.instagram.com/frankiecombos/,musicbrainz,,,,,,,1348280,
-5FwydyGVcsQllnM4xM6jw4,American Football,4ebb5ad3-9018-407d-8c24-c03011ab9ac6,https://www.instagram.com/americfootball/,musicbrainz,,,,,,,1304449,
-3pulcT2wt7FEG10lQlqDJL,Amon Amarth,5b687684-ad34-4a9f-b425-0e7aa81fbd38,https://www.instagram.com/amonamarth/,musicbrainz,https://www.tiktok.com/@amonamarthband,wikidata,,,,,1219631,2026-11-09T12:38:07+00:00
+4DBi4EYXgiqbkxvWUXUzMi,Old Crow Medicine Show,0202af38-ac32-48d0-a546-87caaef2dee2,https://instagram.com/crowmedicine,spotify,https://www.tiktok.com/@crowmedicine,guess,0,ok,crowmedicine,False,1361059,2026-11-09T13:20:08+00:00
+0x4xCoWaOFd3WsKarzaxnW,Frankie Cosmos,e49dd402-2297-4192-a359-48b233d39cd4,https://www.instagram.com/frankiecombos/,musicbrainz,https://www.tiktok.com/@frankiecombos,guess,65100,ok,Frankie Cosmos,True,1348280,2026-11-09T13:20:12+00:00
+5FwydyGVcsQllnM4xM6jw4,American Football,4ebb5ad3-9018-407d-8c24-c03011ab9ac6,https://www.instagram.com/americfootball/,musicbrainz,https://www.tiktok.com/@americfootball,guess,35700,ok,American Football,True,1304449,2026-11-09T13:20:16+00:00
+3pulcT2wt7FEG10lQlqDJL,Amon Amarth,5b687684-ad34-4a9f-b425-0e7aa81fbd38,https://www.instagram.com/amonamarth/,musicbrainz,https://www.tiktok.com/@amonamarthband,wikidata,,missing,,,1219631,2026-11-09T12:38:07+00:00
 6kNKUYGn6VNGsRoXmyoDPK,The Amity Affliction,0bfb9d2b-e732-4f28-b2fe-e1d3db9665f1,https://www.instagram.com/theamityaffliction/,musicbrainz,https://www.tiktok.com/@amityaffliction_official,musicbrainz,87600,ok,,,1192084,2026-11-09T12:38:11+00:00
-2UwJRAgSOi1zcLkvUNc8XL,Anamanaguchi,e4d7cfe5-0bed-46cf-acad-ab9a4dcb7aa6,https://www.instagram.com/anamanaguchi_official/,musicbrainz,https://www.tiktok.com/@anamanaguchi,spotify,,,,,1144469,
-6VSZeMeJlVPGoR2nfB6UxD,Douwe Bob,67c17b17-7c22-4d15-ba6c-4ca675bb60b3,https://www.instagram.com/douwebob/,musicbrainz,,,,,,,1358850,
-3cseuYmozraz4XJn6nDo80,Marco Flores Y La Jerez,fce17ea3-299e-4b39-a71a-4fed9adebf8c,https://instagram.com/marcofloresylajerez/?hl=es-la,spotify,,,,,,,1088610,
+2UwJRAgSOi1zcLkvUNc8XL,Anamanaguchi,e4d7cfe5-0bed-46cf-acad-ab9a4dcb7aa6,https://www.instagram.com/anamanaguchi_official/,musicbrainz,https://www.tiktok.com/@anamanaguchi,spotify,3148,ok,Anamanaguchi,False,1144469,2026-11-09T13:20:23+00:00
+6VSZeMeJlVPGoR2nfB6UxD,Douwe Bob,67c17b17-7c22-4d15-ba6c-4ca675bb60b3,https://www.instagram.com/douwebob/,musicbrainz,https://www.tiktok.com/@douwebobmusic,guess,0,ok,Douwebobmusic,False,1358850,2026-11-09T13:20:30+00:00
+3cseuYmozraz4XJn6nDo80,Marco Flores Y La Jerez,fce17ea3-299e-4b39-a71a-4fed9adebf8c,https://instagram.com/marcofloresylajerez/?hl=es-la,spotify,,,,no_match,,,1088610,
 5HFkc3t0HYETL4JeEbDB1v,Powerwolf,3ef77bdc-b1ce-4e44-aa4b-acfa763c5284,https://www.instagram.com/officialpowerwolf/,musicbrainz,https://www.tiktok.com/@powerwolfmetal,musicbrainz,196800,ok,,,1116215,2026-11-09T12:38:16+00:00
-5v61OSg53KaQxGMpErkBNp,Anberlin,c648509e-9916-4c56-ab63-652a03da16dd,https://www.instagram.com/anberlin/,musicbrainz,,,,,,,1108460,
-0OpWIlokQeE7BNQMhuu2Nx,Colt Ford,52730e29-8ffa-43b3-a341-8750f3d1496e,https://instagram.com/coltfordmusic,spotify,,,,,,,1051169,
-1BH45DVSTeGBvcYXNCd67g,M.O.P.,dbe35fab-1b3a-469b-87f0-6a54ef8de3c4,,,,,,,,,1040681,
-1lKZzN2d4IqiEYxyECIEHI,Hot Mulligan,12a9e259-f7cb-4fca-87b1-a6c5fd38c300,https://www.instagram.com/hotmulligan/,musicbrainz,,,,,,,988526,
-6VR4TJ20WGiho2xZWMuuWb,Lambrini Girls,4eeea7eb-7554-48cb-9e50-c26d434ed9ef,https://www.instagram.com/lambrinigirlz/,musicbrainz,https://www.tiktok.com/@lmbrinigrls,wikidata,,,,,866611,
-2qVxBbxlMuZ22B57rReIQg,Bankai,93361d89-1f91-484a-9880-6f106d0926a8,https://instagram.com/mltr,spotify,,,,,,,812007,
-1GAS0rb4L8VTPvizAx2O9J,Atmosphere,ef954679-5ee7-4016-acef-7ac71f2fa3d8,https://www.instagram.com/atmosphere/,musicbrainz,,,,,,,788228,
-5vBKu1igxFo6g1sHADkIdg,Kate Nash,49018fd2-95ef-4f7e-92bb-813159909314,https://www.instagram.com/katenash/,musicbrainz,https://www.tiktok.com/@katenashyeah,wikidata,,,,,759970,
+5v61OSg53KaQxGMpErkBNp,Anberlin,c648509e-9916-4c56-ab63-652a03da16dd,https://www.instagram.com/anberlin/,musicbrainz,https://www.tiktok.com/@anberlin,guess,2,ok,Anberlin,False,1108460,2026-11-09T13:20:40+00:00
+0OpWIlokQeE7BNQMhuu2Nx,Colt Ford,52730e29-8ffa-43b3-a341-8750f3d1496e,https://instagram.com/coltfordmusic,spotify,https://www.tiktok.com/@coltford,guess,2,ok,ColtFord,False,1051169,2026-11-09T13:20:47+00:00
+1BH45DVSTeGBvcYXNCd67g,M.O.P.,dbe35fab-1b3a-469b-87f0-6a54ef8de3c4,,,,,,no_match,,,1040681,
+1lKZzN2d4IqiEYxyECIEHI,Hot Mulligan,12a9e259-f7cb-4fca-87b1-a6c5fd38c300,https://www.instagram.com/hotmulligan/,musicbrainz,https://www.tiktok.com/@hotmulligan,guess,118700,ok,Hot Mulligan,False,988526,2026-11-09T13:20:58+00:00
+6VR4TJ20WGiho2xZWMuuWb,Lambrini Girls,4eeea7eb-7554-48cb-9e50-c26d434ed9ef,https://www.instagram.com/lambrinigirlz/,musicbrainz,https://www.tiktok.com/@lmbrinigrls,wikidata,8920,ok,lmbrinigrls,False,866611,2026-11-09T13:21:01+00:00
+2qVxBbxlMuZ22B57rReIQg,Bankai,93361d89-1f91-484a-9880-6f106d0926a8,https://instagram.com/mltr,spotify,https://www.tiktok.com/@bankaimusic,guess,1214,ok,bankai,False,812007,2026-11-09T13:21:12+00:00
+1GAS0rb4L8VTPvizAx2O9J,Atmosphere,ef954679-5ee7-4016-acef-7ac71f2fa3d8,https://www.instagram.com/atmosphere/,musicbrainz,https://www.tiktok.com/@atmospheremusic,guess,58,ok,A t m o s p h e r e,False,788228,2026-11-09T13:21:19+00:00
+5vBKu1igxFo6g1sHADkIdg,Kate Nash,49018fd2-95ef-4f7e-92bb-813159909314,https://www.instagram.com/katenash/,musicbrainz,https://www.tiktok.com/@katenashyeah,wikidata,204900,ok,katenash,True,759970,2026-11-09T13:21:22+00:00
 1W2Fv4YUnjC8hx2qQd6fGh,Stand Atlantic,2e8ca124-e38a-4dab-93dd-c9f3d415902b,https://www.instagram.com/standatlantic/,musicbrainz,https://www.tiktok.com/@standatlantic,musicbrainz,121800,ok,,,757622,2026-11-09T12:38:20+00:00
 0GmYGGZZIU8vHbI0bAXZun,This Is Lorelei,a2d140d8-ae17-4d72-b680-b89c77f1ed52,https://www.instagram.com/hellothisisnate/,musicbrainz,https://www.tiktok.com/@thisisloreleiofficial,musicbrainz,2131,ok,,,727403,2026-11-09T12:38:25+00:00
-0cLrgpG3pW4MX4nD8h6qCc,El Michels Affair,dbf0a5c5-3665-4495-b13b-99438a6a0900,https://www.instagram.com/elmichelsaffair/,musicbrainz,,,,,,,745244,
-11FY888Qctoy6YueCpFkXT,Circa Survive,a2496a3c-8f42-4b98-b780-6f8d64f56441,https://www.instagram.com/circasurvive/,musicbrainz,,,,,,,687700,
+0cLrgpG3pW4MX4nD8h6qCc,El Michels Affair,dbf0a5c5-3665-4495-b13b-99438a6a0900,https://www.instagram.com/elmichelsaffair/,musicbrainz,https://www.tiktok.com/@elmichelsaffair,guess,2,ok,ElMichelsAffair,False,745244,2026-11-09T13:21:26+00:00
+11FY888Qctoy6YueCpFkXT,Circa Survive,a2496a3c-8f42-4b98-b780-6f8d64f56441,https://www.instagram.com/circasurvive/,musicbrainz,https://www.tiktok.com/@circasurvive,guess,0,ok,CircaSurvive,False,687700,2026-11-09T13:21:29+00:00
 3kZdsaTYgaaolNxpnJ4iDe,Son Lux,afcd292c-3c1e-4708-af4a-991aadf957e4,https://www.instagram.com/son_lux/,musicbrainz,https://www.tiktok.com/@son_lux,musicbrainz,3174,ok,,,661213,2026-11-09T12:38:29+00:00
-7xUZ4069zcyBM4Bn10NQ1c,Ásgeir,380429da-3827-43fd-9e67-558e4c6a91bf,https://www.instagram.com/asgeirmusic/,musicbrainz,,,,,,,659766,
-6IPWduBm255hSxmAcNoHjF,mischluft,2a5813d4-03b8-4b14-871b-e1f5866ce31f,https://www.instagram.com/mischluft/,musicbrainz,,,,,,,643853,
-2fSaE6BXtQy0x7R7v9IOmZ,Aesop Rock,aba64937-3334-4c65-90a1-4e6b9d4d7ada,https://www.instagram.com/aesoprockwins/,musicbrainz,https://www.tiktok.com/@aesoprocktok,spotify,,,,,634992,
-1bwUhKRmEkOZ1wuTnV9XjC,Beach Fossils,3df3818e-7984-4c62-bee3-81f95f8c6651,https://www.instagram.com/beachfossilsnyc/,musicbrainz,,,,,,,623906,
+7xUZ4069zcyBM4Bn10NQ1c,Ásgeir,380429da-3827-43fd-9e67-558e4c6a91bf,https://www.instagram.com/asgeirmusic/,musicbrainz,https://www.tiktok.com/@asgeirmusic,guess,1899,ok,Ásgeir,False,659766,2026-11-09T13:21:33+00:00
+6IPWduBm255hSxmAcNoHjF,mischluft,2a5813d4-03b8-4b14-871b-e1f5866ce31f,https://www.instagram.com/mischluft/,musicbrainz,https://www.tiktok.com/@mischluft,guess,9812,ok,mischluft,False,643853,2026-11-09T13:21:36+00:00
+2fSaE6BXtQy0x7R7v9IOmZ,Aesop Rock,aba64937-3334-4c65-90a1-4e6b9d4d7ada,https://www.instagram.com/aesoprockwins/,musicbrainz,https://www.tiktok.com/@aesoprocktok,spotify,36400,ok,Aesop Rock,True,634992,2026-11-09T13:21:40+00:00
+1bwUhKRmEkOZ1wuTnV9XjC,Beach Fossils,3df3818e-7984-4c62-bee3-81f95f8c6651,https://www.instagram.com/beachfossilsnyc/,musicbrainz,https://www.tiktok.com/@beachfossilsnyc,guess,19300,ok,Beach Fossils,True,623906,2026-11-09T13:21:43+00:00
 4cYjXmjtYTr8km9NLjC7xe,AJ Vitanza,bb17eb6a-d607-4630-87fe-98fd815610c7,https://www.instagram.com/ajvitanza/,musicbrainz,https://www.tiktok.com/@ajvitanza,musicbrainz,51100,ok,,,603842,2026-11-09T12:38:34+00:00
-7L2rePM60cIztWZ7cLlskE,Martin Luke Brown,79aaf5c5-c0d8-4f8a-ab80-f5c93b417a53,https://www.instagram.com/martinlukebrown/,musicbrainz,,,,,,,563829,
-247AfC9pLuqwgpH8Mo96oA,Connan Mockasin,5e290025-aca1-4035-b26d-bd36e105eb52,https://instagram.com/connanmockasin/?hl=en,spotify,,,,,,,568013,
-151BUVKmiB9rHDjIkgbeVE,Apollo Brown,55501cc6-c291-4456-a86a-1ef61019ac95,https://instagram.com/apollobrown/,spotify,,,,,,,560550,
-6aVjo0xHSiuW5hkasoYSR3,Melvins,9ccfbc94-a4f4-42f7-b6f5-d903ab77cccb,https://www.instagram.com/melvinsdotcom/,musicbrainz,,,,,,,548314,
-1gkSl4XpHIHI4I1WQbfXOE,Peaches,270acfee-1fbe-413e-a0a8-6a35a8b3b66c,https://www.instagram.com/peachesnisker/,wikidata,https://www.tiktok.com/@peachesnisker,wikidata,,,,,533286,
-7sTKZr30LqC928DZ5P9mNQ,Heilung,e52c3c7a-1ded-49e0-91d3-f627658b3d8a,https://www.instagram.com/amplifiedhistory/,musicbrainz,,,,,,,538707,
-7gqsi6aBSkRMJoL9psKqMr,Bill Callahan,c309d914-93af-4b3f-8058-d79c75ea89da,https://instagram.com/therealbillcallahan,spotify,,,,,,,468649,
-2p0Hf0MF8Nw8lwAXokczf0,Smif-N-Wessun,6177f8df-469c-4e9d-a09f-524b29c4d849,https://instagram.com/realsmifnwessun,spotify,,,,,,,534041,
-5tkITWzssc9z9hu7ZEOCXz,Goose,b925a474-d245-4217-bc13-2e153d82bebb,https://www.instagram.com/goosetheband/,musicbrainz,https://www.tiktok.com/@goosetheband,spotify,,,,,477772,
-0nq64XZMWV1s7XHXIkdH7K,The Wonder Years,ae13e1fc-a2b1-4e3c-bfb9-737d3aeb7dab,https://www.instagram.com/thewonderyearsband/,musicbrainz,,,,,,,476842,
-31SBgHxc8eqZUk9MdveH42,PREP,f6727f2d-9012-412e-9827-50e61a16711d,https://instagram.com/prepband,spotify,https://www.tiktok.com/@prepband,spotify,,,,,444592,
+7L2rePM60cIztWZ7cLlskE,Martin Luke Brown,79aaf5c5-c0d8-4f8a-ab80-f5c93b417a53,https://www.instagram.com/martinlukebrown/,musicbrainz,https://www.tiktok.com/@martinlukebrown,guess,16400,ok,martinlukebrown,False,563829,2026-11-09T13:21:47+00:00
+247AfC9pLuqwgpH8Mo96oA,Connan Mockasin,5e290025-aca1-4035-b26d-bd36e105eb52,https://instagram.com/connanmockasin/?hl=en,spotify,https://www.tiktok.com/@connanmockasin,guess,2,ok,ConnanMockasin,False,568013,2026-11-09T13:21:51+00:00
+151BUVKmiB9rHDjIkgbeVE,Apollo Brown,55501cc6-c291-4456-a86a-1ef61019ac95,https://instagram.com/apollobrown/,spotify,https://www.tiktok.com/@apollobrown,guess,1,ok,ApolloBrown,False,560550,2026-11-09T13:21:54+00:00
+6aVjo0xHSiuW5hkasoYSR3,Melvins,9ccfbc94-a4f4-42f7-b6f5-d903ab77cccb,https://www.instagram.com/melvinsdotcom/,musicbrainz,https://www.tiktok.com/@melvinsdotcom,guess,1,ok,melvinsdotcom,False,548314,2026-11-09T13:21:58+00:00
+1gkSl4XpHIHI4I1WQbfXOE,Peaches,270acfee-1fbe-413e-a0a8-6a35a8b3b66c,https://www.instagram.com/peachesnisker/,wikidata,https://www.tiktok.com/@peachesnisker,wikidata,24900,ok,Peaches,False,533286,2026-11-09T13:22:01+00:00
+7sTKZr30LqC928DZ5P9mNQ,Heilung,e52c3c7a-1ded-49e0-91d3-f627658b3d8a,https://www.instagram.com/amplifiedhistory/,musicbrainz,https://www.tiktok.com/@amplifiedhistory,guess,45400,ok,Heilung,False,538707,2026-11-09T13:22:05+00:00
+7gqsi6aBSkRMJoL9psKqMr,Bill Callahan,c309d914-93af-4b3f-8058-d79c75ea89da,https://instagram.com/therealbillcallahan,spotify,https://www.tiktok.com/@billcallahan,guess,11,ok,Bill Callahan,False,468649,2026-11-09T13:22:12+00:00
+2p0Hf0MF8Nw8lwAXokczf0,Smif-N-Wessun,6177f8df-469c-4e9d-a09f-524b29c4d849,https://instagram.com/realsmifnwessun,spotify,https://www.tiktok.com/@smifnwessun,guess,2,ok,SmifNWessun,False,534041,2026-11-09T13:22:19+00:00
+5tkITWzssc9z9hu7ZEOCXz,Goose,b925a474-d245-4217-bc13-2e153d82bebb,https://www.instagram.com/goosetheband/,musicbrainz,https://www.tiktok.com/@goosetheband,spotify,23900,ok,Goose,True,477772,2026-11-09T13:22:22+00:00
+0nq64XZMWV1s7XHXIkdH7K,The Wonder Years,ae13e1fc-a2b1-4e3c-bfb9-737d3aeb7dab,https://www.instagram.com/thewonderyearsband/,musicbrainz,https://www.tiktok.com/@thewonderyearsband,guess,15200,ok,The Wonder Years,False,476842,2026-11-09T13:22:26+00:00
+31SBgHxc8eqZUk9MdveH42,PREP,f6727f2d-9012-412e-9827-50e61a16711d,https://instagram.com/prepband,spotify,https://www.tiktok.com/@prepband,spotify,18400,ok,PREP,True,444592,2026-11-09T13:22:29+00:00
 2sLMYvxNmHIYNx6re1WUM2,Yin Yin,0b336c55-c3e9-4dab-9c96-bc10d7a54ef3,https://www.instagram.com/yinyinband/,musicbrainz,https://www.tiktok.com/@yinyinband,musicbrainz,284,ok,,,431977,2026-11-09T12:38:39+00:00
 3Cp20KSVlMlFuOdqiqHFGR,Mei Semones,68aaf52d-c2bf-4a2f-9779-8afa07664153,https://www.instagram.com/mei_semones/,musicbrainz,https://www.tiktok.com/@meisemones,musicbrainz,86800,ok,,,422483,2026-11-09T12:38:43+00:00
-79kOOyVKcrCOKDnzcDHsia,Norman Brown,92fe3bef-fa69-4595-96ed-6d485f5546ea,https://instagram.com/normanticmusic/,spotify,,,,,,,421026,
-58XGUNsRNu3cVOIOYk5chx,Ty Segall,07a17571-81fc-4cf8-a634-98f0d926d313,https://www.instagram.com/tysegall/,musicbrainz,,,,,,,424312,
-7jOY91ZU7kn86slH3fBbaD,Louie Zong,0e2c603f-fd71-4ab6-af96-92c3e936586d,https://www.instagram.com/louie.zong/,musicbrainz,,,,,,,399669,
-6u8KyY2rfBGDtDejRJ9JaQ,Madeline Juno,a6592b2d-57ff-49fd-a1e2-80eff7a2129d,https://www.instagram.com/madelinejuno/,musicbrainz,,,,,,,380597,
-05UwRaoOjJPuGzCtawrORF,Euge Groove,4f3b552d-8076-42f1-afb0-ce1708d705ca,,,,,,,,,362380,
-3MAzDpqE01xyUmzNsc0Ee0,Lee Fields,21a6802c-9700-4ab1-be86-ce9d225ace43,https://www.instagram.com/leefieldsandtheexpressions/,musicbrainz,,,,,,,340679,
-5ZW7HlSuZz8ng2X21cXbdP,Widowspeak,ef9d28db-a1b7-4957-aa79-ed289a77ce10,https://www.instagram.com/widowspeaking/,musicbrainz,,,,,,,330729,
-3W4xM5XYtUp4ifYYPVKVdk,Grandaddy,9d4c4835-c71a-4647-a4fc-263e26832cd0,https://www.instagram.com/grandaddymusic/,musicbrainz,,,,,,,337936,
-5O5V29YvM6AzAQ0rNt59fy,Karen Dalton,09e1f320-5f26-415a-ad19-003f6e9969e8,,,,,,,,,299280,
-54SHZF2YS3W87xuJKSvOVf,Widespread Panic,3797a6d0-7700-44bf-96fb-f44386bc9ab2,https://www.instagram.com/widespreadpanichq/,musicbrainz,,,,,,,289311,
-2yN6bq26wynQcRuPkBYTDb,Black Moon,,https://instagram.com/real_black_moon,spotify,,,,,,,294885,
-72tRiBHei5G9M8it4h4sfC,Oddisee,aaae09b3-70d9-4a65-bb3f-57e85dfe9b83,https://www.instagram.com/oddisee/,musicbrainz,,,,,,,264241,
-5trjmXbxVZ8E68aVhj8Nko,McKinley Dixon,ed864ccb-7212-46ad-a4f0-1cc53bbe12e9,https://www.instagram.com/freemckinley/,musicbrainz,,,,,,,253605,
-7ENzCHnmJUr20nUjoZ0zZ1,Snarky Puppy,fe85367e-4036-43c1-874b-b91af81cb4f3,https://www.instagram.com/snarkypuppy/,wikidata,,,,,,,257610,
-2Sp19cOHSqAUlE64hekARW,Teenage Fanclub,e6f8912b-7df9-4aae-b551-2cd03dc29588,https://www.instagram.com/teenagefanclubofficial/,musicbrainz,,,,,,,250634,
-22ojy4H4ZVpowC4lRRC8In,Destroyer,61604b45-8a91-4e33-a1b6-45d7b1fec4e5,https://www.instagram.com/destroyer_band/,wikidata,,,,,,,243000,
-0G9ibJ5qs4Zl6iupdrVAG1,Windser,96d2eb96-9ab4-4e5e-bb5b-8d4d85450da8,https://www.instagram.com/jordantopf/,musicbrainz,,,,,,,229059,
-4WQwU51LUtrVrw0K8BMpAC,Jaguar Sun,d9b1817e-19d2-47bb-b5c4-7299563f85cf,https://www.instagram.com/jaguar__sun/,musicbrainz,,,,,,,237840,
-6VfeYClQyVUCPJdXb9jl3O,Evidence,995c1ef8-5a55-40dc-b87f-f4a0ee95650b,https://www.instagram.com/evidence/,musicbrainz,,,,,,,231298,
-5gWhlJBlLQGLOgYWO8lwCU,Saves The Day,593f8594-83ad-4df4-a9b8-e4d225f55440,https://www.instagram.com/savestheday/,musicbrainz,,,,,,,220917,
-7bI1v9NGBBhq8iGfytctni,Squirrel Flower,cf1021a4-ba16-4563-b4c2-e40aaf1802f6,https://www.instagram.com/sqrrlflwr/,musicbrainz,,,,,,,204739,
-7EEefVBNBS3ckwouEl62oB,Lunar Vacation,e9243b8e-84ed-4a8f-82d1-ea084a2f0c4a,https://instagram.com/lunar_vacation,spotify,,,,,,,205098,
-2BYHpYwXO4zi36Tf3pEH5n,Scorcher,7883eb73-7b76-4bbb-8cc0-1108b79834ca,,,,,,,,,205646,
-3uB8CiuJs0I1cDNUaVpdjf,Linda Elys,c7134d72-9e1b-4fd2-92f7-c6bf31f9fa7f,https://www.instagram.com/lindaelsenermusic/,musicbrainz,,,,,,,207244,
-0sjhSgEkyVa8QRmkkuckJ0,Bacao Rhythm & Steel Band,7247ef92-6c65-484d-9cf1-a737382a4721,https://instagram.com/bacaorsb,spotify,,,,,,,201214,
-5ACxPOI9gR3l0cyy2dvkHv,Christian McBride,6035000d-b53b-4b01-b5a0-a7572c34e806,https://www.instagram.com/chrmcbride/,musicbrainz,,,,,,,214327,
-0AZ3VR0YbFcS0Kgei7L2QF,Russian Circles,cca40a67-e959-46f8-a3f3-8a3f77d2da9e,https://instagram.com/russiancircles,spotify,,,,,,,194430,
-1vwcHXpc5g75lakGYbUEJ3,Ironik,b27f61b3-7599-46ea-a385-e150bf0b5b95,https://www.instagram.com/djironik/,wikidata,,,,,,,189030,
+79kOOyVKcrCOKDnzcDHsia,Norman Brown,92fe3bef-fa69-4595-96ed-6d485f5546ea,https://instagram.com/normanticmusic/,spotify,https://www.tiktok.com/@normanbrown,guess,29,ok,Norman Brown,False,421026,2026-11-09T13:22:36+00:00
+58XGUNsRNu3cVOIOYk5chx,Ty Segall,07a17571-81fc-4cf8-a634-98f0d926d313,https://www.instagram.com/tysegall/,musicbrainz,,,,no_match,,,424312,
+7jOY91ZU7kn86slH3fBbaD,Louie Zong,0e2c603f-fd71-4ab6-af96-92c3e936586d,https://www.instagram.com/louie.zong/,musicbrainz,https://www.tiktok.com/@louiezong,guess,20,ok,Louie Zong,False,399669,2026-11-09T13:22:52+00:00
+6u8KyY2rfBGDtDejRJ9JaQ,Madeline Juno,a6592b2d-57ff-49fd-a1e2-80eff7a2129d,https://www.instagram.com/madelinejuno/,musicbrainz,,,,no_match,,,380597,
+05UwRaoOjJPuGzCtawrORF,Euge Groove,4f3b552d-8076-42f1-afb0-ce1708d705ca,,,,,,no_match,,,362380,
+3MAzDpqE01xyUmzNsc0Ee0,Lee Fields,21a6802c-9700-4ab1-be86-ce9d225ace43,https://www.instagram.com/leefieldsandtheexpressions/,musicbrainz,https://www.tiktok.com/@leefields,guess,5,ok,Lee Fields,False,340679,2026-11-09T13:23:12+00:00
+5ZW7HlSuZz8ng2X21cXbdP,Widowspeak,ef9d28db-a1b7-4957-aa79-ed289a77ce10,https://www.instagram.com/widowspeaking/,musicbrainz,https://www.tiktok.com/@widowspeak,guess,0,ok,Widowspeak,False,330729,2026-11-09T13:23:19+00:00
+3W4xM5XYtUp4ifYYPVKVdk,Grandaddy,9d4c4835-c71a-4647-a4fc-263e26832cd0,https://www.instagram.com/grandaddymusic/,musicbrainz,,,,no_match,,,337936,
+5O5V29YvM6AzAQ0rNt59fy,Karen Dalton,09e1f320-5f26-415a-ad19-003f6e9969e8,,,,,,no_match,,,299280,
+54SHZF2YS3W87xuJKSvOVf,Widespread Panic,3797a6d0-7700-44bf-96fb-f44386bc9ab2,https://www.instagram.com/widespreadpanichq/,musicbrainz,https://www.tiktok.com/@widespreadpanichq,guess,7102,ok,Widespread Panic,False,289311,2026-11-09T13:23:38+00:00
+2yN6bq26wynQcRuPkBYTDb,Black Moon,,https://instagram.com/real_black_moon,spotify,https://www.tiktok.com/@blackmoon,guess,4541,ok,BlackMoon,False,294885,2026-11-09T13:23:45+00:00
+72tRiBHei5G9M8it4h4sfC,Oddisee,aaae09b3-70d9-4a65-bb3f-57e85dfe9b83,https://www.instagram.com/oddisee/,musicbrainz,https://www.tiktok.com/@oddisee,guess,0,ok,Oddisee,False,264241,2026-11-09T13:23:49+00:00
+5trjmXbxVZ8E68aVhj8Nko,McKinley Dixon,ed864ccb-7212-46ad-a4f0-1cc53bbe12e9,https://www.instagram.com/freemckinley/,musicbrainz,,,,no_match,,,253605,
+7ENzCHnmJUr20nUjoZ0zZ1,Snarky Puppy,fe85367e-4036-43c1-874b-b91af81cb4f3,https://www.instagram.com/snarkypuppy/,wikidata,https://www.tiktok.com/@snarkypuppy,guess,0,ok,SnarkyPuppy,False,257610,2026-11-09T13:24:03+00:00
+2Sp19cOHSqAUlE64hekARW,Teenage Fanclub,e6f8912b-7df9-4aae-b551-2cd03dc29588,https://www.instagram.com/teenagefanclubofficial/,musicbrainz,,,,no_match,,,250634,
+22ojy4H4ZVpowC4lRRC8In,Destroyer,61604b45-8a91-4e33-a1b6-45d7b1fec4e5,https://www.instagram.com/destroyer_band/,wikidata,https://www.tiktok.com/@destroyer,guess,23,ok,destroyer,False,243000,2026-11-09T13:24:20+00:00
+0G9ibJ5qs4Zl6iupdrVAG1,Windser,96d2eb96-9ab4-4e5e-bb5b-8d4d85450da8,https://www.instagram.com/jordantopf/,musicbrainz,https://www.tiktok.com/@windser,guess,7382,ok,Windser,True,229059,2026-11-09T13:24:27+00:00
+4WQwU51LUtrVrw0K8BMpAC,Jaguar Sun,d9b1817e-19d2-47bb-b5c4-7299563f85cf,https://www.instagram.com/jaguar__sun/,musicbrainz,,,,no_match,,,237840,
+6VfeYClQyVUCPJdXb9jl3O,Evidence,995c1ef8-5a55-40dc-b87f-f4a0ee95650b,https://www.instagram.com/evidence/,musicbrainz,https://www.tiktok.com/@evidence,guess,82,ok,Evidence,False,231298,2026-11-09T13:24:42+00:00
+5gWhlJBlLQGLOgYWO8lwCU,Saves The Day,593f8594-83ad-4df4-a9b8-e4d225f55440,https://www.instagram.com/savestheday/,musicbrainz,https://www.tiktok.com/@savestheday,guess,660,ok,Saves The Day,False,220917,2026-11-09T13:24:45+00:00
+7bI1v9NGBBhq8iGfytctni,Squirrel Flower,cf1021a4-ba16-4563-b4c2-e40aaf1802f6,https://www.instagram.com/sqrrlflwr/,musicbrainz,https://www.tiktok.com/@sqrrlflwr,guess,9411,ok,Squirrel Flower,True,204739,2026-11-09T13:24:49+00:00
+7EEefVBNBS3ckwouEl62oB,Lunar Vacation,e9243b8e-84ed-4a8f-82d1-ea084a2f0c4a,https://instagram.com/lunar_vacation,spotify,,,,no_match,,,205098,
+2BYHpYwXO4zi36Tf3pEH5n,Scorcher,7883eb73-7b76-4bbb-8cc0-1108b79834ca,,,https://www.tiktok.com/@scorcher,guess,0,ok,Scorcher,False,205646,2026-11-09T13:25:04+00:00
+3uB8CiuJs0I1cDNUaVpdjf,Linda Elys,c7134d72-9e1b-4fd2-92f7-c6bf31f9fa7f,https://www.instagram.com/lindaelsenermusic/,musicbrainz,https://www.tiktok.com/@lindaelys,guess,10,ok,lindaelys,False,207244,2026-11-09T13:25:11+00:00
+0sjhSgEkyVa8QRmkkuckJ0,Bacao Rhythm & Steel Band,7247ef92-6c65-484d-9cf1-a737382a4721,https://instagram.com/bacaorsb,spotify,,,,no_match,,,201214,
+5ACxPOI9gR3l0cyy2dvkHv,Christian McBride,6035000d-b53b-4b01-b5a0-a7572c34e806,https://www.instagram.com/chrmcbride/,musicbrainz,https://www.tiktok.com/@christianmcbride,guess,6,ok,Christian Mcbride,False,214327,2026-11-09T13:25:28+00:00
+0AZ3VR0YbFcS0Kgei7L2QF,Russian Circles,cca40a67-e959-46f8-a3f3-8a3f77d2da9e,https://instagram.com/russiancircles,spotify,,,,no_match,,,194430,
+1vwcHXpc5g75lakGYbUEJ3,Ironik,b27f61b3-7599-46ea-a385-e150bf0b5b95,https://www.instagram.com/djironik/,wikidata,https://www.tiktok.com/@djironik,guess,1,ok,DJIronik,False,189030,2026-11-09T13:25:39+00:00
 3UqRgrDIQ208yNGiWKRMNt,Napalm Death,ce7bba8b-026b-4aa6-bddb-f98ed6d595e4,https://www.instagram.com/theofficialnapalmdeath/,musicbrainz,https://www.tiktok.com/@official_napalmdeath,musicbrainz,1400,ok,,,181924,2026-11-09T12:38:47+00:00
-4vaE77ooZ6reoKW8b7YTeb,Joya Marleen,37a351c4-ac98-4a01-9535-6b4dd15c55d3,https://www.instagram.com/joya.marleen/,musicbrainz,,,,,,,176450,
+4vaE77ooZ6reoKW8b7YTeb,Joya Marleen,37a351c4-ac98-4a01-9535-6b4dd15c55d3,https://www.instagram.com/joya.marleen/,musicbrainz,https://www.tiktok.com/@joya.marleen,guess,18,ok,Joya Marleen,False,176450,2026-11-09T13:25:42+00:00
 29PgYwTelpNl6370XLqFtN,Cryptopsy,756af95c-8793-4546-a93f-f3581b5b1c8d,https://www.instagram.com/cryptopsyofficial/,musicbrainz,https://www.tiktok.com/@cryptopsyofficial,musicbrainz,3558,ok,,,165061,2026-11-09T12:38:52+00:00
-6Nwhmo3adbTqPMCsgBgkf4,Slothrust,86c80cc3-13b0-4ca7-ae5a-d16f00c11a59,https://www.instagram.com/slothrust/,wikidata,,,,,,,146160,
-4mO4aGO6u29UyR6XLZR9XW,The New Pornographers,25b75a66-ce83-4db3-b136-395a3c3784c4,https://www.instagram.com/thenewpornographers/,musicbrainz,,,,,,,146108,
-6e0QWfEFmK6AguLy02mlqi,Have Heart,e519e012-e1a3-4592-b3f6-5a16227ab654,https://instagram.com/haveheartusa,spotify,,,,,,,144581,
-5tfiJ40SRxluWNgA6ruvSo,Linda Perry,26037b3e-064c-4e9d-9d88-ebcd35933272,https://www.instagram.com/reallindaperry/,musicbrainz,https://www.tiktok.com/@lindaperryofficial,spotify,,,,,145655,
-3zDvanHxaETiHltPkKKYhT,Agnostic Front,40b8a690-94e4-4c82-ad0f-73f4b841e46a,https://www.instagram.com/agnosticfrontnyc/,musicbrainz,,,,,,,138284,
-2BS3fywRW33o5GygfzZaOZ,Wild Pink,94fdf751-0644-4b78-9e72-dbdce539b5b7,https://www.instagram.com/wildpinknyc/,musicbrainz,,,,,,,144728,
-7FhkwcO8Jd7BRWdllBpXBJ,Rotting Christ,2d576cfe-7669-4af0-a66a-86c8362f47c5,https://www.instagram.com/rottingchristofficial/,musicbrainz,,,,,,,134308,
-0G0DRVtduDqqikbVbZXaNn,Mark Tarmonea,8e40f8cc-3701-4c9c-b559-1a325b43e4f6,https://www.instagram.com/tarmonea/,musicbrainz,,,,,,,125348,
-52NOvMXEjgf8MQl0qop2dl,Pigeons Playing Ping Pong,ec8e3cea-69f0-4ff3-b42c-74937d336334,https://www.instagram.com/pigeonsplaying/,musicbrainz,,,,,,,123863,
+6Nwhmo3adbTqPMCsgBgkf4,Slothrust,86c80cc3-13b0-4ca7-ae5a-d16f00c11a59,https://www.instagram.com/slothrust/,wikidata,https://www.tiktok.com/@slothrust,guess,0,ok,Slothrust,False,146160,2026-11-09T13:25:46+00:00
+4mO4aGO6u29UyR6XLZR9XW,The New Pornographers,25b75a66-ce83-4db3-b136-395a3c3784c4,https://www.instagram.com/thenewpornographers/,musicbrainz,https://www.tiktok.com/@thenewpornographers,guess,5797,ok,The New Pornographers,True,146108,2026-11-09T13:25:49+00:00
+6e0QWfEFmK6AguLy02mlqi,Have Heart,e519e012-e1a3-4592-b3f6-5a16227ab654,https://instagram.com/haveheartusa,spotify,https://www.tiktok.com/@haveheart,guess,4,ok,haveheart,False,144581,2026-11-09T13:25:56+00:00
+5tfiJ40SRxluWNgA6ruvSo,Linda Perry,26037b3e-064c-4e9d-9d88-ebcd35933272,https://www.instagram.com/reallindaperry/,musicbrainz,https://www.tiktok.com/@lindaperryofficial,spotify,239600,ok,Linda Perry,True,145655,2026-11-09T13:26:00+00:00
+3zDvanHxaETiHltPkKKYhT,Agnostic Front,40b8a690-94e4-4c82-ad0f-73f4b841e46a,https://www.instagram.com/agnosticfrontnyc/,musicbrainz,https://www.tiktok.com/@agnosticfrontnyc,guess,1081,ok,Agnostic Front,False,138284,2026-11-09T13:26:03+00:00
+2BS3fywRW33o5GygfzZaOZ,Wild Pink,94fdf751-0644-4b78-9e72-dbdce539b5b7,https://www.instagram.com/wildpinknyc/,musicbrainz,https://www.tiktok.com/@wildpinknyc,guess,7,ok,Wild Pink,False,144728,2026-11-09T13:26:07+00:00
+7FhkwcO8Jd7BRWdllBpXBJ,Rotting Christ,2d576cfe-7669-4af0-a66a-86c8362f47c5,https://www.instagram.com/rottingchristofficial/,musicbrainz,,,,no_match,,,134308,
+0G0DRVtduDqqikbVbZXaNn,Mark Tarmonea,8e40f8cc-3701-4c9c-b559-1a325b43e4f6,https://www.instagram.com/tarmonea/,musicbrainz,https://www.tiktok.com/@marktarmonea,guess,14000,ok,Mark Tarmonea,False,125348,2026-11-09T13:26:25+00:00
+52NOvMXEjgf8MQl0qop2dl,Pigeons Playing Ping Pong,ec8e3cea-69f0-4ff3-b42c-74937d336334,https://www.instagram.com/pigeonsplaying/,musicbrainz,https://www.tiktok.com/@pigeonsplaying,guess,4161,ok,Pigeons Playing Ping Pong,False,123863,2026-11-09T13:26:28+00:00
 6ktN7KRUuaLMHyKOog3tGP,adan diaz,b2622bc7-3954-4bee-922c-e8bf83e91298,https://www.instagram.com/adandiazzz/,musicbrainz,https://www.tiktok.com/@adandiazzz,musicbrainz,72200,ok,,,122655,2026-11-09T12:38:56+00:00
-0FcNSKwWZJb98ry9M2qEII,Joey Alexander,ef0591bd-daef-4347-b62f-6d20b8f6dda3,https://www.instagram.com/joeyalexandermusic/,musicbrainz,,,,,,,119027,
-3HZgaiR960RFqx9d4LPraD,The Districts,d4cb6c89-d615-40e4-b78d-ae5ab1565462,https://instagram.com/thedistrictsband,spotify,,,,,,,110947,
-6iyIbAydXPDNz1yYFl7A9h,Brian Bromberg,69ed9582-7b72-4b7b-8e30-816c06e5f89b,,,,,,,,,108309,
-2uVTJrWgoWoJmImS2I0KVE,La Reezy,62a678d1-1b0f-4f9c-80ab-9332d55cb999,https://instagram.com/lareezymusic/,spotify,,,,,,,107435,
+0FcNSKwWZJb98ry9M2qEII,Joey Alexander,ef0591bd-daef-4347-b62f-6d20b8f6dda3,https://www.instagram.com/joeyalexandermusic/,musicbrainz,,,,no_match,,,119027,
+3HZgaiR960RFqx9d4LPraD,The Districts,d4cb6c89-d615-40e4-b78d-ae5ab1565462,https://instagram.com/thedistrictsband,spotify,https://www.tiktok.com/@thedistrictsband,guess,434,ok,The Districts,False,110947,2026-11-09T13:26:39+00:00
+6iyIbAydXPDNz1yYFl7A9h,Brian Bromberg,69ed9582-7b72-4b7b-8e30-816c06e5f89b,,,https://www.tiktok.com/@brianbromberg,guess,1,ok,BrianBromberg,False,108309,2026-11-09T13:26:42+00:00
+2uVTJrWgoWoJmImS2I0KVE,La Reezy,62a678d1-1b0f-4f9c-80ab-9332d55cb999,https://instagram.com/lareezymusic/,spotify,https://www.tiktok.com/@lareezy,guess,17,ok,lareezy,False,107435,2026-11-09T13:26:50+00:00
 6Vn8Kob72sGHpoOBIQvKBk,Joe Kay,094a60d8-b312-41be-beef-11ff8715ec72,https://www.instagram.com/joekay/,musicbrainz,,,,,,,112208,
 67GGyFejJ19UWUjJlLhJq4,Wombo,46b02238-8b8e-457b-8ff5-56452a1d5842,https://instagram.com/womborocks,spotify,,,,,,,103080,
 5Ryxgm3uLvQOsw4H5ZpHDn,Betty Davis,,,,,,,,,,98783,
